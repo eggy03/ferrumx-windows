@@ -36,12 +36,12 @@ class AssociatedProcessorMemoryTest {
         JsonArray jsonArray = new JsonArray();
 
         JsonObject cacheZero = new JsonObject();
-        cacheZero.addProperty("Antecedent", "CPU0");
-        cacheZero.addProperty("Dependent", "Cache Memory 0");
+        cacheZero.addProperty("Antecedent", "Cache Memory 0");
+        cacheZero.addProperty("Dependent", "CPU0");
 
         JsonObject cacheOne = new JsonObject();
-        cacheOne.addProperty("Antecedent", "CPU0");
-        cacheOne.addProperty("Dependent", "Cache Memory 1");
+        cacheOne.addProperty("Antecedent", "Cache Memory 1");
+        cacheOne.addProperty("Dependent", "CPU0");
 
         jsonArray.add(cacheZero);
         jsonArray.add(cacheOne);
@@ -64,8 +64,8 @@ class AssociatedProcessorMemoryTest {
             List<AssociatedProcessorMemory> apmList = apmService.get();
             assertFalse(apmList.isEmpty());
             assertEquals(2, apmList.size());
-            assertEquals("Cache Memory 0", apmList.get(0).getDependent());
-            assertEquals("Cache Memory 1", apmList.get(1).getDependent());
+            assertEquals("Cache Memory 0", apmList.get(0).getAntecedent());
+            assertEquals("Cache Memory 1", apmList.get(1).getAntecedent());
         }
 
     }
@@ -103,8 +103,8 @@ class AssociatedProcessorMemoryTest {
             List<AssociatedProcessorMemory> apmList = apmService.get(mockedShell);
             assertFalse(apmList.isEmpty());
             assertEquals(2, apmList.size());
-            assertEquals("Cache Memory 0", apmList.get(0).getDependent());
-            assertEquals("Cache Memory 1", apmList.get(1).getDependent());
+            assertEquals("Cache Memory 0", apmList.get(0).getAntecedent());
+            assertEquals("Cache Memory 1", apmList.get(1).getAntecedent());
         }
     }
 

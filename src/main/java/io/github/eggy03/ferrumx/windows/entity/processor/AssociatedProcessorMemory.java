@@ -24,13 +24,13 @@ import org.jetbrains.annotations.Nullable;
  * <pre>{@code
  * // Build a new AssociatedProcessorMemory instance
  * AssociatedProcessorMemory apm = AssociatedProcessorMemory.builder()
- *     .antecedent("CacheMemory1")
+ *     .antecedent("Cache Memory 1")
  *     .dependent("CPU0")
  *     .build();
  *
  * // Create a modified copy using the builder
  * AssociatedProcessorMemory updated = apm.toBuilder()
- *     .antecedent("CacheMemory2")
+ *     .antecedent("Cache Memory 2")
  *     .build();
  *
  * }</pre>
