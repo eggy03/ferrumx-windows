@@ -44,6 +44,11 @@ public enum CimQuery {
     PROCESSOR_CACHE_QUERY("Get-CimInstance Win32_CacheMemory | Select-Object * | ConvertTo-Json"),
 
     /**
+     * Query to fetch the properties of {@code Win32_AssociatedProcessorMemory} class
+     */
+    ASSOCIATED_PROCESSOR_MEMORY_QUERY(" Get-CimInstance Win32_AssociatedProcessorMemory | ForEach-Object { [PSCustomObject]@{ Antecedent = $_.Dependent.DeviceID; Dependent = $_.Antecedent.DeviceID } } | ConvertTo-Json"),
+
+    /**
      * Query to fetch the properties of {@code Win32_BIOS} class
      */
     BIOS_QUERY("Get-CimInstance Win32_BIOS | Select-Object * | ConvertTo-Json"),
