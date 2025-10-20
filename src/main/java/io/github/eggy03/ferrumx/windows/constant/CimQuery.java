@@ -79,6 +79,11 @@ public enum CimQuery {
     NETWORK_ADAPTER_CONFIGURATION_QUERY("Get-CimInstance Win32_NetworkAdapterConfiguration | Select-Object * | ConvertTo-Json"),
 
     /**
+     * Query to fetch the properties of {@code Win32_NetworkAdapterSetting}
+     */
+    NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ DeviceID = $_.Element.DeviceID; Index = $_.Setting.Index } } | ConvertTo-Json"),
+
+    /**
      * Query to fetch the properties of {@code Win32_OperatingSystem} class
      */
     OPERATING_SYSTEM_QUERY("Get-CimInstance Win32_OperatingSystem | Select-Object * | ConvertTo-Json"),
