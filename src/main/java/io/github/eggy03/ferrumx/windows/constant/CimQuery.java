@@ -99,6 +99,11 @@ public enum CimQuery {
     DISK_PARTITION_QUERY("Get-CimInstance Win32_DiskPartition | Select-Object * | ConvertTo-Json"),
 
     /**
+     * Query to fetch the properties of {@code Win32_LogicalDisk} class
+     */
+    LOGICAL_DISK_QUERY("Get-CimInstance Win32_LogicalDisk | Select-Object * | ConvertTo-Json"),
+
+    /**
      * Query to fetch the properties of {@code Win32_ComputerSystemProduct} class
      */
     COMPUTER_SYSTEM_PRODUCT("Get-CimInstance -ClassName Win32_ComputerSystemProduct | Select-Object * | ConvertTo-Json");

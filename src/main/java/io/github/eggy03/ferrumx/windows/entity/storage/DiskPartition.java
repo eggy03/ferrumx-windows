@@ -8,7 +8,7 @@ import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Immutable representation of a logical disk partition on a Windows system.
+ * Immutable representation of a partition in a <b>physical</b> disk on a Windows system.
  * <p>
  * Fields correspond to properties retrieved from the {@code Win32_DiskPartition} WMI class.
  * </p>
@@ -40,7 +40,8 @@ import org.jetbrains.annotations.Nullable;
  *
  * }</pre>
  *
- * {@link DiskDrive} contains additional information about the physical disk.
+ * <p>See {@link DiskDrive} for information about physical disks.</p>
+ * <p>See {@link LogicalDisk} for information about the logical volumes on a physical disk.</p>
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-diskpartition">Win32_DiskPartition</a>
  * @since 2.0.0
  * @author Egg-03
