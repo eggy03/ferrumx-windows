@@ -5,17 +5,26 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import io.github.eggy03.ferrumx.windows.entity.processor.Processor;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.CommonMappingInterface;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MapperUtilTest {
+class CommonMappingInterfaceDefaultMethodsTest {
+
+    private static CommonMappingInterface<Processor> mapper;
+
+    @BeforeAll
+    static void setProcessorCommonMappingInterface(){
+        mapper = new CommonMappingInterface<Processor>() {};
+    }
 
     @Test
     void testMapToObject_success() {
@@ -26,18 +35,25 @@ class MapperUtilTest {
 
         String jsonProcessor = new Gson().toJson(processorObject);
 
-        Optional<Processor> processor = MapperUtil.mapToObject(jsonProcessor, Processor.class);
+        Optional<Processor> processor = mapper.mapToObject(jsonProcessor, Processor.class);
         assertTrue(processor.isPresent());
         assertEquals("CPU0", processor.get().getDeviceId());
         assertEquals("Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz", processor.get().getName());
     }
 
     @Test
-    void testMapToObject_invalidJson_empty() {
+    void testMapToObject_invalidJson_throwsException() {
 
         String json = "invalid json";
-        assertThrows(JsonSyntaxException.class, ()-> MapperUtil.mapToObject(json, Processor.class));
+        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToObject(json, Processor.class));
 
+    }
+
+    @Test
+    void testMapToObject_emptyJson_optionalNotPresent() {
+        String json = "";
+        Optional<Processor> processorObject = mapper.mapToObject(json, Processor.class);
+        assertFalse(processorObject.isPresent());
     }
 
     @Test
@@ -58,7 +74,7 @@ class MapperUtilTest {
 
         String jsonArrayProcessor = new Gson().toJson(processorArrayObject);
 
-        List<Processor> processors = MapperUtil.mapToList(jsonArrayProcessor, Processor.class);
+        List<Processor> processors = mapper.mapToList(jsonArrayProcessor, Processor.class);
         assertEquals(2, processors.size());
         assertEquals("CPU0", processors.get(0).getDeviceId());
         assertEquals("Intel(R) Core(TM) i5-14700H CPU @ 2.30GHz", processors.get(0).getName());
@@ -76,17 +92,24 @@ class MapperUtilTest {
 
         String jsonProcessor = new Gson().toJson(processorObject);
 
-        List<Processor> processors = MapperUtil.mapToList(jsonProcessor, Processor.class);
+        List<Processor> processors = mapper.mapToList(jsonProcessor, Processor.class);
         assertEquals(1, processors.size());
         assertEquals("CPU0", processors.get(0).getDeviceId());
         assertEquals("Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz", processors.get(0).getName());
     }
 
     @Test
-    void testMapToList_invalidJson_empty() {
+    void testMapToList_invalidJson_throwsException() {
 
         String json = "invalid json";
-        assertThrows(JsonSyntaxException.class, ()-> MapperUtil.mapToList(json, Processor.class));
+        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToList(json, Processor.class));
 
+    }
+
+    @Test
+    void testMapToList_emptyJson_emptyList() {
+        String json = "";
+        List<Processor> processorList = mapper.mapToList(json, Processor.class);
+        assertTrue(processorList.isEmpty());
     }
 }

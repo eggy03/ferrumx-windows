@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.display.VideoController;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.display.VideoControllerMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +54,7 @@ public class VideoControllerService implements CommonServiceInterface<VideoContr
     public List<VideoController> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.VIDEO_CONTROLLER_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), VideoController.class);
+        return new VideoControllerMapper().mapToList(response.getCommandOutput(), VideoController.class);
     }
 
     /**
@@ -72,6 +72,6 @@ public class VideoControllerService implements CommonServiceInterface<VideoContr
     public List<VideoController> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(CimQuery.VIDEO_CONTROLLER_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), VideoController.class);
+        return new VideoControllerMapper().mapToList(response.getCommandOutput(), VideoController.class);
     }
 }

@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Mainboard;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.mainboard.MainboardMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -53,7 +53,7 @@ public class MainboardService implements OptionalCommonServiceInterface<Mainboar
     @Override
     public Optional<Mainboard> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MAINBOARD_QUERY.getQuery());
-        return MapperUtil.mapToObject(response.getCommandOutput(), Mainboard.class);
+        return new MainboardMapper().mapToObject(response.getCommandOutput(), Mainboard.class);
     }
 
     /**
@@ -70,6 +70,6 @@ public class MainboardService implements OptionalCommonServiceInterface<Mainboar
     @Override
     public Optional<Mainboard> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(CimQuery.MAINBOARD_QUERY.getQuery());
-        return MapperUtil.mapToObject(response.getCommandOutput(), Mainboard.class);
+        return new MainboardMapper().mapToObject(response.getCommandOutput(), Mainboard.class);
     }
 }

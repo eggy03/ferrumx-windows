@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.network.NetworkAdapterConfiguration;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.network.NetworkAdapterConfigurationMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public class NetworkAdapterConfigurationService implements CommonServiceInterfac
     public List<NetworkAdapterConfiguration> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), NetworkAdapterConfiguration.class);
+        return new NetworkAdapterConfigurationMapper().mapToList(response.getCommandOutput(), NetworkAdapterConfiguration.class);
     }
 
     /**
@@ -67,7 +67,7 @@ public class NetworkAdapterConfigurationService implements CommonServiceInterfac
     public List<NetworkAdapterConfiguration> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(CimQuery.NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), NetworkAdapterConfiguration.class);
+        return new NetworkAdapterConfigurationMapper().mapToList(response.getCommandOutput(), NetworkAdapterConfiguration.class);
     }
 
 }

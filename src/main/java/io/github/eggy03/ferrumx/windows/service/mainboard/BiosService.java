@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Bios;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.mainboard.BiosMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public class BiosService implements CommonServiceInterface<Bios> {
     @Override
     public List<Bios> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.BIOS_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), Bios.class);
+        return new BiosMapper().mapToList(response.getCommandOutput(), Bios.class);
     }
 
     /**
@@ -69,6 +69,6 @@ public class BiosService implements CommonServiceInterface<Bios> {
     @Override
     public List<Bios> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(CimQuery.BIOS_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), Bios.class);
+        return new BiosMapper().mapToList(response.getCommandOutput(), Bios.class);
     }
 }

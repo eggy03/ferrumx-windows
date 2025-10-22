@@ -6,7 +6,7 @@ import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.processor.AssociatedProcessorMemory;
 import io.github.eggy03.ferrumx.windows.entity.processor.Processor;
 import io.github.eggy03.ferrumx.windows.entity.processor.ProcessorCache;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.processor.AssociatedProcessorMemoryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class AssociatedProcessorMemoryService implements CommonServiceInterface<
     @Override
     public List<AssociatedProcessorMemory> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), AssociatedProcessorMemory.class);
+        return new AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), AssociatedProcessorMemory.class);
     }
 
     /**
@@ -65,6 +65,6 @@ public class AssociatedProcessorMemoryService implements CommonServiceInterface<
     @Override
     public List<AssociatedProcessorMemory> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(CimQuery.ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), AssociatedProcessorMemory.class);
+        return new AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), AssociatedProcessorMemory.class);
     }
 }

@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.processor.ProcessorCache;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.processor.ProcessorCacheMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +52,7 @@ public class ProcessorCacheService implements CommonServiceInterface<ProcessorCa
     public List<ProcessorCache> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.PROCESSOR_CACHE_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), ProcessorCache.class);
+        return new ProcessorCacheMapper().mapToList(response.getCommandOutput(), ProcessorCache.class);
     }
 
     /**
@@ -67,7 +67,6 @@ public class ProcessorCacheService implements CommonServiceInterface<ProcessorCa
     public List<ProcessorCache> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(CimQuery.PROCESSOR_CACHE_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), ProcessorCache.class);
+        return new ProcessorCacheMapper().mapToList(response.getCommandOutput(), ProcessorCache.class);
     }
-
 }

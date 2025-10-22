@@ -1,7 +1,7 @@
 package io.github.eggy03.ferrumx.windows.service;
 
 import com.profesorfalken.jpowershell.PowerShell;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.CommonMappingInterface;
 
 import java.util.Optional;
 
@@ -17,8 +17,8 @@ public interface OptionalCommonServiceInterface<S> {
 
     /**
      * Implementations of this method are expected to query the Powershell using methods
-     * that automatically handle the Powershell process lifecycle and then use {@link MapperUtil}
-     * to map the results to the expected entity types
+     * that automatically handle the Powershell process lifecycle and then
+     * map the results to the expected entity types using an implementation of {@link CommonMappingInterface}
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
      */
     Optional<S> get();
@@ -26,6 +26,7 @@ public interface OptionalCommonServiceInterface<S> {
     /**
      * Implementations of this method are expected to query the Powershell using methods
      * that delegate the responsibility of managing the Powershell session to the caller
+     * and then map the results to the expected entity types using an implementation of {@link CommonMappingInterface}
      * @param powerShell the caller-managed powershell session passed to the method
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
      */

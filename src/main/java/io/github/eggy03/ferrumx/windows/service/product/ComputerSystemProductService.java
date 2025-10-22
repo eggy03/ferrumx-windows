@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.product.ComputerSystemProduct;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.product.ComputerSystemProductMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
 
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class ComputerSystemProductService implements OptionalCommonServiceInterf
     public Optional<ComputerSystemProduct> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.COMPUTER_SYSTEM_PRODUCT.getQuery());
-        return MapperUtil.mapToObject(response.getCommandOutput(), ComputerSystemProduct.class);
+        return new ComputerSystemProductMapper().mapToObject(response.getCommandOutput(), ComputerSystemProduct.class);
     }
 
     /**
@@ -65,6 +65,6 @@ public class ComputerSystemProductService implements OptionalCommonServiceInterf
     public Optional<ComputerSystemProduct> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(CimQuery.COMPUTER_SYSTEM_PRODUCT.getQuery());
-        return MapperUtil.mapToObject(response.getCommandOutput(), ComputerSystemProduct.class);
+        return new ComputerSystemProductMapper().mapToObject(response.getCommandOutput(), ComputerSystemProduct.class);
     }
 }

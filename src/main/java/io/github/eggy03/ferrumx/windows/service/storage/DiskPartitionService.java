@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.storage.DiskPartition;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.storage.DiskPartitionMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,7 +51,7 @@ public class DiskPartitionService implements CommonServiceInterface<DiskPartitio
     @Override
     public List<DiskPartition> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.DISK_PARTITION_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), DiskPartition.class);
+        return new DiskPartitionMapper().mapToList(response.getCommandOutput(), DiskPartition.class);
     }
 
     /**
@@ -65,7 +65,7 @@ public class DiskPartitionService implements CommonServiceInterface<DiskPartitio
     @Override
     public List<DiskPartition> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(CimQuery.DISK_PARTITION_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), DiskPartition.class);
+        return new DiskPartitionMapper().mapToList(response.getCommandOutput(), DiskPartition.class);
     }
 
 }

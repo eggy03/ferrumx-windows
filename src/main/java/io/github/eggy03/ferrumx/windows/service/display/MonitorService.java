@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.display.Monitor;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.display.MonitorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import lombok.NonNull;
 
@@ -53,7 +53,7 @@ public class MonitorService implements CommonServiceInterface<Monitor> {
     public List<Monitor> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MONITOR_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), Monitor.class);
+        return new MonitorMapper().mapToList(response.getCommandOutput(), Monitor.class);
     }
 
     /**
@@ -71,6 +71,6 @@ public class MonitorService implements CommonServiceInterface<Monitor> {
     public List<Monitor> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(CimQuery.MONITOR_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), Monitor.class);
+        return new MonitorMapper().mapToList(response.getCommandOutput(), Monitor.class);
     }
 }

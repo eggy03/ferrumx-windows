@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.processor.Processor;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.processor.ProcessorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,7 +51,7 @@ public class ProcessorService implements CommonServiceInterface<Processor> {
     @Override
     public List<Processor> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.PROCESSOR_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), Processor.class);
+        return new ProcessorMapper().mapToList(response.getCommandOutput(), Processor.class);
     }
 
     /**
@@ -65,6 +65,6 @@ public class ProcessorService implements CommonServiceInterface<Processor> {
     @Override
     public List<Processor> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(CimQuery.PROCESSOR_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), Processor.class);
+        return new ProcessorMapper().mapToList(response.getCommandOutput(), Processor.class);
     }
 }

@@ -6,7 +6,7 @@ import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.network.NetworkAdapter;
 import io.github.eggy03.ferrumx.windows.entity.network.NetworkAdapterConfiguration;
 import io.github.eggy03.ferrumx.windows.entity.network.NetworkAdapterSetting;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.network.NetworkAdapterSettingMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class NetworkAdapterSettingService implements CommonServiceInterface<Netw
     @Override
     public List<NetworkAdapterSetting> get() {
         PowerShellResponse powerShellResponse = PowerShell.executeSingleCommand(CimQuery.NETWORK_ADAPTER_SETTING_QUERY.getQuery());
-        return MapperUtil.mapToList(powerShellResponse.getCommandOutput(), NetworkAdapterSetting.class);
+        return new NetworkAdapterSettingMapper().mapToList(powerShellResponse.getCommandOutput(), NetworkAdapterSetting.class);
     }
 
     /**
@@ -65,6 +65,6 @@ public class NetworkAdapterSettingService implements CommonServiceInterface<Netw
     @Override
     public List<NetworkAdapterSetting> get(PowerShell powerShell) {
         PowerShellResponse powerShellResponse = powerShell.executeCommand(CimQuery.NETWORK_ADAPTER_SETTING_QUERY.getQuery());
-        return MapperUtil.mapToList(powerShellResponse.getCommandOutput(), NetworkAdapterSetting.class);
+        return new NetworkAdapterSettingMapper().mapToList(powerShellResponse.getCommandOutput(), NetworkAdapterSetting.class);
     }
 }

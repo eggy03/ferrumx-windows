@@ -4,7 +4,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import io.github.eggy03.ferrumx.windows.entity.storage.LogicalDisk;
-import io.github.eggy03.ferrumx.windows.mapping.MapperUtil;
+import io.github.eggy03.ferrumx.windows.mapping.storage.LogicalDiskMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,7 +50,7 @@ public class LogicalDiskService implements CommonServiceInterface<LogicalDisk> {
     @Override
     public List<LogicalDisk> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.LOGICAL_DISK_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), LogicalDisk.class);
+        return new LogicalDiskMapper().mapToList(response.getCommandOutput(), LogicalDisk.class);
     }
 
     /**
@@ -64,6 +64,6 @@ public class LogicalDiskService implements CommonServiceInterface<LogicalDisk> {
     @Override
     public List<LogicalDisk> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(CimQuery.LOGICAL_DISK_QUERY.getQuery());
-        return MapperUtil.mapToList(response.getCommandOutput(), LogicalDisk.class);
+        return new LogicalDiskMapper().mapToList(response.getCommandOutput(), LogicalDisk.class);
     }
 }
