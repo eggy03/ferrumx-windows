@@ -60,7 +60,7 @@ class NetworkAdapterServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapters_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -78,7 +78,7 @@ class NetworkAdapterServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapters_empty() {
+    void test_get_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -91,7 +91,7 @@ class NetworkAdapterServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapters_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 
@@ -103,7 +103,7 @@ class NetworkAdapterServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapters_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -121,7 +121,7 @@ class NetworkAdapterServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapters_withSession_empty() {
+    void test_getWithSession_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -134,7 +134,7 @@ class NetworkAdapterServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapters_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 

@@ -58,7 +58,7 @@ class ProcessorCacheServiceTest {
     }
 
     @Test
-    void test_getProcessorCache_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonProcessor);
@@ -74,7 +74,7 @@ class ProcessorCacheServiceTest {
     }
 
     @Test
-    void test_getProcessorCache_emptyJson_empty() {
+    void test_get_emptyJson_empty() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
@@ -88,7 +88,7 @@ class ProcessorCacheServiceTest {
     }
 
     @Test
-    void test_getProcessorCache_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
@@ -101,7 +101,7 @@ class ProcessorCacheServiceTest {
     }
 
     @Test
-    void test_getProcessorCache_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonProcessor);
@@ -117,7 +117,7 @@ class ProcessorCacheServiceTest {
     }
 
     @Test
-    void test_getProcessorCache_withSession_emptyJson_empty() {
+    void test_getWithSession_emptyJson_empty() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
@@ -131,7 +131,7 @@ class ProcessorCacheServiceTest {
     }
 
     @Test
-    void test_getProcessorCache_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");

@@ -50,7 +50,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void test_getOperatingSystem_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -68,7 +68,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void test_getOperatingSystem_empty() {
+    void test_get_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -81,7 +81,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void test_getOperatingSystem_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 
@@ -93,7 +93,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void test_getOperatingSystem_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -111,7 +111,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void test_getOperatingSystem_withSession_empty() {
+    void test_getWithSession_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -124,7 +124,7 @@ class OperatingSystemServiceTest {
     }
 
     @Test
-    void test_getOperatingSystem_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 

@@ -73,7 +73,7 @@ class NetworkAdapterConfigurationServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapterConfiguration_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -91,7 +91,7 @@ class NetworkAdapterConfigurationServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapterConfiguration_empty() {
+    void test_get_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -104,7 +104,7 @@ class NetworkAdapterConfigurationServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapterConfiguration_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 
@@ -116,7 +116,7 @@ class NetworkAdapterConfigurationServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapterConfiguration_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -134,7 +134,7 @@ class NetworkAdapterConfigurationServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapterConfiguration_withSession_empty() {
+    void test_getWithSession_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -147,7 +147,7 @@ class NetworkAdapterConfigurationServiceTest {
     }
 
     @Test
-    void test_getNetworkAdapterConfiguration_malformedJson_withSession_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 

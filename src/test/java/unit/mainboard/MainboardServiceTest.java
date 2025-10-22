@@ -46,7 +46,7 @@ class MainboardServiceTest {
     }
 
     @Test
-    void test_getMainboard_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonMainboard);
@@ -62,7 +62,7 @@ class MainboardServiceTest {
     }
 
     @Test
-    void test_getMainboard_emptyJson_returnsEmpty() {
+    void test_get_emptyJson_returnsEmpty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -75,7 +75,7 @@ class MainboardServiceTest {
     }
 
     @Test
-    void test_getMainboard_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
@@ -87,7 +87,7 @@ class MainboardServiceTest {
     }
 
     @Test
-    void test_getMainboard_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonMainboard);
@@ -103,7 +103,7 @@ class MainboardServiceTest {
     }
 
     @Test
-    void test_getMainboard_withSession_emptyJson_returnsEmpty() {
+    void test_getWithSession_emptyJson_returnsEmpty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -116,7 +116,7 @@ class MainboardServiceTest {
     }
 
     @Test
-    void test_getMainboard_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 

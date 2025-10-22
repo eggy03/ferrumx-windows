@@ -50,7 +50,7 @@ class ComputerSystemProductServiceTest {
     }
 
     @Test
-    void test_getProduct_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonProduct);
@@ -67,7 +67,7 @@ class ComputerSystemProductServiceTest {
     }
 
     @Test
-    void test_getProduct_emptyJson_returnsEmpty() {
+    void test_get_emptyJson_returnsEmpty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -80,7 +80,7 @@ class ComputerSystemProductServiceTest {
     }
 
     @Test
-    void test_getProduct_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
@@ -92,7 +92,7 @@ class ComputerSystemProductServiceTest {
     }
 
     @Test
-    void test_getProduct_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonProduct);
@@ -109,7 +109,7 @@ class ComputerSystemProductServiceTest {
     }
 
     @Test
-    void test_getProduct_withSession_emptyJson_returnsEmpty() {
+    void test_getWithSession_emptyJson_returnsEmpty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -122,7 +122,7 @@ class ComputerSystemProductServiceTest {
     }
 
     @Test
-    void test_getProduct_withSesion_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 

@@ -62,7 +62,7 @@ class PhysicalMemoryServiceTest {
     }
 
     @Test
-    void test_getPhysicalMemories_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -80,7 +80,7 @@ class PhysicalMemoryServiceTest {
     }
 
     @Test
-    void test_getPhysicalMemories_emptyJson_returnsEmptyList() {
+    void test_get_emptyJson_returnsEmptyList() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -94,7 +94,7 @@ class PhysicalMemoryServiceTest {
     }
 
     @Test
-    void test_getPhysicalMemories_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
@@ -108,7 +108,7 @@ class PhysicalMemoryServiceTest {
     }
 
     @Test
-    void test_getPhysicalMemories_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -126,7 +126,7 @@ class PhysicalMemoryServiceTest {
     }
 
     @Test
-    void test_getPhysicalMemories_withSession_emptyJson_returnsEmptyList() {
+    void test_getWithSession_emptyJson_returnsEmptyList() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -139,7 +139,7 @@ class PhysicalMemoryServiceTest {
     }
 
     @Test
-    void test_getPhysicalMemories_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 

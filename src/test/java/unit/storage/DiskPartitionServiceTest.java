@@ -66,7 +66,7 @@ class DiskPartitionServiceTest {
     }
 
     @Test
-    void test_getDiskPartitions_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -84,7 +84,7 @@ class DiskPartitionServiceTest {
     }
 
     @Test
-    void test_getDiskPartitions_empty() {
+    void test_get_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -97,7 +97,7 @@ class DiskPartitionServiceTest {
     }
 
     @Test
-    void test_getDiskPartitions_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
@@ -109,7 +109,7 @@ class DiskPartitionServiceTest {
     }
 
     @Test
-    void test_getDiskPartitions_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -127,7 +127,7 @@ class DiskPartitionServiceTest {
     }
 
     @Test
-    void test_getDiskPartitions_withSession_empty() {
+    void test_getWithSession_empty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -140,7 +140,7 @@ class DiskPartitionServiceTest {
     }
 
     @Test
-    void test_getDiskPartitions_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 

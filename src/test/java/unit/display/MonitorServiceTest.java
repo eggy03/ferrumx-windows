@@ -66,7 +66,7 @@ class MonitorServiceTest {
     }
 
     @Test
-    void test_getMonitors_success() {
+    void test_get_success() {
 
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn(json);
@@ -84,7 +84,7 @@ class MonitorServiceTest {
     }
 
     @Test
-    void test_getMonitors_empty() {
+    void test_get_empty() {
 
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("");
@@ -98,7 +98,7 @@ class MonitorServiceTest {
     }
 
     @Test
-    void test_getMonitors_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
 
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("not a valid json");
@@ -111,7 +111,7 @@ class MonitorServiceTest {
     }
 
     @Test
-    void test_getMonitors_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn(json);
@@ -129,7 +129,7 @@ class MonitorServiceTest {
     }
 
     @Test
-    void test_getMonitors_withSession_empty() {
+    void test_getWithSession_empty() {
 
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("");
@@ -143,7 +143,7 @@ class MonitorServiceTest {
     }
 
     @Test
-    void test_getMonitors_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
 
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("not a valid json");

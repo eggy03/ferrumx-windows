@@ -58,7 +58,7 @@ class VideoControllerServiceTest {
     }
 
     @Test
-    void test_getVideoController_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -76,7 +76,7 @@ class VideoControllerServiceTest {
     }
 
     @Test
-    void test_getVideoControllers_emptyJson_returnsEmptyList() {
+    void test_get_emptyJson_returnsEmptyList() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -89,7 +89,7 @@ class VideoControllerServiceTest {
     }
 
     @Test
-    void test_getVideoControllers_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not valid json");
 
@@ -102,7 +102,7 @@ class VideoControllerServiceTest {
     }
 
     @Test
-    void test_getVideoController_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
@@ -120,7 +120,7 @@ class VideoControllerServiceTest {
     }
 
     @Test
-    void test_getVideoControllers_withSession_emptyJson_returnsEmptyList() {
+    void test_getWithSession_emptyJson_returnsEmptyList() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -133,7 +133,7 @@ class VideoControllerServiceTest {
     }
 
     @Test
-    void test_getVideoControllers_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not valid json");
 

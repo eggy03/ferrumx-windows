@@ -49,7 +49,7 @@ class BiosServiceTest {
     }
 
     @Test
-    void test_getBios_success() {
+    void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonBios);
@@ -65,7 +65,7 @@ class BiosServiceTest {
     }
 
     @Test
-    void test_getBios_emptyJson_returnsEmpty() {
+    void test_get_emptyJson_returnsEmpty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -78,7 +78,7 @@ class BiosServiceTest {
     }
 
     @Test
-    void test_getBios_malformedJson_throwsException() {
+    void test_get_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
@@ -90,7 +90,7 @@ class BiosServiceTest {
     }
 
     @Test
-    void test_getBios_withSession_success() {
+    void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(jsonBios);
@@ -106,7 +106,7 @@ class BiosServiceTest {
     }
 
     @Test
-    void test_getBios_withSession_emptyJson_returnsEmpty() {
+    void test_getWithSession_emptyJson_returnsEmpty() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
@@ -119,7 +119,7 @@ class BiosServiceTest {
     }
 
     @Test
-    void test_getBios_withSession_malformedJson_throwsException() {
+    void test_getWithSession_malformedJson_throwsException() {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
