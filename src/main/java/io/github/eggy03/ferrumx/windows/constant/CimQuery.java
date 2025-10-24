@@ -44,7 +44,7 @@ public enum CimQuery {
     PROCESSOR_CACHE_QUERY("Get-CimInstance Win32_CacheMemory | Select-Object * | ConvertTo-Json"),
 
     /**
-     * Query to fetch the properties of {@code Win32_AssociatedProcessorMemory} class
+     * Query to fetch the properties of {@code Win32_AssociatedProcessorMemory} class in a custom object
      */
     ASSOCIATED_PROCESSOR_MEMORY_QUERY("Get-CimInstance Win32_AssociatedProcessorMemory | ForEach-Object { [PSCustomObject]@{ CacheMemoryID = $_.Antecedent.DeviceID; CPUID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
@@ -79,7 +79,7 @@ public enum CimQuery {
     NETWORK_ADAPTER_CONFIGURATION_QUERY("Get-CimInstance Win32_NetworkAdapterConfiguration | Select-Object * | ConvertTo-Json"),
 
     /**
-     * Query to fetch the properties of {@code Win32_NetworkAdapterSetting}
+     * Query to fetch the properties of {@code Win32_NetworkAdapterSetting} in a custom object
      */
     NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ DeviceID = $_.Element.DeviceID; Index = $_.Setting.Index } } | ConvertTo-Json"),
 
@@ -102,6 +102,11 @@ public enum CimQuery {
      * Query to fetch the properties of {@code Win32_LogicalDisk} class
      */
     LOGICAL_DISK_QUERY("Get-CimInstance Win32_LogicalDisk | Select-Object * | ConvertTo-Json"),
+
+    /**
+     * Query to fetch the properties of {@code Win32_DiskDriveToDiskPartition} class in a custom object
+     */
+    DISK_DRIVE_TO_DISK_PARTITION_QUERY("Get-CimInstance Win32_DiskDriveToDiskPartition | ForEach-Object { [PSCustomObject]@{ DiskDriveDeviceID = $_.Antecedent.DeviceID; DiskPartitionDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
     /**
      * Query to fetch the properties of {@code Win32_ComputerSystemProduct} class
