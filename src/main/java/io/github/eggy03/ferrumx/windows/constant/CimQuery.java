@@ -1,5 +1,6 @@
 package io.github.eggy03.ferrumx.windows.constant;
 
+import com.profesorfalken.jpowershell.PowerShell;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,7 +9,7 @@ import lombok.RequiredArgsConstructor;
  * <p>
  * Each constant holds a PowerShell query that queries a specific WMI class
  * and returns the result in JSON format. These queries are typically executed
- * using {@link com.profesorfalken.jpowershell.PowerShell} and mapped to
+ * using {@link PowerShell} and mapped to
  * corresponding Java objects.
  * </p>
  * @since 2.0.0

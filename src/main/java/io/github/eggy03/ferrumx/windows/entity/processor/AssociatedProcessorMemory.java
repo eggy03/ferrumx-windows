@@ -50,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>See {@link Processor} for related CPU information.</p>
  * <p>See {@link ProcessorCache} for related CPU Cache information.</p>
- * @see <a href="https://powershell.one/wmi/root/cimv2/win32_associatedprocessormemory">Win32_AssociatedProcessorMemory</a>
+ * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-associatedprocessormemory">Win32_AssociatedProcessorMemory</a>
  * @since 2.3.0
  * @author Egg-03
  */

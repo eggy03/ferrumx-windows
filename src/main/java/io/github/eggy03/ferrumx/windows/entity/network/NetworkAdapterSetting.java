@@ -50,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>See {@link NetworkAdapter} for adapter info.</p>
  * <p>See {@link NetworkAdapterConfiguration} for related adapter config info.</p>
- * @see <a href="https://powershell.one/wmi/root/cimv2/win32_networkadaptersetting">Win32_NetworkAdapterSetting</a>
+ * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-networkadaptersetting">Win32_NetworkAdapterSetting</a>
  * @since 2.3.0
  * @author Egg-03
  */

@@ -49,7 +49,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>See {@link DiskDrive} for related physical disk info.</p>
  * <p>See {@link DiskPartition} for related partitions on a physical disk.</p>
- * @see <a href="https://powershell.one/wmi/root/cimv2/win32_diskdrivetodiskpartition">Win32_DiskDriveToDiskPartition</a>
+ * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-diskdrivetodiskpartition">Win32_DiskDriveToDiskPartition</a>
  * @since 2.3.0
  * @author Egg-03
  */
