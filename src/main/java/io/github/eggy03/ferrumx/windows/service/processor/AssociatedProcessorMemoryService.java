@@ -46,6 +46,8 @@ public class AssociatedProcessorMemoryService implements CommonServiceInterface<
      *
      * @return a list of {@link AssociatedProcessorMemory} objects representing the association between
      * a {@link Processor} and it's {@link ProcessorCache}. Returns an empty list if none are detected.
+     *
+     * @since 2.3.0
      */
     @Override
     public List<AssociatedProcessorMemory> get() {
@@ -61,6 +63,8 @@ public class AssociatedProcessorMemoryService implements CommonServiceInterface<
      *
      * @return a list of {@link AssociatedProcessorMemory} objects representing the association between
      * a {@link Processor} and it's {@link ProcessorCache}. Returns an empty list if none are detected.
+     *
+     * @since 2.3.0
      */
     @Override
     public List<AssociatedProcessorMemory> get(PowerShell powerShell) {

@@ -46,6 +46,8 @@ public class ProcessorService implements CommonServiceInterface<Processor> {
      *
      * @return a list of {@link Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -60,6 +62,8 @@ public class ProcessorService implements CommonServiceInterface<Processor> {
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override

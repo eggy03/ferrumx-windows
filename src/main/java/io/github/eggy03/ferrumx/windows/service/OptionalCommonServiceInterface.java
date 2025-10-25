@@ -20,6 +20,7 @@ public interface OptionalCommonServiceInterface<S> {
      * that automatically handle the Powershell process lifecycle and then
      * map the results to the expected entity types using an implementation of {@link CommonMappingInterface}
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
+     * @since 2.2.0
      */
     Optional<S> get();
 
@@ -29,6 +30,7 @@ public interface OptionalCommonServiceInterface<S> {
      * and then map the results to the expected entity types using an implementation of {@link CommonMappingInterface}
      * @param powerShell the caller-managed powershell session passed to the method
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
+     * @since 2.2.0
      */
     Optional<S> get(PowerShell powerShell);
 }

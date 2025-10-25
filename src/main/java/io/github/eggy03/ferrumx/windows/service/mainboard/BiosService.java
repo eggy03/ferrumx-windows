@@ -1,5 +1,6 @@
 package io.github.eggy03.ferrumx.windows.service.mainboard;
 
+import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
@@ -45,8 +46,8 @@ public class BiosService implements CommonServiceInterface<Bios> {
      * </p>
      * @return a list of {@link Bios} objects representing the system BIOS.
      *         Returns an empty list if no BIOS entries are detected.
-     * @throws com.google.gson.JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -62,8 +63,8 @@ public class BiosService implements CommonServiceInterface<Bios> {
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link Bios} objects representing the system BIOS.
      *         Returns an empty list if no BIOS entries are detected.
-     * @throws com.google.gson.JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override

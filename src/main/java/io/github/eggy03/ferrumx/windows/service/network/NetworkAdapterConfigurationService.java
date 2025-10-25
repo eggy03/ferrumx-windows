@@ -46,6 +46,7 @@ public class NetworkAdapterConfigurationService implements CommonServiceInterfac
      *
      * @return a list of {@link NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -61,6 +62,7 @@ public class NetworkAdapterConfigurationService implements CommonServiceInterfac
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
+     * @since 2.2.0
      */
     @NotNull
     @Override

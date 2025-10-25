@@ -46,6 +46,8 @@ public class DiskDriveService implements CommonServiceInterface<DiskDrive> {
      *
      * @return a list of {@link DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -61,6 +63,8 @@ public class DiskDriveService implements CommonServiceInterface<DiskDrive> {
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override

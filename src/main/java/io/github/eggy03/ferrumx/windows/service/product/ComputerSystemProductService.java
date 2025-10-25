@@ -45,6 +45,8 @@ public class ComputerSystemProductService implements OptionalCommonServiceInterf
      *
      * @return an {@link Optional} of {@link ComputerSystemProduct} representing
      *         the computer system as a product. Returns {@link Optional#empty()} if no product information is detected.
+     *
+     * @since 2.2.0
      */
     @Override
     public Optional<ComputerSystemProduct> get() {
@@ -60,6 +62,8 @@ public class ComputerSystemProductService implements OptionalCommonServiceInterf
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an {@link Optional} of {@link ComputerSystemProduct} representing
      *         the computer system as a product. Returns {@link Optional#empty()} if no product information is detected.
+     *
+     * @since 2.2.0
      */
     @Override
     public Optional<ComputerSystemProduct> get(PowerShell powerShell) {

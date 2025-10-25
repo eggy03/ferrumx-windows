@@ -46,6 +46,8 @@ public class NetworkAdapterSettingService implements CommonServiceInterface<Netw
      *
      * @return a list of {@link NetworkAdapterSetting} objects representing the association between
      * a {@link NetworkAdapter} and it's {@link NetworkAdapterConfiguration}. Returns an empty list if none are detected.
+     *
+     * @since 2.3.0
      */
     @Override
     public List<NetworkAdapterSetting> get() {
@@ -61,6 +63,8 @@ public class NetworkAdapterSettingService implements CommonServiceInterface<Netw
      *
      * @return a list of {@link NetworkAdapterSetting} objects representing the association between
      * a {@link NetworkAdapter} and it's {@link NetworkAdapterConfiguration}. Returns an empty list if none are detected.
+     *
+     * @since 2.3.0
      */
     @Override
     public List<NetworkAdapterSetting> get(PowerShell powerShell) {

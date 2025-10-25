@@ -1,5 +1,6 @@
 package io.github.eggy03.ferrumx.windows.service.battery;
 
+import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
@@ -45,8 +46,8 @@ public class BatteryService implements CommonServiceInterface<Battery> {
      *
      * @return a list of {@link Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
-     * @throws com.google.gson.JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -63,8 +64,8 @@ public class BatteryService implements CommonServiceInterface<Battery> {
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
-     * @throws com.google.gson.JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override

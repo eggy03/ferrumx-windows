@@ -46,6 +46,8 @@ public class ProcessorCacheService implements CommonServiceInterface<ProcessorCa
      *
      * @return a list of {@link ProcessorCache} objects representing the CPU caches.
      *         Returns an empty list if none are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -61,6 +63,8 @@ public class ProcessorCacheService implements CommonServiceInterface<ProcessorCa
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link ProcessorCache} objects representing the CPU caches.
      *         Returns an empty list if none are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override

@@ -46,6 +46,8 @@ public class DiskPartitionService implements CommonServiceInterface<DiskPartitio
      *
      * @return a list of {@link DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -60,6 +62,8 @@ public class DiskPartitionService implements CommonServiceInterface<DiskPartitio
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override

@@ -1,5 +1,6 @@
 package io.github.eggy03.ferrumx.windows.service.memory;
 
+import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
@@ -46,8 +47,8 @@ public class PhysicalMemoryService implements CommonServiceInterface<PhysicalMem
      *
      * @return a list of {@link PhysicalMemory} objects representing the system's RAM.
      *         Returns an empty list if no memory modules are detected.
-     * @throws com.google.gson.JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
@@ -63,8 +64,8 @@ public class PhysicalMemoryService implements CommonServiceInterface<PhysicalMem
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link PhysicalMemory} objects representing the system's RAM.
      *         Returns an empty list if no memory modules are detected.
-     * @throws com.google.gson.JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *
+     * @since 2.2.0
      */
     @NotNull
     @Override
