@@ -53,7 +53,7 @@ public enum CimQuery {
      * Query to fetch the properties of {@code Win32_AssociatedProcessorMemory} class in a custom object
      * @since 2.3.0
      */
-    ASSOCIATED_PROCESSOR_MEMORY_QUERY("Get-CimInstance Win32_AssociatedProcessorMemory | ForEach-Object { [PSCustomObject]@{ CacheMemoryID = $_.Antecedent.DeviceID; CPUID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
+    ASSOCIATED_PROCESSOR_MEMORY_QUERY("Get-CimInstance Win32_AssociatedProcessorMemory | ForEach-Object { [PSCustomObject]@{ CacheMemoryDeviceID = $_.Antecedent.DeviceID; ProcessorDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
     /**
      * Query to fetch the properties of {@code Win32_BIOS} class
@@ -95,7 +95,7 @@ public enum CimQuery {
      * Query to fetch the properties of {@code Win32_NetworkAdapterSetting} in a custom object
      * @since 2.3.0
      */
-    NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ DeviceID = $_.Element.DeviceID; Index = $_.Setting.Index } } | ConvertTo-Json"),
+    NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ NetworkAdapterDeviceID = $_.Element.DeviceID; NetworkAdapterConfigurationIndex = $_.Setting.Index } } | ConvertTo-Json"),
 
     /**
      * Query to fetch the properties of {@code Win32_OperatingSystem} class

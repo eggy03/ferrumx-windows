@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
  *     {@link CimQuery#DISK_DRIVE_TO_DISK_PARTITION_QUERY} constructs a custom {@code PSObject}
- *     that maps {@code Antecedent.DeviceID} to {@code DiskDriveDeviceID} and {@code Dependent.DeviceID} to {@code DiskPartitionDeviceID}
+ *     that maps {@code Antecedent.DeviceID} to {@code diskDriveDeviceId} and {@code Dependent.DeviceID} to {@code diskPartitionDeviceId}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>
  *

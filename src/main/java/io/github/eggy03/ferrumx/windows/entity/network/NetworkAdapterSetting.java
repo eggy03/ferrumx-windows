@@ -16,20 +16,20 @@ import org.jetbrains.annotations.Nullable;
  * <p>Links {@link NetworkAdapter} with {@link NetworkAdapterConfiguration} via their device IDs and indexes respectively</p>
  * <p>This class has the following two fields:</p>
  * <ul>
- *     <li>{@code deviceId} - contains the value of the {@code deviceId} field of {@link NetworkAdapter}</li>
- *     <li>{@code index} - contains the value of the {@code index} field of {@link NetworkAdapterConfiguration}</li>
+ *     <li>{@code networkAdapterDeviceId} - contains the value of the {@code deviceId} field of {@link NetworkAdapter}</li>
+ *     <li>{@code networkAdapterConfigurationIndex} - contains the value of the {@code index} field of {@link NetworkAdapterConfiguration}</li>
  * </ul>
  *
  * <p>
  *     <b>Extra Notes:</b> The {@code Win32_NetworkAdapterSetting} WMI class itself does not directly expose
  *     the {@code DeviceID} (from {@code Win32_NetworkAdapter}) or the {@code Index}
  *     (from {@code Win32_NetworkAdapterConfiguration}) as standalone properties.
- *     Instead, these values are nested within its references: {@code Element} and {@code Setting}.
+ *     Instead, these values are nested within its references: {@code Element} and {@code Setting}, respectively.
  * </p>
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
  *     {@link CimQuery#NETWORK_ADAPTER_SETTING_QUERY} constructs a custom {@code PSObject}
- *     that maps {@code Element.DeviceID} to {@code DeviceID} and {@code Setting.Index} to {@code Index}
+ *     that maps {@code Element.DeviceID} to {@code networkAdapterDeviceId} and {@code Setting.Index} to {@code networkAdapterConfigurationIndex}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>
  *
@@ -37,13 +37,13 @@ import org.jetbrains.annotations.Nullable;
  * <pre>{@code
  * // Build a new NetworkAdapterSetting instance
  * NetworkAdapterSetting nas = NetworkAdapterSetting.builder()
- *     .deviceId("1")
- *     .index(1)
+ *     .networkAdapterDeviceId("1")
+ *     .networkAdapterConfigurationIndex(1)
  *     .build();
  *
  * // Create a modified copy using the builder
  * NetworkAdapterSetting updated = nas.toBuilder()
- *     .index(2)
+ *     .networkAdapterConfigurationIndex(2)
  *     .build();
  *
  * }</pre>
@@ -58,13 +58,13 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class NetworkAdapterSetting {
 
-    @SerializedName("DeviceID")
+    @SerializedName("NetworkAdapterDeviceID")
     @Nullable
-    String deviceId;
+    String networkAdapterDeviceId;
 
-    @SerializedName("Index")
+    @SerializedName("NetworkAdapterConfigurationIndex")
     @Nullable
-    Integer index;
+    Integer networkAdapterConfigurationIndex;
 
     @Override
     public String toString() {

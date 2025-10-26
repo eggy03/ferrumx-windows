@@ -35,12 +35,12 @@ class NetworkAdapterSettingServiceTest {
         JsonArray jsonArray = new JsonArray();
 
         JsonObject settingOne = new JsonObject();
-        settingOne.addProperty("DeviceID", "1");
-        settingOne.addProperty("Index", 1);
+        settingOne.addProperty("NetworkAdapterDeviceID", "1");
+        settingOne.addProperty("NetworkAdapterConfigurationIndex", 1);
 
         JsonObject settingTwo = new JsonObject();
-        settingTwo.addProperty("DeviceID", "2");
-        settingTwo.addProperty("Index", 2);
+        settingTwo.addProperty("NetworkAdapterDeviceID", "2");
+        settingTwo.addProperty("NetworkAdapterConfigurationIndex", 2);
 
         jsonArray.add(settingOne);
         jsonArray.add(settingTwo);
@@ -64,10 +64,10 @@ class NetworkAdapterSettingServiceTest {
             List<NetworkAdapterSetting> networkAdapterSettingList = service.get();
 
             assertFalse(networkAdapterSettingList.isEmpty());
-            assertEquals("1", networkAdapterSettingList.get(0).getDeviceId());
-            assertEquals("2", networkAdapterSettingList.get(1).getDeviceId());
-            assertEquals(1, networkAdapterSettingList.get(0).getIndex());
-            assertEquals(2, networkAdapterSettingList.get(1).getIndex());
+            assertEquals("1", networkAdapterSettingList.get(0).getNetworkAdapterDeviceId());
+            assertEquals("2", networkAdapterSettingList.get(1).getNetworkAdapterDeviceId());
+            assertEquals(1, networkAdapterSettingList.get(0).getNetworkAdapterConfigurationIndex());
+            assertEquals(2, networkAdapterSettingList.get(1).getNetworkAdapterConfigurationIndex());
         }
     }
 
@@ -107,10 +107,10 @@ class NetworkAdapterSettingServiceTest {
             List<NetworkAdapterSetting> networkAdapterSettingList = service.get(mockShell);
 
             assertFalse(networkAdapterSettingList.isEmpty());
-            assertEquals("1", networkAdapterSettingList.get(0).getDeviceId());
-            assertEquals("2", networkAdapterSettingList.get(1).getDeviceId());
-            assertEquals(1, networkAdapterSettingList.get(0).getIndex());
-            assertEquals(2, networkAdapterSettingList.get(1).getIndex());
+            assertEquals("1", networkAdapterSettingList.get(0).getNetworkAdapterDeviceId());
+            assertEquals("2", networkAdapterSettingList.get(1).getNetworkAdapterDeviceId());
+            assertEquals(1, networkAdapterSettingList.get(0).getNetworkAdapterConfigurationIndex());
+            assertEquals(2, networkAdapterSettingList.get(1).getNetworkAdapterConfigurationIndex());
         }
     }
 

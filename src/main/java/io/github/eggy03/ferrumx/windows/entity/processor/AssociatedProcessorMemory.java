@@ -17,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
  * <p>Links {@link Processor} with {@link ProcessorCache} via their device IDs</p>
  * <p>This class has the following two fields:</p>
  * <ul>
- *     <li>{@code cacheMemoryId} - contains the {@code deviceId} field of {@link ProcessorCache}</li>
- *     <li>{@code cpuId} - contains the {@code deviceId} field of {@link Processor}</li>
+ *     <li>{@code cacheMemoryDeviceId} - contains the {@code deviceId} field of {@link ProcessorCache}</li>
+ *     <li>{@code processorDeviceId} - contains the {@code deviceId} field of {@link Processor}</li>
  * </ul>
  *
  * <p>
@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
  *     {@link CimQuery#ASSOCIATED_PROCESSOR_MEMORY_QUERY} constructs a custom {@code PSObject}
- *     that maps {@code Antecedent.DeviceID} to {@code CacheMemoryID} and {@code Dependent.DeviceID} to {@code CPUID}
+ *     that maps {@code Antecedent.DeviceID} to {@code cacheMemoryDeviceId} and {@code Dependent.DeviceID} to {@code processorDeviceId}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>
  *
@@ -39,12 +39,12 @@ import org.jetbrains.annotations.Nullable;
  * <pre>{@code
  * // Build a new AssociatedProcessorMemory instance
  * AssociatedProcessorMemory apm = AssociatedProcessorMemory.builder()
- *     .cacheMemoryId("Cache Memory 1")
- *     .cpuId("CPU0")
+ *     .cacheMemoryDeviceId("Cache Memory 1")
+ *     .processorDeviceId("CPU0")
  *     .build();
  * // Create a modified copy using the builder
  * AssociatedProcessorMemory updated = apm.toBuilder()
- *     .cacheMemoryId("Cache Memory 2")
+ *     .cacheMemoryDeviceId("Cache Memory 2")
  *     .build();
  * }</pre>
  *
@@ -58,13 +58,13 @@ import org.jetbrains.annotations.Nullable;
 @Builder (toBuilder = true)
 public class AssociatedProcessorMemory {
 
-    @SerializedName("CacheMemoryID")
+    @SerializedName("CacheMemoryDeviceID")
     @Nullable
-    String cacheMemoryId;
+    String cacheMemoryDeviceId;
 
-    @SerializedName("CPUID")
+    @SerializedName("ProcessorDeviceID")
     @Nullable
-    String cpuId;
+    String processorDeviceId;
 
     @Override
     public String toString() {

@@ -36,12 +36,12 @@ class AssociatedProcessorMemoryTest {
         JsonArray jsonArray = new JsonArray();
 
         JsonObject cacheZero = new JsonObject();
-        cacheZero.addProperty("CacheMemoryID", "Cache Memory 0");
-        cacheZero.addProperty("CPUID", "CPU0");
+        cacheZero.addProperty("CacheMemoryDeviceID", "Cache Memory 0");
+        cacheZero.addProperty("ProcessorDeviceID", "CPU0");
 
         JsonObject cacheOne = new JsonObject();
-        cacheOne.addProperty("CacheMemoryID", "Cache Memory 1");
-        cacheOne.addProperty("CPUID", "CPU0");
+        cacheOne.addProperty("CacheMemoryDeviceID", "Cache Memory 1");
+        cacheOne.addProperty("ProcessorDeviceID", "CPU0");
 
         jsonArray.add(cacheZero);
         jsonArray.add(cacheOne);
@@ -64,8 +64,10 @@ class AssociatedProcessorMemoryTest {
             List<AssociatedProcessorMemory> apmList = apmService.get();
             assertFalse(apmList.isEmpty());
             assertEquals(2, apmList.size());
-            assertEquals("Cache Memory 0", apmList.get(0).getCacheMemoryId());
-            assertEquals("Cache Memory 1", apmList.get(1).getCacheMemoryId());
+            assertEquals("Cache Memory 0", apmList.get(0).getCacheMemoryDeviceId());
+            assertEquals("Cache Memory 1", apmList.get(1).getCacheMemoryDeviceId());
+            assertEquals("CPU0", apmList.get(0).getProcessorDeviceId());
+            assertEquals("CPU0", apmList.get(1).getProcessorDeviceId());
         }
 
     }
@@ -103,8 +105,10 @@ class AssociatedProcessorMemoryTest {
             List<AssociatedProcessorMemory> apmList = apmService.get(mockedShell);
             assertFalse(apmList.isEmpty());
             assertEquals(2, apmList.size());
-            assertEquals("Cache Memory 0", apmList.get(0).getCacheMemoryId());
-            assertEquals("Cache Memory 1", apmList.get(1).getCacheMemoryId());
+            assertEquals("Cache Memory 0", apmList.get(0).getCacheMemoryDeviceId());
+            assertEquals("Cache Memory 1", apmList.get(1).getCacheMemoryDeviceId());
+            assertEquals("CPU0", apmList.get(0).getProcessorDeviceId());
+            assertEquals("CPU0", apmList.get(1).getProcessorDeviceId());
         }
     }
 
