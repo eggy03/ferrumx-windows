@@ -1,6 +1,5 @@
 package io.github.eggy03.ferrumx.windows.service.mainboard;
 
-import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
