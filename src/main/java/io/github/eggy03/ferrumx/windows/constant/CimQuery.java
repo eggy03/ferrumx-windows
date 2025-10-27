@@ -128,6 +128,12 @@ public enum CimQuery {
     DISK_DRIVE_TO_DISK_PARTITION_QUERY("Get-CimInstance Win32_DiskDriveToDiskPartition | ForEach-Object { [PSCustomObject]@{ DiskDriveDeviceID = $_.Antecedent.DeviceID; DiskPartitionDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
     /**
+     * Query to fetch the properties of {@code Win32_LogicalDiskToPartition} class in a custom object
+     * @since 2.3.0
+     */
+    LOGICAL_DISK_TO_PARTITION_QUERY("Get-CimInstance Win32_LogicalDiskToPartition | ForEach-Object { [PSCustomObject]@{ DiskPartitionDeviceID = $_.Antecedent.DeviceID; LogicalDiskDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
+
+    /**
      * Query to fetch the properties of {@code Win32_ComputerSystemProduct} class
      * @since 2.0.0
      */
