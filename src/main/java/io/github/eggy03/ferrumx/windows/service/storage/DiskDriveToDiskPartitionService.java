@@ -31,7 +31,7 @@ import java.util.List;
  * // API with re-usable session (caller manages session lifecycle)
  * try (PowerShell session = PowerShell.openSession()) {
  *     DiskDriveToDiskPartitionService ddtService = new DiskDriveToDiskPartitionService();
- *     List<DiskDriveToDiskPartitionService> ddt = ddtService.get(session);
+ *     List<DiskDriveToDiskPartition> ddt = ddtService.get(session);
  * }
  * }</pre>
  * @since 2.3.0

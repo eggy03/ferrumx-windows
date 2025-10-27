@@ -39,11 +39,11 @@ import org.jetbrains.annotations.Nullable;
  * // Build a new instance
  * DiskDriveToDiskPartition ddt = DiskDriveToDiskPartition.builder()
  *     .diskDriveDeviceId("////.//PHYSICALDRIVE0")
- *     .diskPartitionDevice("Disk #0 Partition #1")
+ *     .diskPartitionDeviceId("Disk #0 Partition #1")
  *     .build();
  * // Create a modified copy using the builder
  * DiskDriveToDiskPartition updated = ddt.toBuilder()
- *     .diskPartitionDevice("Disk #0 Partition #2")
+ *     .diskPartitionDeviceId("Disk #0 Partition #2")
  *     .build();
  * }</pre>
  *
