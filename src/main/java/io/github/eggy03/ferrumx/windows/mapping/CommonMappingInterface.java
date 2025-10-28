@@ -25,7 +25,7 @@ import java.util.Optional;
  */
 public interface CommonMappingInterface<S> {
 
-    Gson gson = new Gson();
+    Gson GSON = new Gson();
 
     /**
      * Converts a JSON string into a list of objects of the specified type {@code <S>}.
@@ -45,10 +45,10 @@ public interface CommonMappingInterface<S> {
 
         if(json.startsWith("[")) {
             Type listType = TypeToken.getParameterized(List.class, objectClass).getType();
-            List<S> result = gson.fromJson(json, listType);
+            List<S> result = GSON.fromJson(json, listType);
             return result!=null ? result : Collections.emptyList();
         } else {
-            S singleObject = gson.fromJson(json, objectClass);
+            S singleObject = GSON.fromJson(json, objectClass);
             return singleObject!=null ? Collections.singletonList(singleObject) : Collections.emptyList();
         }
     }
@@ -67,7 +67,7 @@ public interface CommonMappingInterface<S> {
      */
     @NotNull
     default Optional<S> mapToObject(@NonNull String json, @NonNull Class<S> objectClass) {
-        S object = gson.fromJson(json, objectClass);
+        S object = GSON.fromJson(json, objectClass);
         return Optional.ofNullable(object);
     }
 }
