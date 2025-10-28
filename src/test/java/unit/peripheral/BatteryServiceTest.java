@@ -1,4 +1,4 @@
-package unit.battery;
+package unit.peripheral;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.entity.battery.Battery;
-import io.github.eggy03.ferrumx.windows.service.battery.BatteryService;
+import io.github.eggy03.ferrumx.windows.entity.peripheral.Battery;
+import io.github.eggy03.ferrumx.windows.service.peripheral.BatteryService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

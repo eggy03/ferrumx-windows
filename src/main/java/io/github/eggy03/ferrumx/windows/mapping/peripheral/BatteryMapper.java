@@ -1,6 +1,6 @@
-package io.github.eggy03.ferrumx.windows.mapping.battery;
+package io.github.eggy03.ferrumx.windows.mapping.peripheral;
 
-import io.github.eggy03.ferrumx.windows.entity.battery.Battery;
+import io.github.eggy03.ferrumx.windows.entity.peripheral.Battery;
 import io.github.eggy03.ferrumx.windows.mapping.CommonMappingInterface;
 
 /**

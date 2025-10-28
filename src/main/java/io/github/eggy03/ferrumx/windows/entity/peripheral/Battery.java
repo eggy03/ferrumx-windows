@@ -1,4 +1,4 @@
-package io.github.eggy03.ferrumx.windows.entity.battery;
+package io.github.eggy03.ferrumx.windows.entity.peripheral;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

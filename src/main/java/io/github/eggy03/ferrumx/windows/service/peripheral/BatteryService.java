@@ -1,10 +1,10 @@
-package io.github.eggy03.ferrumx.windows.service.battery;
+package io.github.eggy03.ferrumx.windows.service.peripheral;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
-import io.github.eggy03.ferrumx.windows.entity.battery.Battery;
-import io.github.eggy03.ferrumx.windows.mapping.battery.BatteryMapper;
+import io.github.eggy03.ferrumx.windows.entity.peripheral.Battery;
+import io.github.eggy03.ferrumx.windows.mapping.peripheral.BatteryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
