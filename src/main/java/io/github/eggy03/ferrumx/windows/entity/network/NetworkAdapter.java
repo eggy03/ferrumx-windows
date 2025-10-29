@@ -1,6 +1,5 @@
 package io.github.eggy03.ferrumx.windows.entity.network;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
@@ -8,7 +7,7 @@ import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Immutable representation of a network adapter on a Windows system.
+ * Immutable legacy representation of a network adapter on a Windows system.
  * <p>
  * Fields correspond to properties retrieved from the {@code Win32_NetworkAdapter} WMI class.
  * </p>
@@ -86,7 +85,10 @@ public class NetworkAdapter {
 
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(this);
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
     }
 }

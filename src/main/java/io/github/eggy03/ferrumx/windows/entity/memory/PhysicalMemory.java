@@ -1,5 +1,5 @@
 package io.github.eggy03.ferrumx.windows.entity.memory;
-import com.google.gson.Gson;
+
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
@@ -95,7 +95,10 @@ public class PhysicalMemory {
 
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(this);
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
     }
 }

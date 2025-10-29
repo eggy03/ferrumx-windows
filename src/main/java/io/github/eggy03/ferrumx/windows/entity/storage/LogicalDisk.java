@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of a <b>Logical</b> disk volume on a Windows system.
@@ -43,44 +44,60 @@ import lombok.Value;
 public class LogicalDisk {
 
     @SerializedName("DeviceID")
+    @Nullable
     String deviceId;
 
     @SerializedName("Description")
+    @Nullable
     String description;
 
     @SerializedName("DriveType")
+    @Nullable
     Integer driveType;
 
     @SerializedName("MediaType")
+    @Nullable
     Integer mediaType;
 
     @SerializedName("FileSystem")
+    @Nullable
     String fileSystem;
 
     @SerializedName("Size")
+    @Nullable
     Long size;
 
     @SerializedName("FreeSpace")
+    @Nullable
     Long freeSpace;
 
     @SerializedName("Compressed")
+    @Nullable
     Boolean isCompressed;
 
     @SerializedName("SupportsFileBasedCompression")
+    @Nullable
     Boolean supportsFileBasedCompression;
 
     @SerializedName("SupportsDiskQuotas")
+    @Nullable
     Boolean supportsDiskQuotas;
 
     @SerializedName("VolumeName")
+    @Nullable
     String volumeName;
 
     @SerializedName("VolumeSerialNumber")
+    @Nullable
     String volumeSerialNumber;
 
     @Override
     public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
     }
 
 }

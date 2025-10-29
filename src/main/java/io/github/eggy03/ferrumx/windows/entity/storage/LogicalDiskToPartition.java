@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of a {@link DiskPartition} association with {@link LogicalDisk}.
@@ -56,13 +57,19 @@ import lombok.Value;
 public class LogicalDiskToPartition {
 
     @SerializedName("DiskPartitionDeviceID")
+    @Nullable
     String diskPartitionDeviceId;
 
     @SerializedName("LogicalDiskDeviceID")
+    @Nullable
     String logicalDiskDeviceId;
 
     @Override
     public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
     }
 }

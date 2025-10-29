@@ -1,10 +1,10 @@
 package io.github.eggy03.ferrumx.windows.entity.product;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of a computer product on a Windows system.
@@ -46,32 +46,43 @@ import lombok.Value;
 public class ComputerSystemProduct {
 
     @SerializedName("Caption")
+    @Nullable
     String caption;
 
     @SerializedName("Description")
+    @Nullable
     String description;
 
     @SerializedName("IdentifyingNumber")
+    @Nullable
     String identifyingNumber;
 
     @SerializedName("Name")
+    @Nullable
     String name;
 
     @SerializedName("SKUNumber")
+    @Nullable
     String skuNumber;
 
     @SerializedName("Vendor")
+    @Nullable
     String vendor;
 
     @SerializedName("Version")
+    @Nullable
     String version;
 
     @SerializedName("UUID")
+    @Nullable
     String uuid;
 
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(this);
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
     }
 }

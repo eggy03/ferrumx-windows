@@ -1,6 +1,5 @@
 package io.github.eggy03.ferrumx.windows.entity.processor;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import io.github.eggy03.ferrumx.windows.constant.CimQuery;
@@ -68,7 +67,10 @@ public class AssociatedProcessorMemory {
 
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(this);
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
     }
 }
