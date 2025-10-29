@@ -98,6 +98,13 @@ public enum CimQuery {
     NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ NetworkAdapterDeviceID = $_.Element.DeviceID; NetworkAdapterConfigurationIndex = $_.Setting.Index } } | ConvertTo-Json"),
 
     /**
+     * Query to fetch the properties of the {@code MSFT_NetAdapter} class
+     * <p>Will not show hidden physical or logical network adapters unless explicitly stated</p>
+     * @since 2.3.0
+     */
+    MSFT_NET_ADAPTER_QUERY("Get-NetAdapter | Select-Object * | ConvertTo-Json"),
+
+    /**
      * Query to fetch the properties of {@code Win32_OperatingSystem} class
      * @since 2.0.0
      */
