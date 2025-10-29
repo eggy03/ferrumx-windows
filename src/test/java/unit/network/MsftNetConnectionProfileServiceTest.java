@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.entity.network.MsftNetAdapter;
-import io.github.eggy03.ferrumx.windows.service.network.MsftNetAdapterService;
+import io.github.eggy03.ferrumx.windows.entity.network.MsftNetConnectionProfile;
+import io.github.eggy03.ferrumx.windows.service.network.MsftNetConnectionProfileService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,39 +24,37 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
-class MsftNetAdapterServiceTest {
+class MsftNetConnectionProfileServiceTest {
 
-    private MsftNetAdapterService msftAdapterService;
+    private MsftNetConnectionProfileService msftNetConnectionProfileService;
 
     private static String json;
 
     @BeforeAll
     static void setupJson() {
-        JsonArray adapters = new JsonArray();
+        JsonArray profiles = new JsonArray();
 
         JsonObject ethernet = new JsonObject();
-        ethernet.addProperty("DeviceID", "1");
         ethernet.addProperty("InterfaceIndex", 1);
-        ethernet.addProperty("InterfaceName", "Ethernet Adapter");
-        ethernet.addProperty("LinkLayerAddress", "00-14-22-01-23-45");
-        ethernet.addProperty("LinkSpeed", "1 Gbps");
+        ethernet.addProperty("NetworkCategory", 0);
+        ethernet.addProperty("IPv4Connectivity", 4);
+        ethernet.addProperty("IPv6Connectivity", 1);
 
         JsonObject wifi = new JsonObject();
-        wifi.addProperty("DeviceID", "2");
         wifi.addProperty("InterfaceIndex", 2);
-        wifi.addProperty("InterfaceName", "Wi-Fi Adapter");
-        wifi.addProperty("LinkLayerAddress", "00-16-36-FF-EE-11");
-        wifi.addProperty("LinkSpeed", "300 Mbps");
+        wifi.addProperty("NetworkCategory", 1);
+        wifi.addProperty("IPv4Connectivity", 1);
+        wifi.addProperty("IPv6Connectivity", 4);
 
-        adapters.add(ethernet);
-        adapters.add(wifi);
+        profiles.add(ethernet);
+        profiles.add(wifi);
 
-        json = new Gson().toJson(adapters);
+        json = new Gson().toJson(profiles);
     }
 
     @BeforeEach
     void setUp() {
-        msftAdapterService = new MsftNetAdapterService();
+        msftNetConnectionProfileService = new MsftNetConnectionProfileService();
     }
 
     @Test
@@ -68,12 +66,17 @@ class MsftNetAdapterServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetAdapter> adapters = msftAdapterService.get();
-            assertFalse(adapters.isEmpty());
-            assertEquals("1", adapters.get(0).getDeviceId());
-            assertEquals("Ethernet Adapter", adapters.get(0).getInterfaceName());
-            assertEquals("2", adapters.get(1).getDeviceId());
-            assertEquals("Wi-Fi Adapter", adapters.get(1).getInterfaceName());
+            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get();
+            assertFalse(profiles.isEmpty());
+            assertEquals(1, profiles.get(0).getInterfaceIndex());
+            assertEquals(0, profiles.get(0).getNetworkCategory());
+            assertEquals(4, profiles.get(0).getIpv4Connectivity());
+            assertEquals(1, profiles.get(0).getIpv6Connectivity());
+
+            assertEquals(2, profiles.get(1).getInterfaceIndex());
+            assertEquals(1, profiles.get(1).getNetworkCategory());
+            assertEquals(1, profiles.get(1).getIpv4Connectivity());
+            assertEquals(4, profiles.get(1).getIpv6Connectivity());
         }
     }
 
@@ -85,8 +88,8 @@ class MsftNetAdapterServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetAdapter> adapters = msftAdapterService.get();
-            assertTrue(adapters.isEmpty());
+            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get();
+            assertTrue(profiles.isEmpty());
         }
     }
 
@@ -98,7 +101,7 @@ class MsftNetAdapterServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> msftAdapterService.get());
+            assertThrows(JsonSyntaxException.class, () -> msftNetConnectionProfileService.get());
         }
     }
 
@@ -111,12 +114,17 @@ class MsftNetAdapterServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetAdapter> adapters = msftAdapterService.get(mockShell);
-            assertFalse(adapters.isEmpty());
-            assertEquals("1", adapters.get(0).getDeviceId());
-            assertEquals("Ethernet Adapter", adapters.get(0).getInterfaceName());
-            assertEquals("2", adapters.get(1).getDeviceId());
-            assertEquals("Wi-Fi Adapter", adapters.get(1).getInterfaceName());
+            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get(mockShell);
+            assertFalse(profiles.isEmpty());
+            assertEquals(1, profiles.get(0).getInterfaceIndex());
+            assertEquals(0, profiles.get(0).getNetworkCategory());
+            assertEquals(4, profiles.get(0).getIpv4Connectivity());
+            assertEquals(1, profiles.get(0).getIpv6Connectivity());
+
+            assertEquals(2, profiles.get(1).getInterfaceIndex());
+            assertEquals(1, profiles.get(1).getNetworkCategory());
+            assertEquals(1, profiles.get(1).getIpv4Connectivity());
+            assertEquals(4, profiles.get(1).getIpv6Connectivity());
         }
     }
 
@@ -128,8 +136,8 @@ class MsftNetAdapterServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetAdapter> adapters = msftAdapterService.get(mockShell);
-            assertTrue(adapters.isEmpty());
+            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get(mockShell);
+            assertTrue(profiles.isEmpty());
         }
     }
 
@@ -141,7 +149,7 @@ class MsftNetAdapterServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> msftAdapterService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> msftNetConnectionProfileService.get(mockShell));
         }
     }
 }

@@ -9,12 +9,19 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Immutable modern representation of a network adapter on a Windows system.
  * <p>
- * Fields correspond to properties retrieved from the {@code MSFT_NetAdapter} class in the
- * {@code root/StandardCimv2} namespace. This class is a modern replacement for the now deprecated
- * {@code Win32_NetworkAdapter} WMI class in the {@code root/cimv2} namespace.
+ *      Fields correspond to properties retrieved from the {@code MSFT_NetAdapter} class in the
+ *      {@code root/StandardCimv2} namespace. This class is a modern replacement for the now deprecated
+ *      {@code Win32_NetworkAdapter} WMI class in the {@code root/cimv2} namespace.
  * </p>
- * <p>However, the {@link NetworkAdapter} class which represents {@code Win32_NetworkAdapter},
- * will remain accessible for backwards compatibility will not be marked as deprecated by the library at this time.
+ * <p>
+ *     However, the {@link NetworkAdapter} class which represents {@code Win32_NetworkAdapter},
+ *     will remain accessible for backwards compatibility will not be marked as deprecated by the library at this time.
+ * </p>
+ * <p>
+ *     Unlike {@link NetworkAdapter} which stores it's configuration in {@link NetworkAdapterConfiguration} and
+ *     requires {@link NetworkAdapterSetting} to establish an association between them, {@link MsftNetAdapter} stores configuration
+ *     inside {@link MsftNetIpAddress}, {@link MsftDnsClientServerAddress} and {@link MsftNetConnectionProfile}
+ *     and all of them are directly linked via the {@code interfaceIndex} field.
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *
@@ -22,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * <pre>{@code
  * MsftNetAdapter adapter = MsftNetAdapter.builder()
  *     .interfaceName("Ethernet1")
- *     .macAddress("00:1A:2B:3C:4D:5E")
+ *     .linkLayerAddress("00:1A:2B:3C:4D:5E")
  *     .linkSpeed("1Gbps)
  *     .build();
  *
@@ -32,8 +39,11 @@ import org.jetbrains.annotations.Nullable;
  *     .build();
  * }</pre>
  *
- * See {@link NetworkAdapter}, the now deprecated equivalent WMI class.
- * @see <a href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/legacy/hh968170(v=vs.85)">MSFT_NetAdapter Documentation</a>
+ * <p>See {@link NetworkAdapter}, the now deprecated equivalent WMI class.</p>
+ * <p>See {@link MsftNetIpAddress}, for IP address configuration information of a network adapter.</p>
+ * <p>See {@link MsftNetConnectionProfile}, for information regarding the current profile of a network adapter.</p>
+ * <p>See {@link MsftDnsClientServerAddress}, for configuration information regarding the DNS servers of a network adapter.</p>
+ * @see <a href="https://learn.microsoft.com/en-us/windows/win32/fwp/wmi/netadaptercimprov/msft-netadapter">MSFT_NetAdapter Documentation</a>
  * @since 2.3.0
  * @author Egg-03
  */
@@ -51,7 +61,7 @@ public class MsftNetAdapter {
 
     @SerializedName("InterfaceIndex")
     @Nullable
-    Integer interfaceIndex;
+    Long interfaceIndex;
 
     @SerializedName("InterfaceName")
     @Nullable
@@ -59,7 +69,7 @@ public class MsftNetAdapter {
 
     @SerializedName("InterfaceType")
     @Nullable
-    Integer interfaceType;
+    Long interfaceType;
 
     @SerializedName("InterfaceDescription")
     @Nullable
@@ -71,7 +81,7 @@ public class MsftNetAdapter {
 
     @SerializedName("InterfaceOperationalStatus")
     @Nullable
-    Integer interfaceOperationalStatus;
+    Long interfaceOperationalStatus;
 
     @SerializedName("Virtual")
     @Nullable
@@ -89,9 +99,9 @@ public class MsftNetAdapter {
     @Nullable
     String status;
 
-    @SerializedName("MacAddress")
+    @SerializedName("LinkLayerAddress")
     @Nullable
-    String macAddress;
+    String linkLayerAddress;
 
     @SerializedName("LinkSpeed")
     @Nullable
@@ -99,11 +109,11 @@ public class MsftNetAdapter {
 
     @SerializedName("ReceiveLinkSpeed")
     @Nullable
-    String receiveLinkSpeedRaw;
+    Long receiveLinkSpeedRaw;
 
     @SerializedName("TransmitLinkSpeed")
     @Nullable
-    String transmitLinkSpeedRaw;
+    Long transmitLinkSpeedRaw;
 
     @SerializedName("DriverName")
     @Nullable
@@ -119,11 +129,11 @@ public class MsftNetAdapter {
 
     @SerializedName("MtuSize")
     @Nullable
-    Integer mtuSize;
+    Long mtuSize;
 
     @SerializedName("MediaConnectionState")
     @Nullable
-    Integer mediaConnectionState;
+    Long mediaConnectionState;
 
     @SerializedName("MediaType")
     @Nullable
