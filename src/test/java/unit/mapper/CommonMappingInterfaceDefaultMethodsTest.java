@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import io.github.eggy03.ferrumx.windows.entity.processor.Processor;
+import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import io.github.eggy03.ferrumx.windows.mapping.CommonMappingInterface;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CommonMappingInterfaceDefaultMethodsTest {
 
-    private static CommonMappingInterface<Processor> mapper;
+    private static CommonMappingInterface<Win32Processor> mapper;
 
     @BeforeAll
     static void setProcessorCommonMappingInterface(){
-        mapper = new CommonMappingInterface<Processor>() {};
+        mapper = new CommonMappingInterface<Win32Processor>() {};
     }
 
     @Test
@@ -35,7 +35,7 @@ class CommonMappingInterfaceDefaultMethodsTest {
 
         String jsonProcessor = new Gson().toJson(processorObject);
 
-        Optional<Processor> processor = mapper.mapToObject(jsonProcessor, Processor.class);
+        Optional<Win32Processor> processor = mapper.mapToObject(jsonProcessor, Win32Processor.class);
         assertTrue(processor.isPresent());
         assertEquals("CPU0", processor.get().getDeviceId());
         assertEquals("Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz", processor.get().getName());
@@ -45,14 +45,14 @@ class CommonMappingInterfaceDefaultMethodsTest {
     void testMapToObject_invalidJson_throwsException() {
 
         String json = "invalid json";
-        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToObject(json, Processor.class));
+        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToObject(json, Win32Processor.class));
 
     }
 
     @Test
     void testMapToObject_emptyJson_optionalNotPresent() {
         String json = "";
-        Optional<Processor> processorObject = mapper.mapToObject(json, Processor.class);
+        Optional<Win32Processor> processorObject = mapper.mapToObject(json, Win32Processor.class);
         assertFalse(processorObject.isPresent());
     }
 
@@ -74,7 +74,7 @@ class CommonMappingInterfaceDefaultMethodsTest {
 
         String jsonArrayProcessor = new Gson().toJson(processorArrayObject);
 
-        List<Processor> processors = mapper.mapToList(jsonArrayProcessor, Processor.class);
+        List<Win32Processor> processors = mapper.mapToList(jsonArrayProcessor, Win32Processor.class);
         assertEquals(2, processors.size());
         assertEquals("CPU0", processors.get(0).getDeviceId());
         assertEquals("Intel(R) Core(TM) i5-14700H CPU @ 2.30GHz", processors.get(0).getName());
@@ -92,7 +92,7 @@ class CommonMappingInterfaceDefaultMethodsTest {
 
         String jsonProcessor = new Gson().toJson(processorObject);
 
-        List<Processor> processors = mapper.mapToList(jsonProcessor, Processor.class);
+        List<Win32Processor> processors = mapper.mapToList(jsonProcessor, Win32Processor.class);
         assertEquals(1, processors.size());
         assertEquals("CPU0", processors.get(0).getDeviceId());
         assertEquals("Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz", processors.get(0).getName());
@@ -102,14 +102,14 @@ class CommonMappingInterfaceDefaultMethodsTest {
     void testMapToList_invalidJson_throwsException() {
 
         String json = "invalid json";
-        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToList(json, Processor.class));
+        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToList(json, Win32Processor.class));
 
     }
 
     @Test
     void testMapToList_emptyJson_emptyList() {
         String json = "";
-        List<Processor> processorList = mapper.mapToList(json, Processor.class);
+        List<Win32Processor> processorList = mapper.mapToList(json, Win32Processor.class);
         assertTrue(processorList.isEmpty());
     }
 }

@@ -14,12 +14,12 @@ import org.jetbrains.annotations.Nullable;
  *      {@code Win32_NetworkAdapter} WMI class in the {@code root/cimv2} namespace.
  * </p>
  * <p>
- *     However, the {@link NetworkAdapter} class which represents {@code Win32_NetworkAdapter},
+ *     However, the {@link Win32NetworkAdapter} class which represents {@code Win32_NetworkAdapter},
  *     will remain accessible for backwards compatibility will not be marked as deprecated by the library at this time.
  * </p>
  * <p>
- *     Unlike {@link NetworkAdapter} which stores it's configuration in {@link NetworkAdapterConfiguration} and
- *     requires {@link NetworkAdapterSetting} to establish an association between them, {@link MsftNetAdapter} stores configuration
+ *     Unlike {@link Win32NetworkAdapter} which stores it's configuration in {@link Win32NetworkAdapterConfiguration} and
+ *     requires {@link Win32NetworkAdapterSetting} to establish an association between them, {@link MsftNetAdapter} stores configuration
  *     inside {@link MsftNetIpAddress}, {@link MsftDnsClientServerAddress} and {@link MsftNetConnectionProfile}
  *     and all of them are directly linked via the {@code interfaceIndex} field.
  * </p>
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
  *     .build();
  * }</pre>
  *
- * <p>See {@link NetworkAdapter}, the now deprecated equivalent WMI class.</p>
+ * <p>See {@link Win32NetworkAdapter}, the now deprecated equivalent WMI class.</p>
  * <p>See {@link MsftNetIpAddress}, for IP address configuration information of a network adapter.</p>
  * <p>See {@link MsftNetConnectionProfile}, for information regarding the current profile of a network adapter.</p>
  * <p>See {@link MsftDnsClientServerAddress}, for configuration information regarding the DNS servers of a network adapter.</p>

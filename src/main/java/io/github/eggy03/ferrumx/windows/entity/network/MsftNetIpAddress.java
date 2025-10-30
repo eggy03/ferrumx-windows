@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * </p>
  * <p>
  *     Together, with {@link MsftDnsClientServerAddress}, this class aims to be a
- *     replacement for {@link NetworkAdapterConfiguration}
+ *     replacement for {@link Win32NetworkAdapterConfiguration}
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *

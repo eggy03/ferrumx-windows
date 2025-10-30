@@ -16,7 +16,7 @@ import java.util.List;
  * </p>
  * <p>
  *     Together, with {@link MsftNetIpAddress}, this class aims to be
- *     a replacement for {@link NetworkAdapterConfiguration}
+ *     a replacement for {@link Win32NetworkAdapterConfiguration}
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *
