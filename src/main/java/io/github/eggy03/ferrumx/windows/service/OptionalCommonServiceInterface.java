@@ -8,6 +8,10 @@ import java.util.Optional;
 /**
  * Common service interface whose method implementations provide a way to fetch WMI data from Powershell
  * in the form of {@link Optional}
+ * <p>
+ *     Useful for implementing services of classes which return exactly one instance
+ *     such as the {@code Win32_ComputerSystem} WMI class
+ * </p>
  * @param <S> the entity type returned by the service implementation
  * @author Egg-03
  * @since 2.2.0

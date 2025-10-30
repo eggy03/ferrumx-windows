@@ -8,6 +8,10 @@ import java.util.List;
 /**
  * Common service interface whose method implementations provide a way to fetch WMI data from Powershell
  * in the form of a {@link List}
+ * <p>
+ *     Useful for implementing services of classes which return more than one instance
+ *     such as the {@code Win32_NetworkAdapter} WMI class
+ * </p>
  * @param <S> the entity type returned by the service implementation
  * @author Egg-03
  * @since 2.2.0

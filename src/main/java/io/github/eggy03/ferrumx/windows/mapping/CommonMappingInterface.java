@@ -30,8 +30,12 @@ public interface CommonMappingInterface<S> {
     /**
      * Converts a JSON string into a list of objects of the specified type {@code <S>}.
      * <p>
-     * If the JSON represents a single object, it is returned as a singleton list.
-     * If the JSON is null or empty, returns an empty list.
+     *      If the JSON represents a single object, it is returned as a singleton list.
+     *      If the JSON is null or empty, returns an empty list.
+     * </p>
+     * <p>
+     *     Useful for implementing the mappers of classes which return more than one instance
+     *     such as the {@code Win32_NetworkAdapter}
      * </p>
      *
      * @param json        the JSON string to parse; must not be null
@@ -56,7 +60,11 @@ public interface CommonMappingInterface<S> {
     /**
      * Converts a JSON string into an {@link Optional} object of the specified type {@code <S>}.
      * <p>
-     * Returns {@link Optional#empty()} if the JSON is null or cannot be parsed into an object.
+     *      Returns {@link Optional#empty()} if the JSON is null or cannot be parsed into an object.
+     * </p>
+     * <p>
+     *     Useful for implementing the mappers classes which return exactly one instance
+     *     such as the {@code Win32_ComputerSystem} WMI class
      * </p>
      *
      * @param json        the JSON string to parse; must not be null
