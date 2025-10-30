@@ -1,12 +1,12 @@
-package unit.service.product;
+package unit.service.system;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.entity.product.Win32ComputerSystemProduct;
-import io.github.eggy03.ferrumx.windows.service.product.Win32ComputerSystemProductService;
+import io.github.eggy03.ferrumx.windows.entity.system.Win32ComputerSystem;
+import io.github.eggy03.ferrumx.windows.service.system.Win32ComputerSystemService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,46 +23,41 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
-class Win32ComputerSystemProductServiceTest {
+class Win32ComputerSystemServiceTest {
 
-    private Win32ComputerSystemProductService productService;
+    private Win32ComputerSystemService systemService;
 
-    private static String jsonProduct;
+    private static String json;
 
     @BeforeAll
     static void setupJson() {
-        JsonObject product = new JsonObject();
-        product.addProperty("Caption", "Computer System Product");
-        product.addProperty("Description", "Some workstation");
-        product.addProperty("IdentifyingNumber", "12345-67890");
-        product.addProperty("Name", "MyPC");
-        product.addProperty("SKUNumber", "SKU-001");
-        product.addProperty("Vendor", "Dell");
-        product.addProperty("Version", "1.0");
-        product.addProperty("UUID", "550e8400-e29b-41d4-a716-446655440000");
+        JsonObject systemObject = new JsonObject();
+        systemObject.addProperty("Caption", "Computer System");
+        systemObject.addProperty("Description", "Some workstation");
+        systemObject.addProperty("Name", "MyPC");
 
-        jsonProduct = new Gson().toJson(product);
+        json = new Gson().toJson(systemObject);
     }
 
     @BeforeEach
     void setUp() {
-        productService = new Win32ComputerSystemProductService();
+        systemService = new Win32ComputerSystemService();
     }
 
     @Test
     void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonProduct);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystemProduct> product = productService.get();
-            assertTrue(product.isPresent());
-            assertEquals("MyPC", product.get().getName());
-            assertEquals("Dell", product.get().getVendor());
-            assertEquals("SKU-001", product.get().getSkuNumber());
+            Optional<Win32ComputerSystem> system = systemService.get();
+            assertTrue(system.isPresent());
+            assertEquals("MyPC", system.get().getName());
+            assertEquals("Computer System", system.get().getCaption());
+            assertEquals("Some workstation", system.get().getDescription());
         }
     }
 
@@ -74,8 +69,8 @@ class Win32ComputerSystemProductServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystemProduct> product = productService.get();
-            assertFalse(product.isPresent());
+            Optional<Win32ComputerSystem> system = systemService.get();
+            assertFalse(system.isPresent());
         }
     }
 
@@ -87,7 +82,7 @@ class Win32ComputerSystemProductServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> productService.get());
+            assertThrows(JsonSyntaxException.class, () -> systemService.get());
         }
     }
 
@@ -95,16 +90,16 @@ class Win32ComputerSystemProductServiceTest {
     void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonProduct);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystemProduct> product = productService.get(mockShell);
-            assertTrue(product.isPresent());
-            assertEquals("MyPC", product.get().getName());
-            assertEquals("Dell", product.get().getVendor());
-            assertEquals("SKU-001", product.get().getSkuNumber());
+            Optional<Win32ComputerSystem> system = systemService.get(mockShell);
+            assertTrue(system.isPresent());
+            assertEquals("MyPC", system.get().getName());
+            assertEquals("Computer System", system.get().getCaption());
+            assertEquals("Some workstation", system.get().getDescription());
         }
     }
 
@@ -116,8 +111,8 @@ class Win32ComputerSystemProductServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystemProduct> product = productService.get(mockShell);
-            assertFalse(product.isPresent());
+            Optional<Win32ComputerSystem> system = systemService.get(mockShell);
+            assertFalse(system.isPresent());
         }
     }
 
@@ -129,7 +124,7 @@ class Win32ComputerSystemProductServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> productService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> systemService.get(mockShell));
         }
     }
 }

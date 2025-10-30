@@ -134,10 +134,10 @@ public enum Cimv2Namespace {
     LOGICAL_DISK_TO_PARTITION_QUERY("Get-CimInstance Win32_LogicalDiskToPartition | ForEach-Object { [PSCustomObject]@{ DiskPartitionDeviceID = $_.Antecedent.DeviceID; LogicalDiskDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
     /**
-     * Query to fetch the properties of {@code Win32_ComputerSystemProduct} class
-     * @since 2.0.0
+     * Query to fetch the properties of {@code Win32_ComputerSystem} class
+     * @since 3.0.0
      */
-    COMPUTER_SYSTEM_PRODUCT("Get-CimInstance -ClassName Win32_ComputerSystemProduct | Select-Object * | ConvertTo-Json");
+    COMPUTER_SYSTEM("Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object * | ConvertTo-Json");
 
     private final String query;
 }
