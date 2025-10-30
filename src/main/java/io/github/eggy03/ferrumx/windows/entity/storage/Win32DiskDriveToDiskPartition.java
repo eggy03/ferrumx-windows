@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.entity.storage;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import lombok.Builder;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * </p>
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
- *     {@link CimQuery#DISK_DRIVE_TO_DISK_PARTITION_QUERY} constructs a custom {@code PSObject}
+ *     {@link Cimv2Namespace#DISK_DRIVE_TO_DISK_PARTITION_QUERY} constructs a custom {@code PSObject}
  *     that maps {@code Antecedent.DeviceID} to {@code diskDriveDeviceId} and {@code Dependent.DeviceID} to {@code diskPartitionDeviceId}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>

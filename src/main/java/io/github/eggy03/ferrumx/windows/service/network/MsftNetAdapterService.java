@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.network;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.StandardCimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetAdapter;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetAdapterMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching network adapter information from the system.
  * <p>
- * This class executes the {@link CimQuery#MSFT_NET_ADAPTER_QUERY} PowerShell command
+ * This class executes the {@link StandardCimv2Namespace#MSFT_NET_ADAPTER_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link MsftNetAdapter} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
     @NotNull
     @Override
     public List<MsftNetAdapter> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MSFT_NET_ADAPTER_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_ADAPTER_QUERY.getQuery());
         return new MsftNetAdapterMapper().mapToList(response.getCommandOutput(), MsftNetAdapter.class);
     }
 
@@ -67,7 +67,7 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
     @NotNull
     @Override
     public List<MsftNetAdapter> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.MSFT_NET_ADAPTER_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_ADAPTER_QUERY.getQuery());
         return new MsftNetAdapterMapper().mapToList(response.getCommandOutput(), MsftNetAdapter.class);
     }
 }

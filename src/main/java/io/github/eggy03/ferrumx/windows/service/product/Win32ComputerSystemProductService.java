@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.product;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.product.Win32ComputerSystemProduct;
 import io.github.eggy03.ferrumx.windows.mapping.product.Win32ComputerSystemProductMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Service class for fetching the system product information.
  * <p>
- * This class executes the {@link CimQuery#COMPUTER_SYSTEM_PRODUCT} PowerShell command
+ * This class executes the {@link Cimv2Namespace#COMPUTER_SYSTEM_PRODUCT} PowerShell command
  * and maps the resulting JSON into an {@link Optional} {@link Win32ComputerSystemProduct} object.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32ComputerSystemProductService implements OptionalCommonServiceI
     @Override
     public Optional<Win32ComputerSystemProduct> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.COMPUTER_SYSTEM_PRODUCT.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.COMPUTER_SYSTEM_PRODUCT.getQuery());
         return new Win32ComputerSystemProductMapper().mapToObject(response.getCommandOutput(), Win32ComputerSystemProduct.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32ComputerSystemProductService implements OptionalCommonServiceI
     @Override
     public Optional<Win32ComputerSystemProduct> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.COMPUTER_SYSTEM_PRODUCT.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.COMPUTER_SYSTEM_PRODUCT.getQuery());
         return new Win32ComputerSystemProductMapper().mapToObject(response.getCommandOutput(), Win32ComputerSystemProduct.class);
     }
 }

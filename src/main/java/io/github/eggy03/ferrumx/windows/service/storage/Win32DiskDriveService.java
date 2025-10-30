@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.storage;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskDrive;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32DiskDriveMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching information about disk drives.
  * <p>
- * This class executes the {@link CimQuery#DISK_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#DISK_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32DiskDrive} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
     @Override
     public List<Win32DiskDrive> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.DISK_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.DISK_QUERY.getQuery());
         return new Win32DiskDriveMapper().mapToList(response.getCommandOutput(), Win32DiskDrive.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
     @Override
     public List<Win32DiskDrive> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.DISK_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.DISK_QUERY.getQuery());
         return new Win32DiskDriveMapper().mapToList(response.getCommandOutput(), Win32DiskDrive.class);
     }
 }

@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.network;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.StandardCimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftDnsClientServerAddress;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftDnsClientServerAddressMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching DNS Client and Server information for a network adapter.
  * <p>
- * This class executes the {@link CimQuery#MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY} PowerShell command
+ * This class executes the {@link StandardCimv2Namespace#MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link MsftDnsClientServerAddress} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
     @NotNull
     @Override
     public List<MsftDnsClientServerAddress> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
         return new MsftDnsClientServerAddressMapper().mapToList(response.getCommandOutput(), MsftDnsClientServerAddress.class);
     }
 
@@ -68,7 +68,7 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
     @NotNull
     @Override
     public List<MsftDnsClientServerAddress> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
         return new MsftDnsClientServerAddressMapper().mapToList(response.getCommandOutput(), MsftDnsClientServerAddress.class);
     }
 }

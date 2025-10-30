@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.memory;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.memory.Win32PhysicalMemory;
 import io.github.eggy03.ferrumx.windows.mapping.memory.Win32PhysicalMemoryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching information about physical memory modules (RAM) in the system.
  * <p>
- * This class executes the {@link CimQuery#PHYSICAL_MEMORY_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#PHYSICAL_MEMORY_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32PhysicalMemory} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32PhysicalMemoryService implements CommonServiceInterface<Win32P
     @Override
     public List<Win32PhysicalMemory> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.PHYSICAL_MEMORY_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.PHYSICAL_MEMORY_QUERY.getQuery());
         return new Win32PhysicalMemoryMapper().mapToList(response.getCommandOutput(), Win32PhysicalMemory.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32PhysicalMemoryService implements CommonServiceInterface<Win32P
     @Override
     public List<Win32PhysicalMemory> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.PHYSICAL_MEMORY_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.PHYSICAL_MEMORY_QUERY.getQuery());
         return new Win32PhysicalMemoryMapper().mapToList(response.getCommandOutput(), Win32PhysicalMemory.class);
     }
 

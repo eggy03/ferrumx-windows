@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.mainboard;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32Baseboard;
 import io.github.eggy03.ferrumx.windows.mapping.mainboard.Win32BaseboardMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Service class for fetching mainboard information from the system.
  * <p>
- * This class executes the {@link CimQuery#MAINBOARD_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#MAINBOARD_QUERY} PowerShell command
  * and maps the resulting JSON into a {@link Win32Baseboard} object.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32BaseboardService implements OptionalCommonServiceInterface<Win
     @NotNull
     @Override
     public Optional<Win32Baseboard> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MAINBOARD_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.MAINBOARD_QUERY.getQuery());
         return new Win32BaseboardMapper().mapToObject(response.getCommandOutput(), Win32Baseboard.class);
     }
 
@@ -67,7 +67,7 @@ public class Win32BaseboardService implements OptionalCommonServiceInterface<Win
     @NotNull
     @Override
     public Optional<Win32Baseboard> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.MAINBOARD_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.MAINBOARD_QUERY.getQuery());
         return new Win32BaseboardMapper().mapToObject(response.getCommandOutput(), Win32Baseboard.class);
     }
 }

@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.network;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.StandardCimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetIpAddress;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetIpAddressMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching the IPv4 and IPv6 configs for a network adapter.
  * <p>
- * This class executes the {@link CimQuery#MSFT_NET_IP_ADDRESS_QUERY} PowerShell command
+ * This class executes the {@link StandardCimv2Namespace#MSFT_NET_IP_ADDRESS_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link MsftNetIpAddress} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
     @NotNull
     @Override
     public List<MsftNetIpAddress> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
         return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(),MsftNetIpAddress.class);
     }
 
@@ -68,7 +68,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
     @NotNull
     @Override
     public List<MsftNetIpAddress> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
         return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(),MsftNetIpAddress.class);
     }
 }

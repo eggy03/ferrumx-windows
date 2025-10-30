@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.storage;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskPartition;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDisk;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDiskToPartition;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Service class for fetching the association between a {@link Win32DiskPartition}, and {@link Win32LogicalDisk} from the system.
  * <p>
- * This class executes the {@link CimQuery#LOGICAL_DISK_TO_PARTITION_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#LOGICAL_DISK_TO_PARTITION_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32LogicalDiskToPartition} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
     @NotNull
     @Override
     public List<Win32LogicalDiskToPartition> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
         return new Win32LogicalDiskToPartitionMapper().mapToList(response.getCommandOutput(), Win32LogicalDiskToPartition.class);
     }
 
@@ -71,7 +71,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
     @NotNull
     @Override
     public List<Win32LogicalDiskToPartition> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
         return new Win32LogicalDiskToPartitionMapper().mapToList(response.getCommandOutput(), Win32LogicalDiskToPartition.class);
     }
 }

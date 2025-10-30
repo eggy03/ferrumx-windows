@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.processor;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import io.github.eggy03.ferrumx.windows.mapping.processor.Win32ProcessorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching CPU information from the system.
  * <p>
- * This class executes the {@link CimQuery#PROCESSOR_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#PROCESSOR_QUERY} PowerShell command
  * and maps the resulting JSON into {@link Win32Processor} objects.
  * </p>
  *
@@ -52,7 +52,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
     @NotNull
     @Override
     public List<Win32Processor> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.PROCESSOR_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.PROCESSOR_QUERY.getQuery());
         return new Win32ProcessorMapper().mapToList(response.getCommandOutput(), Win32Processor.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
     @NotNull
     @Override
     public List<Win32Processor> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.PROCESSOR_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.PROCESSOR_QUERY.getQuery());
         return new Win32ProcessorMapper().mapToList(response.getCommandOutput(), Win32Processor.class);
     }
 }

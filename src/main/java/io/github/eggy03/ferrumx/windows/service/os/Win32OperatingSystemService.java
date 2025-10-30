@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.os;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.os.Win32OperatingSystem;
 import io.github.eggy03.ferrumx.windows.mapping.os.Win32OperatingSystemMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching operating system information from the system.
  * <p>
- * This class executes the {@link CimQuery#OPERATING_SYSTEM_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#OPERATING_SYSTEM_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32OperatingSystem} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     @Override
     public List<Win32OperatingSystem> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.OPERATING_SYSTEM_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.OPERATING_SYSTEM_QUERY.getQuery());
         return new Win32OperatingSystemMapper().mapToList(response.getCommandOutput(), Win32OperatingSystem.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     @Override
     public List<Win32OperatingSystem> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.OPERATING_SYSTEM_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.OPERATING_SYSTEM_QUERY.getQuery());
         return new Win32OperatingSystemMapper().mapToList(response.getCommandOutput(), Win32OperatingSystem.class);
     }
 }

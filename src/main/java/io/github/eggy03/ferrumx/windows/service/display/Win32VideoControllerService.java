@@ -3,7 +3,7 @@ package io.github.eggy03.ferrumx.windows.service.display;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.display.Win32VideoController;
 import io.github.eggy03.ferrumx.windows.mapping.display.Win32VideoControllerMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Service class for fetching video controller (GPU) information from the system.
  * <p>
- * This class executes the {@link CimQuery#VIDEO_CONTROLLER_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#VIDEO_CONTROLLER_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32VideoController} objects.
  * </p>
  *
@@ -55,7 +55,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
     @Override
     public List<Win32VideoController> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.VIDEO_CONTROLLER_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.VIDEO_CONTROLLER_QUERY.getQuery());
         return new Win32VideoControllerMapper().mapToList(response.getCommandOutput(), Win32VideoController.class);
     }
 
@@ -73,7 +73,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
     @Override
     public List<Win32VideoController> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.VIDEO_CONTROLLER_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.VIDEO_CONTROLLER_QUERY.getQuery());
         return new Win32VideoControllerMapper().mapToList(response.getCommandOutput(), Win32VideoController.class);
     }
 }

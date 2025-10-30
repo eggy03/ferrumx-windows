@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Enum representing the predefined WMI (CIM) queries used in the system.
+ * Enum representing the predefined WMI (CIM) queries for the classes available in the {@code root/cimv2} namespace.
  * <p>
- * Each constant holds a PowerShell query that queries a specific WMI class
+ * Each constant holds a PowerShell query that queries a specific class in the namespace
  * and returns the result in JSON format. These queries are typically executed
  * using {@link PowerShell} and mapped to
  * corresponding Java objects.
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public enum CimQuery {
+public enum Cimv2Namespace {
 
     /**
      * Query to fetch the properties of {@code Win32_Battery} class
@@ -96,31 +96,6 @@ public enum CimQuery {
      * @since 2.3.0
      */
     NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ NetworkAdapterDeviceID = $_.Element.DeviceID; NetworkAdapterConfigurationIndex = $_.Setting.Index } } | ConvertTo-Json"),
-
-    /**
-     * Query to fetch the properties of the {@code MSFT_NetAdapter} class
-     * <p>Will not show hidden physical or logical network adapters unless explicitly stated</p>
-     * @since 2.3.0
-     */
-    MSFT_NET_ADAPTER_QUERY("Get-NetAdapter | Select-Object * | ConvertTo-Json"),
-
-    /**
-     * Query to fetch the properties of the {@code MSFT_NetIPAddress} class
-     * @since 2.3.0
-     */
-    MSFT_NET_IP_ADDRESS_QUERY("Get-NetIPAddress | Select-Object * | ConvertTo-Json"),
-
-    /**
-     * Query to fetch the properties of the {@code MSFT_NetDNSClientServerAddress} class
-     * @since 2.3.0
-     */
-    MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY("Get-DNSClientServerAddress | Select-Object * | ConvertTo-Json"),
-
-    /**
-     * Query to fetch the properties of the {@code MSFT_NetConnectionProfile} class
-     * @since 2.3.0
-     */
-    MSFT_NET_CONNECTION_PROFILE_QUERY("Get-NetConnectionProfile | Select-Object * | ConvertTo-Json"),
 
     /**
      * Query to fetch the properties of {@code Win32_OperatingSystem} class

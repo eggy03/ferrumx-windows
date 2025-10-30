@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.network;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.StandardCimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetConnectionProfile;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetConnectionProfileMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching the connection profile for a network adapter.
  * <p>
- * This class executes the {@link CimQuery#MSFT_NET_CONNECTION_PROFILE_QUERY} PowerShell command
+ * This class executes the {@link StandardCimv2Namespace#MSFT_NET_CONNECTION_PROFILE_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link MsftNetConnectionProfile} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
     @NotNull
     @Override
     public List<MsftNetConnectionProfile> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.MSFT_NET_CONNECTION_PROFILE_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_CONNECTION_PROFILE_QUERY.getQuery());
         return new MsftNetConnectionProfileMapper().mapToList(response.getCommandOutput(), MsftNetConnectionProfile.class);
     }
 
@@ -68,7 +68,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
     @NotNull
     @Override
     public List<MsftNetConnectionProfile> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.MSFT_NET_CONNECTION_PROFILE_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_CONNECTION_PROFILE_QUERY.getQuery());
         return new MsftNetConnectionProfileMapper().mapToList(response.getCommandOutput(), MsftNetConnectionProfile.class);
     }
 }

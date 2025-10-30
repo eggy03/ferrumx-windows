@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.entity.processor;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import lombok.Builder;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * </p>
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
- *     {@link CimQuery#ASSOCIATED_PROCESSOR_MEMORY_QUERY} constructs a custom {@code PSObject}
+ *     {@link Cimv2Namespace#ASSOCIATED_PROCESSOR_MEMORY_QUERY} constructs a custom {@code PSObject}
  *     that maps {@code Antecedent.DeviceID} to {@code cacheMemoryDeviceId} and {@code Dependent.DeviceID} to {@code processorDeviceId}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>

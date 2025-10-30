@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.mainboard;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32Bios;
 import io.github.eggy03.ferrumx.windows.mapping.mainboard.Win32BiosMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching BIOS information from the system.
  * <p>
- * This class executes the {@link CimQuery#BIOS_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#BIOS_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32Bios} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
     @NotNull
     @Override
     public List<Win32Bios> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.BIOS_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.BIOS_QUERY.getQuery());
         return new Win32BiosMapper().mapToList(response.getCommandOutput(), Win32Bios.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
     @NotNull
     @Override
     public List<Win32Bios> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.BIOS_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.BIOS_QUERY.getQuery());
         return new Win32BiosMapper().mapToList(response.getCommandOutput(), Win32Bios.class);
     }
 }

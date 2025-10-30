@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.network;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapter;
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterConfiguration;
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterSetting;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Service class for fetching the association between a Network Adapter, and it's Configuration from the system.
  * <p>
- * This class executes the {@link CimQuery#NETWORK_ADAPTER_SETTING_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#NETWORK_ADAPTER_SETTING_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32NetworkAdapterSetting} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      */
     @Override
     public List<Win32NetworkAdapterSetting> get() {
-        PowerShellResponse powerShellResponse = PowerShell.executeSingleCommand(CimQuery.NETWORK_ADAPTER_SETTING_QUERY.getQuery());
+        PowerShellResponse powerShellResponse = PowerShell.executeSingleCommand(Cimv2Namespace.NETWORK_ADAPTER_SETTING_QUERY.getQuery());
         return new Win32NetworkAdapterSettingMapper().mapToList(powerShellResponse.getCommandOutput(), Win32NetworkAdapterSetting.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      */
     @Override
     public List<Win32NetworkAdapterSetting> get(PowerShell powerShell) {
-        PowerShellResponse powerShellResponse = powerShell.executeCommand(CimQuery.NETWORK_ADAPTER_SETTING_QUERY.getQuery());
+        PowerShellResponse powerShellResponse = powerShell.executeCommand(Cimv2Namespace.NETWORK_ADAPTER_SETTING_QUERY.getQuery());
         return new Win32NetworkAdapterSettingMapper().mapToList(powerShellResponse.getCommandOutput(), Win32NetworkAdapterSetting.class);
     }
 }

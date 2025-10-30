@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.peripheral;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.CimQuery;
+import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Battery;
 import io.github.eggy03.ferrumx.windows.mapping.peripheral.Win32BatteryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching battery information from the system.
  * <p>
- * This class executes the {@link CimQuery#BATTERY_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#BATTERY_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32Battery} objects.
  * </p>
  *
@@ -52,7 +52,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
     @Override
     public List<Win32Battery> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(CimQuery.BATTERY_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.BATTERY_QUERY.getQuery());
         return new Win32BatteryMapper().mapToList(response.getCommandOutput(), Win32Battery.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
     @Override
     public List<Win32Battery> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(CimQuery.BATTERY_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.BATTERY_QUERY.getQuery());
         return new Win32BatteryMapper().mapToList(response.getCommandOutput(), Win32Battery.class);
     }
 }
