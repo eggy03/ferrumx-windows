@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32CacheMemory> caches = cacheService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -47,7 +47,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
      * @return a list of {@link Win32CacheMemory} objects representing the CPU caches.
      *         Returns an empty list if none are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -64,7 +64,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
      * @return a list of {@link Win32CacheMemory} objects representing the CPU caches.
      *         Returns an empty list if none are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

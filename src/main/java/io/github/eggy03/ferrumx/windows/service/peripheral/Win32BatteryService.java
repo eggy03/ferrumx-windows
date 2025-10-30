@@ -31,7 +31,7 @@ import java.util.List;
  *     List<Win32Battery> batteries = batteryService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -46,7 +46,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      * @return a list of {@link Win32Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -64,7 +64,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      * @return a list of {@link Win32Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

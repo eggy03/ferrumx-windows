@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32DiskDrive> drives = diskService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -47,7 +47,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
      * @return a list of {@link Win32DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -64,7 +64,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
      * @return a list of {@link Win32DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

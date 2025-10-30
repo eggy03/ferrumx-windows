@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32Processor> processors = processorService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -47,7 +47,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      * @return a list of {@link Win32Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -63,7 +63,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      * @return a list of {@link Win32Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

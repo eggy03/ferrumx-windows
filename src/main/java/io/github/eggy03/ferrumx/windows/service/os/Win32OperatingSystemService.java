@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32OperatingSystem> operatingSystems = osService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -47,7 +47,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
      * @return a list of {@link Win32OperatingSystem} objects representing the system's operating systems.
      *         Returns an empty list if none are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -64,7 +64,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
      * @return a list of {@link Win32OperatingSystem} objects representing the system's operating systems.
      *         Returns an empty list if none are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

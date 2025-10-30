@@ -32,7 +32,7 @@ import java.util.List;
  *     List<MsftDnsClientServerAddress> dns = dnsService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class MsftDnsClientServerAddressService implements CommonServiceInterface<MsftDnsClientServerAddress> {
@@ -46,7 +46,7 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
      * @return a list of {@link MsftDnsClientServerAddress} objects representing the DNS configs.
      *         Returns an empty list if no configs are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -63,7 +63,7 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
      * @return a list of {@link MsftDnsClientServerAddress} objects representing the DNS configs.
      *         Returns an empty list if no configs are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

@@ -12,7 +12,7 @@
 ![Java Version](https://img.shields.io/badge/java-8%2B-blue)
 
 # About
-FerrumX is a lightweight Hardware and Network Information wrapper written in pure Java. It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes) and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through PowerShell to fetch comprehensive system details on Windows Operating Systems.
+FerrumX is a lightweight Hardware and Network Information library written in pure Java. It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes) and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through PowerShell to fetch comprehensive system details on Windows Operating Systems.
 
 # Supported Operating Systems
 FerrumX has been tested to work exclusively on <strong>Windows 8.1, Windows 10 and Windows 11</strong> devices.
@@ -26,13 +26,13 @@ Maven:
 <dependency>
     <groupId>io.github.eggy03</groupId>
     <artifactId>ferrumx-windows</artifactId>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
 Gradle:
 ```gradle
-implementation group: 'io.github.eggy03', name: 'ferrumx-windows', version: '2.2.0'
+implementation group: 'io.github.eggy03', name: 'ferrumx-windows', version: '3.0.0'
 ```
 
 For other build ecosystems, check out the [Maven Central Repository](https://central.sonatype.com/artifact/io.github.eggy03/ferrumx-windows/overview)
@@ -49,20 +49,19 @@ public class ProcessorExample {
 
     static void main(String[] args) {
         
-        List<Processor> processorList = new ProcessorService().get();
+        List<Win32Processor> processorList = new Win32ProcessorService().get();
         
         // you can also create and manage your own re-usable PowerShell session
         // good for cases where you need to fetch results for multiple queries
-        List<Processor> processorListTwo;
         try(PowerShell session = PowerShell.openSession()) {
-            processorListTwo = new ProcessorService().get(session);
+            List<Win32Processor> processorListTwo = new Win32ProcessorService().get(session);
             processorListTwo.forEach(processor -> log.info(processor.toString()));
         }
 
         // individual fields are accessible via getter methods
-        log.info("Processor Name: {}", processorList.getFirst().getName());
-        log.info("Processor Manufacturer: {}", processorList.getFirst().getManufacturer());
-        log.info("Processor Max Clock Speed: {} MHz", processorList.getFirst().getMaxClockSpeed());
+        log.info("Processor Name: {}", processorList.get(0).getName());
+        log.info("Processor Manufacturer: {}", processorList.get(0).getManufacturer());
+        log.info("Processor Max Clock Speed: {} MHz", processorList.get(0).getMaxClockSpeed());
     }
 }
 ```
@@ -70,8 +69,9 @@ public class ProcessorExample {
 # License
 This project is licensed under the MIT License.
 
-# Information about v2
+# Information about v2 and v3
 
 - Changes incorporated in v2.0.0 from v1.3.7 can be found in this [PR](https://github.com/eggy03/FerrumX/pull/20)
+- Changes incorporated in v3.0.0 from v2.2.0 can be found in this [PR](https://github.com/eggy03/FerrumX/pull/20)
 
 

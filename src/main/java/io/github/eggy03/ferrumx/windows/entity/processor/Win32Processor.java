@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * {@link Win32CacheMemory} for related cache information.
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor">Win32_Processor Documentation</a>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 

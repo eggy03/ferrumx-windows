@@ -33,7 +33,7 @@ import java.util.List;
  *     List<Win32AssociatedProcessorMemory> apm = apmService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class Win32AssociatedProcessorMemoryService implements CommonServiceInterface<Win32AssociatedProcessorMemory> {
@@ -47,7 +47,7 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
      * @return a list of {@link Win32AssociatedProcessorMemory} objects representing the association between
      * a {@link Win32Processor} and it's {@link Win32CacheMemory}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @Override
     public List<Win32AssociatedProcessorMemory> get() {
@@ -64,7 +64,7 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
      * @return a list of {@link Win32AssociatedProcessorMemory} objects representing the association between
      * a {@link Win32Processor} and it's {@link Win32CacheMemory}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @Override
     public List<Win32AssociatedProcessorMemory> get(PowerShell powerShell) {

@@ -20,7 +20,7 @@ import java.util.Optional;
  * </p>
  *
  * @param <S> the entity type returned by the service implementation
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public interface CommonMappingInterface<S> {
@@ -38,7 +38,7 @@ public interface CommonMappingInterface<S> {
      * @param objectClass the class of the objects in the list; must not be null
      * @return a non-null list of objects deserialized from JSON
      * @throws JsonSyntaxException if the JSON is malformed
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     default List<S> mapToList(@NotNull String json, @NotNull Class<S> objectClass) {
@@ -63,7 +63,7 @@ public interface CommonMappingInterface<S> {
      * @param objectClass the class of the object; must not be null
      * @return an {@link Optional} containing the deserialized object, or empty if null
      * @throws JsonSyntaxException if the JSON is malformed
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     default Optional<S> mapToObject(@NonNull String json, @NonNull Class<S> objectClass) {

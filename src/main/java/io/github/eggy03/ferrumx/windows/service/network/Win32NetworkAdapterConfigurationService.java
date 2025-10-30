@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32NetworkAdapterConfiguration> configs = configService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -46,7 +46,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
      *
      * @return a list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -62,7 +62,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

@@ -32,7 +32,7 @@ import java.util.Optional;
  *     Optional<Win32Baseboard> mainboard = mainboardService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -46,7 +46,7 @@ public class Win32BaseboardService implements OptionalCommonServiceInterface<Win
      *
      * @return an {@link Optional} of {@link Win32Baseboard} representing the system's mainboard.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -62,7 +62,7 @@ public class Win32BaseboardService implements OptionalCommonServiceInterface<Win
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an {@link Optional} of {@link Win32Baseboard} representing the system's mainboard.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
  * }</pre>
  *
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystemproduct">Win32_ComputerSystemProduct Documentation</a>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 

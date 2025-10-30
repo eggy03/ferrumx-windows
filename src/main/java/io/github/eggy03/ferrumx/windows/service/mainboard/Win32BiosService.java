@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32Bios> biosList = biosService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -46,7 +46,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
      * @return a list of {@link Win32Bios} objects representing the system BIOS.
      *         Returns an empty list if no BIOS entries are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -63,7 +63,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
      * @return a list of {@link Win32Bios} objects representing the system BIOS.
      *         Returns an empty list if no BIOS entries are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

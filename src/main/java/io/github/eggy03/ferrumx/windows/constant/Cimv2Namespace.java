@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
  * using {@link PowerShell} and mapped to
  * corresponding Java objects.
  * </p>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 @RequiredArgsConstructor
@@ -51,7 +51,7 @@ public enum Cimv2Namespace {
 
     /**
      * Query to fetch the properties of {@code Win32_AssociatedProcessorMemory} class in a custom object
-     * @since 2.3.0
+     * @since 3.0.0
      */
     ASSOCIATED_PROCESSOR_MEMORY_QUERY("Get-CimInstance Win32_AssociatedProcessorMemory | ForEach-Object { [PSCustomObject]@{ CacheMemoryDeviceID = $_.Antecedent.DeviceID; ProcessorDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
@@ -93,7 +93,7 @@ public enum Cimv2Namespace {
 
     /**
      * Query to fetch the properties of {@code Win32_NetworkAdapterSetting} in a custom object
-     * @since 2.3.0
+     * @since 3.0.0
      */
     NETWORK_ADAPTER_SETTING_QUERY("Get-CimInstance Win32_NetworkAdapterSetting | ForEach-Object { [PSCustomObject]@{ NetworkAdapterDeviceID = $_.Element.DeviceID; NetworkAdapterConfigurationIndex = $_.Setting.Index } } | ConvertTo-Json"),
 
@@ -117,19 +117,19 @@ public enum Cimv2Namespace {
 
     /**
      * Query to fetch the properties of {@code Win32_LogicalDisk} class
-     * @since 2.3.0
+     * @since 3.0.0
      */
     LOGICAL_DISK_QUERY("Get-CimInstance Win32_LogicalDisk | Select-Object * | ConvertTo-Json"),
 
     /**
      * Query to fetch the properties of {@code Win32_DiskDriveToDiskPartition} class in a custom object
-     * @since 2.3.0
+     * @since 3.0.0
      */
     DISK_DRIVE_TO_DISK_PARTITION_QUERY("Get-CimInstance Win32_DiskDriveToDiskPartition | ForEach-Object { [PSCustomObject]@{ DiskDriveDeviceID = $_.Antecedent.DeviceID; DiskPartitionDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 
     /**
      * Query to fetch the properties of {@code Win32_LogicalDiskToPartition} class in a custom object
-     * @since 2.3.0
+     * @since 3.0.0
      */
     LOGICAL_DISK_TO_PARTITION_QUERY("Get-CimInstance Win32_LogicalDiskToPartition | ForEach-Object { [PSCustomObject]@{ DiskPartitionDeviceID = $_.Antecedent.DeviceID; LogicalDiskDeviceID = $_.Dependent.DeviceID } } | ConvertTo-Json"),
 

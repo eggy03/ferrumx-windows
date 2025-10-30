@@ -32,7 +32,7 @@ import java.util.List;
  *     List<MsftNetIpAddress> address = addressService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIpAddress> {
@@ -46,7 +46,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
      * @return a list of {@link MsftNetIpAddress} objects representing the IPv4 and IPv6 configs.
      *         Returns an empty list if no configs are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -63,7 +63,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
      * @return a list of {@link MsftNetIpAddress} objects representing the IPv4 and IPv6 configs.
      *         Returns an empty list if no configs are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

@@ -33,7 +33,7 @@ import java.util.List;
  *     List<Win32NetworkAdapterSetting> nas = nasService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class Win32NetworkAdapterSettingService implements CommonServiceInterface<Win32NetworkAdapterSetting> {
@@ -47,7 +47,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      * @return a list of {@link Win32NetworkAdapterSetting} objects representing the association between
      * a {@link Win32NetworkAdapter} and it's {@link Win32NetworkAdapterConfiguration}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @Override
     public List<Win32NetworkAdapterSetting> get() {
@@ -64,7 +64,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      * @return a list of {@link Win32NetworkAdapterSetting} objects representing the association between
      * a {@link Win32NetworkAdapter} and it's {@link Win32NetworkAdapterConfiguration}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @Override
     public List<Win32NetworkAdapterSetting> get(PowerShell powerShell) {

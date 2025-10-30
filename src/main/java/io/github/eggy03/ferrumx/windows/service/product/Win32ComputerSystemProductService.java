@@ -31,7 +31,7 @@ import java.util.Optional;
  *     Optional<Win32ComputerSystemProduct> product = productService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -46,7 +46,7 @@ public class Win32ComputerSystemProductService implements OptionalCommonServiceI
      * @return an {@link Optional} of {@link Win32ComputerSystemProduct} representing
      *         the computer system as a product. Returns {@link Optional#empty()} if no product information is detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @Override
     public Optional<Win32ComputerSystemProduct> get() {
@@ -63,7 +63,7 @@ public class Win32ComputerSystemProductService implements OptionalCommonServiceI
      * @return an {@link Optional} of {@link Win32ComputerSystemProduct} representing
      *         the computer system as a product. Returns {@link Optional#empty()} if no product information is detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @Override
     public Optional<Win32ComputerSystemProduct> get(PowerShell powerShell) {

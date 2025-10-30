@@ -33,7 +33,7 @@ import java.util.List;
  *     List<Win32VideoController> controllers = videoControllerService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -49,7 +49,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
      *         Returns an empty list if none are detected.
      * @throws JsonSyntaxException if there is an error executing the PowerShell command
      *                          or parsing the output.
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -67,7 +67,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
      * @return a list of {@link Win32VideoController} objects representing the video controllers.
      *         Returns an empty list if none are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

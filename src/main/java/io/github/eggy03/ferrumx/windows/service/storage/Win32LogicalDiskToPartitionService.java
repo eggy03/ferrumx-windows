@@ -34,7 +34,7 @@ import java.util.List;
  *     List<Win32LogicalDiskToPartition> ldt = ldtService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class Win32LogicalDiskToPartitionService implements CommonServiceInterface<Win32LogicalDiskToPartition> {
@@ -48,7 +48,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
      * @return a list of {@link Win32LogicalDiskToPartition} objects representing the association between
      * a {@link Win32DiskPartition} and a {@link Win32LogicalDisk}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -66,7 +66,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
      * @return a list of {@link Win32LogicalDiskToPartition} objects representing the association between
      * a {@link Win32DiskPartition} and a {@link Win32LogicalDisk}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

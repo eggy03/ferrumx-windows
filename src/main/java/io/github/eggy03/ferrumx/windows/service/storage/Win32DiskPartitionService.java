@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32DiskPartition> partitions = partitionService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -47,7 +47,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
      * @return a list of {@link Win32DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -63,7 +63,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
      * @return a list of {@link Win32DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

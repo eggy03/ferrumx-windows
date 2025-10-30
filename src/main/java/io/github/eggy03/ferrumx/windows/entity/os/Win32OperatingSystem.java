@@ -35,7 +35,7 @@ import java.util.List;
  * }</pre>
  *
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem">Win32_OperatingSystem Documentation</a>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 

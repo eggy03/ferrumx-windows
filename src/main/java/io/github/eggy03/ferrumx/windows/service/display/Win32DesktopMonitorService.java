@@ -31,7 +31,7 @@ import java.util.List;
  *     List<Win32DesktopMonitor> monitors = monitorService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -46,7 +46,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      * @return a list of {@link Win32DesktopMonitor} objects representing connected monitors.
      *         Returns an empty list if no monitors are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NonNull
     @Override
@@ -64,7 +64,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      * @return a list of {@link Win32DesktopMonitor} objects representing connected monitors.
      *         Returns an empty list if no monitors are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NonNull
     @Override

@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32LogicalDisk> logicalDisks = logicalDiskService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class Win32LogicalDiskService implements CommonServiceInterface<Win32LogicalDisk> {
@@ -46,7 +46,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
      * @return a list of {@link Win32LogicalDisk} objects representing the logical volumes.
      *         Returns an empty list if no volumes are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -62,7 +62,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
      * @return a list of {@link Win32LogicalDisk} objects representing the logical volumes.
      *         Returns an empty list if no volumes are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

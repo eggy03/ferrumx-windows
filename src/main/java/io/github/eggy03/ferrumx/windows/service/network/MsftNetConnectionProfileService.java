@@ -32,7 +32,7 @@ import java.util.List;
  *     List<MsftNetConnectionProfile> profiles = profileService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class MsftNetConnectionProfileService implements CommonServiceInterface<MsftNetConnectionProfile> {
@@ -46,7 +46,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
      * @return a list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
      *         Returns an empty list if no profiles are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -63,7 +63,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
      * @return a list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
      *         Returns an empty list if no profiles are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

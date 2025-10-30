@@ -32,7 +32,7 @@ import java.util.List;
  *     List<MsftNetAdapter> adapters = adapterService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdapter> {
@@ -46,7 +46,7 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
      * @return a list of {@link MsftNetAdapter} objects representing the system's network adapters.
      *         Returns an empty list if no adapters are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -62,7 +62,7 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
      * @return a list of {@link MsftNetAdapter} objects representing the system's network adapters.
      *         Returns an empty list if no adapters are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

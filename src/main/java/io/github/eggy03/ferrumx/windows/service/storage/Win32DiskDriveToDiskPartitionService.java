@@ -34,7 +34,7 @@ import java.util.List;
  *     List<Win32DiskDriveToDiskPartition> ddt = ddtService.get(session);
  * }
  * }</pre>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterface<Win32DiskDriveToDiskPartition> {
@@ -48,7 +48,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
      * @return a list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -66,7 +66,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
      * @return a list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}. Returns an empty list if none are detected.
      *
-     * @since 2.3.0
+     * @since 3.0.0
      */
     @NotNull
     @Override

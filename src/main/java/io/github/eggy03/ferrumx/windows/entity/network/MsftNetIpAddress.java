@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>See {@link MsftDnsClientServerAddress}, for information regarding the connected DNS servers of a network adapter.</p>
  * <p>See {@link MsftNetConnectionProfile}, for information regarding the current profile of a network adapter.</p>
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/fwp/wmi/nettcpipprov/msft-netipaddress">MSFT_NetIPAddress Documentation</a>
- * @since 2.3.0
+ * @since 3.0.0
  * @author Egg-03
  */
 @Value

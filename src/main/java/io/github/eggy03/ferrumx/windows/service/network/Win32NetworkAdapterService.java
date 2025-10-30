@@ -32,7 +32,7 @@ import java.util.List;
  *     List<Win32NetworkAdapter> adapters = adapterService.get(session);
  * }
  * }</pre>
- * @since 2.0.0
+ * @since 3.0.0
  * @author Egg-03
  */
 
@@ -47,7 +47,7 @@ public class Win32NetworkAdapterService implements CommonServiceInterface<Win32N
      * @return a list of {@link Win32NetworkAdapter} objects representing the system's network adapters.
      *         Returns an empty list if no adapters are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
@@ -64,7 +64,7 @@ public class Win32NetworkAdapterService implements CommonServiceInterface<Win32N
      * @return a list of {@link Win32NetworkAdapter} objects representing the system's network adapters.
      *         Returns an empty list if no adapters are detected.
      *
-     * @since 2.2.0
+     * @since 3.0.0
      */
     @NotNull
     @Override
