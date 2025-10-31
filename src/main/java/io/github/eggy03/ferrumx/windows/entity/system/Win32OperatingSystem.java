@@ -1,4 +1,4 @@
-package io.github.eggy03.ferrumx.windows.entity.os;
+package io.github.eggy03.ferrumx.windows.entity.system;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;

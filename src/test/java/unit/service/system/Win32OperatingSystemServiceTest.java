@@ -1,12 +1,12 @@
-package unit.service.os;
+package unit.service.system;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.entity.os.Win32OperatingSystem;
-import io.github.eggy03.ferrumx.windows.service.os.Win32OperatingSystemService;
+import io.github.eggy03.ferrumx.windows.entity.system.Win32OperatingSystem;
+import io.github.eggy03.ferrumx.windows.service.system.Win32OperatingSystemService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

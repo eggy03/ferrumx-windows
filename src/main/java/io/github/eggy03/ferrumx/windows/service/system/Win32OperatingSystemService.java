@@ -1,10 +1,10 @@
-package io.github.eggy03.ferrumx.windows.service.os;
+package io.github.eggy03.ferrumx.windows.service.system;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
-import io.github.eggy03.ferrumx.windows.entity.os.Win32OperatingSystem;
-import io.github.eggy03.ferrumx.windows.mapping.os.Win32OperatingSystemMapper;
+import io.github.eggy03.ferrumx.windows.entity.system.Win32OperatingSystem;
+import io.github.eggy03.ferrumx.windows.mapping.system.Win32OperatingSystemMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 

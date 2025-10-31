@@ -1,6 +1,6 @@
-package io.github.eggy03.ferrumx.windows.mapping.os;
+package io.github.eggy03.ferrumx.windows.mapping.system;
 
-import io.github.eggy03.ferrumx.windows.entity.os.Win32OperatingSystem;
+import io.github.eggy03.ferrumx.windows.entity.system.Win32OperatingSystem;
 import io.github.eggy03.ferrumx.windows.mapping.CommonMappingInterface;
 
 /**
