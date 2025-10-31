@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of the environment variables in a system running Windows.
@@ -39,12 +40,15 @@ import lombok.Value;
 public class Win32Environment {
 
     @SerializedName("Name")
+    @Nullable
     String name;
 
     @SerializedName("SystemVariable")
+    @Nullable
     Boolean isSystemVariable;
 
     @SerializedName("VariableValue")
+    @Nullable
     String variableValue;
 
     @Override
