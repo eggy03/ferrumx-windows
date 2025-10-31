@@ -1,0 +1,58 @@
+package io.github.eggy03.ferrumx.windows.entity.system;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
+import lombok.Value;
+
+/**
+ * Immutable representation of the environment variables in a system running Windows.
+ * <p>
+ * Fields correspond to properties retrieved from the {@code Win32_Environment} WMI class.
+ * </p>
+ * <p>
+ * Instances are thread-safe and may be safely cached or shared across threads.
+ * </p>
+ *
+ * <h2>Usage examples</h2>
+ * <pre>{@code
+ * // Build a new instance
+ * Win32Environment env = Win32Environment.builder()
+ *     .name("DOT_NET_CLI_TELEMETRY_DISABLE")
+ *     .isSystemVariable(true)
+ *     .variableValue("0")
+ *     .build();
+ *
+ * // Create a modified copy
+ * Win32Environment updated = env.toBuilder()
+ *     .variableValue("1")
+ *     .build();
+ *
+ * }</pre>
+ *
+ * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-environment">Win32_Environment Documentation</a>
+ * @since 3.0.0
+ * @author Egg-03
+ */
+@Value
+@Builder(toBuilder = true)
+public class Win32Environment {
+
+    @SerializedName("Name")
+    String name;
+
+    @SerializedName("SystemVariable")
+    Boolean isSystemVariable;
+
+    @SerializedName("VariableValue")
+    String variableValue;
+
+    @Override
+    public String toString(){
+        return new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .create()
+                .toJson(this);
+    }
+}
