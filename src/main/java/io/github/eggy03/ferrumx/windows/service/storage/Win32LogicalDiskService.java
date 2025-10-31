@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching information about <b>logical</b> disks.
  * <p>
- * This class executes the {@link Cimv2Namespace#LOGICAL_DISK_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_LOGICAL_DISK_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32LogicalDisk} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
     @NotNull
     @Override
     public List<Win32LogicalDisk> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.LOGICAL_DISK_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_QUERY.getQuery());
         return new Win32LogicalDiskMapper().mapToList(response.getCommandOutput(), Win32LogicalDisk.class);
     }
 
@@ -67,7 +67,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
     @NotNull
     @Override
     public List<Win32LogicalDisk> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.LOGICAL_DISK_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_QUERY.getQuery());
         return new Win32LogicalDiskMapper().mapToList(response.getCommandOutput(), Win32LogicalDisk.class);
     }
 }

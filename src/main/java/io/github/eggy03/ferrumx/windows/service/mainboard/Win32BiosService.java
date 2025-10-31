@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching BIOS information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#BIOS_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_BIOS_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32Bios} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
     @NotNull
     @Override
     public List<Win32Bios> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.BIOS_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_BIOS_QUERY.getQuery());
         return new Win32BiosMapper().mapToList(response.getCommandOutput(), Win32Bios.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
     @NotNull
     @Override
     public List<Win32Bios> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.BIOS_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BIOS_QUERY.getQuery());
         return new Win32BiosMapper().mapToList(response.getCommandOutput(), Win32Bios.class);
     }
 }

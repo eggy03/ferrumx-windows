@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching processor cache information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#PROCESSOR_CACHE_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_CACHE_MEMORY_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32CacheMemory} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
     @Override
     public List<Win32CacheMemory> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.PROCESSOR_CACHE_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_CACHE_MEMORY_QUERY.getQuery());
         return new Win32CacheMemoryMapper().mapToList(response.getCommandOutput(), Win32CacheMemory.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
     @Override
     public List<Win32CacheMemory> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.PROCESSOR_CACHE_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_CACHE_MEMORY_QUERY.getQuery());
         return new Win32CacheMemoryMapper().mapToList(response.getCommandOutput(), Win32CacheMemory.class);
     }
 }

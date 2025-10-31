@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching mainboard port information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#MAINBOARD_PORT_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_PORT_CONNECTOR_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32PortConnector} objects.
  * </p>
  *
@@ -52,7 +52,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
     @Override
     public List<Win32PortConnector> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.MAINBOARD_PORT_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_PORT_CONNECTOR_QUERY.getQuery());
         return new Win32PortConnectorMapper().mapToList(response.getCommandOutput(), Win32PortConnector.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
     @Override
     public List<Win32PortConnector> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.MAINBOARD_PORT_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PORT_CONNECTOR_QUERY.getQuery());
         return new Win32PortConnectorMapper().mapToList(response.getCommandOutput(), Win32PortConnector.class);
     }
 }

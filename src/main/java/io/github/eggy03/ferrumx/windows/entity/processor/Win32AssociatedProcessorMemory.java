@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * </p>
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
- *     {@link Cimv2Namespace#ASSOCIATED_PROCESSOR_MEMORY_QUERY} constructs a custom {@code PSObject}
+ *     {@link Cimv2Namespace#WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY} constructs a custom {@code PSObject}
  *     that maps {@code Antecedent.DeviceID} to {@code cacheMemoryDeviceId} and {@code Dependent.DeviceID} to {@code processorDeviceId}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>

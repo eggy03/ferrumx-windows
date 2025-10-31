@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Service class for fetching mainboard information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#MAINBOARD_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_BASEBOARD_QUERY} PowerShell command
  * and maps the resulting JSON into a {@link Win32Baseboard} object.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32BaseboardService implements OptionalCommonServiceInterface<Win
     @NotNull
     @Override
     public Optional<Win32Baseboard> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.MAINBOARD_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_BASEBOARD_QUERY.getQuery());
         return new Win32BaseboardMapper().mapToObject(response.getCommandOutput(), Win32Baseboard.class);
     }
 
@@ -67,7 +67,7 @@ public class Win32BaseboardService implements OptionalCommonServiceInterface<Win
     @NotNull
     @Override
     public Optional<Win32Baseboard> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.MAINBOARD_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BASEBOARD_QUERY.getQuery());
         return new Win32BaseboardMapper().mapToObject(response.getCommandOutput(), Win32Baseboard.class);
     }
 }

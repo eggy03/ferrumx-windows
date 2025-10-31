@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Service class for fetching video controller (GPU) information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#VIDEO_CONTROLLER_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_VIDEO_CONTROLLER_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32VideoController} objects.
  * </p>
  *
@@ -55,7 +55,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
     @Override
     public List<Win32VideoController> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.VIDEO_CONTROLLER_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_VIDEO_CONTROLLER_QUERY.getQuery());
         return new Win32VideoControllerMapper().mapToList(response.getCommandOutput(), Win32VideoController.class);
     }
 
@@ -73,7 +73,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
     @Override
     public List<Win32VideoController> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.VIDEO_CONTROLLER_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_VIDEO_CONTROLLER_QUERY.getQuery());
         return new Win32VideoControllerMapper().mapToList(response.getCommandOutput(), Win32VideoController.class);
     }
 }

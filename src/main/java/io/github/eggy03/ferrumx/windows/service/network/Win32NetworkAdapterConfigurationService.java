@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching network adapter configuration information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#NETWORK_ADAPTER_CONFIGURATION_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_NETWORK_ADAPTER_CONFIGURATION_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32NetworkAdapterConfiguration} objects.
  * </p>
  *
@@ -52,7 +52,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
     @Override
     public List<Win32NetworkAdapterConfiguration> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
         return new Win32NetworkAdapterConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterConfiguration.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
     @Override
     public List<Win32NetworkAdapterConfiguration> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
         return new Win32NetworkAdapterConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterConfiguration.class);
     }
 

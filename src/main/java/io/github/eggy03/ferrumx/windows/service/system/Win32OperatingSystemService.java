@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching operating system information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#OPERATING_SYSTEM_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_OPERATING_SYSTEM_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32OperatingSystem} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     @Override
     public List<Win32OperatingSystem> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.OPERATING_SYSTEM_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_OPERATING_SYSTEM_QUERY.getQuery());
         return new Win32OperatingSystemMapper().mapToList(response.getCommandOutput(), Win32OperatingSystem.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     @Override
     public List<Win32OperatingSystem> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.OPERATING_SYSTEM_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_OPERATING_SYSTEM_QUERY.getQuery());
         return new Win32OperatingSystemMapper().mapToList(response.getCommandOutput(), Win32OperatingSystem.class);
     }
 }

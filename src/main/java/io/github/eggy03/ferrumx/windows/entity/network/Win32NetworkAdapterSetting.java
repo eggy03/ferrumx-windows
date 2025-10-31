@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * </p>
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
- *     {@link Cimv2Namespace#NETWORK_ADAPTER_SETTING_QUERY} constructs a custom {@code PSObject}
+ *     {@link Cimv2Namespace#WIN32_NETWORK_ADAPTER_SETTING_QUERY} constructs a custom {@code PSObject}
  *     that maps {@code Element.DeviceID} to {@code networkAdapterDeviceId} and {@code Setting.Index} to {@code networkAdapterConfigurationIndex}
  *     and the resulting JSON returned is deserialized into this entity class.
  * </p>

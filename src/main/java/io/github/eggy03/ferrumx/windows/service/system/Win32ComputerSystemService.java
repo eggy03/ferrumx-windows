@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Service class for fetching the computer system information running Windows.
  * <p>
- * This class executes the {@link Cimv2Namespace#COMPUTER_SYSTEM_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_COMPUTER_SYSTEM_QUERY} PowerShell command
  * and maps the resulting JSON into an {@link Optional} {@link Win32ComputerSystem} object.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
     @Override
     public Optional<Win32ComputerSystem> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.COMPUTER_SYSTEM_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_COMPUTER_SYSTEM_QUERY.getQuery());
         return new Win32ComputerSystemMapper().mapToObject(response.getCommandOutput(), Win32ComputerSystem.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
     @Override
     public Optional<Win32ComputerSystem> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.COMPUTER_SYSTEM_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_COMPUTER_SYSTEM_QUERY.getQuery());
         return new Win32ComputerSystemMapper().mapToObject(response.getCommandOutput(), Win32ComputerSystem.class);
     }
 }

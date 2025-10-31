@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching monitor information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#MONITOR_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_DESKTOP_MONITOR_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32DesktopMonitor} objects.
  * </p>
  *
@@ -52,7 +52,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
     @Override
     public List<Win32DesktopMonitor> get() {
 
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.MONITOR_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_DESKTOP_MONITOR_QUERY.getQuery());
         return new Win32DesktopMonitorMapper().mapToList(response.getCommandOutput(), Win32DesktopMonitor.class);
     }
 
@@ -70,7 +70,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
     @Override
     public List<Win32DesktopMonitor> get(PowerShell powerShell) {
 
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.MONITOR_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DESKTOP_MONITOR_QUERY.getQuery());
         return new Win32DesktopMonitorMapper().mapToList(response.getCommandOutput(), Win32DesktopMonitor.class);
     }
 }

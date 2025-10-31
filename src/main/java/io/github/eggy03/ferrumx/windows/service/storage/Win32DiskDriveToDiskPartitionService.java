@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Service class for fetching the association between a {@link Win32DiskDrive}, and {@link Win32DiskPartition} from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#DISK_DRIVE_TO_DISK_PARTITION_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32DiskDriveToDiskPartition} objects.
  * </p>
  *
@@ -53,7 +53,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
     @NotNull
     @Override
     public List<Win32DiskDriveToDiskPartition> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery());
         return new Win32DiskDriveToDiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToDiskPartition.class);
     }
 
@@ -71,7 +71,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
     @NotNull
     @Override
     public List<Win32DiskDriveToDiskPartition> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery());
         return new Win32DiskDriveToDiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToDiskPartition.class);
     }
 }

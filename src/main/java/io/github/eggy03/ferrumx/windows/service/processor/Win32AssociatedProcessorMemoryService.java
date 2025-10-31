@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Service class for fetching the association between a Processor, and it's Cache information from the system.
  * <p>
- * This class executes the {@link Cimv2Namespace#ASSOCIATED_PROCESSOR_MEMORY_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32AssociatedProcessorMemory} objects.
  * </p>
  *
@@ -51,7 +51,7 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
      */
     @Override
     public List<Win32AssociatedProcessorMemory> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
         return new Win32AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), Win32AssociatedProcessorMemory.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
      */
     @Override
     public List<Win32AssociatedProcessorMemory> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
         return new Win32AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), Win32AssociatedProcessorMemory.class);
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Service class for fetching information about disk partitions.
  * <p>
- * This class executes the {@link Cimv2Namespace#DISK_PARTITION_QUERY} PowerShell command
+ * This class executes the {@link Cimv2Namespace#WIN32_DISK_PARTITION_QUERY} PowerShell command
  * and maps the resulting JSON into a list of {@link Win32DiskPartition} objects.
  * </p>
  *
@@ -52,7 +52,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
     @NotNull
     @Override
     public List<Win32DiskPartition> get() {
-        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.DISK_PARTITION_QUERY.getQuery());
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_DISK_PARTITION_QUERY.getQuery());
         return new Win32DiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskPartition.class);
     }
 
@@ -68,7 +68,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
     @NotNull
     @Override
     public List<Win32DiskPartition> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.DISK_PARTITION_QUERY.getQuery());
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DISK_PARTITION_QUERY.getQuery());
         return new Win32DiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskPartition.class);
     }
 
