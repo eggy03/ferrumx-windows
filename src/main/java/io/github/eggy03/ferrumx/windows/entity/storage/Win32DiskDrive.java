@@ -75,7 +75,7 @@ public class Win32DiskDrive {
 
     @SerializedName("Partitions")
     @Nullable
-    Integer partitions;
+    Long partitions;
 
     @SerializedName("Status")
     @Nullable

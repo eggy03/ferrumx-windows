@@ -106,7 +106,7 @@ public class Win32Processor {
 
     @SerializedName("Stepping")
     @Nullable
-    Integer stepping;
+    String stepping;
 
     @SerializedName("VirtualizationFirmwareEnabled")
     @Nullable

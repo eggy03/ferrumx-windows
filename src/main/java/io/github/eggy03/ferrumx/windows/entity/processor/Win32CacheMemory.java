@@ -52,7 +52,7 @@ public class Win32CacheMemory {
 
     @SerializedName("InstalledSize")
     @Nullable
-    Integer installedSize;
+    Long installedSize;
 
     @SerializedName("Associativity")
     @Nullable

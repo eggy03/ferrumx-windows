@@ -53,11 +53,11 @@ public class Win32LogicalDisk {
 
     @SerializedName("DriveType")
     @Nullable
-    Integer driveType;
+    Long driveType;
 
     @SerializedName("MediaType")
     @Nullable
-    Integer mediaType;
+    Long mediaType;
 
     @SerializedName("FileSystem")
     @Nullable

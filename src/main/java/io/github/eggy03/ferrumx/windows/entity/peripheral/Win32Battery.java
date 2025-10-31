@@ -63,7 +63,7 @@ public class Win32Battery {
 
     @SerializedName("PowerManagementCapabilities")
     @Nullable
-    List<String> powerManagementCapabilities;
+    List<Integer> powerManagementCapabilities;
 
     @SerializedName("PowerManagementSupported")
     @Nullable
@@ -87,11 +87,11 @@ public class Win32Battery {
 
     @SerializedName("EstimatedChargeRemaining")
     @Nullable
-    Integer estimatedChargeRemaining;
+    Long estimatedChargeRemaining;
 
     @SerializedName("EstimatedRunTime")
     @Nullable
-    Integer estimatedRunTime;
+    Long estimatedRunTime;
 
     @Override
     public String toString() {

@@ -84,7 +84,7 @@ public class Win32DiskPartition {
 
     @SerializedName("DiskIndex")
     @Nullable
-    Integer diskIndex;
+    Long diskIndex;
 
     @SerializedName("Size")
     @Nullable
