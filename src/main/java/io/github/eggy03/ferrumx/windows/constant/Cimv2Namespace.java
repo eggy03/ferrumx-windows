@@ -143,7 +143,13 @@ public enum Cimv2Namespace {
      * Query to fetch the properties of {@code Win32_Environment} class
      * @since 3.0.0
      */
-    WIN32_ENVIRONMENT_QUERY("Get-CimInstance -ClassName Win32_Environment | Select-Object * | ConvertTo-Json");
+    WIN32_ENVIRONMENT_QUERY("Get-CimInstance -ClassName Win32_Environment | Select-Object * | ConvertTo-Json"),
+
+    /**
+     * Query to fetch the properties of {@code Win32_Printer} class
+     * @since 3.0.0
+     */
+    WIN32_PRINTER_QUERY("Get-CimInstance -ClassName Win32_Printer | Select-Object * | ConvertTo-Json");
 
     private final String query;
 }
