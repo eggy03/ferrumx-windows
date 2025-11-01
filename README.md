@@ -12,10 +12,10 @@
 ![Java Version](https://img.shields.io/badge/java-8%2B-blue)
 
 # About
-FerrumX is a lightweight Hardware and Network Information library written in pure Java. It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes) and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through PowerShell to fetch comprehensive system details on Windows Operating Systems.
+FerrumX-Windows is a lightweight Hardware and Network Information library written in pure Java. It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes) and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through PowerShell to fetch comprehensive system details on Windows Operating Systems.
 
 # Supported Operating Systems
-FerrumX has been tested to work exclusively on <strong>Windows 8.1, Windows 10 and Windows 11</strong> devices.
+The library has been tested to work exclusively on <strong>Windows 8.1, Windows 10 and Windows 11</strong> devices.
 For Windows 7 and Vista support, see: [FerrumL](https://github.com/eggy03/FerrumL)
 
 # Download
@@ -42,7 +42,7 @@ Documentation can be found [here](https://eggy03.github.io/FerrumX-Documentation
 
 # Usage
 > [!IMPORTANT]
-> More usage examples can be found in the [Wiki](https://github.com/eggy03/FerrumX/wiki).
+> More usage examples and migration guides can be found in the [Wiki](https://github.com/eggy03/FerrumX/wiki).
 
 ```java
 public class ProcessorExample {
@@ -71,7 +71,17 @@ This project is licensed under the MIT License.
 
 # Information about v2 and v3
 
+v2.0.0 to v2.2.0 were transitional test releases that introduced the new service/entity architecture, with v2.0.0 being a complete rewrite of the project.
+These versions were made publicly available for early adopters but will no longer be supported after the public release of v3.0.0
+
+The recommended upgrade path for v1.3.7 users is to move directly to v3.0.0, which includes all the refinements introduced after the 2.x testing phase.
+
+For users currently on 2.x.x, you can check what changes have been introduced in each 2.x.x release in the Releases page,
+but these release versions are deprecated and unsupported.
+
 - Changes incorporated in v2.0.0 from v1.3.7 can be found in this [PR](https://github.com/eggy03/FerrumX/pull/20)
 - Changes incorporated in v3.0.0 from v2.2.0 can be found in this [PR](https://github.com/eggy03/FerrumX/pull/20)
+
+A migration guide for migrating to v3.0.0 from v1.3.7 will be provided soon
 
 
