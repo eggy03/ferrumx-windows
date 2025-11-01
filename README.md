@@ -69,19 +69,42 @@ public class ProcessorExample {
 # License
 This project is licensed under the MIT License.
 
+# Supported Versions
+
+- v3.x.x - Actively Developed and Supported
+- v2.x.x - No longer actively maintained
+- v1.x.x - No longer actively maintained
+
 # Information about v2 and v3
 
-v2.0.0 to v2.2.0 were transitional test releases that introduced the new service/entity architecture, with v2.0.0 being a complete rewrite of the project.
-These versions were made publicly available for early adopters but will no longer be supported after the public release of v3.0.0
+### About v2 Pre-release
 
-The recommended upgrade path for v1.3.7 users is to move directly to v3.0.0, which includes all the refinements introduced after the 2.x testing phase.
+The **2.x** versions (`v2.0.0`–`v2.2.0`) served as **pre-releases** that introduced the new service-layered architecture.
 
-For users currently on 2.x.x, you can check what changes have been introduced in each 2.x.x release in the Releases page,
-but these release versions are deprecated and unsupported.
+- **`v2.0.0`** was a complete rewrite of the project. See [v2.0.0 pre-release notes](https://github.com/eggy03/FerrumX/releases/tag/v2.0.0)
+- **`v2.1.0`** and **`v2.2.0`** built upon that foundation with architectural enhancements and breaking changes.
+- Each 2.x pre-release was **incompatible** with the others.
+- For details about these breaking changes, see the release notes linked at the end of this document.
 
-- Changes incorporated in v2.0.0 from v1.3.7 can be found in this [PR](https://github.com/eggy03/FerrumX/pull/20)
-- Changes incorporated in v3.0.0 from v2.2.0 can be found in this [PR](https://github.com/eggy03/FerrumX/pull/20)
+These versions are made publicly available but will **no longer be supported** after the release of **`v3.0.0`**.
 
-A migration guide for migrating to v3.0.0 from v1.3.7 will be provided soon
+### About v3
+**`v3.0.0`** is the stable release that is built upon the 2.x architecture.  
+It introduces new MSFT classes and re-introduces several entities from **`v1.3.7`** that were not present in the 2.x series.
+It also renames all of the `v2.x` classes to have a `Win32` prefix, similar to the `v1.x` naming convention.
 
+### Migration guide
+
+- Users on **`v1.3.7`** should **upgrade directly to `v3.0.0`**.
+- The migration guide for migrating to **`v1.3.7` to `v3.0.0`** will be available in the [Wiki](https://github.com/eggy03/FerrumX/wiki)
+- No migration guide will be provided for migrating to **`v2.x` to `v3.0.0`**. However, you can check the release notes
+at the [Releases Page](https://github.com/eggy03/FerrumX/releases) or towards the end of this readme to see what changes have been made from `v2` to `v3`.
+
+### Release Changelogs
+
+- Changes from **`v1.3.7` to`v2.0.0`**: [Pull Request #20](https://github.com/eggy03/FerrumX/pull/20)
+- Changes from **`v2.0.0` to `v2.0.1`**: [Release Notes for v2.0.1](https://github.com/eggy03/FerrumX/releases/v2.0.1)
+- Changes from **`v2.0.1` to `v2.1.0`**: [Release Notes for v2.1.0](https://github.com/eggy03/FerrumX/releases/v2.1.0)
+- Changes from **`v2.1.0` to `v2.2.0`**: [Release Notes for v2.2.0](https://github.com/eggy03/FerrumX/releases/v2.2.0)
+- Changes from **`v2.2.0` to `v3.0.0`**: [Pull Request #XX]()
 
