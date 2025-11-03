@@ -1,10 +1,12 @@
 package unit.service.peripheral;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.annotations.SerializedName;
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Printer;
@@ -14,8 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -123,7 +128,7 @@ class Win32PrinterServiceTest {
         printers.add(prn1);
         printers.add(prn2);
 
-        json = new Gson().toJson(printers);
+        json = new GsonBuilder().serializeNulls().create().toJson(printers);
     }
 
 
@@ -214,5 +219,36 @@ class Win32PrinterServiceTest {
 
             assertThrows(JsonSyntaxException.class, () -> printerService.get(mockSession));
         }
+    }
+
+    /*
+     * This test ensures that the test JSON has keys matching all @SerializedName
+     * (or raw field names if not annotated) declared in the entity class.
+     *
+     * The test fails if:
+     * - any field is added or removed in the entity without updating the test JSON
+     * - any @SerializedName value changes without updating the test JSON
+     */
+    @Test
+    void test_entityFieldParity_withTestJson() {
+
+        // get the serialized name for each field, in a set
+        // store the field name in case no serialized names are found
+        Field[] declaredClassFields = Win32Printer.class.getDeclaredFields();
+        Set<String> serializedNames = new HashSet<>();
+
+        for(Field field: declaredClassFields){
+            SerializedName s = field.getAnnotation(SerializedName.class);
+            serializedNames.add(s!=null ? s.value() : field.getName());
+        }
+
+        // Extract JSON keys from the static test JSON
+        Set<String> jsonKeys = new Gson().fromJson(json, JsonArray.class)
+                .get(0).getAsJsonObject().keySet();
+
+        // Validate equality of keys vs serialized names
+        assertThat(serializedNames)
+                .as("Entity fields and JSON keys must match exactly")
+                .containsExactlyInAnyOrderElementsOf(jsonKeys);
     }
 }
