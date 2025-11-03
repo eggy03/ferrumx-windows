@@ -5,13 +5,13 @@ import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32Baseboard;
 import io.github.eggy03.ferrumx.windows.mapping.mainboard.Win32BaseboardMapper;
-import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
- * Service class for fetching mainboard information from the system.
+ * Service class for fetching mainboard/motherboard information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_BASEBOARD_QUERY} PowerShell command
  * and maps the resulting JSON into a {@link Win32Baseboard} object.
@@ -24,50 +24,51 @@ import java.util.Optional;
  * <pre>{@code
  * // Convenience API (creates its own short-lived session)
  * Win32BaseboardService mainboardService = new Win32BaseboardService();
- * Optional<Win32Baseboard> mainboard = mainboardService.get();
+ * List<Win32Baseboard> mainboardList = mainboardService.get();
  *
  * // API with re-usable session (caller manages session lifecycle)
  * try (PowerShell session = PowerShell.openSession()) {
  *     Win32BaseboardService mainboardService = new Win32BaseboardService();
- *     Optional<Win32Baseboard> mainboard = mainboardService.get(session);
+ *     List<Win32Baseboard> mainboardList = mainboardService.get(session);
  * }
  * }</pre>
  * @since 3.0.0
  * @author Egg-03
  */
 
-public class Win32BaseboardService implements OptionalCommonServiceInterface<Win32Baseboard> {
+public class Win32BaseboardService implements CommonServiceInterface<Win32Baseboard> {
 
     /**
-     * Retrieves an {@link Optional} containing the system's mainboard information.
+     * Retrieves a list of motherboard entries present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
-     *
-     * @return an {@link Optional} of {@link Win32Baseboard} representing the system's mainboard.
+     * @return a list of {@link Win32Baseboard} objects representing the system motherboards.
+     *         Returns an empty list if no motherboard entries are detected.
      *
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public Optional<Win32Baseboard> get() {
+    public List<Win32Baseboard> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_BASEBOARD_QUERY.getQuery());
-        return new Win32BaseboardMapper().mapToObject(response.getCommandOutput(), Win32Baseboard.class);
+        return new Win32BaseboardMapper().mapToList(response.getCommandOutput(), Win32Baseboard.class);
     }
 
     /**
-     * Retrieves an {@link Optional} containing the system's mainboard information
-     * using the caller's {@link PowerShell} session.
+     * Retrieves a list of motherboard entries present in the system using the caller's
+     * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return an {@link Optional} of {@link Win32Baseboard} representing the system's mainboard.
+     * @return a list of {@link Win32Baseboard} objects representing the system motherboards.
+     *         Returns an empty list if no motherboard entries are detected.
      *
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public Optional<Win32Baseboard> get(PowerShell powerShell) {
+    public List<Win32Baseboard> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BASEBOARD_QUERY.getQuery());
-        return new Win32BaseboardMapper().mapToObject(response.getCommandOutput(), Win32Baseboard.class);
+        return new Win32BaseboardMapper().mapToList(response.getCommandOutput(), Win32Baseboard.class);
     }
 }
