@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.storage;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,17 +73,23 @@ public class Win32LogicalDisk {
     @Nullable
     Long freeSpace;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Compressed")
     @Nullable
-    Boolean isCompressed;
+    Boolean compressed;
+    public @Nullable Boolean isCompressed() {return compressed;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("SupportsFileBasedCompression")
     @Nullable
     Boolean supportsFileBasedCompression;
+    public @Nullable Boolean supportsFileBasedCompression() {return supportsFileBasedCompression;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("SupportsDiskQuotas")
     @Nullable
     Boolean supportsDiskQuotas;
+    public @Nullable Boolean supportsDiskQuotas() {return supportsDiskQuotas;}
 
     @SerializedName("VolumeName")
     @Nullable

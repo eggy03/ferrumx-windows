@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.network;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -83,17 +85,23 @@ public class MsftNetAdapter {
     @Nullable
     Long interfaceOperationalStatus;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Virtual")
     @Nullable
-    Boolean isVirtual;
+    Boolean virtual;
+    public @Nullable Boolean isVirtual() {return virtual;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("FullDuplex")
     @Nullable
-    Boolean isFullDuplex;
+    Boolean fullDuplex;
+    public @Nullable Boolean isFullDuplex() {return fullDuplex;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Hidden")
     @Nullable
-    Boolean isHidden;
+    Boolean hidden;
+    public @Nullable Boolean isHidden() {return hidden;}
 
     @SerializedName("Status")
     @Nullable

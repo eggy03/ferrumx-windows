@@ -84,9 +84,9 @@ class Win32NetworkAdapterConfigurationServiceTest {
             List<Win32NetworkAdapterConfiguration> configs = networkAdapterConfigurationService.get();
             assertFalse(configs.isEmpty());
             assertEquals(0, configs.get(0).getIndex());
-            assertEquals(Boolean.TRUE, configs.get(0).getIpEnabled());
+            assertEquals(Boolean.TRUE, configs.get(0).isIPEnabled());
             assertEquals(1, configs.get(1).getIndex());
-            assertEquals(Boolean.FALSE, configs.get(1).getIpEnabled());
+            assertEquals(Boolean.FALSE, configs.get(1).isIPEnabled());
         }
     }
 
@@ -127,9 +127,9 @@ class Win32NetworkAdapterConfigurationServiceTest {
             List<Win32NetworkAdapterConfiguration> configs = networkAdapterConfigurationService.get(mockShell);
             assertFalse(configs.isEmpty());
             assertEquals(0, configs.get(0).getIndex());
-            assertEquals(Boolean.TRUE, configs.get(0).getIpEnabled());
+            assertEquals(Boolean.TRUE, configs.get(0).isIPEnabled());
             assertEquals(1, configs.get(1).getIndex());
-            assertEquals(Boolean.FALSE, configs.get(1).getIpEnabled());
+            assertEquals(Boolean.FALSE, configs.get(1).isIPEnabled());
         }
     }
 

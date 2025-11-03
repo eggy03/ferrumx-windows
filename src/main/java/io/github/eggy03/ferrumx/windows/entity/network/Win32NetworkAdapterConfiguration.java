@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.network;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,9 +63,11 @@ public class Win32NetworkAdapterConfiguration {
     @Nullable
     String settingId;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("IPEnabled")
     @Nullable
     Boolean ipEnabled;
+    public @Nullable Boolean isIPEnabled() {return ipEnabled;}
 
     @SerializedName("IPAddress")
     @Nullable
@@ -77,9 +81,11 @@ public class Win32NetworkAdapterConfiguration {
     @Nullable
     List<String> defaultIpGateway;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("DHCPEnabled")
     @Nullable
     Boolean dhcpEnabled;
+    public @Nullable Boolean isDHCPEnabled() {return dhcpEnabled;}
 
     @SerializedName("DHCPServer")
     @Nullable

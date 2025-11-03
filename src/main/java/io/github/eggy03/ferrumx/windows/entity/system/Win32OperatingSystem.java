@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.system;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,9 +69,11 @@ public class Win32OperatingSystem {
     @Nullable
     String localDateTime;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Distributed")
     @Nullable
     Boolean distributed;
+    public @Nullable Boolean isDistributed() {return distributed;}
 
     @SerializedName("NumberOfUsers")
     @Nullable
@@ -103,13 +107,17 @@ public class Win32OperatingSystem {
     @Nullable
     List<String> muiLanguages;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("PortableOperatingSystem")
     @Nullable
     Boolean portableOperatingSystem;
+    public @Nullable Boolean isPortable() {return portableOperatingSystem;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Primary")
     @Nullable
     Boolean primary;
+    public @Nullable Boolean isPrimary() {return primary;}
 
     @SerializedName("RegisteredUser")
     @Nullable

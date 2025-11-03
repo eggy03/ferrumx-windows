@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.system;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,9 +68,11 @@ public class Win32ComputerSystem {
     @Nullable
     List<Integer> bootStatus;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("AutomaticResetBootOption")
     @Nullable
     Boolean automaticResetBootOption;
+    public @Nullable Boolean hasAutomaticResetBootOption() {return automaticResetBootOption;}
 
 
     // Power
@@ -84,9 +88,11 @@ public class Win32ComputerSystem {
     @Nullable
     List<Integer> powerManagementCapabilities;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("PowerManagementSupported")
     @Nullable
     Boolean powerManagementSupported;
+    public @Nullable Boolean isPowerManagementSupported() {return powerManagementSupported;}
 
 
     // Reset
@@ -106,9 +112,11 @@ public class Win32ComputerSystem {
     @Nullable
     Integer frontPanelResetStatus;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("AutomaticResetCapability")
     @Nullable
     Boolean automaticResetCapability;
+    public @Nullable Boolean hasAutomaticResetCapability() {return automaticResetCapability;}
 
 
     // General info
@@ -186,21 +194,29 @@ public class Win32ComputerSystem {
 
 
     // Uncategorized
+    @Getter(AccessLevel.NONE)
     @SerializedName("AutomaticManagedPagefile")
     @Nullable
     Boolean automaticManagedPagefile;
+    public @Nullable Boolean isAutomaticManagedPagefile() {return automaticManagedPagefile;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("InfraredSupported")
     @Nullable
     Boolean infraredSupported;
+    public @Nullable Boolean isInfraredSupported() {return infraredSupported;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("NetworkServerModeEnabled")
     @Nullable
     Boolean networkServerModeEnabled;
+    public @Nullable Boolean isNetworkServerModeEnabled() {return networkServerModeEnabled;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("HypervisorPresent")
     @Nullable
     Boolean hypervisorPresent;
+    public @Nullable Boolean isHypervisorPresent() {return hypervisorPresent;}
 
     @SerializedName("ThermalState")
     @Nullable

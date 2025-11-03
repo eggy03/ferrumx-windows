@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.network;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,21 +65,27 @@ public class Win32NetworkAdapter {
     @Nullable
     String macAddress;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Installed")
     @Nullable
     Boolean installed;
+    public @Nullable Boolean isInstalled(){ return installed;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("NetEnabled")
     @Nullable
     Boolean netEnabled;
+    public @Nullable Boolean isNetEnabled() {return netEnabled;}
 
     @SerializedName("NetConnectionID")
     @Nullable
     String netConnectionId;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("PhysicalAdapter")
     @Nullable
     Boolean physicalAdapter;
+    public @Nullable Boolean isPhysicalAdapter() {return physicalAdapter;}
 
     @SerializedName("TimeOfLastReset")
     @Nullable

@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.mainboard;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,9 +55,11 @@ public class Win32Bios {
     @Nullable
     String releaseDate;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("SMBIOSPresent")
     @Nullable
     Boolean smbiosPresent;
+    public @Nullable Boolean isSMBIOSPresent(){return smbiosPresent;}
 
     @SerializedName("Status")
     @Nullable
@@ -73,9 +77,11 @@ public class Win32Bios {
     @Nullable
     String smbiosBiosVersion;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("PrimaryBIOS")
     @Nullable
     Boolean primaryBios;
+    public @Nullable Boolean isPrimaryBios(){return primaryBios;}
 
     @Override
     public String toString() {

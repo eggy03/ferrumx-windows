@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.storage;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,17 +72,23 @@ public class Win32DiskPartition {
     @Nullable
     Long numberOfBlocks;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Bootable")
     @Nullable
     Boolean bootable;
+    public @Nullable Boolean isBootable() {return bootable;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("PrimaryPartition")
     @Nullable
     Boolean primaryPartition;
+    public @Nullable Boolean isPrimaryPartition() {return primaryPartition;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("BootPartition")
     @Nullable
     Boolean bootPartition;
+    public @Nullable Boolean isBootPartition() {return bootPartition;}
 
     @SerializedName("DiskIndex")
     @Nullable

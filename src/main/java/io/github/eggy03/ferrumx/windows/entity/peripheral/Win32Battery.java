@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.peripheral;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,9 +67,11 @@ public class Win32Battery {
     @Nullable
     List<Integer> powerManagementCapabilities;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("PowerManagementSupported")
     @Nullable
     Boolean powerManagementSupported;
+    public @Nullable Boolean isPowerManagementSupported() {return powerManagementSupported;}
 
     @SerializedName("BatteryStatus")
     @Nullable

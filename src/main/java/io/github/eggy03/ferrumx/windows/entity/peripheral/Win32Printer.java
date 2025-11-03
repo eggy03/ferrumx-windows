@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.peripheral;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,21 +96,27 @@ public class Win32Printer {
     @Nullable
     String driverName;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Shared")
     @Nullable
-    Boolean isShared;
+    Boolean shared;
+    public @Nullable Boolean isShared() {return shared;}
 
     @SerializedName("ShareName")
     @Nullable
     String shareName;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("SpoolEnabled")
     @Nullable
-    Boolean hasSpoolEnabled;
+    Boolean spoolEnabled;
+    public @Nullable Boolean hasSpoolEnabled() {return spoolEnabled;}
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("Hidden")
     @Nullable
-    Boolean isHidden;
+    Boolean hidden;
+    public @Nullable Boolean isHidden() {return hidden;}
 
     @Override
     public String toString() {

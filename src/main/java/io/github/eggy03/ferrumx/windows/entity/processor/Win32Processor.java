@@ -2,7 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.processor;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -108,9 +110,11 @@ public class Win32Processor {
     @Nullable
     String stepping;
 
+    @Getter(AccessLevel.NONE)
     @SerializedName("VirtualizationFirmwareEnabled")
     @Nullable
     Boolean virtualizationFirmwareEnabled;
+    public @Nullable Boolean isVirtualizationEnabled() {return virtualizationFirmwareEnabled;}
 
     @SerializedName("ProcessorId")
     @Nullable
