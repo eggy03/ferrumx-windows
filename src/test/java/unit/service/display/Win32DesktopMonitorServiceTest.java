@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,7 +28,35 @@ class Win32DesktopMonitorServiceTest {
 
     private Win32DesktopMonitorService monitorService;
 
+    private static Win32DesktopMonitor expectedMonitor1;
+    private static Win32DesktopMonitor expectedMonitor2;
+
     private static String json;
+
+    @BeforeAll
+    static void setMonitors() {
+        expectedMonitor1 = Win32DesktopMonitor.builder()
+                .deviceId("MON1")
+                .name("Dell U2720Q")
+                .pnpDeviceId("DISPLAY\\\\DELA0B1\\\\5&12345&0&UID4352")
+                .status("OK")
+                .monitorManufacturer("Dell Inc.")
+                .monitorType("LCD")
+                .pixelsPerXLogicalInch(96)
+                .pixelsPerYLogicalInch(96)
+                .build();
+
+        expectedMonitor2 = Win32DesktopMonitor.builder()
+                .deviceId("MON2")
+                .name("LG UltraGear 27GL850")
+                .pnpDeviceId("DISPLAY\\\\LGD1234\\\\5&67890&0&UID9832")
+                .status("OK")
+                .monitorManufacturer("LG Electronics")
+                .monitorType("LED")
+                .pixelsPerXLogicalInch(110)
+                .pixelsPerYLogicalInch(110)
+                .build();
+    }
 
     @BeforeAll
     static void setupJson() {
@@ -75,11 +103,10 @@ class Win32DesktopMonitorServiceTest {
             powerShellMockedStatic.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
 
             List<Win32DesktopMonitor> monitors = monitorService.get();
-            assertFalse(monitors.isEmpty());
-            assertEquals("MON1", monitors.get(0).getDeviceId());
-            assertEquals("Dell U2720Q", monitors.get(0).getName());
-            assertEquals("MON2", monitors.get(1).getDeviceId());
-            assertEquals("LG UltraGear 27GL850", monitors.get(1).getName());
+            assertEquals(2, monitors.size());
+
+            assertThat(monitors.get(0)).usingRecursiveComparison().isEqualTo(expectedMonitor1);
+            assertThat(monitors.get(1)).usingRecursiveComparison().isEqualTo(expectedMonitor2);
         }
     }
 
@@ -120,11 +147,10 @@ class Win32DesktopMonitorServiceTest {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
 
             List<Win32DesktopMonitor> monitors = monitorService.get(mockSession);
-            assertFalse(monitors.isEmpty());
-            assertEquals("MON1", monitors.get(0).getDeviceId());
-            assertEquals("Dell U2720Q", monitors.get(0).getName());
-            assertEquals("MON2", monitors.get(1).getDeviceId());
-            assertEquals("LG UltraGear 27GL850", monitors.get(1).getName());
+            assertEquals(2, monitors.size());
+
+            assertThat(monitors.get(0)).usingRecursiveComparison().isEqualTo(expectedMonitor1);
+            assertThat(monitors.get(1)).usingRecursiveComparison().isEqualTo(expectedMonitor2);
         }
     }
 

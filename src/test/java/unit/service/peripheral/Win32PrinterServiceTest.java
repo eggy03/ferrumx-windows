@@ -2,6 +2,7 @@ package unit.service.peripheral;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
@@ -13,10 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,25 +30,102 @@ class Win32PrinterServiceTest {
 
     private Win32PrinterService printerService;
 
+    private static Win32Printer expectedPrinter1;
+    private static Win32Printer expectedPrinter2;
+
     private static String json;
 
     @BeforeAll
-    static void loadJson() {
+    static void setPrinters() {
+        expectedPrinter1 = Win32Printer.builder()
+                .deviceId("PRN1")
+                .name("HP LaserJet Pro M404dn")
+                .pnpDeviceId("USBPRINT\\Hewlett-PackardHP_LaB1A1\\7&1111A11&0&USB001")
+                .capabilities(Arrays.asList(1, 2, 3))
+                .capabilityDescriptions(Arrays.asList("Duplex", "Color", "Staple"))
+                .horizontalResolution(1200L)
+                .verticalResolution(1200L)
+                .paperSizesSupported(Arrays.asList(1, 5, 9))
+                .printerPaperNames(Arrays.asList("A4", "Letter", "Legal"))
+                .printerState(0)
+                .printJobDataType("RAW")
+                .printProcessor("winprint")
+                .driverName("HP Universal Printing PCL 6")
+                .shared(true)
+                .shareName("HP_LaserJet_Office")
+                .spoolEnabled(true)
+                .hidden(false)
+                .build();
+
+        expectedPrinter2 = Win32Printer.builder()
+                .deviceId("PRN2")
+                .name("Canon PIXMA G3020")
+                .pnpDeviceId("USBPRINT\\CanonG3020_SERIES\\7&2222B22&0&USB002")
+                .capabilities(Arrays.asList(2, 4))
+                .capabilityDescriptions(Arrays.asList("Color", "Scan"))
+                .horizontalResolution(600L)
+                .verticalResolution(600L)
+                .paperSizesSupported(Arrays.asList(1, 9))
+                .printerPaperNames(Arrays.asList("A4", "Legal"))
+                .printerState(1)
+                .printJobDataType("RAW")
+                .printProcessor("winprint")
+                .driverName("Canon G3000 series Printer")
+                .shared(false)
+                .shareName(null)
+                .spoolEnabled(true)
+                .hidden(false)
+                .build();
+    }
+
+    @BeforeAll
+    static void setupJson() {
         JsonArray printers = new JsonArray();
 
-        JsonObject printerOne = new JsonObject();
-        printerOne.addProperty("DeviceID", "PR1");
-        printerOne.addProperty("PrintProcessor", "win_print");
+        JsonObject prn1 = new JsonObject();
+        prn1.addProperty("DeviceID", "PRN1");
+        prn1.addProperty("Name", "HP LaserJet Pro M404dn");
+        prn1.addProperty("PNPDeviceID", "USBPRINT\\Hewlett-PackardHP_LaB1A1\\7&1111A11&0&USB001");
+        prn1.add("Capabilities", new Gson().toJsonTree(Arrays.asList(1, 2, 3)));
+        prn1.add("CapabilityDescriptions", new Gson().toJsonTree(Arrays.asList("Duplex", "Color", "Staple")));
+        prn1.addProperty("HorizontalResolution", 1200L);
+        prn1.addProperty("VerticalResolution", 1200L);
+        prn1.add("PaperSizesSupported", new Gson().toJsonTree(Arrays.asList(1, 5, 9)));
+        prn1.add("PrinterPaperNames", new Gson().toJsonTree(Arrays.asList("A4", "Letter", "Legal")));
+        prn1.addProperty("PrinterState", 0);
+        prn1.addProperty("PrintJobDataType", "RAW");
+        prn1.addProperty("PrintProcessor", "winprint");
+        prn1.addProperty("DriverName", "HP Universal Printing PCL 6");
+        prn1.addProperty("Shared", true);
+        prn1.addProperty("ShareName", "HP_LaserJet_Office");
+        prn1.addProperty("SpoolEnabled", true);
+        prn1.addProperty("Hidden", false);
 
-        JsonObject printerTwo = new JsonObject();
-        printerTwo.addProperty("DeviceID", "PR2");
-        printerTwo.addProperty("PrintProcessor", "win_print");
+        JsonObject prn2 = new JsonObject();
+        prn2.addProperty("DeviceID", "PRN2");
+        prn2.addProperty("Name", "Canon PIXMA G3020");
+        prn2.addProperty("PNPDeviceID", "USBPRINT\\CanonG3020_SERIES\\7&2222B22&0&USB002");
+        prn2.add("Capabilities", new Gson().toJsonTree(Arrays.asList(2, 4)));
+        prn2.add("CapabilityDescriptions", new Gson().toJsonTree(Arrays.asList("Color", "Scan")));
+        prn2.addProperty("HorizontalResolution", 600L);
+        prn2.addProperty("VerticalResolution", 600L);
+        prn2.add("PaperSizesSupported", new Gson().toJsonTree(Arrays.asList(1, 9)));
+        prn2.add("PrinterPaperNames", new Gson().toJsonTree(Arrays.asList("A4", "Legal")));
+        prn2.addProperty("PrinterState", 1);
+        prn2.addProperty("PrintJobDataType", "RAW");
+        prn2.addProperty("PrintProcessor", "winprint");
+        prn2.addProperty("DriverName", "Canon G3000 series Printer");
+        prn2.addProperty("Shared", false);
+        prn2.add("ShareName", JsonNull.INSTANCE);
+        prn2.addProperty("SpoolEnabled", true);
+        prn2.addProperty("Hidden", false);
 
-        printers.add(printerOne);
-        printers.add(printerTwo);
+        printers.add(prn1);
+        printers.add(prn2);
 
         json = new Gson().toJson(printers);
     }
+
 
     @BeforeEach
     void setUp() {
@@ -63,11 +142,10 @@ class Win32PrinterServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Printer> printers = printerService.get();
-            assertFalse(printers.isEmpty());
-            assertEquals("PR1", printers.get(0).getDeviceId());
-            assertEquals("win_print", printers.get(0).getPrintProcessor());
-            assertEquals("PR2", printers.get(1).getDeviceId());
-            assertEquals("win_print", printers.get(1).getPrintProcessor());
+            assertEquals(2, printers.size());
+
+            assertThat(printers.get(0)).usingRecursiveComparison().isEqualTo(expectedPrinter1);
+            assertThat(printers.get(1)).usingRecursiveComparison().isEqualTo(expectedPrinter2);
         }
     }
 
@@ -106,11 +184,10 @@ class Win32PrinterServiceTest {
             when(mockSession.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Printer> printers = printerService.get(mockSession);
-            assertFalse(printers.isEmpty());
-            assertEquals("PR1", printers.get(0).getDeviceId());
-            assertEquals("win_print", printers.get(0).getPrintProcessor());
-            assertEquals("PR2", printers.get(1).getDeviceId());
-            assertEquals("win_print", printers.get(1).getPrintProcessor());
+            assertEquals(2, printers.size());
+
+            assertThat(printers.get(0)).usingRecursiveComparison().isEqualTo(expectedPrinter1);
+            assertThat(printers.get(1)).usingRecursiveComparison().isEqualTo(expectedPrinter2);
         }
     }
 

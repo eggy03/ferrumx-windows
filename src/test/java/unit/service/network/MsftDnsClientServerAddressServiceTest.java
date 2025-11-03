@@ -13,11 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,30 +29,48 @@ class MsftDnsClientServerAddressServiceTest {
 
     private MsftDnsClientServerAddressService msftDnsService;
 
+    private static MsftDnsClientServerAddress expectedDns1;
+    private static MsftDnsClientServerAddress expectedDns2;
+
     private static String json;
 
     @BeforeAll
+    static void setDnsConfigs() {
+        expectedDns1 = MsftDnsClientServerAddress.builder()
+                .interfaceIndex(1L)
+                .interfaceAlias("Ethernet")
+                .addressFamily(2) // IPv4
+                .dnsServerAddresses(Arrays.asList("8.8.8.8", "4.4.4.4"))
+                .build();
+
+        expectedDns2 = MsftDnsClientServerAddress.builder()
+                .interfaceIndex(2L)
+                .interfaceAlias("Wi-Fi")
+                .addressFamily(23) // IPv6
+                .dnsServerAddresses(Arrays.asList("2001:4860:4860::8888", "2001:4860:4860::8844"))
+                .build();
+    }
+
+    @BeforeAll
     static void setupJson() {
-        JsonArray dnsArray = new JsonArray();
+        JsonArray dnsConfigs = new JsonArray();
 
-        JsonObject ethernet = new JsonObject();
-        ethernet.addProperty("InterfaceIndex", 1);
-        JsonArray ethernetAddressArray = new JsonArray();
-        ethernetAddressArray.add("8.8.8.8");
-        ethernetAddressArray.add("9.9.9.9");
-        ethernet.add("ServerAddresses", ethernetAddressArray);
+        JsonObject dns1 = new JsonObject();
+        dns1.addProperty("InterfaceIndex", 1L);
+        dns1.addProperty("InterfaceAlias", "Ethernet");
+        dns1.addProperty("AddressFamily", 2);
+        dns1.add("ServerAddresses", new Gson().toJsonTree(Arrays.asList("8.8.8.8", "4.4.4.4")));
 
-        JsonObject wifi = new JsonObject();
-        wifi.addProperty("InterfaceIndex", 2);
-        JsonArray wifiAddressArray = new JsonArray();
-        wifiAddressArray.add("8.8.4.4");
-        wifiAddressArray.add("1.1.1.1");
-        wifi.add("ServerAddresses", wifiAddressArray);
+        JsonObject dns2 = new JsonObject();
+        dns2.addProperty("InterfaceIndex", 2L);
+        dns2.addProperty("InterfaceAlias", "Wi-Fi");
+        dns2.addProperty("AddressFamily", 23);
+        dns2.add("ServerAddresses", new Gson().toJsonTree(Arrays.asList("2001:4860:4860::8888", "2001:4860:4860::8844")));
 
-        dnsArray.add(ethernet);
-        dnsArray.add(wifi);
+        dnsConfigs.add(dns1);
+        dnsConfigs.add(dns2);
 
-        json = new Gson().toJson(dnsArray);
+        json = new Gson().toJson(dnsConfigs);
     }
 
     @BeforeEach
@@ -70,21 +88,10 @@ class MsftDnsClientServerAddressServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<MsftDnsClientServerAddress> dns = msftDnsService.get();
-            assertFalse(dns.isEmpty());
-            assertEquals(1, dns.get(0).getInterfaceIndex());
-            assertEquals(2, dns.get(1).getInterfaceIndex());
-            
-            List<String> ethernetDnsAddress = dns.get(0).getDnsServerAddresses();
-            List<String> wifiDnsAddress = dns.get(1).getDnsServerAddresses();
+            assertEquals(2, dns.size());
 
-            assertNotNull(ethernetDnsAddress);
-            assertNotNull(wifiDnsAddress);
-
-            assertEquals("8.8.8.8", ethernetDnsAddress.get(0));
-            assertEquals("9.9.9.9", ethernetDnsAddress.get(1));
-
-            assertEquals("8.8.4.4", wifiDnsAddress.get(0));
-            assertEquals("1.1.1.1", wifiDnsAddress.get(1));
+            assertThat(dns.get(0)).usingRecursiveComparison().isEqualTo(expectedDns1);
+            assertThat(dns.get(1)).usingRecursiveComparison().isEqualTo(expectedDns2);
         }
     }
 
@@ -123,21 +130,10 @@ class MsftDnsClientServerAddressServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<MsftDnsClientServerAddress> dns = msftDnsService.get(mockShell);
-            assertFalse(dns.isEmpty());
-            assertEquals(1, dns.get(0).getInterfaceIndex());
-            assertEquals(2, dns.get(1).getInterfaceIndex());
+            assertEquals(2, dns.size());
 
-            List<String> ethernetDnsAddress = dns.get(0).getDnsServerAddresses();
-            List<String> wifiDnsAddress = dns.get(1).getDnsServerAddresses();
-
-            assertNotNull(ethernetDnsAddress);
-            assertNotNull(wifiDnsAddress);
-
-            assertEquals("8.8.8.8", ethernetDnsAddress.get(0));
-            assertEquals("9.9.9.9", ethernetDnsAddress.get(1));
-
-            assertEquals("8.8.4.4", wifiDnsAddress.get(0));
-            assertEquals("1.1.1.1", wifiDnsAddress.get(1));
+            assertThat(dns.get(0)).usingRecursiveComparison().isEqualTo(expectedDns1);
+            assertThat(dns.get(1)).usingRecursiveComparison().isEqualTo(expectedDns2);
         }
     }
 

@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,36 +28,74 @@ class Win32DiskPartitionServiceTest {
 
     private Win32DiskPartitionService diskPartitionService;
 
+    private static Win32DiskPartition expectedSystemPartition;
+    private static Win32DiskPartition expectedDataPartition;
     private static String json;
 
     @BeforeAll
-    static void setupJson() {
-        JsonArray partitions = new JsonArray();
+    static void setDiskPartitions() {
+        expectedSystemPartition = Win32DiskPartition.builder()
+                .deviceId("Disk0\\Partition1")
+                .name("System Reserved")
+                .description("EFI System Partition")
+                .blockSize(512L)
+                .numberOfBlocks(131072L)
+                .bootable(true)
+                .primaryPartition(true)
+                .bootPartition(true)
+                .diskIndex(0L)
+                .size(67108864L)
+                .type("EFI")
+                .build();
 
+        expectedDataPartition = Win32DiskPartition.builder()
+                .deviceId("Disk0\\Partition2")
+                .name("Local Disk (C:)")
+                .description("Primary OS Partition")
+                .blockSize(4096L)
+                .numberOfBlocks(244190000L)
+                .bootable(false)
+                .primaryPartition(true)
+                .bootPartition(false)
+                .diskIndex(0L)
+                .size(1000204886016L)
+                .type("NTFS")
+                .build();
+    }
+
+    @BeforeAll
+    static void setupJson() {
         JsonObject part1 = new JsonObject();
-        part1.addProperty("DeviceID", "Disk0_Part1");
-        part1.addProperty("Name", "C:");
-        part1.addProperty("Description", "System Partition");
-        part1.addProperty("Size", 500107862016L);
+        part1.addProperty("DeviceID", "Disk0\\Partition1");
+        part1.addProperty("Name", "System Reserved");
+        part1.addProperty("Description", "EFI System Partition");
+        part1.addProperty("BlockSize", 512L);
+        part1.addProperty("NumberOfBlocks", 131072L);
         part1.addProperty("Bootable", true);
         part1.addProperty("PrimaryPartition", true);
         part1.addProperty("BootPartition", true);
-        part1.addProperty("DiskIndex", 0);
+        part1.addProperty("DiskIndex", 0L);
+        part1.addProperty("Size", 67108864L);
+        part1.addProperty("Type", "EFI");
 
         JsonObject part2 = new JsonObject();
-        part2.addProperty("DeviceID", "Disk0_Part2");
-        part2.addProperty("Name", "D:");
-        part2.addProperty("Description", "Data Partition");
-        part2.addProperty("Size", 500107862016L);
+        part2.addProperty("DeviceID", "Disk0\\Partition2");
+        part2.addProperty("Name", "Local Disk (C:)");
+        part2.addProperty("Description", "Primary OS Partition");
+        part2.addProperty("BlockSize", 4096L);
+        part2.addProperty("NumberOfBlocks", 244190000L);
         part2.addProperty("Bootable", false);
         part2.addProperty("PrimaryPartition", true);
         part2.addProperty("BootPartition", false);
-        part2.addProperty("DiskIndex", 0);
+        part2.addProperty("DiskIndex", 0L);
+        part2.addProperty("Size", 1000204886016L);
+        part2.addProperty("Type", "NTFS");
 
-        partitions.add(part1);
-        partitions.add(part2);
+        JsonArray array = new JsonArray();
+        array.add(part1);
+        array.add(part2);
 
-        json = new Gson().toJson(partitions);
+        json = new Gson().toJson(array);
     }
 
     @BeforeEach
@@ -75,11 +113,10 @@ class Win32DiskPartitionServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32DiskPartition> partitions = diskPartitionService.get();
-            assertFalse(partitions.isEmpty());
-            assertEquals("Disk0_Part1", partitions.get(0).getDeviceId());
-            assertEquals("C:", partitions.get(0).getName());
-            assertEquals("Disk0_Part2", partitions.get(1).getDeviceId());
-            assertEquals("D:", partitions.get(1).getName());
+            assertEquals(2, partitions.size());
+
+            assertThat(partitions.get(0)).usingRecursiveComparison().isEqualTo(expectedSystemPartition);
+            assertThat(partitions.get(1)).usingRecursiveComparison().isEqualTo(expectedDataPartition);
         }
     }
 
@@ -118,11 +155,10 @@ class Win32DiskPartitionServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32DiskPartition> partitions = diskPartitionService.get(mockShell);
-            assertFalse(partitions.isEmpty());
-            assertEquals("Disk0_Part1", partitions.get(0).getDeviceId());
-            assertEquals("C:", partitions.get(0).getName());
-            assertEquals("Disk0_Part2", partitions.get(1).getDeviceId());
-            assertEquals("D:", partitions.get(1).getName());
+            assertEquals(2, partitions.size());
+
+            assertThat(partitions.get(0)).usingRecursiveComparison().isEqualTo(expectedSystemPartition);
+            assertThat(partitions.get(1)).usingRecursiveComparison().isEqualTo(expectedDataPartition);
         }
     }
 

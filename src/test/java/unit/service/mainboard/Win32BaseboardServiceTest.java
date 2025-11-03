@@ -1,6 +1,7 @@
 package unit.service.mainboard;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
@@ -14,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -27,18 +28,54 @@ class Win32BaseboardServiceTest {
 
     private Win32BaseboardService baseboardService;
 
-    private static String jsonBaseboard;
+    private static Win32Baseboard expectedBoard1;
+    private static Win32Baseboard expectedBoard2;
+
+    private static String json;
+
+    @BeforeAll
+    static void setBaseboards() {
+        expectedBoard1 = Win32Baseboard.builder()
+                .manufacturer("ASUS")
+                .model("ROG STRIX Z790-E GAMING WIFI")
+                .product("Z790-E")
+                .serialNumber("ABC123456789")
+                .version("Rev 1.xx")
+                .build();
+
+        expectedBoard2 = Win32Baseboard.builder()
+                .manufacturer("MSI")
+                .model("MAG B650 TOMAHAWK WIFI")
+                .product("B650 TOMAHAWK")
+                .serialNumber("XYZ987654321")
+                .version("Rev 2.00")
+                .build();
+    }
 
     @BeforeAll
     static void setupJson() {
-        JsonObject baseboard = new JsonObject();
-        baseboard.addProperty("Manufacturer", "ASUS");
-        baseboard.addProperty("Model", "ROG STRIX");
-        baseboard.addProperty("Version", "1.0.0");
-        baseboard.addProperty("SerialNumber", "123456789");
+        JsonArray boards = new JsonArray();
 
-        jsonBaseboard = new Gson().toJson(baseboard);
+        JsonObject board1 = new JsonObject();
+        board1.addProperty("Manufacturer", "ASUS");
+        board1.addProperty("Model", "ROG STRIX Z790-E GAMING WIFI");
+        board1.addProperty("Product", "Z790-E");
+        board1.addProperty("SerialNumber", "ABC123456789");
+        board1.addProperty("Version", "Rev 1.xx");
+
+        JsonObject board2 = new JsonObject();
+        board2.addProperty("Manufacturer", "MSI");
+        board2.addProperty("Model", "MAG B650 TOMAHAWK WIFI");
+        board2.addProperty("Product", "B650 TOMAHAWK");
+        board2.addProperty("SerialNumber", "XYZ987654321");
+        board2.addProperty("Version", "Rev 2.00");
+
+        boards.add(board1);
+        boards.add(board2);
+
+        json = new Gson().toJson(boards);
     }
+
 
     @BeforeEach
     void setUp() {
@@ -49,15 +86,16 @@ class Win32BaseboardServiceTest {
     void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonBaseboard);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Baseboard> baseboardList = baseboardService.get();
-            assertFalse(baseboardList.isEmpty());
-            assertEquals("ASUS", baseboardList.get(0).getManufacturer());
-            assertEquals("ROG STRIX", baseboardList.get(0).getModel());
+            assertEquals(2, baseboardList.size());
+
+            assertThat(baseboardList.get(0)).usingRecursiveComparison().isEqualTo(expectedBoard1);
+            assertThat(baseboardList.get(1)).usingRecursiveComparison().isEqualTo(expectedBoard2);
         }
     }
 
@@ -90,15 +128,16 @@ class Win32BaseboardServiceTest {
     void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonBaseboard);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Baseboard> baseboardList = baseboardService.get(mockShell);
-            assertFalse(baseboardList.isEmpty());
-            assertEquals("ASUS", baseboardList.get(0).getManufacturer());
-            assertEquals("ROG STRIX", baseboardList.get(0).getModel());
+            assertEquals(2, baseboardList.size());
+
+            assertThat(baseboardList.get(0)).usingRecursiveComparison().isEqualTo(expectedBoard1);
+            assertThat(baseboardList.get(1)).usingRecursiveComparison().isEqualTo(expectedBoard2);
         }
     }
 

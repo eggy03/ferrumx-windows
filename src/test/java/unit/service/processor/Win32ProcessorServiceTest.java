@@ -1,7 +1,6 @@
 package unit.service.processor;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
@@ -15,8 +14,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,24 +27,58 @@ class Win32ProcessorServiceTest {
 
     private Win32ProcessorService processorService;
 
-    private static String jsonProcessorArray;
+    private static Win32Processor expectedProcessor;
+    private static String json;
 
     @BeforeAll
-    static void prepareJson() {
-        JsonArray jsonArray = new JsonArray();
+    static void setProcessor() {
+        expectedProcessor = Win32Processor.builder()
+                .deviceId("CPU0")
+                .name("Intel(R) Core(TM) i9-13900K")
+                .numberOfCores(24)
+                .numberOfEnabledCores(24)
+                .threadCount(32)
+                .numberOfLogicalProcessors(32)
+                .manufacturer("GenuineIntel")
+                .addressWidth(64)
+                .l2CacheSize(2048)
+                .l3CacheSize(36864)
+                .maxClockSpeed(5300)
+                .extClock(100)
+                .socketDesignation("LGA1700")
+                .version("Model 151 Stepping 2")
+                .caption("Intel64 Family 6 Model 151 Stepping 2")
+                .family(6)
+                .stepping("2")
+                .virtualizationFirmwareEnabled(true)
+                .processorId("BFEBFBFF000B0671")
+                .build();
+    }
 
-        JsonObject cpu0 = new JsonObject();
-        cpu0.addProperty("DeviceID", "CPU0");
-        cpu0.addProperty("Name", "Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz");
+    @BeforeAll
+    static void setupJson() {
+        JsonObject cpu = new JsonObject();
+        cpu.addProperty("DeviceID", "CPU0");
+        cpu.addProperty("Name", "Intel(R) Core(TM) i9-13900K");
+        cpu.addProperty("NumberOfCores", 24);
+        cpu.addProperty("NumberOfEnabledCore", 24);
+        cpu.addProperty("ThreadCount", 32);
+        cpu.addProperty("NumberOfLogicalProcessors", 32);
+        cpu.addProperty("Manufacturer", "GenuineIntel");
+        cpu.addProperty("AddressWidth", 64);
+        cpu.addProperty("L2CacheSize", 2048);
+        cpu.addProperty("L3CacheSize", 36864);
+        cpu.addProperty("MaxClockSpeed", 5300);
+        cpu.addProperty("ExtClock", 100);
+        cpu.addProperty("SocketDesignation", "LGA1700");
+        cpu.addProperty("Version", "Model 151 Stepping 2");
+        cpu.addProperty("Caption", "Intel64 Family 6 Model 151 Stepping 2");
+        cpu.addProperty("Family", 6);
+        cpu.addProperty("Stepping", "2");
+        cpu.addProperty("VirtualizationFirmwareEnabled", true);
+        cpu.addProperty("ProcessorId", "BFEBFBFF000B0671");
 
-        JsonObject cpu1 = new JsonObject();
-        cpu1.addProperty("DeviceID", "CPU1");
-        cpu1.addProperty("Name", "AMD Ryzen 3 1200 @ 3.10GHz");
-
-        jsonArray.add(cpu0);
-        jsonArray.add(cpu1);
-
-        jsonProcessorArray = new Gson().toJson(jsonArray);
+        json = new Gson().toJson(cpu);
     }
 
     @BeforeEach
@@ -57,17 +90,14 @@ class Win32ProcessorServiceTest {
     void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonProcessorArray);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try(MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Processor> processorList = processorService.get();
-            assertFalse(processorList.isEmpty());
-            assertEquals("CPU0", processorList.get(0).getDeviceId());
-            assertEquals("Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz", processorList.get(0).getName());
-            assertEquals("CPU1", processorList.get(1).getDeviceId());
-            assertEquals("AMD Ryzen 3 1200 @ 3.10GHz", processorList.get(1).getName());
+            assertEquals(1, processorList.size());
+            assertThat(processorList.get(0)).usingRecursiveComparison().isEqualTo(expectedProcessor);
         }
     }
 
@@ -102,17 +132,14 @@ class Win32ProcessorServiceTest {
     void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonProcessorArray);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Processor> processorList = processorService.get(mockShell);
-            assertFalse(processorList.isEmpty());
-            assertEquals("CPU0", processorList.get(0).getDeviceId());
-            assertEquals("Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz", processorList.get(0).getName());
-            assertEquals("CPU1", processorList.get(1).getDeviceId());
-            assertEquals("AMD Ryzen 3 1200 @ 3.10GHz", processorList.get(1).getName());
+            assertEquals(1, processorList.size());
+            assertThat(processorList.get(0)).usingRecursiveComparison().isEqualTo(expectedProcessor);
         }
     }
 

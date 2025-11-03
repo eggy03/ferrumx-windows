@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,29 +28,65 @@ class Win32CacheMemoryServiceTest {
 
     private Win32CacheMemoryService processorCacheService;
 
-    private static String jsonProcessor;
+    private static Win32CacheMemory expectedL1Cache;
+    private static Win32CacheMemory expectedL2Cache;
+    private static Win32CacheMemory expectedL3Cache;
+
+    private static String json;
+
+    @BeforeAll
+    static void setCaches() {
+        expectedL1Cache = Win32CacheMemory.builder()
+                .deviceId("CPU0_L1")
+                .purpose("Instruction")
+                .installedSize(256L)
+                .associativity(4)
+                .build();
+
+        expectedL2Cache = Win32CacheMemory.builder()
+                .deviceId("CPU0_L2")
+                .purpose("Unified")
+                .installedSize(2048L)
+                .associativity(8)
+                .build();
+
+        expectedL3Cache = Win32CacheMemory.builder()
+                .deviceId("CPU0_L3")
+                .purpose("Unified")
+                .installedSize(16384L)
+                .associativity(8)
+                .build();
+    }
 
     @BeforeAll
     static void setupJson() {
         JsonArray caches = new JsonArray();
 
-        JsonObject cache1 = new JsonObject();
-        cache1.addProperty("DeviceID", "1");
-        cache1.addProperty("Purpose", "Level 1 Cache");
-        cache1.addProperty("InstalledSize", 32);
-        cache1.addProperty("Associativity", 0);
+        JsonObject l1 = new JsonObject();
+        l1.addProperty("DeviceID", "CPU0_L1");
+        l1.addProperty("Purpose", "Instruction");
+        l1.addProperty("InstalledSize", 256);
+        l1.addProperty("Associativity", 4);
 
-        JsonObject cache2 = new JsonObject();
-        cache2.addProperty("DeviceID", "2");
-        cache2.addProperty("Purpose", "Level 2 Cache");
-        cache2.addProperty("InstalledSize", 256);
-        cache2.addProperty("Associativity", 7);
+        JsonObject l2 = new JsonObject();
+        l2.addProperty("DeviceID", "CPU0_L2");
+        l2.addProperty("Purpose", "Unified");
+        l2.addProperty("InstalledSize", 2048);
+        l2.addProperty("Associativity", 8);
 
-        caches.add(cache1);
-        caches.add(cache2);
+        JsonObject l3 = new JsonObject();
+        l3.addProperty("DeviceID", "CPU0_L3");
+        l3.addProperty("Purpose", "Unified");
+        l3.addProperty("InstalledSize", 16384);
+        l3.addProperty("Associativity", 8);
 
-        jsonProcessor = new Gson().toJson(caches);
+        caches.add(l1);
+        caches.add(l2);
+        caches.add(l3);
+
+        json = new Gson().toJson(caches);
     }
+
 
     @BeforeEach
     void setUp() {
@@ -61,15 +97,17 @@ class Win32CacheMemoryServiceTest {
     void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonProcessor);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try(MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32CacheMemory> cache = processorCacheService.get();
-            assertFalse(cache.isEmpty());
-            assertEquals("1", cache.get(0).getDeviceId());
-            assertEquals("2", cache.get(1).getDeviceId());
+            assertEquals(3, cache.size());
+
+            assertThat(cache.get(0)).usingRecursiveComparison().isEqualTo(expectedL1Cache);
+            assertThat(cache.get(1)).usingRecursiveComparison().isEqualTo(expectedL2Cache);
+            assertThat(cache.get(2)).usingRecursiveComparison().isEqualTo(expectedL3Cache);
         }
     }
 
@@ -104,15 +142,17 @@ class Win32CacheMemoryServiceTest {
     void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonProcessor);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32CacheMemory> cache = processorCacheService.get(mockShell);
-            assertFalse(cache.isEmpty());
-            assertEquals("1", cache.get(0).getDeviceId());
-            assertEquals("2", cache.get(1).getDeviceId());
+            assertEquals(3, cache.size());
+
+            assertThat(cache.get(0)).usingRecursiveComparison().isEqualTo(expectedL1Cache);
+            assertThat(cache.get(1)).usingRecursiveComparison().isEqualTo(expectedL2Cache);
+            assertThat(cache.get(2)).usingRecursiveComparison().isEqualTo(expectedL3Cache);
         }
     }
 

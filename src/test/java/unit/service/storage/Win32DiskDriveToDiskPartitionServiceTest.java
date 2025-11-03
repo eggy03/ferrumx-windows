@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,26 +28,40 @@ class Win32DiskDriveToDiskPartitionServiceTest {
 
     private Win32DiskDriveToDiskPartitionService service;
 
+    private static Win32DiskDriveToDiskPartition expectedMapping1;
+    private static Win32DiskDriveToDiskPartition expectedMapping2;
     private static String json;
 
     @BeforeAll
-    static void setJson() {
-        JsonArray jsonArray = new JsonArray();
+    static void setDiskDriveToPartitionMappings() {
+        expectedMapping1 = Win32DiskDriveToDiskPartition.builder()
+                .diskDriveDeviceId("PHYSICALDRIVE0")
+                .diskPartitionDeviceId("Disk #0 Partition #1")
+                .build();
 
-        JsonObject drivePartOne = new JsonObject();
-        JsonObject drivePartTwo = new JsonObject();
-
-        drivePartOne.addProperty("DiskDriveDeviceID", "PHYSICAL_DRIVE_1");
-        drivePartOne.addProperty("DiskPartitionDeviceID", "LOGICAL_PARTITION_1");
-
-        drivePartTwo.addProperty("DiskDriveDeviceID", "PHYSICAL_DRIVE_2");
-        drivePartTwo.addProperty("DiskPartitionDeviceID", "LOGICAL_PARTITION_2");
-
-        jsonArray.add(drivePartOne);
-        jsonArray.add(drivePartTwo);
-
-        json = new Gson().toJson(jsonArray);
+        expectedMapping2 = Win32DiskDriveToDiskPartition.builder()
+                .diskDriveDeviceId("PHYSICALDRIVE1")
+                .diskPartitionDeviceId("Disk #1 Partition #1")
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonObject mapping1 = new JsonObject();
+        mapping1.addProperty("DiskDriveDeviceID", "PHYSICALDRIVE0");
+        mapping1.addProperty("DiskPartitionDeviceID", "Disk #0 Partition #1");
+
+        JsonObject mapping2 = new JsonObject();
+        mapping2.addProperty("DiskDriveDeviceID", "PHYSICALDRIVE1");
+        mapping2.addProperty("DiskPartitionDeviceID", "Disk #1 Partition #1");
+
+        JsonArray array = new JsonArray();
+        array.add(mapping1);
+        array.add(mapping2);
+
+        json = new Gson().toJson(array);
+    }
+
 
     @BeforeEach
     void setService() {
@@ -62,13 +76,12 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         try(MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)){
 
             mockShell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
-            List<Win32DiskDriveToDiskPartition> associationList = service.get();
 
-            assertFalse(associationList.isEmpty());
-            assertEquals("PHYSICAL_DRIVE_1", associationList.get(0).getDiskDriveDeviceId());
-            assertEquals("PHYSICAL_DRIVE_2", associationList.get(1).getDiskDriveDeviceId());
-            assertEquals("LOGICAL_PARTITION_1", associationList.get(0).getDiskPartitionDeviceId());
-            assertEquals("LOGICAL_PARTITION_2", associationList.get(1).getDiskPartitionDeviceId());
+            List<Win32DiskDriveToDiskPartition> associationList = service.get();
+            assertEquals(2, associationList.size());
+
+            assertThat(associationList.get(0)).usingRecursiveComparison().isEqualTo(expectedMapping1);
+            assertThat(associationList.get(1)).usingRecursiveComparison().isEqualTo(expectedMapping2);
         }
     }
 
@@ -106,13 +119,12 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         try(PowerShell mockShell = mock(PowerShell.class)){
 
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            List<Win32DiskDriveToDiskPartition> associationList = service.get(mockShell);
 
-            assertFalse(associationList.isEmpty());
-            assertEquals("PHYSICAL_DRIVE_1", associationList.get(0).getDiskDriveDeviceId());
-            assertEquals("PHYSICAL_DRIVE_2", associationList.get(1).getDiskDriveDeviceId());
-            assertEquals("LOGICAL_PARTITION_1", associationList.get(0).getDiskPartitionDeviceId());
-            assertEquals("LOGICAL_PARTITION_2", associationList.get(1).getDiskPartitionDeviceId());
+            List<Win32DiskDriveToDiskPartition> associationList = service.get(mockShell);
+            assertEquals(2, associationList.size());
+
+            assertThat(associationList.get(0)).usingRecursiveComparison().isEqualTo(expectedMapping1);
+            assertThat(associationList.get(1)).usingRecursiveComparison().isEqualTo(expectedMapping2);
         }
     }
 

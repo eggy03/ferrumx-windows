@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,26 +28,42 @@ class Win32AssociatedProcessorMemoryTest {
 
     private Win32AssociatedProcessorMemoryService apmService;
 
+    private static Win32AssociatedProcessorMemory expectedAssoc1;
+    private static Win32AssociatedProcessorMemory expectedAssoc2;
+
     private static String json;
 
     @BeforeAll
-    static void setJson() {
+    static void setAssociations() {
+        expectedAssoc1 = Win32AssociatedProcessorMemory.builder()
+                .cacheMemoryDeviceId("CacheMemory0")
+                .processorDeviceId("CPU0")
+                .build();
 
-        JsonArray jsonArray = new JsonArray();
-
-        JsonObject cacheZero = new JsonObject();
-        cacheZero.addProperty("CacheMemoryDeviceID", "Cache Memory 0");
-        cacheZero.addProperty("ProcessorDeviceID", "CPU0");
-
-        JsonObject cacheOne = new JsonObject();
-        cacheOne.addProperty("CacheMemoryDeviceID", "Cache Memory 1");
-        cacheOne.addProperty("ProcessorDeviceID", "CPU0");
-
-        jsonArray.add(cacheZero);
-        jsonArray.add(cacheOne);
-
-        json = new Gson().toJson(jsonArray);
+        expectedAssoc2 = Win32AssociatedProcessorMemory.builder()
+                .cacheMemoryDeviceId("CacheMemory1")
+                .processorDeviceId("CPU1")
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonArray associations = new JsonArray();
+
+        JsonObject assoc1 = new JsonObject();
+        assoc1.addProperty("CacheMemoryDeviceID", "CacheMemory0");
+        assoc1.addProperty("ProcessorDeviceID", "CPU0");
+
+        JsonObject assoc2 = new JsonObject();
+        assoc2.addProperty("CacheMemoryDeviceID", "CacheMemory1");
+        assoc2.addProperty("ProcessorDeviceID", "CPU1");
+
+        associations.add(assoc1);
+        associations.add(assoc2);
+
+        json = new Gson().toJson(associations);
+    }
+
 
     @BeforeEach
     void setApmService() {
@@ -61,13 +77,12 @@ class Win32AssociatedProcessorMemoryTest {
 
         try(MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)){
             powerShellMock.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+
             List<Win32AssociatedProcessorMemory> apmList = apmService.get();
-            assertFalse(apmList.isEmpty());
             assertEquals(2, apmList.size());
-            assertEquals("Cache Memory 0", apmList.get(0).getCacheMemoryDeviceId());
-            assertEquals("Cache Memory 1", apmList.get(1).getCacheMemoryDeviceId());
-            assertEquals("CPU0", apmList.get(0).getProcessorDeviceId());
-            assertEquals("CPU0", apmList.get(1).getProcessorDeviceId());
+
+            assertThat(apmList.get(0)).usingRecursiveComparison().isEqualTo(expectedAssoc1);
+            assertThat(apmList.get(1)).usingRecursiveComparison().isEqualTo(expectedAssoc2);
         }
 
     }
@@ -102,13 +117,12 @@ class Win32AssociatedProcessorMemoryTest {
 
         try(PowerShell mockedShell = mock(PowerShell.class)){
             when(mockedShell.executeCommand(anyString())).thenReturn(mockResponse);
+
             List<Win32AssociatedProcessorMemory> apmList = apmService.get(mockedShell);
-            assertFalse(apmList.isEmpty());
             assertEquals(2, apmList.size());
-            assertEquals("Cache Memory 0", apmList.get(0).getCacheMemoryDeviceId());
-            assertEquals("Cache Memory 1", apmList.get(1).getCacheMemoryDeviceId());
-            assertEquals("CPU0", apmList.get(0).getProcessorDeviceId());
-            assertEquals("CPU0", apmList.get(1).getProcessorDeviceId());
+
+            assertThat(apmList.get(0)).usingRecursiveComparison().isEqualTo(expectedAssoc1);
+            assertThat(apmList.get(1)).usingRecursiveComparison().isEqualTo(expectedAssoc2);
         }
     }
 

@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,27 +28,46 @@ class Win32PortConnectorServiceTest {
 
     private Win32PortConnectorService portConnectorService;
 
-    private static String jsonMainboardPort;
+    private static Win32PortConnector expectedPort1;
+    private static Win32PortConnector expectedPort2;
+
+    private static String json;
+
+    @BeforeAll
+    static void setPorts() {
+        expectedPort1 = Win32PortConnector.builder()
+                .tag("PortConnector1")
+                .externalReferenceDesignator("USB3_0")
+                .internalReferenceDesignator("JUSB1")
+                .build();
+
+        expectedPort2 = Win32PortConnector.builder()
+                .tag("PortConnector2")
+                .externalReferenceDesignator("HDMI_OUT")
+                .internalReferenceDesignator("JHDMI1")
+                .build();
+    }
 
     @BeforeAll
     static void setupJson() {
         JsonArray ports = new JsonArray();
 
         JsonObject port1 = new JsonObject();
-        port1.addProperty("Tag", "Port1");
-        port1.addProperty("ExternalReferenceDesignator", "External1");
-        port1.addProperty("InternalReferenceDesignator", "Internal1");
+        port1.addProperty("Tag", "PortConnector1");
+        port1.addProperty("ExternalReferenceDesignator", "USB3_0");
+        port1.addProperty("InternalReferenceDesignator", "JUSB1");
 
         JsonObject port2 = new JsonObject();
-        port2.addProperty("Tag", "Port2");
-        port2.addProperty("ExternalReferenceDesignator", "External2");
-        port2.addProperty("InternalReferenceDesignator", "Internal2");
+        port2.addProperty("Tag", "PortConnector2");
+        port2.addProperty("ExternalReferenceDesignator", "HDMI_OUT");
+        port2.addProperty("InternalReferenceDesignator", "JHDMI1");
 
         ports.add(port1);
         ports.add(port2);
 
-        jsonMainboardPort = new Gson().toJson(ports);
+        json = new Gson().toJson(ports);
     }
+
 
     @BeforeEach
     void setUp() {
@@ -59,16 +78,16 @@ class Win32PortConnectorServiceTest {
     void test_get_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonMainboardPort);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32PortConnector> mainboardPort = portConnectorService.get();
-            assertFalse(mainboardPort.isEmpty());
-            assertEquals("Port1", mainboardPort.get(0).getTag());
-            assertEquals("External1", mainboardPort.get(0).getExternalReferenceDesignator());
-            assertEquals("Internal2", mainboardPort.get(1).getInternalReferenceDesignator());
+            assertEquals(2, mainboardPort.size());
+
+            assertThat(mainboardPort.get(0)).usingRecursiveComparison().isEqualTo(expectedPort1);
+            assertThat(mainboardPort.get(1)).usingRecursiveComparison().isEqualTo(expectedPort2);
         }
     }
 
@@ -101,16 +120,16 @@ class Win32PortConnectorServiceTest {
     void test_getWithSession_success() {
 
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
-        when(mockResponse.getCommandOutput()).thenReturn(jsonMainboardPort);
+        when(mockResponse.getCommandOutput()).thenReturn(json);
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32PortConnector> mainboardPort = portConnectorService.get(mockShell);
-            assertFalse(mainboardPort.isEmpty());
-            assertEquals("Port1", mainboardPort.get(0).getTag());
-            assertEquals("External1", mainboardPort.get(0).getExternalReferenceDesignator());
-            assertEquals("Internal2", mainboardPort.get(1).getInternalReferenceDesignator());
+            assertEquals(2, mainboardPort.size());
+
+            assertThat(mainboardPort.get(0)).usingRecursiveComparison().isEqualTo(expectedPort1);
+            assertThat(mainboardPort.get(1)).usingRecursiveComparison().isEqualTo(expectedPort2);
         }
     }
 

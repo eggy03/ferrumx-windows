@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,31 +28,78 @@ class Win32NetworkAdapterServiceTest {
 
     private Win32NetworkAdapterService networkAdapterService;
 
+    private static Win32NetworkAdapter expectedEthernetAdapter;
+    private static Win32NetworkAdapter expectedWifiAdapter;
+
     private static String json;
+
+    @BeforeAll
+    static void setAdapters() {
+        expectedEthernetAdapter = Win32NetworkAdapter.builder()
+                .deviceId("1")
+                .index(1)
+                .name("Ethernet")
+                .description("Intel(R) Ethernet Connection I219-V")
+                .pnpDeviceId("PCI\\VEN_8086&DEV_15B8&SUBSYS_06A41028&REV_31\\3&11583659&0&FE")
+                .macAddress("00:1A:2B:3C:4D:5E")
+                .installed(true)
+                .netEnabled(true)
+                .netConnectionId("Ethernet")
+                .physicalAdapter(true)
+                .timeOfLastReset("2024-07-12T15:30:00Z")
+                .build();
+
+        expectedWifiAdapter = Win32NetworkAdapter.builder()
+                .deviceId("2")
+                .index(2)
+                .name("Wi-Fi")
+                .description("Intel(R) Wi-Fi 6 AX200 160MHz")
+                .pnpDeviceId("PCI\\VEN_8086&DEV_2723&SUBSYS_00848086&REV_1A\\3&11583659&0&A3")
+                .macAddress("A0:B1:C2:D3:E4:F5")
+                .installed(true)
+                .netEnabled(false)
+                .netConnectionId("Wi-Fi")
+                .physicalAdapter(true)
+                .timeOfLastReset("2024-07-12T15:45:00Z")
+                .build();
+    }
 
     @BeforeAll
     static void setupJson() {
         JsonArray adapters = new JsonArray();
 
-        JsonObject ethernet = new JsonObject();
-        ethernet.addProperty("DeviceID", "1");
-        ethernet.addProperty("Index", 0);
-        ethernet.addProperty("Name", "Ethernet Adapter");
-        ethernet.addProperty("MACAddress", "00-14-22-01-23-45");
-        ethernet.addProperty("NetEnabled", true);
+        JsonObject eth = new JsonObject();
+        eth.addProperty("DeviceID", "1");
+        eth.addProperty("Index", 1);
+        eth.addProperty("Name", "Ethernet");
+        eth.addProperty("Description", "Intel(R) Ethernet Connection I219-V");
+        eth.addProperty("PNPDeviceID", "PCI\\VEN_8086&DEV_15B8&SUBSYS_06A41028&REV_31\\3&11583659&0&FE");
+        eth.addProperty("MACAddress", "00:1A:2B:3C:4D:5E");
+        eth.addProperty("Installed", true);
+        eth.addProperty("NetEnabled", true);
+        eth.addProperty("NetConnectionID", "Ethernet");
+        eth.addProperty("PhysicalAdapter", true);
+        eth.addProperty("TimeOfLastReset", "2024-07-12T15:30:00Z");
 
         JsonObject wifi = new JsonObject();
         wifi.addProperty("DeviceID", "2");
-        wifi.addProperty("Index", 1);
-        wifi.addProperty("Name", "Wi-Fi Adapter");
-        wifi.addProperty("MACAddress", "00-16-36-FF-EE-11");
+        wifi.addProperty("Index", 2);
+        wifi.addProperty("Name", "Wi-Fi");
+        wifi.addProperty("Description", "Intel(R) Wi-Fi 6 AX200 160MHz");
+        wifi.addProperty("PNPDeviceID", "PCI\\VEN_8086&DEV_2723&SUBSYS_00848086&REV_1A\\3&11583659&0&A3");
+        wifi.addProperty("MACAddress", "A0:B1:C2:D3:E4:F5");
+        wifi.addProperty("Installed", true);
         wifi.addProperty("NetEnabled", false);
+        wifi.addProperty("NetConnectionID", "Wi-Fi");
+        wifi.addProperty("PhysicalAdapter", true);
+        wifi.addProperty("TimeOfLastReset", "2024-07-12T15:45:00Z");
 
-        adapters.add(ethernet);
+        adapters.add(eth);
         adapters.add(wifi);
 
         json = new Gson().toJson(adapters);
     }
+
 
     @BeforeEach
     void setUp() {
@@ -69,11 +116,10 @@ class Win32NetworkAdapterServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32NetworkAdapter> adapters = networkAdapterService.get();
-            assertFalse(adapters.isEmpty());
-            assertEquals("1", adapters.get(0).getDeviceId());
-            assertEquals("Ethernet Adapter", adapters.get(0).getName());
-            assertEquals("2", adapters.get(1).getDeviceId());
-            assertEquals("Wi-Fi Adapter", adapters.get(1).getName());
+            assertEquals(2, adapters.size());
+
+            assertThat(adapters.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetAdapter);
+            assertThat(adapters.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiAdapter);
         }
     }
 
@@ -112,11 +158,10 @@ class Win32NetworkAdapterServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32NetworkAdapter> adapters = networkAdapterService.get(mockShell);
-            assertFalse(adapters.isEmpty());
-            assertEquals("1", adapters.get(0).getDeviceId());
-            assertEquals("Ethernet Adapter", adapters.get(0).getName());
-            assertEquals("2", adapters.get(1).getDeviceId());
-            assertEquals("Wi-Fi Adapter", adapters.get(1).getName());
+            assertEquals(2, adapters.size());
+
+            assertThat(adapters.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetAdapter);
+            assertThat(adapters.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiAdapter);
         }
     }
 

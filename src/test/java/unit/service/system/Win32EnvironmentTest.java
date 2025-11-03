@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,27 +28,44 @@ class Win32EnvironmentTest {
 
     private Win32EnvironmentService envService;
 
+    private static Win32Environment sysVar;
+    private static Win32Environment userVar;
     private static String json;
 
     @BeforeAll
-    static void setupJson() {
-        JsonArray env = new JsonArray();
+    static void setEnvironmentVariables() {
+        sysVar = Win32Environment.builder()
+                .name("PATH")
+                .isSystemVariable(true)
+                .variableValue("C:\\Windows\\System32")
+                .build();
 
-        JsonObject env0 = new JsonObject();
-        env0.addProperty("Name", "PROCESSOR_ARCHITECTURE");
-        env0.addProperty("SystemVariable", true);
-        env0.addProperty("VariableValue", "AMD64");
-
-        JsonObject env1 = new JsonObject();
-        env1.addProperty("Name", "NUMBER_OF_PROCESSORS");
-        env1.addProperty("SystemVariable", true);
-        env1.addProperty("VariableValue", "12");
-
-        env.add(env0);
-        env.add(env1);
-
-        json = new Gson().toJson(env);
+        userVar = Win32Environment.builder()
+                .name("TEMP")
+                .isSystemVariable(false)
+                .variableValue("C:\\Users\\User\\AppData\\Local\\Temp")
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonObject sysEnv = new JsonObject();
+        sysEnv.addProperty("Name", "PATH");
+        sysEnv.addProperty("SystemVariable", true);
+        sysEnv.addProperty("VariableValue", "C:\\Windows\\System32");
+
+        JsonObject userEnv = new JsonObject();
+        userEnv.addProperty("Name", "TEMP");
+        userEnv.addProperty("SystemVariable", false);
+        userEnv.addProperty("VariableValue", "C:\\Users\\User\\AppData\\Local\\Temp");
+
+        JsonArray array = new JsonArray();
+        array.add(sysEnv);
+        array.add(userEnv);
+
+        json = new Gson().toJson(array);
+    }
+
 
     @BeforeEach
     void setUp() {
@@ -65,15 +82,10 @@ class Win32EnvironmentTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Environment> envList = envService.get();
-            assertFalse(envList.isEmpty());
+            assertEquals(2, envList.size());
 
-            assertEquals("PROCESSOR_ARCHITECTURE", envList.get(0).getName());
-            assertTrue(Boolean.TRUE, String.valueOf(envList.get(0).getIsSystemVariable()));
-            assertEquals("AMD64", envList.get(0).getVariableValue());
-
-            assertEquals("NUMBER_OF_PROCESSORS", envList.get(1).getName());
-            assertTrue(Boolean.TRUE, String.valueOf(envList.get(1).getIsSystemVariable()));
-            assertEquals("12", envList.get(1).getVariableValue());
+            assertThat(envList.get(0)).usingRecursiveComparison().isEqualTo(sysVar);
+            assertThat(envList.get(1)).usingRecursiveComparison().isEqualTo(userVar);
         }
     }
 
@@ -112,15 +124,10 @@ class Win32EnvironmentTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32Environment> envList = envService.get(mockShell);
-            assertFalse(envList.isEmpty());
+            assertEquals(2, envList.size());
 
-            assertEquals("PROCESSOR_ARCHITECTURE", envList.get(0).getName());
-            assertTrue(Boolean.TRUE, String.valueOf(envList.get(0).getIsSystemVariable()));
-            assertEquals("AMD64", envList.get(0).getVariableValue());
-
-            assertEquals("NUMBER_OF_PROCESSORS", envList.get(1).getName());
-            assertTrue(Boolean.TRUE, String.valueOf(envList.get(1).getIsSystemVariable()));
-            assertEquals("12", envList.get(1).getVariableValue());
+            assertThat(envList.get(0)).usingRecursiveComparison().isEqualTo(sysVar);
+            assertThat(envList.get(1)).usingRecursiveComparison().isEqualTo(userVar);
         }
     }
 

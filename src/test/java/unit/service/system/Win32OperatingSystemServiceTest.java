@@ -12,10 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -27,22 +28,69 @@ class Win32OperatingSystemServiceTest {
 
     private Win32OperatingSystemService operatingSystemService;
 
+    private static Win32OperatingSystem expectedOs;
     private static String json;
 
     @BeforeAll
-    static void setupJson() {
-        JsonObject windows = new JsonObject();
-        windows.addProperty("Name", "Windows 11 Pro");
-        windows.addProperty("Caption", "Microsoft Windows 11 Pro");
-        windows.addProperty("InstallDate", "20230915090000.000000+000");
-        windows.addProperty("CSName", "DESKTOP-1234");
-        windows.addProperty("LastBootUpTime", "20250920070000.000000+000");
-        windows.addProperty("NumberOfUsers", 1);
-        windows.addProperty("Version", "11.0.22000");
-        windows.addProperty("OSArchitecture", "64-bit");
-
-        json = new Gson().toJson(windows);
+    static void setupOperatingSystem() {
+        expectedOs = Win32OperatingSystem.builder()
+                .name("Microsoft Windows 11 Pro|C:\\WINDOWS|\\Device\\Harddisk0\\Partition4")
+                .caption("Microsoft Windows 11 Pro")
+                .installDate("20240101000000.000000+330")
+                .csName("DESKTOP-12345")
+                .lastBootUpTime("20241102123000.000000+330")
+                .localDateTime("20251103180000.000000+330")
+                .distributed(false)
+                .numberOfUsers(1)
+                .version("10.0.22631")
+                .bootDevice("\\Device\\HarddiskVolume3")
+                .buildNumber("22631")
+                .buildType("Multiprocessor Free")
+                .manufacturer("Microsoft Corporation")
+                .osArchitecture("64-bit")
+                .muiLanguages(Collections.singletonList("en-US"))
+                .portableOperatingSystem(false)
+                .primary(true)
+                .registeredUser("User")
+                .serialNumber("00330-80000-00000-AA123")
+                .servicePackMajorVersion(0)
+                .servicePackMinorVersion(0)
+                .systemDirectory("C:\\WINDOWS\\system32")
+                .systemDrive("C:")
+                .windowsDirectory("C:\\WINDOWS")
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("Name", "Microsoft Windows 11 Pro|C:\\WINDOWS|\\Device\\Harddisk0\\Partition4");
+        obj.addProperty("Caption", "Microsoft Windows 11 Pro");
+        obj.addProperty("InstallDate", "20240101000000.000000+330");
+        obj.addProperty("CSName", "DESKTOP-12345");
+        obj.addProperty("LastBootUpTime", "20241102123000.000000+330");
+        obj.addProperty("LocalDateTime", "20251103180000.000000+330");
+        obj.addProperty("Distributed", false);
+        obj.addProperty("NumberOfUsers", 1);
+        obj.addProperty("Version", "10.0.22631");
+        obj.addProperty("BootDevice", "\\Device\\HarddiskVolume3");
+        obj.addProperty("BuildNumber", "22631");
+        obj.addProperty("BuildType", "Multiprocessor Free");
+        obj.addProperty("Manufacturer", "Microsoft Corporation");
+        obj.addProperty("OSArchitecture", "64-bit");
+        obj.add("MUILanguages", new Gson().toJsonTree(Collections.singletonList("en-US")));
+        obj.addProperty("PortableOperatingSystem", false);
+        obj.addProperty("Primary", true);
+        obj.addProperty("RegisteredUser", "User");
+        obj.addProperty("SerialNumber", "00330-80000-00000-AA123");
+        obj.addProperty("ServicePackMajorVersion", 0);
+        obj.addProperty("ServicePackMinorVersion", 0);
+        obj.addProperty("SystemDirectory", "C:\\WINDOWS\\system32");
+        obj.addProperty("SystemDrive", "C:");
+        obj.addProperty("WindowsDirectory", "C:\\WINDOWS");
+        json = new Gson().toJson(obj);
+    }
+
 
     @BeforeEach
     void setUp() {
@@ -59,11 +107,8 @@ class Win32OperatingSystemServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32OperatingSystem> os = operatingSystemService.get();
-            assertFalse(os.isEmpty());
-            assertEquals("Windows 11 Pro", os.get(0).getName());
-            assertEquals("Microsoft Windows 11 Pro", os.get(0).getCaption());
-            assertEquals("DESKTOP-1234", os.get(0).getCsName());
-            assertEquals("11.0.22000", os.get(0).getVersion());
+            assertEquals(1, os.size());
+            assertThat(os.get(0)).usingRecursiveComparison().isEqualTo(expectedOs);
         }
     }
 
@@ -102,11 +147,8 @@ class Win32OperatingSystemServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32OperatingSystem> os = operatingSystemService.get(mockShell);
-            assertFalse(os.isEmpty());
-            assertEquals("Windows 11 Pro", os.get(0).getName());
-            assertEquals("Microsoft Windows 11 Pro", os.get(0).getCaption());
-            assertEquals("DESKTOP-1234", os.get(0).getCsName());
-            assertEquals("11.0.22000", os.get(0).getVersion());
+            assertEquals(1, os.size());
+            assertThat(os.get(0)).usingRecursiveComparison().isEqualTo(expectedOs);
         }
     }
 

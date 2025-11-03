@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,25 +28,42 @@ class Win32NetworkAdapterSettingServiceTest {
 
     private Win32NetworkAdapterSettingService service;
 
+    private static Win32NetworkAdapterSetting expectedEthernetSetting;
+    private static Win32NetworkAdapterSetting expectedWifiSetting;
+
     private static String json;
 
     @BeforeAll
-    static void setJson() {
-        JsonArray jsonArray = new JsonArray();
+    static void setSettings() {
+        expectedEthernetSetting = Win32NetworkAdapterSetting.builder()
+                .networkAdapterDeviceId("1")
+                .networkAdapterConfigurationIndex(1)
+                .build();
 
-        JsonObject settingOne = new JsonObject();
-        settingOne.addProperty("NetworkAdapterDeviceID", "1");
-        settingOne.addProperty("NetworkAdapterConfigurationIndex", 1);
-
-        JsonObject settingTwo = new JsonObject();
-        settingTwo.addProperty("NetworkAdapterDeviceID", "2");
-        settingTwo.addProperty("NetworkAdapterConfigurationIndex", 2);
-
-        jsonArray.add(settingOne);
-        jsonArray.add(settingTwo);
-
-        json = new Gson().toJson(jsonArray);
+        expectedWifiSetting = Win32NetworkAdapterSetting.builder()
+                .networkAdapterDeviceId("2")
+                .networkAdapterConfigurationIndex(2)
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonArray settings = new JsonArray();
+
+        JsonObject ethernet = new JsonObject();
+        ethernet.addProperty("NetworkAdapterDeviceID", "1");
+        ethernet.addProperty("NetworkAdapterConfigurationIndex", 1);
+
+        JsonObject wifi = new JsonObject();
+        wifi.addProperty("NetworkAdapterDeviceID", "2");
+        wifi.addProperty("NetworkAdapterConfigurationIndex", 2);
+
+        settings.add(ethernet);
+        settings.add(wifi);
+
+        json = new Gson().toJson(settings);
+    }
+
 
     @BeforeEach
     void setService() {
@@ -61,13 +78,12 @@ class Win32NetworkAdapterSettingServiceTest {
         try(MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)){
 
             mockShell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
-            List<Win32NetworkAdapterSetting> networkAdapterSettingList = service.get();
 
-            assertFalse(networkAdapterSettingList.isEmpty());
-            assertEquals("1", networkAdapterSettingList.get(0).getNetworkAdapterDeviceId());
-            assertEquals("2", networkAdapterSettingList.get(1).getNetworkAdapterDeviceId());
-            assertEquals(1, networkAdapterSettingList.get(0).getNetworkAdapterConfigurationIndex());
-            assertEquals(2, networkAdapterSettingList.get(1).getNetworkAdapterConfigurationIndex());
+            List<Win32NetworkAdapterSetting> networkAdapterSettingList = service.get();
+            assertEquals(2, networkAdapterSettingList.size());
+
+            assertThat(networkAdapterSettingList.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetSetting);
+            assertThat(networkAdapterSettingList.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiSetting);
         }
     }
 
@@ -104,13 +120,12 @@ class Win32NetworkAdapterSettingServiceTest {
         try(PowerShell mockShell = mock(PowerShell.class)){
 
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            List<Win32NetworkAdapterSetting> networkAdapterSettingList = service.get(mockShell);
 
-            assertFalse(networkAdapterSettingList.isEmpty());
-            assertEquals("1", networkAdapterSettingList.get(0).getNetworkAdapterDeviceId());
-            assertEquals("2", networkAdapterSettingList.get(1).getNetworkAdapterDeviceId());
-            assertEquals(1, networkAdapterSettingList.get(0).getNetworkAdapterConfigurationIndex());
-            assertEquals(2, networkAdapterSettingList.get(1).getNetworkAdapterConfigurationIndex());
+            List<Win32NetworkAdapterSetting> networkAdapterSettingList = service.get(mockShell);
+            assertEquals(2, networkAdapterSettingList.size());
+
+            assertThat(networkAdapterSettingList.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetSetting);
+            assertThat(networkAdapterSettingList.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiSetting);
         }
     }
 

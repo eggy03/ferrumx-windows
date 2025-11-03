@@ -2,6 +2,7 @@ package unit.service.network;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.profesorfalken.jpowershell.PowerShell;
@@ -15,8 +16,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,29 +29,95 @@ class MsftNetIpAddressServiceTest {
 
     private MsftNetIpAddressService msftNetIpAddressService;
 
+    private static MsftNetIpAddress expectedIPv4Address;
+    private static MsftNetIpAddress expectedIPv6Address;
+
     private static String json;
 
     @BeforeAll
-    static void setupJson() {
-        JsonArray ip = new JsonArray();
+    static void setAddresses() {
+        MsftNetIpAddress.Datetime lifetime = MsftNetIpAddress.Datetime.builder()
+                .days(9999L)
+                .hours(0L)
+                .minutes(0L)
+                .seconds(0L)
+                .build();
 
-        JsonObject ethernet = new JsonObject();
-        ethernet.addProperty("InterfaceIndex", 1);
-        ethernet.addProperty("InterfaceAlias", "Ethernet");
-        ethernet.addProperty("IPv4Address", "192.168.1.254");
-        ethernet.addProperty("IPv6Address", "");
+        expectedIPv4Address = MsftNetIpAddress.builder()
+                .interfaceIndex(1L)
+                .interfaceAlias("Ethernet")
+                .addressFamily(2L) // IPv4
+                .ipAddress("192.168.1.10")
+                .ipv4Address("192.168.1.10")
+                .ipv6Address(null)
+                .type("Unicast")
+                .prefixOrigin(1L)
+                .suffixOrigin(2L)
+                .prefixLength(24L)
+                .preferredLifetime(lifetime)
+                .validLifeTime(lifetime)
+                .build();
 
-        JsonObject wifi = new JsonObject();
-        wifi.addProperty("InterfaceIndex", 2);
-        wifi.addProperty("InterfaceAlias", "WiFi");
-        wifi.addProperty("IPv4Address", "");
-        wifi.addProperty("IPv6Address", "fe80::abed:1234:5678:9abc");
-
-        ip.add(ethernet);
-        ip.add(wifi);
-
-        json = new Gson().toJson(ip);
+        expectedIPv6Address = MsftNetIpAddress.builder()
+                .interfaceIndex(2L)
+                .interfaceAlias("Wi-Fi")
+                .addressFamily(23L) // IPv6
+                .ipAddress("fe80::1a2b:3c4d:5e6f:7a8b")
+                .ipv4Address(null)
+                .ipv6Address("fe80::1a2b:3c4d:5e6f:7a8b")
+                .type("Unicast")
+                .prefixOrigin(3L)
+                .suffixOrigin(3L)
+                .prefixLength(64L)
+                .preferredLifetime(lifetime)
+                .validLifeTime(lifetime)
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonArray addresses = new JsonArray();
+
+        JsonObject ipv4 = new JsonObject();
+        ipv4.addProperty("InterfaceIndex", 1L);
+        ipv4.addProperty("InterfaceAlias", "Ethernet");
+        ipv4.addProperty("AddressFamily", 2L);
+        ipv4.addProperty("IPAddress", "192.168.1.10");
+        ipv4.addProperty("IPv4Address", "192.168.1.10");
+        ipv4.add("IPv6Address", JsonNull.INSTANCE);
+        ipv4.addProperty("Type", "Unicast");
+        ipv4.addProperty("PrefixOrigin", 1L);
+        ipv4.addProperty("SuffixOrigin", 2L);
+        ipv4.addProperty("PrefixLength", 24L);
+
+        JsonObject lifetime = new JsonObject();
+        lifetime.addProperty("Days", 9999L);
+        lifetime.addProperty("Hours", 0L);
+        lifetime.addProperty("Minutes", 0L);
+        lifetime.addProperty("Seconds", 0L);
+        ipv4.add("PreferredLifetime", lifetime);
+        ipv4.add("ValidLifetime", lifetime);
+
+        JsonObject ipv6 = new JsonObject();
+        ipv6.addProperty("InterfaceIndex", 2L);
+        ipv6.addProperty("InterfaceAlias", "Wi-Fi");
+        ipv6.addProperty("AddressFamily", 23L);
+        ipv6.addProperty("IPAddress", "fe80::1a2b:3c4d:5e6f:7a8b");
+        ipv6.add("IPv4Address", JsonNull.INSTANCE);
+        ipv6.addProperty("IPv6Address", "fe80::1a2b:3c4d:5e6f:7a8b");
+        ipv6.addProperty("Type", "Unicast");
+        ipv6.addProperty("PrefixOrigin", 3L);
+        ipv6.addProperty("SuffixOrigin", 3L);
+        ipv6.addProperty("PrefixLength", 64L);
+        ipv6.add("PreferredLifetime", lifetime);
+        ipv6.add("ValidLifetime", lifetime);
+
+        addresses.add(ipv4);
+        addresses.add(ipv6);
+
+        json = new Gson().toJson(addresses);
+    }
+
 
     @BeforeEach
     void setUp() {
@@ -67,16 +134,10 @@ class MsftNetIpAddressServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<MsftNetIpAddress> ip = msftNetIpAddressService.get();
-            assertFalse(ip.isEmpty());
-            assertEquals(1, ip.get(0).getInterfaceIndex());
-            assertEquals("Ethernet", ip.get(0).getInterfaceAlias());
-            assertEquals("192.168.1.254", ip.get(0).getIpv4Address());
-            assertEquals("", ip.get(0).getIpv6Address());
+            assertEquals(2, ip.size());
 
-            assertEquals(2, ip.get(1).getInterfaceIndex());
-            assertEquals("WiFi", ip.get(1).getInterfaceAlias());
-            assertEquals("", ip.get(1).getIpv4Address());
-            assertEquals("fe80::abed:1234:5678:9abc", ip.get(1).getIpv6Address());
+            assertThat(ip.get(0)).usingRecursiveComparison().isEqualTo(expectedIPv4Address);
+            assertThat(ip.get(1)).usingRecursiveComparison().isEqualTo(expectedIPv6Address);
         }
     }
 
@@ -115,16 +176,10 @@ class MsftNetIpAddressServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<MsftNetIpAddress> ip = msftNetIpAddressService.get(mockShell);
-            assertFalse(ip.isEmpty());
-            assertEquals(1, ip.get(0).getInterfaceIndex());
-            assertEquals("Ethernet", ip.get(0).getInterfaceAlias());
-            assertEquals("192.168.1.254", ip.get(0).getIpv4Address());
-            assertEquals("", ip.get(0).getIpv6Address());
+            assertEquals(2, ip.size());
 
-            assertEquals(2, ip.get(1).getInterfaceIndex());
-            assertEquals("WiFi", ip.get(1).getInterfaceAlias());
-            assertEquals("", ip.get(1).getIpv4Address());
-            assertEquals("fe80::abed:1234:5678:9abc", ip.get(1).getIpv6Address());
+            assertThat(ip.get(0)).usingRecursiveComparison().isEqualTo(expectedIPv4Address);
+            assertThat(ip.get(1)).usingRecursiveComparison().isEqualTo(expectedIPv6Address);
         }
     }
 

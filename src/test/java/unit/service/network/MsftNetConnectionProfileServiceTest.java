@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,29 +28,58 @@ class MsftNetConnectionProfileServiceTest {
 
     private MsftNetConnectionProfileService msftNetConnectionProfileService;
 
+    private static MsftNetConnectionProfile expectedEthernetProfile;
+    private static MsftNetConnectionProfile expectedWifiProfile;
+
     private static String json;
+
+    @BeforeAll
+    static void setProfiles() {
+        expectedEthernetProfile = MsftNetConnectionProfile.builder()
+                .interfaceIndex(1L)
+                .interfaceAlias("Ethernet")
+                .networkCategory(1L) // Private
+                .domainAuthenticationKind(0L) // None
+                .ipv4Connectivity(4L) // Internet
+                .ipv6Connectivity(1L) // NoTraffic
+                .build();
+
+        expectedWifiProfile = MsftNetConnectionProfile.builder()
+                .interfaceIndex(2L)
+                .interfaceAlias("Wi-Fi")
+                .networkCategory(0L) // Public
+                .domainAuthenticationKind(0L) // None
+                .ipv4Connectivity(4L) // Internet
+                .ipv6Connectivity(4L) // Internet
+                .build();
+    }
 
     @BeforeAll
     static void setupJson() {
         JsonArray profiles = new JsonArray();
 
-        JsonObject ethernet = new JsonObject();
-        ethernet.addProperty("InterfaceIndex", 1);
-        ethernet.addProperty("NetworkCategory", 0);
-        ethernet.addProperty("IPv4Connectivity", 4);
-        ethernet.addProperty("IPv6Connectivity", 1);
+        JsonObject eth = new JsonObject();
+        eth.addProperty("InterfaceIndex", 1L);
+        eth.addProperty("InterfaceAlias", "Ethernet");
+        eth.addProperty("NetworkCategory", 1L);
+        eth.addProperty("DomainAuthenticationKind", 0L);
+        eth.addProperty("IPv4Connectivity", 4L);
+        eth.addProperty("IPv6Connectivity", 1L);
 
         JsonObject wifi = new JsonObject();
-        wifi.addProperty("InterfaceIndex", 2);
-        wifi.addProperty("NetworkCategory", 1);
-        wifi.addProperty("IPv4Connectivity", 1);
-        wifi.addProperty("IPv6Connectivity", 4);
+        wifi.addProperty("InterfaceIndex", 2L);
+        wifi.addProperty("InterfaceAlias", "Wi-Fi");
+        wifi.addProperty("NetworkCategory", 0L);
+        wifi.addProperty("DomainAuthenticationKind", 0L);
+        wifi.addProperty("IPv4Connectivity", 4L);
+        wifi.addProperty("IPv6Connectivity", 4L);
 
-        profiles.add(ethernet);
+        profiles.add(eth);
         profiles.add(wifi);
 
         json = new Gson().toJson(profiles);
     }
+
 
     @BeforeEach
     void setUp() {
@@ -67,16 +96,10 @@ class MsftNetConnectionProfileServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get();
-            assertFalse(profiles.isEmpty());
-            assertEquals(1, profiles.get(0).getInterfaceIndex());
-            assertEquals(0, profiles.get(0).getNetworkCategory());
-            assertEquals(4, profiles.get(0).getIpv4Connectivity());
-            assertEquals(1, profiles.get(0).getIpv6Connectivity());
+            assertEquals(2, profiles.size());
 
-            assertEquals(2, profiles.get(1).getInterfaceIndex());
-            assertEquals(1, profiles.get(1).getNetworkCategory());
-            assertEquals(1, profiles.get(1).getIpv4Connectivity());
-            assertEquals(4, profiles.get(1).getIpv6Connectivity());
+            assertThat(profiles.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetProfile);
+            assertThat(profiles.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiProfile);
         }
     }
 
@@ -115,16 +138,10 @@ class MsftNetConnectionProfileServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get(mockShell);
-            assertFalse(profiles.isEmpty());
-            assertEquals(1, profiles.get(0).getInterfaceIndex());
-            assertEquals(0, profiles.get(0).getNetworkCategory());
-            assertEquals(4, profiles.get(0).getIpv4Connectivity());
-            assertEquals(1, profiles.get(0).getIpv6Connectivity());
+            assertEquals(2, profiles.size());
 
-            assertEquals(2, profiles.get(1).getInterfaceIndex());
-            assertEquals(1, profiles.get(1).getNetworkCategory());
-            assertEquals(1, profiles.get(1).getIpv4Connectivity());
-            assertEquals(4, profiles.get(1).getIpv6Connectivity());
+            assertThat(profiles.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetProfile);
+            assertThat(profiles.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiProfile);
         }
     }
 

@@ -13,10 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,44 +30,90 @@ class Win32NetworkAdapterConfigurationServiceTest {
 
     private Win32NetworkAdapterConfigurationService networkAdapterConfigurationService;
 
+    private static Win32NetworkAdapterConfiguration expectedEthernetConfig;
+    private static Win32NetworkAdapterConfiguration expectedWifiConfig;
+
     private static String json;
 
     @BeforeAll
-    static void setupJson() {
-        JsonArray adapters = new JsonArray();
+    static void setConfigs() {
+        expectedEthernetConfig = Win32NetworkAdapterConfiguration.builder()
+                .index(1)
+                .description("Intel(R) Ethernet Connection I219-V")
+                .caption("Ethernet Adapter Configuration")
+                .settingId("{A1B2C3D4-E5F6-7890-1234-56789ABCDEF0}")
+                .ipEnabled(true)
+                .ipAddress(Collections.singletonList("192.168.0.101"))
+                .ipSubnet(Collections.singletonList("255.255.255.0"))
+                .defaultIpGateway(Collections.singletonList("192.168.0.1"))
+                .dhcpEnabled(true)
+                .dhcpServer("192.168.0.1")
+                .dhcpLeaseObtained("2024-07-12T10:00:00Z")
+                .dhcpLeaseExpires("2024-07-13T10:00:00Z")
+                .dnsHostName("DESKTOP-ETHERNET")
+                .dnsServerSearchOrder(Arrays.asList("8.8.8.8", "8.8.4.4"))
+                .build();
 
-        // ethernet
-        JsonObject ethernet = new JsonObject();
-        ethernet.addProperty("Index", 0);
-        ethernet.addProperty("Description", "Ethernet Adapter");
-        ethernet.addProperty("IPEnabled", true);
-
-        JsonArray ipAddresses = new JsonArray();
-        ipAddresses.add("192.168.0.10");
-        ethernet.add("IPAddress", ipAddresses);
-
-        JsonArray subnets = new JsonArray();
-        subnets.add("255.255.255.0");
-        ethernet.add("IPSubnet", subnets);
-
-        JsonArray gateways = new JsonArray();
-        gateways.add("192.168.0.1");
-        ethernet.add("DefaultIPGateway", gateways);
-
-        // wifi
-        JsonObject wifi = new JsonObject();
-        wifi.addProperty("Index", 1);
-        wifi.addProperty("Description", "Wi-Fi Adapter");
-        wifi.addProperty("IPEnabled", false);
-        wifi.add("IPAddress", new JsonArray());
-        wifi.add("IPSubnet", new JsonArray());
-        wifi.add("DefaultIPGateway", new JsonArray());
-
-        adapters.add(ethernet);
-        adapters.add(wifi);
-
-        json = new Gson().toJson(adapters);
+        expectedWifiConfig = Win32NetworkAdapterConfiguration.builder()
+                .index(2)
+                .description("Intel(R) Wi-Fi 6 AX200 160MHz")
+                .caption("Wi-Fi Adapter Configuration")
+                .settingId("{B2C3D4E5-F6A1-2345-6789-0ABCDEF12345}")
+                .ipEnabled(true)
+                .ipAddress(Collections.singletonList("192.168.1.150"))
+                .ipSubnet(Collections.singletonList("255.255.255.0"))
+                .defaultIpGateway(Collections.singletonList("192.168.1.1"))
+                .dhcpEnabled(true)
+                .dhcpServer("192.168.1.1")
+                .dhcpLeaseObtained("2024-07-12T11:00:00Z")
+                .dhcpLeaseExpires("2024-07-13T11:00:00Z")
+                .dnsHostName("LAPTOP-WIFI")
+                .dnsServerSearchOrder(Arrays.asList("1.1.1.1", "1.0.0.1"))
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonArray configs = new JsonArray();
+
+        JsonObject eth = new JsonObject();
+        eth.addProperty("Index", 1);
+        eth.addProperty("Description", "Intel(R) Ethernet Connection I219-V");
+        eth.addProperty("Caption", "Ethernet Adapter Configuration");
+        eth.addProperty("SettingID", "{A1B2C3D4-E5F6-7890-1234-56789ABCDEF0}");
+        eth.addProperty("IPEnabled", true);
+        eth.add("IPAddress", new Gson().toJsonTree(Collections.singletonList("192.168.0.101")));
+        eth.add("IPSubnet", new Gson().toJsonTree(Collections.singletonList("255.255.255.0")));
+        eth.add("DefaultIPGateway", new Gson().toJsonTree(Collections.singletonList("192.168.0.1")));
+        eth.addProperty("DHCPEnabled", true);
+        eth.addProperty("DHCPServer", "192.168.0.1");
+        eth.addProperty("DHCPLeaseObtained", "2024-07-12T10:00:00Z");
+        eth.addProperty("DHCPLeaseExpires", "2024-07-13T10:00:00Z");
+        eth.addProperty("DNSHostName", "DESKTOP-ETHERNET");
+        eth.add("DNSServerSearchOrder", new Gson().toJsonTree(Arrays.asList("8.8.8.8", "8.8.4.4")));
+
+        JsonObject wifi = new JsonObject();
+        wifi.addProperty("Index", 2);
+        wifi.addProperty("Description", "Intel(R) Wi-Fi 6 AX200 160MHz");
+        wifi.addProperty("Caption", "Wi-Fi Adapter Configuration");
+        wifi.addProperty("SettingID", "{B2C3D4E5-F6A1-2345-6789-0ABCDEF12345}");
+        wifi.addProperty("IPEnabled", true);
+        wifi.add("IPAddress", new Gson().toJsonTree(Collections.singletonList("192.168.1.150")));
+        wifi.add("IPSubnet", new Gson().toJsonTree(Collections.singletonList("255.255.255.0")));
+        wifi.add("DefaultIPGateway", new Gson().toJsonTree(Collections.singletonList("192.168.1.1")));
+        wifi.addProperty("DHCPEnabled", true);
+        wifi.addProperty("DHCPServer", "192.168.1.1");
+        wifi.addProperty("DHCPLeaseObtained", "2024-07-12T11:00:00Z");
+        wifi.addProperty("DHCPLeaseExpires", "2024-07-13T11:00:00Z");
+        wifi.addProperty("DNSHostName", "LAPTOP-WIFI");
+        wifi.add("DNSServerSearchOrder", new Gson().toJsonTree(Arrays.asList("1.1.1.1", "1.0.0.1")));
+
+        configs.add(eth);
+        configs.add(wifi);
+
+        json = new Gson().toJson(configs);
+    }
+
 
     @BeforeEach
     void setUp() {
@@ -82,11 +130,10 @@ class Win32NetworkAdapterConfigurationServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32NetworkAdapterConfiguration> configs = networkAdapterConfigurationService.get();
-            assertFalse(configs.isEmpty());
-            assertEquals(0, configs.get(0).getIndex());
-            assertEquals(Boolean.TRUE, configs.get(0).isIPEnabled());
-            assertEquals(1, configs.get(1).getIndex());
-            assertEquals(Boolean.FALSE, configs.get(1).isIPEnabled());
+            assertEquals(2, configs.size());
+
+            assertThat(configs.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetConfig);
+            assertThat(configs.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiConfig);
         }
     }
 
@@ -125,11 +172,10 @@ class Win32NetworkAdapterConfigurationServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32NetworkAdapterConfiguration> configs = networkAdapterConfigurationService.get(mockShell);
-            assertFalse(configs.isEmpty());
-            assertEquals(0, configs.get(0).getIndex());
-            assertEquals(Boolean.TRUE, configs.get(0).isIPEnabled());
-            assertEquals(1, configs.get(1).getIndex());
-            assertEquals(Boolean.FALSE, configs.get(1).isIPEnabled());
+            assertEquals(2, configs.size());
+
+            assertThat(configs.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetConfig);
+            assertThat(configs.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiConfig);
         }
     }
 

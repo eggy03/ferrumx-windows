@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,26 +28,40 @@ class Win32LogicalDiskToPartitionServiceTest {
 
     private Win32LogicalDiskToPartitionService service;
 
+    private static Win32LogicalDiskToPartition expectedSystemLogicalDiskPartition;
+    private static Win32LogicalDiskToPartition expectedDataLogicalDiskPartition;
     private static String json;
 
     @BeforeAll
-    static void setJson(){
-        JsonArray jsonArray = new JsonArray();
+    static void setLogicalDiskToPartition() {
+        expectedSystemLogicalDiskPartition = Win32LogicalDiskToPartition.builder()
+                .diskPartitionDeviceId("Disk #0 Partition #1")
+                .logicalDiskDeviceId("C:")
+                .build();
 
-        JsonObject drivePartOne = new JsonObject();
-        JsonObject drivePartTwo = new JsonObject();
-
-        drivePartOne.addProperty("DiskPartitionDeviceID", "LOGICAL_PARTITION_1");
-        drivePartOne.addProperty("LogicalDiskDeviceID", "C:");
-
-        drivePartTwo.addProperty("DiskPartitionDeviceID", "LOGICAL_PARTITION_2");
-        drivePartTwo.addProperty("LogicalDiskDeviceID", "D:");
-
-        jsonArray.add(drivePartOne);
-        jsonArray.add(drivePartTwo);
-
-        json = new Gson().toJson(jsonArray);
+        expectedDataLogicalDiskPartition = Win32LogicalDiskToPartition.builder()
+                .diskPartitionDeviceId("Disk #0 Partition #2")
+                .logicalDiskDeviceId("D:")
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonObject sysPartJson = new JsonObject();
+        sysPartJson.addProperty("DiskPartitionDeviceID", "Disk #0 Partition #1");
+        sysPartJson.addProperty("LogicalDiskDeviceID", "C:");
+
+        JsonObject dataPartJson = new JsonObject();
+        dataPartJson.addProperty("DiskPartitionDeviceID", "Disk #0 Partition #2");
+        dataPartJson.addProperty("LogicalDiskDeviceID", "D:");
+
+        JsonArray array = new JsonArray();
+        array.add(sysPartJson);
+        array.add(dataPartJson);
+
+        json = new Gson().toJson(array);
+    }
+
 
     @BeforeEach
     void setService() {
@@ -62,13 +76,12 @@ class Win32LogicalDiskToPartitionServiceTest {
         try(MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)){
 
             mockShell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
-            List<Win32LogicalDiskToPartition> associationList = service.get();
 
-            assertFalse(associationList.isEmpty());
-            assertEquals("C:", associationList.get(0).getLogicalDiskDeviceId());
-            assertEquals("D:", associationList.get(1).getLogicalDiskDeviceId());
-            assertEquals("LOGICAL_PARTITION_1", associationList.get(0).getDiskPartitionDeviceId());
-            assertEquals("LOGICAL_PARTITION_2", associationList.get(1).getDiskPartitionDeviceId());
+            List<Win32LogicalDiskToPartition> associationList = service.get();
+            assertEquals(2, associationList.size());
+
+            assertThat(associationList.get(0)).usingRecursiveComparison().isEqualTo(expectedSystemLogicalDiskPartition);
+            assertThat(associationList.get(1)).usingRecursiveComparison().isEqualTo(expectedDataLogicalDiskPartition);
         }
     }
 
@@ -106,13 +119,12 @@ class Win32LogicalDiskToPartitionServiceTest {
         try(PowerShell mockShell = mock(PowerShell.class)){
 
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            List<Win32LogicalDiskToPartition> associationList = service.get(mockShell);
 
-            assertFalse(associationList.isEmpty());
-            assertEquals("C:", associationList.get(0).getLogicalDiskDeviceId());
-            assertEquals("D:", associationList.get(1).getLogicalDiskDeviceId());
-            assertEquals("LOGICAL_PARTITION_1", associationList.get(0).getDiskPartitionDeviceId());
-            assertEquals("LOGICAL_PARTITION_2", associationList.get(1).getDiskPartitionDeviceId());
+            List<Win32LogicalDiskToPartition> associationList = service.get(mockShell);
+            assertEquals(2, associationList.size());
+
+            assertThat(associationList.get(0)).usingRecursiveComparison().isEqualTo(expectedSystemLogicalDiskPartition);
+            assertThat(associationList.get(1)).usingRecursiveComparison().isEqualTo(expectedDataLogicalDiskPartition);
         }
     }
 

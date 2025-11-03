@@ -15,8 +15,8 @@ import org.mockito.MockedStatic;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -28,25 +28,80 @@ class Win32LogicalDiskServiceTest {
     
     private Win32LogicalDiskService logicalDiskService;
 
+    private static Win32LogicalDisk expectedSystemVolume;
+    private static Win32LogicalDisk expectedDataVolume;
     private static String json;
 
     @BeforeAll
-    static void setupJson() {
-        JsonArray volumes = new JsonArray();
+    static void setLogicalDisks() {
+        expectedSystemVolume = Win32LogicalDisk.builder()
+                .deviceId("C:")
+                .description("System Volume")
+                .driveType(3L)
+                .mediaType(12L)
+                .fileSystem("NTFS")
+                .size(1000204886016L)
+                .freeSpace(532147200000L)
+                .compressed(false)
+                .supportsFileBasedCompression(true)
+                .supportsDiskQuotas(false)
+                .volumeName("Windows")
+                .volumeSerialNumber("1A2B-3C4D")
+                .build();
 
-        JsonObject volume0 = new JsonObject();
-        volume0.addProperty("DeviceID", "C:");
-        volume0.addProperty("FileSystem", "NTFS");
-
-        JsonObject volume1 = new JsonObject();
-        volume1.addProperty("DeviceID", "D:");
-        volume1.addProperty("FileSystem", "ReFS");
-
-        volumes.add(volume0);
-        volumes.add(volume1);
-
-        json = new Gson().toJson(volumes);
+        expectedDataVolume = Win32LogicalDisk.builder()
+                .deviceId("D:")
+                .description("Data Volume")
+                .driveType(3L)
+                .mediaType(12L)
+                .fileSystem("NTFS")
+                .size(2000409772032L)
+                .freeSpace(1240152000000L)
+                .compressed(false)
+                .supportsFileBasedCompression(true)
+                .supportsDiskQuotas(false)
+                .volumeName("Data")
+                .volumeSerialNumber("5E6F-7G8H")
+                .build();
     }
+
+    @BeforeAll
+    static void setupJson() {
+        JsonObject sysVol = new JsonObject();
+        sysVol.addProperty("DeviceID", "C:");
+        sysVol.addProperty("Description", "System Volume");
+        sysVol.addProperty("DriveType", 3L);
+        sysVol.addProperty("MediaType", 12L);
+        sysVol.addProperty("FileSystem", "NTFS");
+        sysVol.addProperty("Size", 1000204886016L);
+        sysVol.addProperty("FreeSpace", 532147200000L);
+        sysVol.addProperty("Compressed", false);
+        sysVol.addProperty("SupportsFileBasedCompression", true);
+        sysVol.addProperty("SupportsDiskQuotas", false);
+        sysVol.addProperty("VolumeName", "Windows");
+        sysVol.addProperty("VolumeSerialNumber", "1A2B-3C4D");
+
+        JsonObject dataVol = new JsonObject();
+        dataVol.addProperty("DeviceID", "D:");
+        dataVol.addProperty("Description", "Data Volume");
+        dataVol.addProperty("DriveType", 3L);
+        dataVol.addProperty("MediaType", 12L);
+        dataVol.addProperty("FileSystem", "NTFS");
+        dataVol.addProperty("Size", 2000409772032L);
+        dataVol.addProperty("FreeSpace", 1240152000000L);
+        dataVol.addProperty("Compressed", false);
+        dataVol.addProperty("SupportsFileBasedCompression", true);
+        dataVol.addProperty("SupportsDiskQuotas", false);
+        dataVol.addProperty("VolumeName", "Data");
+        dataVol.addProperty("VolumeSerialNumber", "5E6F-7G8H");
+
+        JsonArray array = new JsonArray();
+        array.add(sysVol);
+        array.add(dataVol);
+
+        json = new Gson().toJson(array);
+    }
+
 
     @BeforeEach
     void setUp() {
@@ -63,11 +118,10 @@ class Win32LogicalDiskServiceTest {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32LogicalDisk> disks = logicalDiskService.get();
-            assertFalse(disks.isEmpty());
-            assertEquals("C:", disks.get(0).getDeviceId());
-            assertEquals("NTFS", disks.get(0).getFileSystem());
-            assertEquals("D:", disks.get(1).getDeviceId());
-            assertEquals("ReFS", disks.get(1).getFileSystem());
+            assertEquals(2, disks.size());
+
+            assertThat(disks.get(0)).usingRecursiveComparison().isEqualTo(expectedSystemVolume);
+            assertThat(disks.get(1)).usingRecursiveComparison().isEqualTo(expectedDataVolume);
         }
     }
 
@@ -106,11 +160,10 @@ class Win32LogicalDiskServiceTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32LogicalDisk> disks = logicalDiskService.get(mockShell);
-            assertFalse(disks.isEmpty());
-            assertEquals("C:", disks.get(0).getDeviceId());
-            assertEquals("NTFS", disks.get(0).getFileSystem());
-            assertEquals("D:", disks.get(1).getDeviceId());
-            assertEquals("ReFS", disks.get(1).getFileSystem());
+            assertEquals(2, disks.size());
+
+            assertThat(disks.get(0)).usingRecursiveComparison().isEqualTo(expectedSystemVolume);
+            assertThat(disks.get(1)).usingRecursiveComparison().isEqualTo(expectedDataVolume);
         }
     }
 
