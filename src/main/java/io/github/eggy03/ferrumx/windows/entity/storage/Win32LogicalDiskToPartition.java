@@ -14,6 +14,9 @@ import org.jetbrains.annotations.Nullable;
  * and represent an association between {@code Win32_DiskPartition} and {@code Win32_LogicalDisk}.
  * </p>
  * <p>Associates {@link Win32DiskPartition} with {@link Win32LogicalDisk} via their device IDs</p>
+ * <p>
+ * Instances of this class are thread-safe.
+ * </p>
  * <p>This class has the following two fields:</p>
  * <ul>
  *     <li>{@code diskPartitionDeviceId} - contains the {@code deviceId} field of {@link Win32DiskPartition}</li>

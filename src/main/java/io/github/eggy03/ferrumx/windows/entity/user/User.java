@@ -9,9 +9,10 @@ import org.jetbrains.annotations.Nullable;
  * Immutable representation of a user on a Windows system.
  * <p>
  * Fields capture basic user information such as username, home directory, and user directory.
- * Instances are thread-safe and may be safely cached or shared across threads.
  * </p>
- *
+ * <p>
+ * Instances of this class are thread-safe.
+ * </p>
  * <h2>Usage examples</h2>
  * <pre>{@code
  * // Build a new User

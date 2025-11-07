@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
  * Fields correspond to properties retrieved from the {@code Win32_VideoController} WMI class.
  * </p>
  * <p>
- * Instances are inherently thread-safe and may be safely cached or shared across threads.
+ * Instances of this class are thread-safe.
  * </p>
  *
  * <h2>Usage example</h2>

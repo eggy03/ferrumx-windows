@@ -16,7 +16,7 @@ import java.util.List;
  * Fields correspond to properties retrieved from the {@code Win32_Battery} WMI class.
  * </p>
  * <p>
- * Instances are inherently thread-safe and may be safely shared or cached across threads.
+ * Instances of this class are thread-safe.
  * </p>
  *
  * <h2>Usage example</h2>

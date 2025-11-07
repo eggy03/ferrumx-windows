@@ -14,6 +14,9 @@ import org.jetbrains.annotations.Nullable;
  * and represent an association between {@code Win32_Processor} and {@code Win32_CacheMemory}.
  * </p>
  * <p>Links {@link Win32Processor} with {@link Win32CacheMemory} via their device IDs</p>
+ * <p>
+ * Instances of this class are thread-safe.
+ * </p>
  * <p>This class has the following two fields:</p>
  * <ul>
  *     <li>{@code cacheMemoryDeviceId} - contains the {@code deviceId} field of {@link Win32CacheMemory}</li>

@@ -14,7 +14,7 @@ import java.math.BigInteger;
  * Fields correspond to properties retrieved from the {@code Win32_Process} WMI class.
  * </p>
  * <p>
- * Instances are thread-safe and may be safely cached or shared across threads.
+ * Instances of this class are thread-safe.
  * </p>
  *
  * <h2>Usage examples</h2>

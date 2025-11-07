@@ -14,6 +14,9 @@ import org.jetbrains.annotations.Nullable;
  * and represent an association between {@code Win32_NetworkAdapter} and {@code Win32_NetworkAdapterConfiguration}.
  * </p>
  * <p>Links {@link Win32NetworkAdapter} with {@link Win32NetworkAdapterConfiguration} via their device IDs and indexes respectively</p>
+ * <p>
+ * Instances of this class are thread-safe.
+ * </p>
  * <p>This class has the following two fields:</p>
  * <ul>
  *     <li>{@code networkAdapterDeviceId} - contains the value of the {@code deviceId} field of {@link Win32NetworkAdapter}</li>
