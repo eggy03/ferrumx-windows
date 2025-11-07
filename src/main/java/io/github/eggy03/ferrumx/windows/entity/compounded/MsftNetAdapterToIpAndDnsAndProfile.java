@@ -11,6 +11,48 @@ import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+/**
+ * Immutable representation of a {@link MsftNetAdapter} and its {@code 1:N} relationships
+ * with {@link MsftNetIpAddress}, {@link MsftDnsClientServerAddress},
+ * and {@link MsftNetConnectionProfile} configurations in a Windows system.
+ * <p>
+ * Each instance represents a single {@code NetAdapter} identified by {@link #interfaceIndex},
+ * and maintains a one-to-many mapping with related
+ * {@code IpAddress}, {@code DnsClientServerAddress},
+ * and {@code ConnectionProfile} entities.
+ * </p>
+ * <p>
+ * Instances of this class are thread-safe.
+ * </p>
+ * <h2>Usage example</h2>
+ * <pre>{@code
+ * MsftNetAdapterToIpAndDnsAndProfile adapterInfo = MsftNetAdapterToIpAndDnsAndProfile.builder()
+ *     .interfaceIndex(12L)
+ *     .adapter(msftNetAdapter)
+ *     .ipAddressList(ipAddresses)
+ *     .dnsClientServerAddressList(dnsServers)
+ *     .netConnectionProfileList(connectionProfiles)
+ *     .build();
+ * }</pre>
+ *
+ * <p>
+ * This is purely a convenience class designed to simplify data retrieval
+ * for all related network configuration entities through a single call.
+ * The individual entity classes remain accessible for direct use if you need to map everything by yourself.
+ * </p>
+ * <p>
+ * An equivalent convenience class {@link Win32NetworkAdapterToConfiguration} is also available for use, although
+ * {@code Win32_NetworkAdapter} is deprecated by Microsoft in favor of the MSFT classes.
+ * </p>
+ *
+ * @see MsftNetAdapter
+ * @see MsftNetIpAddress
+ * @see MsftDnsClientServerAddress
+ * @see MsftNetConnectionProfile
+ *
+ * @since 3.0.0
+ * @author Egg-03
+ */
 
 @Value
 @Builder(toBuilder = true)

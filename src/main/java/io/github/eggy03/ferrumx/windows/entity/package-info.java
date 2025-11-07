@@ -1,13 +1,18 @@
 /**
  * Contains immutable representations of Windows WMI and CIM classes.
  * <p>
- * Each class in this package directly maps to a corresponding WMI or CIM class
- * (e.g., {@code Win32_DesktopMonitor}, {@code Win32_Processor}, {@code MSFT_NetAdapter}).
- * PowerShell query results are deserialized into instances of these entity classes.
+ *     Most classes in this package directly maps to a corresponding WMI or CIM class
+ *     (e.g., {@code Win32_DesktopMonitor}, {@code Win32_Processor}, {@code MSFT_NetAdapter}).
+ *     PowerShell query results are deserialized into instances of these entity classes.
  * </p>
  * <p>
- * All entities are designed to be immutable and thread-safe, allowing them
- * to be safely shared or cached across threads.
+ *     Some classes, notably the classes in the {@link io.github.eggy03.ferrumx.windows.entity.compounded} subpackage
+ *     represent deserialized the output of scripts which query and join several classes to return a custom object
+ *     in JSON format
+ * </p>
+ * <p>
+ *     All entities are designed to be immutable and thread-safe, allowing them
+ *     to be safely shared or cached across threads.
  * </p>
  * <p>
  *     Not all classes may represent a WMI or CIM class
