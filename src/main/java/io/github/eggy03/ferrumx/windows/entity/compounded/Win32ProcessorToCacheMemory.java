@@ -6,6 +6,7 @@ import io.github.eggy03.ferrumx.windows.entity.processor.Win32CacheMemory;
 import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -14,12 +15,15 @@ import java.util.List;
 public class Win32ProcessorToCacheMemory {
 
     @SerializedName("DeviceID")
+    @Nullable
     String deviceId;
 
     @SerializedName("Processor")
+    @Nullable
     Win32Processor processor;
 
     @SerializedName("CacheMemory")
+    @Nullable
     List<Win32CacheMemory> cacheMemoryList;
 
     @Override

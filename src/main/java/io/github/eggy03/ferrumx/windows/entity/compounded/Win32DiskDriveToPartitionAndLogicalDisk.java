@@ -7,6 +7,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskPartition;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDisk;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -15,15 +16,19 @@ import java.util.List;
 public class Win32DiskDriveToPartitionAndLogicalDisk {
 
     @SerializedName("DeviceID")
+    @Nullable
     String deviceId;
 
     @SerializedName("DiskDrive")
+    @Nullable
     Win32DiskDrive diskDrive;
 
     @SerializedName("Partitions")
+    @Nullable
     List<Win32DiskPartition> diskPartitionList;
 
     @SerializedName("LogicalDisks")
+    @Nullable
     List<Win32LogicalDisk> logicalDiskList;
 
     @Override

@@ -6,12 +6,14 @@ import io.github.eggy03.ferrumx.windows.constant.PowerShellScriptPath;
 import io.github.eggy03.ferrumx.windows.entity.compounded.Win32DiskDriveToPartitionAndLogicalDisk;
 import io.github.eggy03.ferrumx.windows.mapping.compounded.Win32DiskDriveToPartitionAndLogicalDiskMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonServiceInterface<Win32DiskDriveToPartitionAndLogicalDisk> {
 
     @Override
+    @NotNull
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get() {
         try(PowerShell shell = PowerShell.openSession()){
             PowerShellResponse response = shell.executeScript(PowerShellScriptPath.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getPath());
@@ -20,6 +22,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     }
 
     @Override
+    @NotNull
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScriptPath.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getPath());
         return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);

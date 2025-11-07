@@ -6,6 +6,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapter;
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterConfiguration;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -14,12 +15,15 @@ import java.util.List;
 public class Win32NetworkAdapterToConfiguration {
 
     @SerializedName("DeviceID")
+    @Nullable
     String deviceId;
 
     @SerializedName("Adapter")
+    @Nullable
     Win32NetworkAdapter adapter;
 
     @SerializedName("Configurations")
+    @Nullable
     List<Win32NetworkAdapterConfiguration> configurationList;
 
     @Override

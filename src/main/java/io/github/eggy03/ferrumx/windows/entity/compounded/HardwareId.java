@@ -4,15 +4,18 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.Nullable;
 
 @Value
 @Builder(toBuilder = true)
 public class HardwareId {
 
     @SerializedName("HWIDRaw")
+    @Nullable
     String rawHWID;
 
     @SerializedName("HWIDHash")
+    @Nullable
     String hashHWID;
 
     @Override
