@@ -194,7 +194,9 @@ public enum Cimv2Namespace {
             " PrivatePageCount, PageFileUsage, PeakPageFileUsage," +
             " VirtualSize, PeakVirtualSize," +
             " CreationDate, TerminationDate" +
-            " | ConvertTo-Json");
+            " | ConvertTo-Json"),
+
+    WIN32_SOUND_DEVICE_QUERY("Get-CimInstance -ClassName Win32_SoundDevice | Select-Object * | ConvertTo-Json");
 
     private final String query;
 }
