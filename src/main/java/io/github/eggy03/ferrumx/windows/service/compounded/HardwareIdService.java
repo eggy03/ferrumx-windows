@@ -10,10 +10,46 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
+/**
+ * Service class for fetching the HWID information from a system running Windows.
+ * <p>
+ * This class executes the {@link PowerShellScript#HWID_SCRIPT} PowerShell script
+ * and maps the resulting JSON into an {@link Optional} {@link HardwareId} object.
+ * </p>
+ *
+ * <h2>Thread safety</h2>
+ * Methods of class are not thread safe.
+ *
+ * <h2>Usage examples</h2>
+ * <pre>{@code
+ * // Convenience API (creates its own short-lived session)
+ * HardwareIdService hwidService = new HardwareIdService();
+ * Optional<HardwareId> hwid = hwidService.get();
+ *
+ * // API with re-usable session (caller manages session lifecycle)
+ * try (PowerShell session = PowerShell.openSession()) {
+ *     HardwareIdService hwidService = new HardwareIdService();
+ *     Optional<HardwareId> hwid = hwidService.get(session);
+ * }
+ * }</pre>
+ * @since 3.0.0
+ * @author Egg-03
+ */
 public class HardwareIdService implements OptionalCommonServiceInterface<HardwareId> {
 
-    @Override
+    /**
+     * Retrieves an {@link Optional} containing the HWID information.
+     * <p>
+     * Each invocation creates and uses a short-lived PowerShell session internally.
+     * </p>
+     *
+     * @return an {@link Optional} of {@link HardwareId} representing
+     *         the HWID. Returns {@link Optional#empty()} if no information is detected.
+     *
+     * @since 3.0.0
+     */
     @NotNull
+    @Override
     public Optional<HardwareId> get() {
         try(PowerShell shell = PowerShell.openSession()){
             PowerShellResponse response = shell.executeScript(PowerShellScript.HWID_SCRIPT.getPath());
@@ -21,8 +57,18 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
         }
     }
 
-    @Override
+    /**
+     * Retrieves an {@link Optional} containing the HWID information
+     * using the caller's {@link PowerShell} session.
+     *
+     * @param powerShell an existing PowerShell session managed by the caller
+     * @return an {@link Optional} of {@link HardwareId} representing
+     *         the HWID. Returns {@link Optional#empty()} if no information is detected.
+     *
+     * @since 3.0.0
+     */
     @NotNull
+    @Override
     public Optional<HardwareId> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.HWID_SCRIPT.getPath());
         return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);

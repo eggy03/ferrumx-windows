@@ -21,12 +21,12 @@ import java.util.List;
  * <p>
  * Instances of this class are thread-safe.
  * </p>
+ * <p>
  * This class is purely a convenience class designed to eliminate the need for using
  * {@link Win32NetworkAdapterSetting} when fetching a relation between {@link Win32NetworkAdapter}
  * and {@link Win32NetworkAdapterConfiguration} as it directly stores all instances of configuration
  * for a particular adapter
  * </p>
- * <p>
  *
  * <h2>Usage example</h2>
  * <pre>{@code
