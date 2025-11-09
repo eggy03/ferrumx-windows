@@ -40,30 +40,78 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class MsftNetConnectionProfile {
 
+    /**
+     * The interface index of the network interface on which the profile is connected.
+     */
     @SerializedName("InterfaceIndex")
     @Nullable
     Long interfaceIndex;
 
+    /**
+     * The name of the network interface on which the profile is connected.
+     * <p>Example: "Ethernet0"</p>
+     */
     @SerializedName("InterfaceAlias")
     @Nullable
     String interfaceAlias;
 
+    /**
+     * The network category of the connected profile.
+     * <p>Data type: uint32</p>
+     * <p>Access type: Read-only</p>
+     * <p>Possible values:</p>
+     * <ul>
+     *     <li>0 - Public</li>
+     *     <li>1 - Private</li>
+     *     <li>2 - DomainAuthenticated</li>
+     * </ul>
+     */
     @SerializedName("NetworkCategory")
     @Nullable
     Long networkCategory;
 
+    /**
+     * Indicates the domain authentication kind associated with the profile.
+     * <p>WARNING: No existing documentation found about this field</p>
+     */
     @SerializedName("DomainAuthenticationKind")
     @Nullable
     Long domainAuthenticationKind;
 
+    /**
+     * The IPv4 connectivity status of the connected profile.
+     * <p>Possible values:</p>
+     * <ul>
+     *     <li>0 - Disconnected</li>
+     *     <li>1 - NoTraffic</li>
+     *     <li>2 - Subnet</li>
+     *     <li>3 - LocalNetwork</li>
+     *     <li>4 - Internet</li>
+     * </ul>
+     */
     @SerializedName("IPv4Connectivity")
     @Nullable
     Long ipv4Connectivity;
 
+    /**
+     * The IPv6 connectivity status of the connected profile.
+     * <p>Possible values:</p>
+     * <ul>
+     *     <li>0 - Disconnected</li>
+     *     <li>1 - NoTraffic</li>
+     *     <li>2 - Subnet</li>
+     *     <li>3 - LocalNetwork</li>
+     *     <li>4 - Internet</li>
+     * </ul>
+     */
     @SerializedName("IPv6Connectivity")
     @Nullable
     Long ipv6Connectivity;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

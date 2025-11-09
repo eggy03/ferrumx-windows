@@ -47,66 +47,114 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class Win32NetworkAdapterConfiguration {
 
+    /**
+     * Index number of the Windows network adapter configuration.
+     * Used when multiple configurations exist.
+     */
     @SerializedName("Index")
     @Nullable
     Integer index;
 
+    /**
+     * Textual description of the network adapter configuration.
+     */
     @SerializedName("Description")
     @Nullable
     String description;
 
+    /**
+     * Short textual caption describing the object.
+     */
     @SerializedName("Caption")
     @Nullable
     String caption;
 
+    /**
+     * Unique identifier by which the configuration instance is known.
+     */
     @SerializedName("SettingID")
     @Nullable
     String settingId;
 
+    /**
+     * Indicates whether TCP/IP is bound and enabled on this adapter.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("IPEnabled")
     @Nullable
     Boolean ipEnabled;
     public @Nullable Boolean isIPEnabled() {return ipEnabled;}
 
+    /**
+     * List of IP addresses associated with this network adapter.
+     * May contain IPv4 and/or IPv6 addresses.
+     */
     @SerializedName("IPAddress")
     @Nullable
     List<String> ipAddress;
 
+    /**
+     * Subnet masks associated with each IP address on this adapter.
+     */
     @SerializedName("IPSubnet")
     @Nullable
     List<String> ipSubnet;
 
+    /**
+     * List of default gateway IP addresses used by this system.
+     */
     @SerializedName("DefaultIPGateway")
     @Nullable
     List<String> defaultIpGateway;
 
+    /**
+     * Indicates whether DHCP is enabled for this adapter.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("DHCPEnabled")
     @Nullable
     Boolean dhcpEnabled;
     public @Nullable Boolean isDHCPEnabled() {return dhcpEnabled;}
 
+    /**
+     * IP address of the DHCP server that assigned this configuration.
+     */
     @SerializedName("DHCPServer")
     @Nullable
     String dhcpServer;
 
+    /**
+     * Date and time when the DHCP lease was obtained.
+     */
     @SerializedName("DHCPLeaseObtained")
     @Nullable
     String dhcpLeaseObtained;
 
+    /**
+     * Date and time when the DHCP lease expires.
+     */
     @SerializedName("DHCPLeaseExpires")
     @Nullable
     String dhcpLeaseExpires;
 
+    /**
+     * Host name used to identify this computer on the network.
+     */
     @SerializedName("DNSHostName")
     @Nullable
     String dnsHostName;
 
+    /**
+     * List of DNS server IP addresses used for name resolution.
+     */
     @SerializedName("DNSServerSearchOrder")
     @Nullable
     List<String> dnsServerSearchOrder;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

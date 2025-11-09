@@ -44,54 +44,119 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class MsftNetIpAddress {
 
+    /**
+     * Index of the network interface associated with this IP configuration.
+     */
     @SerializedName("InterfaceIndex")
     @Nullable
     Long interfaceIndex;
 
+    /**
+     * User-friendly name of the network interface.
+     */
     @SerializedName("InterfaceAlias")
     @Nullable
     String interfaceAlias;
 
+    /**
+     * Address family of the IP address.
+     * <ul>
+     *     <li>2 - IPv4</li>
+     *     <li>23 - IPv6</li>
+     * </ul>
+     */
     @SerializedName("AddressFamily")
     @Nullable
     Long addressFamily;
 
+    /**
+     * The IP address assigned to the interface (can be IPv4 or IPv6 or both).
+     */
     @SerializedName("IPAddress")
     @Nullable
     String ipAddress;
 
+    /**
+     * The IPv4 address assigned to the interface, if applicable.
+     */
     @SerializedName("IPv4Address")
     @Nullable
     String ipv4Address;
 
+    /**
+     * The IPv6 address assigned to the interface, if applicable.
+     */
     @SerializedName("IPv6Address")
     @Nullable
     String ipv6Address;
 
+    /**
+     * Type of IP address.
+     * <ul>
+     *     <li>1 - Unicast</li>
+     *     <li>2 - Anycast</li>
+     * </ul>
+     */
     @SerializedName("Type")
     @Nullable
-    String type;
+    Integer type;
 
+    /**
+     * Source of the prefix for this IP Address.
+     * <ul>
+     *     <li>0 - Other</li>
+     *     <li>1 - Manual</li>
+     *     <li>2 - WellKnown</li>
+     *     <li>3 - DHCP</li>
+     *     <li>4 - RouterAdvertisement</li>
+     * </ul>
+     */
     @SerializedName("PrefixOrigin")
     @Nullable
     Long prefixOrigin;
 
+    /**
+     * Source of the suffix for the IP address.
+     * <ul>
+     *     <li>0 - Other</li>
+     *     <li>1 - Manual</li>
+     *     <li>2 - WellKnown</li>
+     *     <li>3 - DHCP</li>
+     *     <li>4 - Link</li>
+     *     <li>5 - Random</li>
+     * </ul>
+     */
     @SerializedName("SuffixOrigin")
     @Nullable
     Long suffixOrigin;
 
+    /**
+     * Length of the network prefix, in bits.
+     */
     @SerializedName("PrefixLength")
     @Nullable
     Long prefixLength;
 
+    /**
+     * Lifetime during which the address is preferred for use.
+     * The default value is infinite.
+     */
     @SerializedName("PreferredLifetime")
     @Nullable
     Datetime preferredLifetime;
 
+    /**
+     * Total lifetime during which the address is valid.
+     * The default value is infinite.
+     */
     @SerializedName("ValidLifetime")
     @Nullable
     Datetime validLifeTime;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()
@@ -124,6 +189,10 @@ public class MsftNetIpAddress {
         @Nullable
         Long seconds;
 
+        /**
+         * Prints the entity in a JSON pretty-print format
+         * @return the {@link String} value of the object in JSON pretty-print format
+         */
         @Override
         public String toString() {
             return new GsonBuilder()

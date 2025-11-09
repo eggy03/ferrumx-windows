@@ -41,56 +41,94 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32NetworkAdapter {
 
+    /**
+     * Unique identifier of the network adapter within the system.
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * Index number of the network adapter, stored in the system registry.
+     */
     @SerializedName("Index")
     @Nullable
     Integer index;
 
+    /**
+     * Friendly name of the network adapter.
+     * <p>Example: {@code "Intel(R) Ethernet Connection"}</p>
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Text description of the network adapter.
+     */
     @SerializedName("Description")
     @Nullable
     String description;
 
+    /**
+     * Windows Plug-and-Play device identifier for the network adapter.
+     */
     @SerializedName("PNPDeviceID")
     @Nullable
     String pnpDeviceId;
 
+    /**
+     * Media access control (MAC) address for this adapter.
+     */
     @SerializedName("MACAddress")
     @Nullable
     String macAddress;
 
+    /**
+     * Indicates whether the network adapter is installed in the system.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("Installed")
     @Nullable
     Boolean installed;
     public @Nullable Boolean isInstalled(){ return installed;}
 
+    /**
+     * Indicates whether the network adapter is currently enabled.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("NetEnabled")
     @Nullable
     Boolean netEnabled;
     public @Nullable Boolean isNetEnabled() {return netEnabled;}
 
+    /**
+     * Name of the network connection as displayed in the Network Connections Control Panel.
+     */
     @SerializedName("NetConnectionID")
     @Nullable
     String netConnectionId;
 
+    /**
+     * Indicates whether the adapter represents a physical or logical device.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("PhysicalAdapter")
     @Nullable
     Boolean physicalAdapter;
     public @Nullable Boolean isPhysicalAdapter() {return physicalAdapter;}
 
+    /**
+     * Date and time the network adapter was last reset.
+     */
     @SerializedName("TimeOfLastReset")
     @Nullable
     String timeOfLastReset;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

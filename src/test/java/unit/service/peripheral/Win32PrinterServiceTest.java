@@ -52,7 +52,7 @@ class Win32PrinterServiceTest {
                 .verticalResolution(1200L)
                 .paperSizesSupported(Arrays.asList(1, 5, 9))
                 .printerPaperNames(Arrays.asList("A4", "Letter", "Legal"))
-                .printerState(0)
+                .printerStatus(0)
                 .printJobDataType("RAW")
                 .printProcessor("winprint")
                 .driverName("HP Universal Printing PCL 6")
@@ -72,7 +72,7 @@ class Win32PrinterServiceTest {
                 .verticalResolution(600L)
                 .paperSizesSupported(Arrays.asList(1, 9))
                 .printerPaperNames(Arrays.asList("A4", "Legal"))
-                .printerState(1)
+                .printerStatus(1)
                 .printJobDataType("RAW")
                 .printProcessor("winprint")
                 .driverName("Canon G3000 series Printer")
@@ -97,7 +97,7 @@ class Win32PrinterServiceTest {
         prn1.addProperty("VerticalResolution", 1200L);
         prn1.add("PaperSizesSupported", new Gson().toJsonTree(Arrays.asList(1, 5, 9)));
         prn1.add("PrinterPaperNames", new Gson().toJsonTree(Arrays.asList("A4", "Letter", "Legal")));
-        prn1.addProperty("PrinterState", 0);
+        prn1.addProperty("PrinterStatus", 0);
         prn1.addProperty("PrintJobDataType", "RAW");
         prn1.addProperty("PrintProcessor", "winprint");
         prn1.addProperty("DriverName", "HP Universal Printing PCL 6");
@@ -116,7 +116,7 @@ class Win32PrinterServiceTest {
         prn2.addProperty("VerticalResolution", 600L);
         prn2.add("PaperSizesSupported", new Gson().toJsonTree(Arrays.asList(1, 9)));
         prn2.add("PrinterPaperNames", new Gson().toJsonTree(Arrays.asList("A4", "Legal")));
-        prn2.addProperty("PrinterState", 1);
+        prn2.addProperty("PrinterStatus", 1);
         prn2.addProperty("PrintJobDataType", "RAW");
         prn2.addProperty("PrintProcessor", "winprint");
         prn2.addProperty("DriverName", "Canon G3000 series Printer");

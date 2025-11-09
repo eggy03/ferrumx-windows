@@ -61,14 +61,24 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32NetworkAdapterSetting {
 
+    /**
+     * The {@code deviceId} field value of {@link Win32NetworkAdapter}
+     */
     @SerializedName("NetworkAdapterDeviceID")
     @Nullable
     String networkAdapterDeviceId;
 
+    /**
+     * The {@code index} field value of {@link Win32NetworkAdapterConfiguration}
+     */
     @SerializedName("NetworkAdapterConfigurationIndex")
     @Nullable
     Integer networkAdapterConfigurationIndex;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

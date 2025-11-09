@@ -55,7 +55,7 @@ class MsftNetIpAddressServiceTest {
                 .ipAddress("192.168.1.10")
                 .ipv4Address("192.168.1.10")
                 .ipv6Address(null)
-                .type("Unicast")
+                .type(1)
                 .prefixOrigin(1L)
                 .suffixOrigin(2L)
                 .prefixLength(24L)
@@ -70,7 +70,7 @@ class MsftNetIpAddressServiceTest {
                 .ipAddress("fe80::1a2b:3c4d:5e6f:7a8b")
                 .ipv4Address(null)
                 .ipv6Address("fe80::1a2b:3c4d:5e6f:7a8b")
-                .type("Unicast")
+                .type(2)
                 .prefixOrigin(3L)
                 .suffixOrigin(3L)
                 .prefixLength(64L)
@@ -90,7 +90,7 @@ class MsftNetIpAddressServiceTest {
         ipv4.addProperty("IPAddress", "192.168.1.10");
         ipv4.addProperty("IPv4Address", "192.168.1.10");
         ipv4.add("IPv6Address", JsonNull.INSTANCE);
-        ipv4.addProperty("Type", "Unicast");
+        ipv4.addProperty("Type", 1);
         ipv4.addProperty("PrefixOrigin", 1L);
         ipv4.addProperty("SuffixOrigin", 2L);
         ipv4.addProperty("PrefixLength", 24L);
@@ -110,7 +110,7 @@ class MsftNetIpAddressServiceTest {
         ipv6.addProperty("IPAddress", "fe80::1a2b:3c4d:5e6f:7a8b");
         ipv6.add("IPv4Address", JsonNull.INSTANCE);
         ipv6.addProperty("IPv6Address", "fe80::1a2b:3c4d:5e6f:7a8b");
-        ipv6.addProperty("Type", "Unicast");
+        ipv6.addProperty("Type", 2);
         ipv6.addProperty("PrefixOrigin", 3L);
         ipv6.addProperty("SuffixOrigin", 3L);
         ipv6.addProperty("PrefixLength", 64L);

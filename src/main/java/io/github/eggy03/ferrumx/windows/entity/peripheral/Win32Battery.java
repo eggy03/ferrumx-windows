@@ -43,60 +43,154 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class Win32Battery {
 
+    /**
+     * Identifier of the battery.
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * Short, one-line description of the battery object.
+     */
     @SerializedName("Caption")
     @Nullable
     String caption;
 
+    /**
+     * Description of the battery.
+     */
     @SerializedName("Description")
     @Nullable
     String description;
 
+    /**
+     * Label by which the battery is known.
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Current operational status of the battery.
+     * <p>Possible values:</p>
+     * <ul>
+     *   <li>"OK"</li>
+     *   <li>"Error"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Unknown"</li>
+     *   <li>"Pred Fail"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
+     * </ul>
+     */
     @SerializedName("Status")
     @Nullable
     String status;
 
+    /**
+     * Array of specific power-related capabilities supported by the battery.
+     * <p>Possible values:</p>
+     * <ul>
+     *   <li>0 - Unknown</li>
+     *   <li>1 - Not Supported</li>
+     *   <li>2 - Disabled</li>
+     *   <li>3 - Enabled</li>
+     *   <li>4 - Power Saving Modes Entered Automatically</li>
+     *   <li>5 - Power State Settable</li>
+     *   <li>6 - Power Cycling Supported</li>
+     *   <li>7 - Timed Power On Supported</li>
+     * </ul>
+     */
     @SerializedName("PowerManagementCapabilities")
     @Nullable
     List<Integer> powerManagementCapabilities;
 
+    /**
+     * Indicates whether the battery can be power-managed.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("PowerManagementSupported")
     @Nullable
     Boolean powerManagementSupported;
     public @Nullable Boolean isPowerManagementSupported() {return powerManagementSupported;}
 
+    /**
+     * Status of the battery.
+     * <p>Possible values:</p>
+     * <ul>
+     *   <li>1 - Discharging</li>
+     *   <li>2 - AC present, not charging</li>
+     *   <li>3 - Fully Charged</li>
+     *   <li>4 - Low</li>
+     *   <li>5 - Critical</li>
+     *   <li>6 - Charging</li>
+     *   <li>7 - Charging and High</li>
+     *   <li>8 - Charging and Low</li>
+     *   <li>9 - Charging and Critical</li>
+     *   <li>10 - Undefined</li>
+     *   <li>11 - Partially Charged</li>
+     * </ul>
+     */
     @SerializedName("BatteryStatus")
     @Nullable
     Integer batteryStatus;
 
+    /**
+     * Type of battery chemistry.
+     * <p>Possible values:</p>
+     * <ul>
+     *   <li>1 - Other</li>
+     *   <li>2 - Unknown</li>
+     *   <li>3 - Lead Acid</li>
+     *   <li>4 - Nickel Cadmium</li>
+     *   <li>5 - Nickel Metal Hydride</li>
+     *   <li>6 - Lithium-ion</li>
+     *   <li>7 - Zinc Air</li>
+     *   <li>8 - Lithium Polymer</li>
+     * </ul>
+     */
     @SerializedName("Chemistry")
     @Nullable
     Integer chemistry;
 
+    /**
+     * Design capacity of the battery in milliwatt-hours.
+     */
     @SerializedName("DesignCapacity")
     @Nullable
     Integer designCapacity;
 
+    /**
+     * Design voltage of the battery in millivolts.
+     */
     @SerializedName("DesignVoltage")
     @Nullable
     Integer designVoltage;
 
+    /**
+     * Estimated percentage of full charge remaining.
+     */
     @SerializedName("EstimatedChargeRemaining")
     @Nullable
     Long estimatedChargeRemaining;
 
+    /**
+     * Estimated remaining runtime of the battery in minutes.
+     */
     @SerializedName("EstimatedRunTime")
     @Nullable
     Long estimatedRunTime;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()
