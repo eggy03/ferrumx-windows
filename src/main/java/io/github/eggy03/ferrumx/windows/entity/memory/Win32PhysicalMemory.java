@@ -37,62 +37,142 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32PhysicalMemory {
 
+    /**
+     * Unique identifier for the physical memory device represented by an instance of this class.
+     * <p>
+     * Example: "Physical Memory 1"
+     */
     @SerializedName("Tag")
     @Nullable
     String tag;
 
+    /**
+     * Label for the Physical Memory.
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Name of the organization responsible for producing the physical memory.
+     */
     @SerializedName("Manufacturer")
     @Nullable
     String manufacturer;
 
+    /**
+     * Model name for the physical element.
+     */
     @SerializedName("Model")
     @Nullable
     String model;
 
+    /**
+     * Additional data, beyond asset tag information, that can be used to identify a physical element.
+     * For example, bar code data associated with an element that also has an asset tag.
+     */
     @SerializedName("OtherIdentifyingInfo")
     @Nullable
     String otherIdentifyingInfo;
 
+    /**
+     * Part number assigned by the organization responsible for producing or manufacturing the physical element.
+     */
     @SerializedName("PartNumber")
     @Nullable
     String partNumber;
 
+    /**
+     * Implementation form factor for the chip.
+     * <ul>
+     *     <li>0 - Unknown</li>
+     *     <li>1 - Other</li>
+     *     <li>2 - SIP</li>
+     *     <li>3 - DIP</li>
+     *     <li>4 - ZIP</li>
+     *     <li>5 - SOJ</li>
+     *     <li>6 - Proprietary</li>
+     *     <li>7 - SIMM</li>
+     *     <li>8 - DIMM</li>
+     *     <li>9 - TSOP</li>
+     *     <li>10 - PGA</li>
+     *     <li>11 - RIMM</li>
+     *     <li>12 - SODIMM</li>
+     *     <li>13 - SRIMM</li>
+     *     <li>14 - SMD</li>
+     *     <li>15 - SSMP</li>
+     *     <li>16 - QFP</li>
+     *     <li>17 - TQFP</li>
+     *     <li>18 - SOIC</li>
+     *     <li>19 - LCC</li>
+     *     <li>20 - PLCC</li>
+     *     <li>21 - BGA</li>
+     *     <li>22 - FPBGA</li>
+     *     <li>23 - LGA</li>
+     * </ul>
+     */
     @SerializedName("FormFactor")
     @Nullable
     Integer formFactor;
 
+    /**
+     * Physically labeled bank where the memory is located.
+     * <p>
+     * Examples: "Bank 0", "Bank A"
+     */
     @SerializedName("BankLabel")
     @Nullable
     String bankLabel;
 
+    /**
+     * Total capacity of the physical memory—in bytes.
+     */
     @SerializedName("Capacity")
     @Nullable
     Long capacity;
 
+    /**
+     * Data width of the physical memory—in bits.
+     * A data width of 0 (zero) and a total width of 8 (eight) indicates that the memory is used solely to provide error correction bits.
+     */
     @SerializedName("DataWidth")
     @Nullable
     Integer dataWidth;
 
+    /**
+     * Speed of the physical memory—in MHz.
+     */
     @SerializedName("Speed")
     @Nullable
-    Integer speed;
+    Long speed;
 
+    /**
+     * The configured clock speed of the memory device, in MHz, or 0, if the speed is unknown.
+     */
     @SerializedName("ConfiguredClockSpeed")
     @Nullable
-    Integer configuredClockSpeed;
+    Long configuredClockSpeed;
 
+    /**
+     * Label of the socket or circuit board that holds the memory.
+     * <p>
+     * Example: "SIMM 3"
+     */
     @SerializedName("DeviceLocator")
     @Nullable
     String deviceLocator;
 
+    /**
+     * Manufacturer-allocated number to identify the physical element.
+     */
     @SerializedName("SerialNumber")
     @Nullable
     String serialNumber;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

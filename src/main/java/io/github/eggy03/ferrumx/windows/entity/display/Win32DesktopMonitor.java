@@ -39,38 +39,90 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32DesktopMonitor {
 
+    /**
+     * Unique identifier of the desktop monitor on the system.
+     * <p>
+     * Example: {@code "DesktopMonitor1"}
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * Label by which the object is known.
+     * <p>
+     * Example: {@code "Default Monitor"}
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Windows Plug and Play device identifier of the monitor.
+     * <p>
+     * Example: {@code "DISPLAY\\DELA0D1\\4&273ACF3E&0&UID1048858"}
+     */
     @SerializedName("PNPDeviceID")
     @Nullable
     String pnpDeviceId;
 
+    /**
+     * Current status of the monitor.
+     * Various operational and non-operational statuses can be defined.
+     * <p>Operational statuses include:</p>
+     * <ul>
+     *     <li>OK</li>
+     *     <li>Degraded</li>
+     *     <li>Pred Fail</li>
+     * </ul>
+     * Non-operational statuses include:
+     * <ul>
+     *     <li>Error</li>
+     *     <li>Starting</li>
+     *     <li>Stopping</li>
+     *     <li>Service</li>
+     * </ul>
+     */
     @SerializedName("Status")
     @Nullable
     String status;
 
+    /**
+     * Name of the manufacturer of the monitor.
+     * <p>
+     * Example: {@code "NEC"}
+     */
     @SerializedName("MonitorManufacturer")
     @Nullable
     String monitorManufacturer;
 
+    /**
+     * Type of monitor.
+     * <p>
+     * Example: {@code "NEC 5FGp"}
+     */
     @SerializedName("MonitorType")
     @Nullable
     String monitorType;
 
+    /**
+     * Resolution along the x-axis (horizontal direction) of the monitor.
+     */
     @SerializedName("PixelsPerXLogicalInch")
     @Nullable
     Integer pixelsPerXLogicalInch;
 
+    /**
+     * Resolution along the y-axis (vertical direction) of the monitor.
+     */
     @SerializedName("PixelsPerYLogicalInch")
     @Nullable
     Integer pixelsPerYLogicalInch;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

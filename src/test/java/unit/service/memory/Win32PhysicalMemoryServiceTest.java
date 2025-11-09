@@ -51,8 +51,8 @@ class Win32PhysicalMemoryServiceTest {
                 .bankLabel("BANK 0")
                 .capacity(16L * 1024 * 1024 * 1024)
                 .dataWidth(64)
-                .speed(3200)
-                .configuredClockSpeed(3200)
+                .speed(3200L)
+                .configuredClockSpeed(3200L)
                 .deviceLocator("DIMM_A1")
                 .serialNumber("ABC123456789")
                 .build();
@@ -68,8 +68,8 @@ class Win32PhysicalMemoryServiceTest {
                 .bankLabel("BANK 1")
                 .capacity(16L * 1024 * 1024 * 1024)
                 .dataWidth(64)
-                .speed(6000)
-                .configuredClockSpeed(6000)
+                .speed(6000L)
+                .configuredClockSpeed(6000L)
                 .deviceLocator("DIMM_B1")
                 .serialNumber("XYZ987654321")
                 .build();
@@ -90,8 +90,8 @@ class Win32PhysicalMemoryServiceTest {
         mem1.addProperty("BankLabel", "BANK 0");
         mem1.addProperty("Capacity", 16L * 1024 * 1024 * 1024);
         mem1.addProperty("DataWidth", 64);
-        mem1.addProperty("Speed", 3200);
-        mem1.addProperty("ConfiguredClockSpeed", 3200);
+        mem1.addProperty("Speed", 3200L);
+        mem1.addProperty("ConfiguredClockSpeed", 3200L);
         mem1.addProperty("DeviceLocator", "DIMM_A1");
         mem1.addProperty("SerialNumber", "ABC123456789");
 
@@ -106,8 +106,8 @@ class Win32PhysicalMemoryServiceTest {
         mem2.addProperty("BankLabel", "BANK 1");
         mem2.addProperty("Capacity", 16L * 1024 * 1024 * 1024);
         mem2.addProperty("DataWidth", 64);
-        mem2.addProperty("Speed", 6000);
-        mem2.addProperty("ConfiguredClockSpeed", 6000);
+        mem2.addProperty("Speed", 6000L);
+        mem2.addProperty("ConfiguredClockSpeed", 6000L);
         mem2.addProperty("DeviceLocator", "DIMM_B1");
         mem2.addProperty("SerialNumber", "XYZ987654321");
 

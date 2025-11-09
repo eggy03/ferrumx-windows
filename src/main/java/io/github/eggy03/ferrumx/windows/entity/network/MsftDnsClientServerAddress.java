@@ -45,22 +45,45 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class MsftDnsClientServerAddress {
 
+    /**
+     * Gets the user-friendly index of the server interface.
+     * It's the unique interface index number used by the network stack.
+     */
     @SerializedName("InterfaceIndex")
     @Nullable
     Long interfaceIndex;
 
+    /**
+     * Gets the user-friendly name of the server interface.
+     */
     @SerializedName("InterfaceAlias")
     @Nullable
     String interfaceAlias;
 
+    /**
+     * Gets the address family of the server address.
+     * <p>
+     * Possible values:
+     * <ul>
+     *     <li>2  - IPv4</li>
+     *     <li>23 - IPv6</li>
+     * </ul>
+     */
     @SerializedName("AddressFamily")
     @Nullable
     Integer addressFamily;
 
+    /**
+     * Gets a list that contains the DNS server addresses.
+     */
     @SerializedName("ServerAddresses")
     @Nullable
     List<String> dnsServerAddresses;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

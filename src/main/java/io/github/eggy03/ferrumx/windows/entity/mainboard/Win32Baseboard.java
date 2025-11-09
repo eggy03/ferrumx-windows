@@ -39,26 +39,47 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32Baseboard {
 
+    /**
+     * Name of the organization responsible for producing the baseboard.
+     */
     @SerializedName("Manufacturer")
     @Nullable
     String manufacturer;
 
+    /**
+     * Name by which the baseboard is known.
+     */
     @SerializedName("Model")
     @Nullable
     String model;
 
+    /**
+     * Baseboard part number defined by the manufacturer.
+     * <p>
+     * Qualifiers: MappingStrings ("SMBIOS|Type 2|Product")
+     */
     @SerializedName("Product")
     @Nullable
     String product;
 
+    /**
+     * Manufacturer-allocated number used to identify the baseboard.
+     */
     @SerializedName("SerialNumber")
     @Nullable
     String serialNumber;
 
+    /**
+     * Version of the baseboard.
+     */
     @SerializedName("Version")
     @Nullable
     String version;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

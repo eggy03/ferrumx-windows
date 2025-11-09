@@ -61,9 +61,11 @@ class MsftNetAdapterServiceTest {
                 .driverVersion("12.19.1.37")
                 .driverDate("2023-10-12")
                 .mtuSize(1500L)
-                .mediaConnectionState(1L)
+                .mediaConnectState(1L)
                 .mediaType("802.3")
                 .physicalMediaType("Unspecified")
+                .ndisMedium(1L)
+                .ndisPhysicalMedium(1L)
                 .build();
 
         expectedWifi = MsftNetAdapter.builder()
@@ -87,9 +89,11 @@ class MsftNetAdapterServiceTest {
                 .driverVersion("7.35.333.0")
                 .driverDate("2022-05-01")
                 .mtuSize(1500L)
-                .mediaConnectionState(1L)
+                .mediaConnectState(1L)
                 .mediaType("802.11")
                 .physicalMediaType("Wireless LAN")
+                .ndisMedium(2L)
+                .ndisPhysicalMedium(2L)
                 .build();
     }
 
@@ -118,9 +122,11 @@ class MsftNetAdapterServiceTest {
         eth.addProperty("DriverVersion", "12.19.1.37");
         eth.addProperty("DriverDate", "2023-10-12");
         eth.addProperty("MtuSize", 1500L);
-        eth.addProperty("MediaConnectionState", 1L);
+        eth.addProperty("MediaConnectState", 1L);
         eth.addProperty("MediaType", "802.3");
         eth.addProperty("PhysicalMediaType", "Unspecified");
+        eth.addProperty("NdisMedium", 1L);
+        eth.addProperty("NdisPhysicalMedium", 1L);
 
         JsonObject wifi = new JsonObject();
         wifi.addProperty("DeviceID", "NET2");
@@ -143,9 +149,11 @@ class MsftNetAdapterServiceTest {
         wifi.addProperty("DriverVersion", "7.35.333.0");
         wifi.addProperty("DriverDate", "2022-05-01");
         wifi.addProperty("MtuSize", 1500L);
-        wifi.addProperty("MediaConnectionState", 1L);
+        wifi.addProperty("MediaConnectState", 1L);
         wifi.addProperty("MediaType", "802.11");
         wifi.addProperty("PhysicalMediaType", "Wireless LAN");
+        wifi.addProperty("NdisMedium", 2L);
+        wifi.addProperty("NdisPhysicalMedium", 2L);
 
         adapters.add(eth);
         adapters.add(wifi);

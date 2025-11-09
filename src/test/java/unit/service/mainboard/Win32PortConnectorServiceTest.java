@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,12 +45,16 @@ class Win32PortConnectorServiceTest {
                 .tag("PortConnector1")
                 .externalReferenceDesignator("USB3_0")
                 .internalReferenceDesignator("JUSB1")
+                .connectorType(Arrays.asList(1,2,3))
+                .portType(1)
                 .build();
 
         expectedPort2 = Win32PortConnector.builder()
                 .tag("PortConnector2")
                 .externalReferenceDesignator("HDMI_OUT")
                 .internalReferenceDesignator("JHDMI1")
+                .connectorType(Arrays.asList(4,5,6))
+                .portType(2)
                 .build();
     }
 
@@ -61,11 +66,15 @@ class Win32PortConnectorServiceTest {
         port1.addProperty("Tag", "PortConnector1");
         port1.addProperty("ExternalReferenceDesignator", "USB3_0");
         port1.addProperty("InternalReferenceDesignator", "JUSB1");
+        port1.addProperty("PortType", 1);
+        port1.add("ConnectorType", new Gson().toJsonTree(Arrays.asList(1,2,3)));
 
         JsonObject port2 = new JsonObject();
         port2.addProperty("Tag", "PortConnector2");
         port2.addProperty("ExternalReferenceDesignator", "HDMI_OUT");
         port2.addProperty("InternalReferenceDesignator", "JHDMI1");
+        port2.addProperty("PortType", 2);
+        port2.add("ConnectorType", new Gson().toJsonTree(Arrays.asList(4,5,6)));
 
         ports.add(port1);
         ports.add(port2);
