@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 Sayan Bhattacharjee (Alias: Egg-03/Eggy)
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package io.github.eggy03.ferrumx.windows.service;
 
 import com.profesorfalken.jpowershell.PowerShell;
@@ -13,7 +18,7 @@ import java.util.List;
  *     such as the {@code Win32_NetworkAdapter} WMI class
  * </p>
  * @param <S> the entity type returned by the service implementation
- * @author Egg-03
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @since 2.2.0
  * @see OptionalCommonServiceInterface
  */

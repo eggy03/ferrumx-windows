@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 Sayan Bhattacharjee (Alias: Egg-03/Eggy)
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package io.github.eggy03.ferrumx.windows.mapping;
 
 import com.google.gson.Gson;
@@ -21,7 +26,7 @@ import java.util.Optional;
  *
  * @param <S> the entity type returned by the service implementation
  * @since 3.0.0
- * @author Egg-03
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 public interface CommonMappingInterface<S> {
 

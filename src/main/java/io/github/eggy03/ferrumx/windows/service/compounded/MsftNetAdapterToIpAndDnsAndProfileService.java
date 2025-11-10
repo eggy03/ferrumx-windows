@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 Sayan Bhattacharjee (Alias: Egg-03/Eggy)
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package io.github.eggy03.ferrumx.windows.service.compounded;
 
 import com.profesorfalken.jpowershell.PowerShell;
@@ -41,7 +46,7 @@ import java.util.List;
  * @see MsftNetConnectionProfileService
  * @see Win32NetworkAdapterToConfigurationService
  * @since 3.0.0
- * @author Egg-03
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceInterface<MsftNetAdapterToIpAndDnsAndProfile> {
 

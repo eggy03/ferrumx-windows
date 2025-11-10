@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 Sayan Bhattacharjee (Alias: Egg-03/Eggy)
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package io.github.eggy03.ferrumx.windows.entity.compounded;
 
 import com.google.gson.GsonBuilder;
@@ -51,7 +56,7 @@ import java.util.List;
  * @see MsftNetConnectionProfile
  *
  * @since 3.0.0
- * @author Egg-03
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value

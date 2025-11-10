@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 Sayan Bhattacharjee (Alias: Egg-03/Eggy)
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package unit.service.system;
 
 import com.google.gson.Gson;
@@ -31,7 +36,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
-public class Win32ProcessServiceTest {
+class Win32ProcessServiceTest {
     
     private Win32ProcessService service;
 
