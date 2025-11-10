@@ -67,20 +67,27 @@ public class Win32DesktopMonitor {
     String pnpDeviceId;
 
     /**
-     * Current status of the monitor.
-     * Various operational and non-operational statuses can be defined.
-     * <p>Operational statuses include:</p>
+     * Current operational status of the monitor device.
+     * <p>Possible OPERATIONAL values:</p>
      * <ul>
-     *     <li>OK</li>
-     *     <li>Degraded</li>
-     *     <li>Pred Fail</li>
+     *   <li>"OK"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Pred Fail"</li>
      * </ul>
-     * Non-operational statuses include:
+     * <p>Possible NON-OPERATIONAL values:</p>
      * <ul>
-     *     <li>Error</li>
-     *     <li>Starting</li>
-     *     <li>Stopping</li>
-     *     <li>Service</li>
+     *   <li>"Unknown"</li>
+     *   <li>"Error"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     * </ul>
+     * <p>Possible OTHER values:</p>
+     * <ul>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
      * </ul>
      */
     @SerializedName("Status")

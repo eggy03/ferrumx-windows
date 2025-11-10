@@ -42,30 +42,80 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32SoundDevice {
 
+    /**
+     * Unique identifier of the sound device.
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * Windows Plug and Play device identifier.
+     */
     @SerializedName("PNPDeviceID")
     @Nullable
     String pnpDeviceId;
 
+    /**
+     * Friendly name of the sound device as recognized by the system.
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Manufacturer of the sound device.
+     */
     @SerializedName("Manufacturer")
     @Nullable
     String manufacturer;
 
+    /**
+     * Current operational status of the sound device.
+     * <p>Possible OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"OK"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Pred Fail"</li>
+     * </ul>
+     * <p>Possible NON-OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"Unknown"</li>
+     *   <li>"Error"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     * </ul>
+     * <p>Possible OTHER values:</p>
+     * <ul>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
+     * </ul>
+     */
     @SerializedName("Status")
     @Nullable
     String status;
 
+    /**
+     * Numeric state of the logical device.
+     * <ul>
+     *   <li>1 - Other</li>
+     *   <li>2 - Unknown</li>
+     *   <li>3 - Enabled</li>
+     *   <li>4 - Disabled</li>
+     *   <li>5 - Not Applicable</li>
+     * </ul>
+     */
     @SerializedName("StatusInfo")
     @Nullable
     Integer statusInfo;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

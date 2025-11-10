@@ -44,22 +44,43 @@ class Win32CacheMemoryServiceTest {
         expectedL1Cache = Win32CacheMemory.builder()
                 .deviceId("CPU0_L1")
                 .purpose("Instruction")
+                .cacheType(3)
+                .level(3)
                 .installedSize(256L)
-                .associativity(4)
+                .associativity(5)
+                .location(0)
+                .errorCorrectType(5)
+                .availability(3)
+                .status("OK")
+                .statusInfo(3)
                 .build();
 
         expectedL2Cache = Win32CacheMemory.builder()
                 .deviceId("CPU0_L2")
                 .purpose("Unified")
+                .cacheType(5)
+                .level(4)
                 .installedSize(2048L)
-                .associativity(8)
+                .associativity(7)
+                .location(0)
+                .errorCorrectType(5)
+                .availability(3)
+                .status("OK")
+                .statusInfo(3)
                 .build();
 
         expectedL3Cache = Win32CacheMemory.builder()
                 .deviceId("CPU0_L3")
                 .purpose("Unified")
+                .cacheType(5)
+                .level(5)
                 .installedSize(16384L)
                 .associativity(8)
+                .location(0)
+                .errorCorrectType(5)
+                .availability(3)
+                .status("OK")
+                .statusInfo(3)
                 .build();
     }
 
@@ -70,20 +91,41 @@ class Win32CacheMemoryServiceTest {
         JsonObject l1 = new JsonObject();
         l1.addProperty("DeviceID", "CPU0_L1");
         l1.addProperty("Purpose", "Instruction");
+        l1.addProperty("CacheType", 3);
+        l1.addProperty("Level", 3);
         l1.addProperty("InstalledSize", 256);
-        l1.addProperty("Associativity", 4);
+        l1.addProperty("Associativity", 5);
+        l1.addProperty("Location", 0);
+        l1.addProperty("ErrorCorrectType", 5);
+        l1.addProperty("Availability", 3);
+        l1.addProperty("Status", "OK");
+        l1.addProperty("StatusInfo", 3);
 
         JsonObject l2 = new JsonObject();
         l2.addProperty("DeviceID", "CPU0_L2");
         l2.addProperty("Purpose", "Unified");
+        l2.addProperty("CacheType", 5);
+        l2.addProperty("Level", 4);
         l2.addProperty("InstalledSize", 2048);
-        l2.addProperty("Associativity", 8);
+        l2.addProperty("Associativity", 7);
+        l2.addProperty("Location", 0);
+        l2.addProperty("ErrorCorrectType", 5);
+        l2.addProperty("Availability", 3);
+        l2.addProperty("Status", "OK");
+        l2.addProperty("StatusInfo", 3);
 
         JsonObject l3 = new JsonObject();
         l3.addProperty("DeviceID", "CPU0_L3");
         l3.addProperty("Purpose", "Unified");
+        l3.addProperty("CacheType", 5);
+        l3.addProperty("Level", 5);
         l3.addProperty("InstalledSize", 16384);
         l3.addProperty("Associativity", 8);
+        l3.addProperty("Location", 0);
+        l3.addProperty("ErrorCorrectType", 5);
+        l3.addProperty("Availability", 3);
+        l3.addProperty("Status", "OK");
+        l3.addProperty("StatusInfo", 3);
 
         caches.add(l1);
         caches.add(l2);

@@ -79,25 +79,27 @@ public class Win32Bios {
     public @Nullable Boolean isSMBIOSPresent(){return smbiosPresent;}
 
     /**
-     * Current status of the object.
-     * <p>
-     * Possible OPERATIONAL values include:
+     * Current operational status of the BIOS.
+     * <p>Possible OPERATIONAL values:</p>
      * <ul>
-     *   <li>OK</li>
-     *   <li>Degraded</li>
-     *   <li>Pred Fail</li>
+     *   <li>"OK"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Pred Fail"</li>
      * </ul>
-     * Possible NON-OPERATIONAL values include:
+     * <p>Possible NON-OPERATIONAL values:</p>
      * <ul>
-     *   <li>Error</li>
-     *   <li>Unknown</li>
-     *   <li>Starting</li>
-     *   <li>Stopping</li>
-     *   <li>Service</li>
-     *   <li>Stressed</li>
-     *   <li>NonRecover</li>
-     *   <li>No Contact</li>
-     *   <li>Lost Comm</li>
+     *   <li>"Unknown"</li>
+     *   <li>"Error"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     * </ul>
+     * <p>Possible OTHER values:</p>
+     * <ul>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
      * </ul>
      */
     @SerializedName("Status")

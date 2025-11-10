@@ -155,20 +155,27 @@ public class MsftNetAdapter {
     public @Nullable Boolean isHidden() {return hidden;}
 
     /**
-     * Current overall status of the adapter.
-     * <p>Possible values: </p>
+     * Current operational status of the net adapter device.
+     * <p>Possible OPERATIONAL values:</p>
      * <ul>
-     *     <li>OK</li>
-     *     <li>Error</li>
-     *     <li>Degraded</li>
-     *     <li>Pred Fail</li>
-     *     <li>Starting</li>
-     *     <li>Stopping</li>
-     *     <li>Service</li>
-     *     <li>Stressed</li>
-     *     <li>NonRecover</li>
-     *     <li>No Contact</li>
-     *     <li>Lost Comm</li>
+     *   <li>"OK"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Pred Fail"</li>
+     * </ul>
+     * <p>Possible NON-OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"Unknown"</li>
+     *   <li>"Error"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     * </ul>
+     * <p>Possible OTHER values:</p>
+     * <ul>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
      * </ul>
      */
     @SerializedName("Status")

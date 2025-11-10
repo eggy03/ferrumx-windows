@@ -60,14 +60,24 @@ import org.jetbrains.annotations.Nullable;
 @Builder (toBuilder = true)
 public class Win32AssociatedProcessorMemory {
 
+    /**
+     * Contains the {@code deviceId} field value of {@link Win32CacheMemory}
+     */
     @SerializedName("CacheMemoryDeviceID")
     @Nullable
     String cacheMemoryDeviceId;
 
+    /**
+     * Contains the {@code deviceId} field value of {@link Win32Processor}
+     */
     @SerializedName("ProcessorDeviceID")
     @Nullable
     String processorDeviceId;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()
