@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,26 +45,30 @@ class Win32DiskDriveServiceTest {
                 .deviceId("\\\\.\\PHYSICALDRIVE0")
                 .caption("Samsung SSD 970 EVO")
                 .model("MZ-V7E1T0")
-                .size(1000204886016L)
+                .size(BigInteger.valueOf(1000204886016L))
                 .firmwareRevision("2B2QEXM7")
                 .serialNumber("S4EVNX0M123456")
                 .partitions(3L)
                 .status("OK")
                 .interfaceType("NVMe")
                 .pnpDeviceId("PCI\\VEN_144D&DEV_A808&SUBSYS_0A0E144D&REV_01\\4&1A2B3C4D&0&000000")
+                .capabilities(Arrays.asList(3,4))
+                .capabilityDescriptions(Arrays.asList("desc1", "desc2"))
                 .build();
 
         expectedDiskDrive2 = Win32DiskDrive.builder()
                 .deviceId("\\\\.\\PHYSICALDRIVE1")
                 .caption("Seagate BarraCuda 2TB")
                 .model("ST2000DM008")
-                .size(2000398934016L)
+                .size(BigInteger.valueOf(2000398934016L))
                 .firmwareRevision("CC26")
                 .serialNumber("ZFL123ABC456")
                 .partitions(2L)
                 .status("OK")
                 .interfaceType("SATA")
                 .pnpDeviceId("PCI\\VEN_8086&DEV_A102&SUBSYS_85C41043&REV_31\\3&11583659&0&FA")
+                .capabilities(Arrays.asList(3,4))
+                .capabilityDescriptions(Arrays.asList("desc1", "desc2"))
                 .build();
     }
 
@@ -79,6 +85,8 @@ class Win32DiskDriveServiceTest {
         disk1.addProperty("Status", "OK");
         disk1.addProperty("InterfaceType", "NVMe");
         disk1.addProperty("PNPDeviceID", "PCI\\VEN_144D&DEV_A808&SUBSYS_0A0E144D&REV_01\\4&1A2B3C4D&0&000000");
+        disk1.add("Capabilities", new Gson().toJsonTree(Arrays.asList(3,4)));
+        disk1.add("CapabilityDescriptions", new Gson().toJsonTree(Arrays.asList("desc1", "desc2")));
 
         JsonObject disk2 = new JsonObject();
         disk2.addProperty("DeviceID", "\\\\.\\PHYSICALDRIVE1");
@@ -91,6 +99,8 @@ class Win32DiskDriveServiceTest {
         disk2.addProperty("Status", "OK");
         disk2.addProperty("InterfaceType", "SATA");
         disk2.addProperty("PNPDeviceID", "PCI\\VEN_8086&DEV_A102&SUBSYS_85C41043&REV_31\\3&11583659&0&FA");
+        disk2.add("Capabilities", new Gson().toJsonTree(Arrays.asList(3,4)));
+        disk2.add("CapabilityDescriptions", new Gson().toJsonTree(Arrays.asList("desc1", "desc2")));
 
         JsonArray array = new JsonArray();
         array.add(disk1);

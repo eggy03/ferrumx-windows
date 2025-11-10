@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,8 +46,8 @@ class Win32LogicalDiskServiceTest {
                 .driveType(3L)
                 .mediaType(12L)
                 .fileSystem("NTFS")
-                .size(1000204886016L)
-                .freeSpace(532147200000L)
+                .size(BigInteger.valueOf(1000204886016L))
+                .freeSpace(BigInteger.valueOf(532147200000L))
                 .compressed(false)
                 .supportsFileBasedCompression(true)
                 .supportsDiskQuotas(false)
@@ -60,8 +61,8 @@ class Win32LogicalDiskServiceTest {
                 .driveType(3L)
                 .mediaType(12L)
                 .fileSystem("NTFS")
-                .size(2000409772032L)
-                .freeSpace(1240152000000L)
+                .size(BigInteger.valueOf(2000409772032L))
+                .freeSpace(BigInteger.valueOf(1240152000000L))
                 .compressed(false)
                 .supportsFileBasedCompression(true)
                 .supportsDiskQuotas(false)

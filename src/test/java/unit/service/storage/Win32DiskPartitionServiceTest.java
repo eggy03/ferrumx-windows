@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,13 +44,13 @@ class Win32DiskPartitionServiceTest {
                 .deviceId("Disk0\\Partition1")
                 .name("System Reserved")
                 .description("EFI System Partition")
-                .blockSize(512L)
-                .numberOfBlocks(131072L)
+                .blockSize(BigInteger.valueOf(512L))
+                .numberOfBlocks(BigInteger.valueOf(131072L))
                 .bootable(true)
                 .primaryPartition(true)
                 .bootPartition(true)
                 .diskIndex(0L)
-                .size(67108864L)
+                .size(BigInteger.valueOf(67108864L))
                 .type("EFI")
                 .build();
 
@@ -57,13 +58,13 @@ class Win32DiskPartitionServiceTest {
                 .deviceId("Disk0\\Partition2")
                 .name("Local Disk (C:)")
                 .description("Primary OS Partition")
-                .blockSize(4096L)
-                .numberOfBlocks(244190000L)
+                .blockSize(BigInteger.valueOf(4096L))
+                .numberOfBlocks(BigInteger.valueOf(244190000L))
                 .bootable(false)
                 .primaryPartition(true)
                 .bootPartition(false)
                 .diskIndex(0L)
-                .size(1000204886016L)
+                .size(BigInteger.valueOf(1000204886016L))
                 .type("NTFS")
                 .build();
     }

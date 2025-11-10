@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigInteger;
+
 /**
  * Immutable representation of a RAM module on a Windows system.
  * <p>
@@ -129,7 +131,7 @@ public class Win32PhysicalMemory {
      */
     @SerializedName("Capacity")
     @Nullable
-    Long capacity;
+    BigInteger capacity;
 
     /**
      * Data width of the physical memory—in bits.

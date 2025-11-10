@@ -59,14 +59,24 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32DiskDriveToDiskPartition {
 
+    /**
+     * Contains the {@code deviceId} field value of {@link Win32DiskDrive}
+     */
     @SerializedName("DiskDriveDeviceID")
     @Nullable
     String diskDriveDeviceId;
 
+    /**
+     * Contains the {@code deviceId} field value of {@link Win32DiskPartition}
+     */
     @SerializedName("DiskPartitionDeviceID")
     @Nullable
     String diskPartitionDeviceId;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

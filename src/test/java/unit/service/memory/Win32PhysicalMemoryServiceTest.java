@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,7 +50,7 @@ class Win32PhysicalMemoryServiceTest {
                 .partNumber("CMK16GX4M2B3200C16")
                 .formFactor(8)
                 .bankLabel("BANK 0")
-                .capacity(16L * 1024 * 1024 * 1024)
+                .capacity(BigInteger.valueOf(16L * 1024 * 1024 * 1024))
                 .dataWidth(64)
                 .speed(3200L)
                 .configuredClockSpeed(3200L)
@@ -66,7 +67,7 @@ class Win32PhysicalMemoryServiceTest {
                 .partNumber("F5-6000J3238F16GX2-TZ5RK")
                 .formFactor(8)
                 .bankLabel("BANK 1")
-                .capacity(16L * 1024 * 1024 * 1024)
+                .capacity(BigInteger.valueOf(16L * 1024 * 1024 * 1024))
                 .dataWidth(64)
                 .speed(6000L)
                 .configuredClockSpeed(6000L)

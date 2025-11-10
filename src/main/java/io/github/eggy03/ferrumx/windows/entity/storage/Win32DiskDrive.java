@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
+import java.math.BigInteger;
+import java.util.List;
+
 /**
  * Immutable representation of a <b>Physical</b> disk on a Windows system.
  * <p>
@@ -49,46 +52,132 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32DiskDrive {
 
+    /**
+     * Unique identifier of the disk drive with other devices on the system.
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * Short description of the object.
+     */
     @SerializedName("Caption")
     @Nullable
     String caption;
 
+    /**
+     * Manufacturer’s model number of the disk drive.
+     */
     @SerializedName("Model")
     @Nullable
     String model;
 
+    /**
+     * Size of the disk drive, calculated by multiplying the total number of cylinders,
+     * tracks in each cylinder, sectors in each track, and bytes in each sector.
+     */
     @SerializedName("Size")
     @Nullable
-    Long size;
+    BigInteger size;
 
+    /**
+     * Revision of the disk drive firmware assigned by the manufacturer.
+     */
     @SerializedName("FirmwareRevision")
     @Nullable
     String firmwareRevision;
 
+    /**
+     * Number allocated by the manufacturer to identify the physical media.
+     */
     @SerializedName("SerialNumber")
     @Nullable
     String serialNumber;
 
+    /**
+     * Number of partitions on this physical disk drive recognized by the operating system.
+     */
     @SerializedName("Partitions")
     @Nullable
     Long partitions;
 
+    /**
+     * Current operational status of the physical disk.
+     * <p>Possible OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"OK"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Pred Fail"</li>
+     * </ul>
+     * <p>Possible NON-OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"Unknown"</li>
+     *   <li>"Error"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     * </ul>
+     * <p>Possible OTHER values:</p>
+     * <ul>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
+     * </ul>
+     */
     @SerializedName("Status")
     @Nullable
     String status;
 
+    /**
+     * Interface type of the physical disk drive (e.g., SCSI, IDE, USB, NVMe).
+     */
     @SerializedName("InterfaceType")
     @Nullable
     String interfaceType;
 
+    /**
+     * Windows Plug and Play device identifier of the logical device.
+     */
     @SerializedName("PNPDeviceID")
     @Nullable
     String pnpDeviceId;
 
+    /**
+     * Array of capabilities of the media access device.
+     * <p>Possible Values: </p>
+     * <ul>
+     *     <li>1 - Other</li>
+     *     <li>2 - Sequential Access</li>
+     *     <li>3 - Random Access</li>
+     *     <li>4 - Supports Writing</li>
+     *     <li>5 - Encryption</li>
+     *     <li>6 - Compression</li>
+     *     <li>7 - Supports Removable Media</li>
+     *     <li>8 - Manual Cleaning</li>
+     *     <li>9 - Automatic Cleaning</li>
+     *     <li>10 - S.M.A.R.T Notification</li>
+     *     <li>11 - Supports Dual Sided Media</li>
+     *     <li>12 - Pre-dismount Eject Not Required</li>
+     * </ul>
+     */
+    @SerializedName("Capabilities")
+    @Nullable
+    List<Integer> capabilities;
+
+    /**
+     * List of more detailed explanations for any of the access device features indicated in the {@link #capabilities} array.
+     * Note, each entry of this array is related to the entry in the {@link #capabilities} array that is located at the same index.
+     */
+    @SerializedName("CapabilityDescriptions")
+    @Nullable
+    List<String> capabilityDescriptions;
+
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

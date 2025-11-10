@@ -2,12 +2,9 @@ package io.github.eggy03.ferrumx.windows.entity.processor;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import io.github.eggy03.ferrumx.windows.service.processor.Win32CacheMemoryService;
 import lombok.Builder;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
-
-import java.math.BigInteger;
 
 /**
  * Immutable representation of a processor cache (e.g., L1, L2, L3) on a Windows system.
@@ -35,7 +32,7 @@ import java.math.BigInteger;
  *
  * }</pre>
  *
- * {@link Win32Processor} for related CPU information.
+ * See {@link Win32Processor} for related CPU information.
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-cachememory">Win32_CacheMemory Documentation</a>
  * @since 3.0.0
  * @author Egg-03
