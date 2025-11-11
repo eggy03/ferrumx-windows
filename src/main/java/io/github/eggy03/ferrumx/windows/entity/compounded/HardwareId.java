@@ -56,14 +56,26 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class HardwareId {
 
+    /**
+     * Collection of IDs for several components, grouped together by a de-limiter.
+     * <p>Read the class level documentation to know more about how this information is collected</p>
+     */
     @SerializedName("HWIDRaw")
     @Nullable
     String rawHWID;
 
+    /**
+     * SHA-256 hash of the {@link #rawHWID}
+     * <p>Read the class level documentation to know more about how this information is collected</p>
+     */
     @SerializedName("HWIDHash")
     @Nullable
     String hashHWID;
 
+    /**
+     * Retrieves the entity in a JSON pretty-print formatted string
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

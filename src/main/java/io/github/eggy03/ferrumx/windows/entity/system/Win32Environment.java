@@ -66,7 +66,6 @@ public class Win32Environment {
      * Placeholder variable of a Windows-based environment variable.
      * Information like the file system directory can change from computer to computer.
      * The operating system substitutes placeholders for these.
-     * </p>
      */
     @SerializedName("VariableValue")
     @Nullable

@@ -54,18 +54,41 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class Win32ProcessorToCacheMemory {
 
+    /**
+     * The unique identifier for the {@link Win32Processor} instance.
+     * <p>
+     * Corresponds to the processor’s {@code DeviceID}, such as {@code "CPU0"} or {@code "CPU1"}.
+     * </p>
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * The {@link Win32Processor} entity associated with the {@link #deviceId}.
+     * <p>
+     * Represents the physical or logical processor containing one or more cache memory units.
+     * </p>
+     */
     @SerializedName("Processor")
     @Nullable
     Win32Processor processor;
 
+    /**
+     * A list of {@link Win32CacheMemory} entities associated with the {@link #deviceId}.
+     * <p>
+     * Represents the processor’s cache hierarchy (such as L1, L2, and L3 cache levels)
+     * linked to the specified {@link #processor}.
+     * </p>
+     */
     @SerializedName("CacheMemory")
     @Nullable
     List<Win32CacheMemory> cacheMemoryList;
 
+    /**
+     * Retrieves the entity in a JSON pretty-print formatted string
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

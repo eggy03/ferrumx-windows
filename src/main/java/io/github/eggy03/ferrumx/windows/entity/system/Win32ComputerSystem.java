@@ -389,7 +389,7 @@ public class Win32ComputerSystem {
     /**
      * Total size of physical memory in bytes.
      * Note: under some circumstances this may not be accurate (BIOS reservation). For accurate module-by-module capacity,
-     * query {@link Win32PhysicalMemory#getCapacity()}
+     * query the equivalent method(s) in {@link Win32PhysicalMemory}
      */
     @SerializedName("TotalPhysicalMemory")
     @Nullable

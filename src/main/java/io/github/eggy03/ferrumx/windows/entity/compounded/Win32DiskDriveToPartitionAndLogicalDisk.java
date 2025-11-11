@@ -78,22 +78,47 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class Win32DiskDriveToPartitionAndLogicalDisk {
 
+    /**
+     * The unique identifier for the {@link Win32DiskDrive} instance.
+     * <p>
+     * This corresponds to the physical disk ID such as {@code "\\\\.\\PHYSICALDRIVE0"}.
+     * </p>
+     */
     @SerializedName("DeviceID")
     @Nullable
     String deviceId;
 
+    /**
+     * The {@link Win32DiskDrive} entity associated with the {@link #deviceId}.
+     * <p>
+     * Represents the physical disk drive identified by the specified {@link #deviceId}.
+     * </p>
+     */
     @SerializedName("DiskDrive")
     @Nullable
     Win32DiskDrive diskDrive;
 
+    /**
+     * A list of {@link Win32DiskPartition} entities associated with the {@link #deviceId}.
+     * <p>
+     * Represents all partitions physically present on the referenced {@link #diskDrive}.
+     * </p>
+     */
     @SerializedName("Partitions")
     @Nullable
     List<Win32DiskPartition> diskPartitionList;
 
+    /**
+     * A list of {@link Win32LogicalDisk} entities associated with the {@link #deviceId}.
+     */
     @SerializedName("LogicalDisks")
     @Nullable
     List<Win32LogicalDisk> logicalDiskList;
 
+    /**
+     * Retrieves the entity in a JSON pretty-print formatted string
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

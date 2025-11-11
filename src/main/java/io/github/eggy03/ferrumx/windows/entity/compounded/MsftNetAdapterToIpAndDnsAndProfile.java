@@ -63,26 +63,45 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class MsftNetAdapterToIpAndDnsAndProfile {
 
+    /**
+     * The unique index identifying the {@link MsftNetAdapter} instance
+     */
     @SerializedName("InterfaceIndex")
     @Nullable
     Long interfaceIndex;
 
+    /**
+     * The {@link MsftNetAdapter} associated with the index: {@link #interfaceIndex}
+     */
     @SerializedName("NetworkAdapter")
     @Nullable
     MsftNetAdapter adapter;
 
+    /**
+     * A list of {@link MsftNetIpAddress} associated with the index: {@link #interfaceIndex}
+     */
     @SerializedName("IPAddresses")
     @Nullable
     List<MsftNetIpAddress> ipAddressList;
 
+    /**
+     * A list of {@link MsftDnsClientServerAddress} associated with the index: {@link #interfaceIndex}
+     */
     @SerializedName("DNSServers")
     @Nullable
     List<MsftDnsClientServerAddress> dnsClientServerAddressList;
 
+    /**
+     * A list of {@link MsftNetConnectionProfile} associated with the index: {@link #interfaceIndex}
+     */
     @SerializedName("Profile")
     @Nullable
     List<MsftNetConnectionProfile> netConnectionProfileList;
 
+    /**
+     * Retrieves the entity in a JSON pretty-print formatted string
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()
