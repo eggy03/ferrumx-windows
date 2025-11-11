@@ -46,13 +46,13 @@ class Win32EnvironmentTest {
     static void setEnvironmentVariables() {
         sysVar = Win32Environment.builder()
                 .name("PATH")
-                .isSystemVariable(true)
+                .systemVariable(true)
                 .variableValue("C:\\Windows\\System32")
                 .build();
 
         userVar = Win32Environment.builder()
                 .name("TEMP")
-                .isSystemVariable(false)
+                .systemVariable(false)
                 .variableValue("C:\\Users\\User\\AppData\\Local\\Temp")
                 .build();
     }

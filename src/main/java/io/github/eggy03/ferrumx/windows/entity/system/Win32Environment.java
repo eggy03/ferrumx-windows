@@ -7,7 +7,9 @@ package io.github.eggy03.ferrumx.windows.entity.system;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * // Build a new instance
  * Win32Environment env = Win32Environment.builder()
  *     .name("DOT_NET_CLI_TELEMETRY_DISABLE")
- *     .isSystemVariable(true)
+ *     .systemVariable(true)
  *     .variableValue("0")
  *     .build();
  *
@@ -44,18 +46,36 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32Environment {
 
+    /**
+     * Character string that specifies the name of a Windows-based environment variable.
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Indicates whether the variable is a system variable.
+     */
+    @Getter(AccessLevel.NONE)
     @SerializedName("SystemVariable")
     @Nullable
-    Boolean isSystemVariable;
+    Boolean systemVariable;
+    public @Nullable Boolean isSystemVariable() {return systemVariable;}
 
+    /**
+     * Placeholder variable of a Windows-based environment variable.
+     * Information like the file system directory can change from computer to computer.
+     * The operating system substitutes placeholders for these.
+     * </p>
+     */
     @SerializedName("VariableValue")
     @Nullable
     String variableValue;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString(){
         return new GsonBuilder()

@@ -46,94 +46,179 @@ import java.math.BigInteger;
 @Builder(toBuilder = true)
 public class Win32Process {
 
+    /**
+     * Unique identifier of the process.
+     */
     @SerializedName("ProcessId")
     @Nullable
     Long processId;
 
+    /**
+     * Identifier of the session under which this process is running.
+     */
     @SerializedName("SessionId")
     @Nullable
     Long sessionId;
 
+    /**
+     * Name of the executable file responsible for this process.
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
+    /**
+     * Short one-line description of the process.
+     */
     @SerializedName("Caption")
     @Nullable
     String caption;
 
+    /**
+     * Full description of the process.
+     */
     @SerializedName("Description")
     @Nullable
     String description;
 
+    /**
+     *  Full path to the executable file of the process.
+     */
     @SerializedName("ExecutablePath")
     @Nullable
     String executablePath;
 
+    /**
+     * Current execution state of the process.
+     * <ul>
+     *   <li>0 — Unknown</li>
+     *   <li>1 — Other</li>
+     *   <li>2 — Ready</li>
+     *   <li>3 — Running</li>
+     *   <li>4 — Blocked</li>
+     *   <li>5 — Suspended Blocked</li>
+     *   <li>6 — Suspended Ready</li>
+     *   <li>7 — Terminated</li>
+     *   <li>8 — Stopped</li>
+     *   <li>9 — Growing</li>
+     * </ul>
+     */
     @SerializedName("ExecutionState")
     @Nullable
     Integer executionState;
 
+    /**
+     * Handle of the process (string representation of ProcessId).
+     */
     @SerializedName("Handle")
     @Nullable
     String handle;
 
+    /**
+     * Number of handles currently open by the process.
+     */
     @SerializedName("HandleCount")
     @Nullable
     Long handleCount;
 
+    /**
+     * Scheduling priority of the process.
+     * <ul>
+     *   <li>0 (lowest) to 31 (highest)</li>
+     * </ul>
+     */
     @SerializedName("Priority")
     @Nullable
     Long priority;
 
+    /**
+     * Number of active threads in the process.
+     */
     @SerializedName("ThreadCount")
     @Nullable
     Long threadCount;
 
+    /**
+     * Time spent by the process in kernel mode (in ms).
+     */
     @SerializedName("KernelModeTime")
     @Nullable
     BigInteger kernelModeTime;
 
+    /**
+     * Time spent by the process in user mode (in ms).
+     */
     @SerializedName("UserModeTime")
     @Nullable
     BigInteger userModeTime;
 
+    /**
+     * Current working set size (in bytes) used by the process.
+     */
     @SerializedName("WorkingSetSize")
     @Nullable
     BigInteger workingSetSize;
 
+    /**
+     * Peak working set size (in KB) of the process.
+     */
     @SerializedName("PeakWorkingSetSize")
     @Nullable
     BigInteger peakWorkingSetSize;
 
+    /**
+     * Current number of private memory pages used by the process.
+     */
     @SerializedName("PrivatePageCount")
     @Nullable
     BigInteger privatePageCount;
 
+    /**
+     * Current amount of page file usage (kilobytes).
+     */
     @SerializedName("PageFileUsage")
     @Nullable
     Long pageFileUsage;
 
+    /**
+     * Peak page file usage (kilobytes).
+     */
     @SerializedName("PeakPageFileUsage")
     @Nullable
     Long peakPageFileUsage;
 
+    /**
+     * Current virtual address space used by the process (bytes).
+     */
     @SerializedName("VirtualSize")
     @Nullable
     BigInteger virtualSize;
 
+    /**
+     * Peak virtual address space used by the process (bytes).
+     */
     @SerializedName("PeakVirtualSize")
     @Nullable
     BigInteger peakVirtualSize;
 
+    /**
+     * Date/time when the process was created.
+     */
     @SerializedName("CreationDate")
     @Nullable
     String creationDate;
 
+    /**
+     * Date/time when the process was terminated (if available).
+     */
     @SerializedName("TerminationDate")
     @Nullable
     String terminationDate;
 
+    /**
+     * Prints the entity in a JSON pretty-print format
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

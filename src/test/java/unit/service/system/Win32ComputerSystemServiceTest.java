@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -77,13 +78,14 @@ class Win32ComputerSystemServiceTest {
                 .oemStringArray(Collections.singletonList("Default String"))
                 .numberOfProcessors(1L)
                 .numberOfLogicalProcessors(20L)
-                .totalPhysicalMemory(17122615296L)
+                .totalPhysicalMemory(BigInteger.valueOf(17122615296L))
                 .automaticManagedPagefile(true)
                 .infraredSupported(false)
                 .networkServerModeEnabled(true)
                 .hypervisorPresent(false)
                 .thermalState(3)
                 .currentTimeZone(330)
+                .daylightInEffect(true)
                 .build();
     }
 
@@ -129,6 +131,7 @@ class Win32ComputerSystemServiceTest {
         obj.addProperty("HypervisorPresent", false);
         obj.addProperty("ThermalState", 3);
         obj.addProperty("CurrentTimeZone", 330);
+        obj.addProperty("DaylightInEffect", true);
 
         json = new GsonBuilder().serializeNulls().create().toJson(obj);
     }

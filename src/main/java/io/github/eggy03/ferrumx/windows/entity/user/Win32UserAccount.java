@@ -50,60 +50,133 @@ import org.jetbrains.annotations.Nullable;
 @Builder(toBuilder = true)
 public class Win32UserAccount {
 
+    /**
+     * Security identifier (SID) for this account.
+     * A SID is a string value of variable length that is used to identify a trustee.
+     * Each account has a unique SID that an authority, such as a Windows domain, issues.
+     * The SID is stored in the security database.
+     * When a user logs on, the system retrieves the user SID from the database,
+     * places the SID in the user access token,
+     * and then uses the SID in the user access token to identify the user
+     * in all subsequent interactions with Windows security.
+     * Each SID is a unique identifier for a user or group, and a different user or group cannot have the same SID.
+     */
     @SerializedName("SID")
     String sid;
 
+    /**
+     * Type of SID.
+     * <ul>
+     *   <li>1 — User</li>
+     *   <li>2 — Group</li>
+     *   <li>3 — Domain</li>
+     *   <li>4 — Alias</li>
+     *   <li>5 — WellKnownGroup</li>
+     *   <li>6 — DeletedAccount</li>
+     *   <li>7 — Invalid</li>
+     *   <li>8 — Unknown</li>
+     *   <li>9 — Computer</li>
+     * </ul>
+     */
     @SerializedName("SIDType")
     Integer sidType;
 
+    /**
+     * Type of user account.
+     * <ul>
+     *   <li>256 — Temporary duplicate account</li>
+     *   <li>512 — Normal account</li>
+     *   <li>2048 — Interdomain trust account</li>
+     *   <li>4096 — Workstation trust account</li>
+     *   <li>8192 — Server trust account</li>
+     * </ul>
+     */
     @SerializedName("AccountType")
     Long accountType;
 
+    /** Caption of the user account (domain/username). */
     @SerializedName("Caption")
     String caption;
 
+    /** Description of the user account. */
     @SerializedName("Description")
     String description;
 
+    /** Domain to which the user account belongs. */
     @SerializedName("Domain")
     String domain;
 
+    /** Name of the user account. */
     @SerializedName("Name")
     String name;
 
+    /** True if the account is disabled. */
     @Getter(AccessLevel.NONE)
     @SerializedName("Disabled")
     Boolean disabled;
     public @Nullable Boolean isDisabled() {return disabled;}
 
+    /** True if this is a local account. */
     @Getter(AccessLevel.NONE)
     @SerializedName("LocalAccount")
     Boolean localAccount;
     public @Nullable Boolean isLocalAccount() {return localAccount;}
 
+    /** True if the account is locked out. */
     @Getter(AccessLevel.NONE)
     @SerializedName("Lockout")
     Boolean lockout;
     public @Nullable Boolean isLockedOut() {return lockout;}
 
+    /** True if a password is required. */
     @Getter(AccessLevel.NONE)
     @SerializedName("PasswordRequired")
     Boolean passwordRequired;
     public @Nullable Boolean isPasswordRequired() {return passwordRequired;}
 
+    /** True if the password expires. */
     @Getter(AccessLevel.NONE)
     @SerializedName("PasswordExpires")
     Boolean passwordExpires;
     public @Nullable Boolean doesPasswordExpire() {return passwordExpires;}
 
+    /** True if the password can be changed. */
     @Getter(AccessLevel.NONE)
     @SerializedName("PasswordChangeable")
     Boolean passwordChangeable;
     public @Nullable Boolean isPasswordChangeable() {return passwordChangeable;}
 
+    /**
+     * Current operational status of the account.
+     * <p>Possible OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"OK"</li>
+     *   <li>"Degraded"</li>
+     *   <li>"Pred Fail"</li>
+     * </ul>
+     * <p>Possible NON-OPERATIONAL values:</p>
+     * <ul>
+     *   <li>"Unknown"</li>
+     *   <li>"Error"</li>
+     *   <li>"Starting"</li>
+     *   <li>"Stopping"</li>
+     *   <li>"Service"</li>
+     * </ul>
+     * <p>Possible OTHER values:</p>
+     * <ul>
+     *   <li>"Stressed"</li>
+     *   <li>"NonRecover"</li>
+     *   <li>"No Contact"</li>
+     *   <li>"Lost Comm"</li>
+     * </ul>
+     */
     @SerializedName("Status")
     String status;
 
+    /**
+     * Retrieves the entity in a JSON pretty-print formatted string
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()

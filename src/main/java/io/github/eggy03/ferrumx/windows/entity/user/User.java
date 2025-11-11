@@ -11,7 +11,7 @@ import lombok.Value;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Immutable representation of a user on a Windows system.
+ * Immutable representation of a user on a system. The service which retrieves this info is platform-agnostic.
  * <p>
  * Fields capture basic user information such as username, home directory, and user directory.
  * </p>
@@ -35,21 +35,36 @@ import org.jetbrains.annotations.Nullable;
  * }</pre>
  * @since 2.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @see Win32UserAccount
  */
 
 @Value
 @Builder(toBuilder = true)
 public class User {
 
+    /**
+     * Current username of the user behind this instance
+     */
     @Nullable
     String userName;
 
+    /**
+     * Fetches the user's home directory. For more information on what the home directory
+     * could mean, check out the definitions provided by your OS.
+     */
     @Nullable
     String userHome;
 
+    /**
+     * Current working directory of the user. This usually points to the directory where this library code exists.
+     */
     @Nullable
     String userDirectory;
 
+    /**
+     * Retrieves the entity in a JSON pretty-print formatted string
+     * @return the {@link String} value of the object in JSON pretty-print format
+     */
     @Override
     public String toString() {
         return new GsonBuilder()
