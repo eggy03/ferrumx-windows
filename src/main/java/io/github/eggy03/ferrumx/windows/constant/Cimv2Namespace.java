@@ -201,6 +201,11 @@ public enum Cimv2Namespace {
             " CreationDate, TerminationDate" +
             " | ConvertTo-Json"),
 
+    /**
+     * Query to fetch the properties of {@code Win32_SoundDevice} class
+     *
+     * @since 3.0.0
+     */
     WIN32_SOUND_DEVICE_QUERY("Get-CimInstance -ClassName Win32_SoundDevice | Select-Object * | ConvertTo-Json");
 
     private final String query;
