@@ -131,7 +131,7 @@ public class Win32NetworkAdapter {
     String timeOfLastReset;
 
     /**
-     * Prints the entity in a JSON pretty-print format
+     * Retrieves the entity in a JSON pretty-print formatted string
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
