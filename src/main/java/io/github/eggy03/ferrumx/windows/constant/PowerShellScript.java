@@ -102,7 +102,7 @@ public enum PowerShellScript {
     HWID_SCRIPT(
             new BufferedReader(
                     new InputStreamReader(
-                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/HWID.ps1"))
+                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/HardwareID.ps1"))
                             , StandardCharsets.UTF_8))
             );
 

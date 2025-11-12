@@ -13,13 +13,34 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of a hardware identity (HWID) in a Windows system.
- * <p>
- * This entity corresponds to the deserialized output of a combination of the following class fields:
- * </p>
+ * <p>This entity represents a compound identifier derived from several
+ * hardware components of a Windows system. It corresponds to the deserialized
+ * output of the associated PowerShell script responsible for HWID generation.</p>
+ *
+ * <h2>Data sources</h2>
  * <ul>
- *     <li>{@code Win32_ComputerSystemProduct.UUID} - subject to change with OS re-installation</li>
- *     <li>{@code Win32_DiskDrive.SerialNumber} - serial numbers of physical disk(s) in the system (excluding USB drives)</li>
- *     <li>{@code Win32_Processor.ProcessorID} - the ID of your physical processor(s)</li>
+ *     <li>{@code Win32_Processor.ProcessorID} — Unique identifier(s) for the system’s physical processor(s).</li>
+ *     <li>{@code Win32_BIOS} — Includes the following properties:
+ *         <ul>
+ *             <li>{@code SMBIOSBIOSVersion}</li>
+ *             <li>{@code SMBIOSMajorVersion}</li>
+ *             <li>{@code SMBIOSMinorVersion}</li>
+ *             <li>{@code SystemBiosMajorVersion}</li>
+ *             <li>{@code SystemBiosMinorVersion}</li>
+ *         </ul>
+ *     </li>
+ *     <li>{@code Win32_BaseBoard} — Includes the following properties:
+ *         <ul>
+ *             <li>{@code Manufacturer}</li>
+ *             <li>{@code Model}</li>
+ *             <li>{@code OtherIdentifyingInfo}</li>
+ *             <li>{@code PartNumber}</li>
+ *             <li>{@code SerialNumber}</li>
+ *             <li>{@code SKU}</li>
+ *             <li>{@code Version}</li>
+ *             <li>{@code Product}</li>
+ *         </ul>
+ *     </li>
  * </ul>
  * <p>
  * Instances of this class are thread-safe.
@@ -31,11 +52,20 @@ import org.jetbrains.annotations.Nullable;
  * <ol>
  *   <li>Retrieves the combined IDs from the aforementioned classes</li>
  *   <li>Trims whitespaces and filters out <code>null</code> or empty values.</li>
- *   <li>Sorts and uppercases all identifiers.</li>
+ *   <li>Sorts all identifiers.</li>
  *   <li>Joins them using a <code>|</code> delimiter to form {@link #rawHWID}.</li>
  *   <li>Computes the SHA-256 hash of this concatenated string.</li>
  *   <li>Formats the hash into a <code>8-4-4-4-12-16-16</code> grouped representation stored in {@link #hashHWID}.</li>
  * </ol>
+ *
+ * <p>
+ * While the generated HWID is designed to be unique per system, its uniqueness depends on the values provided by the
+ * hardware manufacturers. In cases where components report generic or missing
+ * information (e.g., baseboards using <code>"Default String"</code> as a serial number, <code>null</code> for
+ * model or SKU, or placeholder versions like <code>"x.x"</code>), multiple systems may end up sharing the
+ * same HWID. In such cases, the {@code Win32_Processor.ProcessorID} property becomes the source of uniqueness, provided
+ * this value can be detected during runtime.
+ * </p>
  *
  * <h2>Usage example</h2>
  * <pre>{@code
@@ -58,6 +88,8 @@ public class HardwareId {
 
     /**
      * Collection of IDs for several components, grouped together by a de-limiter.
+     * <p>Should be used for debug purposes only</p>
+     * <p>For production applications, use {@link #hashHWID}</p>
      * <p>Read the class level documentation to know more about how this information is collected</p>
      */
     @SerializedName("HWIDRaw")
