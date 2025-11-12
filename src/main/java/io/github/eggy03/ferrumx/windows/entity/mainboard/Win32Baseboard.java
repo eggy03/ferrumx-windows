@@ -60,8 +60,6 @@ public class Win32Baseboard {
 
     /**
      * Baseboard part number defined by the manufacturer.
-     * <p>
-     * Qualifiers: MappingStrings ("SMBIOS|Type 2|Product")
      */
     @SerializedName("Product")
     @Nullable

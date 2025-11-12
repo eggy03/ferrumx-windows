@@ -46,8 +46,6 @@ public class Win32PhysicalMemory {
 
     /**
      * Unique identifier for the physical memory device represented by an instance of this class.
-     * <p>
-     * Example: "Physical Memory 1"
      */
     @SerializedName("Tag")
     @Nullable
@@ -124,8 +122,6 @@ public class Win32PhysicalMemory {
 
     /**
      * Physically labeled bank where the memory is located.
-     * <p>
-     * Examples: "Bank 0", "Bank A"
      */
     @SerializedName("BankLabel")
     @Nullable
@@ -162,8 +158,6 @@ public class Win32PhysicalMemory {
 
     /**
      * Label of the socket or circuit board that holds the memory.
-     * <p>
-     * Example: "SIMM 3"
      */
     @SerializedName("DeviceLocator")
     @Nullable

@@ -74,8 +74,6 @@ public class Win32Bios {
 
     /**
      * If true, the SMBIOS is available on this computer system.
-     * <p>
-     * Qualifiers: MappingStrings ("SMBIOS|CSMBios|Init")
      */
     @Getter(AccessLevel.NONE)
     @SerializedName("SMBIOSPresent")
