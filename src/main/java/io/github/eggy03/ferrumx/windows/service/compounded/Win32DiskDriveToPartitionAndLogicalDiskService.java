@@ -67,7 +67,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     @Override
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getPath());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScript());
             return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);
         }
     }
@@ -85,7 +85,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     @NotNull
     @Override
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getPath());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScript());
         return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);
     }
 }

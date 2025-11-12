@@ -1,5 +1,5 @@
 /**
- * Contains predefined PowerShell queries and related constants for Windows WMI and CIM classes,
+ * Contains predefined PowerShell queries and script related constants for Windows WMI and CIM classes,
  * organized by their respective namespaces.
  * <p>
  * These queries are executed by classes in the {@link io.github.eggy03.ferrumx.windows.service} package

@@ -15,14 +15,17 @@ import io.github.eggy03.ferrumx.windows.entity.compounded.Win32ProcessorToCacheM
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
  * Enum representing the location for some predefined PowerShell script
  * <p>
- * Each constant holds a PowerShell script location which, when executed,
+ * Each constant reads a PowerShell script in a {@link BufferedReader} which, when executed,
  * returns the result in JSON format. These scripts are typically executed
- * using {@link PowerShell#executeScript(String)} and mapped to
+ * using {@link PowerShell#executeScript(BufferedReader)} and mapped to
  * corresponding Java objects.
  * </p>
  *
@@ -34,46 +37,74 @@ import java.util.Objects;
 public enum PowerShellScript {
 
     /**
-     * Query path for script which returns a JSON which can be deserialized into {@link MsftNetAdapterToIpAndDnsAndProfile}
+     * Script that returns a JSON which can be deserialized into {@link MsftNetAdapterToIpAndDnsAndProfile}
      */
-    MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT(Objects
-            .requireNonNull(PowerShellScript.class
-                    .getResource("/MsftNetAdapterToIpAndDnsAndProfile.ps1")).getPath()),
+    MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT(
+            new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(
+                                    PowerShellScript.class.getResourceAsStream("/MsftNetAdapterToIpAndDnsAndProfile.ps1")
+                            ), StandardCharsets.UTF_8)
+            )
+    ),
 
     /**
-     * Query path for script which returns a JSON which can be deserialized into {@link Win32NetworkAdapterToConfiguration}
+     * Script that returns a JSON which can be deserialized into {@link Win32NetworkAdapterToConfiguration}
      */
-    WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT(Objects
-            .requireNonNull(PowerShellScript.class
-                    .getResource("/Win32NetworkAdapterToConfiguration.ps1")).getPath()),
+    WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT(
+            new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32NetworkAdapterToConfiguration.ps1"))
+                            , StandardCharsets.UTF_8)
+            )
+    ),
+
 
     /**
-     * Query path for script which returns a JSON which can be deserialized into {@link Win32DiskDriveToPartitionAndLogicalDisk}
+     * Script that returns a JSON which can be deserialized into {@link Win32DiskDriveToPartitionAndLogicalDisk}
      */
-    WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT(Objects
-            .requireNonNull(PowerShellScript.class
-                    .getResource("/Win32DiskDriveToPartitionAndLogicalDisk.ps1")).getPath()),
+    WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT(
+            new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32DiskDriveToPartitionAndLogicalDisk.ps1"))
+                            , StandardCharsets.UTF_8)
+            )
+    ),
+
 
     /**
-     * Query path for script which returns a JSON which can be deserialized into {@link Win32DiskPartitionToLogicalDisk}
+     * Script that returns a JSON which can be deserialized into {@link Win32DiskPartitionToLogicalDisk}
      */
-    WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT(Objects
-            .requireNonNull(PowerShellScript.class
-                    .getResource("/Win32DiskPartitionToLogicalDisk.ps1")).getPath()),
+    WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT(
+            new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32DiskPartitionToLogicalDisk.ps1"))
+                            , StandardCharsets.UTF_8)
+            )
+    ),
+
 
     /**
-     * Query path for script which returns a JSON which can be deserialized into {@link Win32ProcessorToCacheMemory}
+     * Script that returns a JSON which can be deserialized into {@link Win32ProcessorToCacheMemory}
      */
-    WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT(Objects
-            .requireNonNull(PowerShellScript.class
-                    .getResource("/Win32ProcessorToCacheMemory.ps1")).getPath()),
+    WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT(
+            new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32ProcessorToCacheMemory.ps1"))
+                            , StandardCharsets.UTF_8)
+            )
+    ),
+
 
     /**
-     * Query path for script which returns a JSON which can be deserialized into {@link HardwareId}
+     * Script that returns a JSON which can be deserialized into {@link HardwareId}
      */
-    HWID_SCRIPT(Objects
-            .requireNonNull(PowerShellScript.class
-                    .getResource("/HWID.ps1")).getPath());
+    HWID_SCRIPT(
+            new BufferedReader(
+                    new InputStreamReader(
+                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/HWID.ps1"))
+                            , StandardCharsets.UTF_8))
+            );
 
-    private final String path;
+    private final BufferedReader script;
 }

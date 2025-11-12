@@ -63,7 +63,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
     @Override
     public List<Win32NetworkAdapterToConfiguration> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getPath());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScript());
             return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);
         }
     }
@@ -81,7 +81,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
     @NotNull
     @Override
     public List<Win32NetworkAdapterToConfiguration> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getPath());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScript());
         return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);
     }
 }

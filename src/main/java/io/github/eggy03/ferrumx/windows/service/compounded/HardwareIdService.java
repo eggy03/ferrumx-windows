@@ -57,7 +57,7 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
     @Override
     public Optional<HardwareId> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.HWID_SCRIPT.getPath());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.HWID_SCRIPT.getScript());
             return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);
         }
     }
@@ -75,7 +75,7 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
     @NotNull
     @Override
     public Optional<HardwareId> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.HWID_SCRIPT.getPath());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.HWID_SCRIPT.getScript());
         return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);
     }
 }

@@ -68,7 +68,7 @@ public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInte
     @Override
     public List<Win32DiskPartitionToLogicalDisk> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT.getPath());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT.getScript());
             return new Win32DiskPartitionToLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskPartitionToLogicalDisk.class);
         }
     }
@@ -86,7 +86,7 @@ public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInte
     @NotNull
     @Override
     public List<Win32DiskPartitionToLogicalDisk> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT.getPath());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT.getScript());
         return new Win32DiskPartitionToLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskPartitionToLogicalDisk.class);
     }
 }

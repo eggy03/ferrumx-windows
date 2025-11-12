@@ -62,7 +62,7 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
     @Override
     public List<Win32ProcessorToCacheMemory> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getPath());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getScript());
             return new Win32ProcessorToCacheMemoryMapper().mapToList(response.getCommandOutput(), Win32ProcessorToCacheMemory.class);
         }
     }
@@ -80,7 +80,7 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
     @NotNull
     @Override
     public List<Win32ProcessorToCacheMemory> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getPath());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getScript());
         return new Win32ProcessorToCacheMemoryMapper().mapToList(response.getCommandOutput(), Win32ProcessorToCacheMemory.class);
     }
 }

@@ -65,7 +65,7 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
     @Override
     public List<MsftNetAdapterToIpAndDnsAndProfile> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getPath());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getScript());
             return new MsftNetAdapterToIpAndDnsAndProfileMapper().mapToList(response.getCommandOutput(), MsftNetAdapterToIpAndDnsAndProfile.class);
         }
     }
@@ -83,7 +83,7 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
     @NotNull
     @Override
     public List<MsftNetAdapterToIpAndDnsAndProfile> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getPath());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getScript());
         return new MsftNetAdapterToIpAndDnsAndProfileMapper().mapToList(response.getCommandOutput(), MsftNetAdapterToIpAndDnsAndProfile.class);
     }
 }

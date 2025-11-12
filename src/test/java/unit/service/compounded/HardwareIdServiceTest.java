@@ -19,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.io.BufferedReader;
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Optional;
@@ -26,7 +27,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -67,7 +68,7 @@ class HardwareIdServiceTest {
              PowerShell mockShell = mock(PowerShell.class)) {
 
             mockPS.when(PowerShell::openSession).thenReturn(mockShell);
-            when(mockShell.executeScript(anyString())).thenReturn(mockResponse);
+            when(mockShell.executeScript(any(BufferedReader.class))).thenReturn(mockResponse);
 
             Optional<HardwareId> hwid = service.get();
             assertThat(hwid).isPresent();
@@ -86,7 +87,7 @@ class HardwareIdServiceTest {
              PowerShell mockShell = mock(PowerShell.class)) {
 
             mockPS.when(PowerShell::openSession).thenReturn(mockShell);
-            when(mockShell.executeScript(anyString())).thenReturn(mockResponse);
+            when(mockShell.executeScript(any(BufferedReader.class))).thenReturn(mockResponse);
 
             Optional<HardwareId> hwid = service.get();
             assertThat(hwid).isEmpty();
@@ -103,7 +104,7 @@ class HardwareIdServiceTest {
              PowerShell mockShell = mock(PowerShell.class)) {
 
             mockPS.when(PowerShell::openSession).thenReturn(mockShell);
-            when(mockShell.executeScript(anyString())).thenReturn(mockResponse);
+            when(mockShell.executeScript(any(BufferedReader.class))).thenReturn(mockResponse);
 
             assertThrows(JsonSyntaxException.class, () -> service.get());
         }
@@ -116,7 +117,7 @@ class HardwareIdServiceTest {
         when(mockedResponse.getCommandOutput()).thenReturn(json);
 
         try (PowerShell mockSession = mock(PowerShell.class)) {
-            when(mockSession.executeScript(anyString())).thenReturn(mockedResponse);
+            when(mockSession.executeScript(any(BufferedReader.class))).thenReturn(mockedResponse);
 
             Optional<HardwareId> hwid = service.get(mockSession);
             assertThat(hwid).isPresent();
@@ -131,7 +132,7 @@ class HardwareIdServiceTest {
         when(mockedResponse.getCommandOutput()).thenReturn("");
 
         try (PowerShell mockSession = mock(PowerShell.class)) {
-            when(mockSession.executeScript(anyString())).thenReturn(mockedResponse);
+            when(mockSession.executeScript(any(BufferedReader.class))).thenReturn(mockedResponse);
 
             Optional<HardwareId> hwid = service.get(mockSession);
             assertThat(hwid).isEmpty();
@@ -145,7 +146,7 @@ class HardwareIdServiceTest {
         when(mockedResponse.getCommandOutput()).thenReturn("not a valid json");
 
         try (PowerShell mockSession = mock(PowerShell.class)) {
-            when(mockSession.executeScript(anyString())).thenReturn(mockedResponse);
+            when(mockSession.executeScript(any(BufferedReader.class))).thenReturn(mockedResponse);
             assertThrows(JsonSyntaxException.class, () -> service.get(mockSession));
         }
     }
