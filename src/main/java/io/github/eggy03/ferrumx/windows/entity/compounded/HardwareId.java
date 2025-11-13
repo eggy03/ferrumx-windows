@@ -75,10 +75,6 @@ import org.jetbrains.annotations.Nullable;
  *     .build();
  * }</pre>
  *
- * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystemproduct">Win32_ComputerSystemProduct</a>
- * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-diskdrive">Win32_DiskDrive</a>
- * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor">Win32_Processor</a>
- *
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
