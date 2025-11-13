@@ -206,7 +206,11 @@ public enum Cimv2Namespace {
      *
      * @since 3.0.0
      */
-    WIN32_SOUND_DEVICE_QUERY("Get-CimInstance -ClassName Win32_SoundDevice | Select-Object * | ConvertTo-Json");
+    WIN32_SOUND_DEVICE_QUERY("Get-CimInstance -ClassName Win32_SoundDevice | Select-Object * | ConvertTo-Json"),
 
+    /**
+     * Query to fetch the properties of {@code Win32_PnPEntity} class
+     */
+    WIN32_PNP_ENTITY_QUERY("Get-CimInstance -ClassName Win32_PnPEntity | Select-Object * | ConvertTo-Json");
     private final String query;
 }
