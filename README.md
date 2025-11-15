@@ -19,7 +19,7 @@ The library has been tested to work exclusively on <strong>Windows 8.1, Windows 
 For Windows 7 and Vista support, see: [FerrumL](https://github.com/eggy03/FerrumL)
 
 # Download
-> **Requires:** Java 8 or higher
+> **Minimum Supported Java Version:** 8
 
 Maven:
 ```xml
@@ -36,6 +36,11 @@ implementation group: 'io.github.eggy03', name: 'ferrumx-windows', version: '3.0
 ```
 
 For other build ecosystems, check out the [Maven Central Repository](https://central.sonatype.com/artifact/io.github.eggy03/ferrumx-windows/overview)
+
+> [!NOTE]
+> The `sources.jar` published with this library includes de-lomboked code which should prevent the IDEs from complaining
+> about source mismatch between the decompiled class files and the downloaded sources. It should also make your debugging
+> easier, should you step into the library code during the debugging process of your project.
 
 # Documentation
 Documentation can be found [here](https://eggy03.github.io/FerrumX-Documentation/)
