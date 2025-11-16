@@ -14,6 +14,7 @@ import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.service.processor.Win32AssociatedProcessorMemoryService;
 import io.github.eggy03.ferrumx.windows.service.processor.Win32CacheMemoryService;
 import io.github.eggy03.ferrumx.windows.service.processor.Win32ProcessorService;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -45,6 +46,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32ProcessorToCacheMemoryService implements CommonServiceInterface<Win32ProcessorToCacheMemory> {
 
     /**
@@ -63,6 +65,7 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
     public List<Win32ProcessorToCacheMemory> get() {
         try(PowerShell shell = PowerShell.openSession()){
             PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getScript());
+            log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32ProcessorToCacheMemoryMapper().mapToList(response.getCommandOutput(), Win32ProcessorToCacheMemory.class);
         }
     }
@@ -81,6 +84,7 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
     @Override
     public List<Win32ProcessorToCacheMemory> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getScript());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32ProcessorToCacheMemoryMapper().mapToList(response.getCommandOutput(), Win32ProcessorToCacheMemory.class);
     }
 }

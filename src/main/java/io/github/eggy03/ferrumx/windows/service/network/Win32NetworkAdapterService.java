@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapter;
 import io.github.eggy03.ferrumx.windows.mapping.network.Win32NetworkAdapterMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
-
+@Slf4j
 public class Win32NetworkAdapterService implements CommonServiceInterface<Win32NetworkAdapter> {
 
     /**
@@ -59,6 +60,7 @@ public class Win32NetworkAdapterService implements CommonServiceInterface<Win32N
     public List<Win32NetworkAdapter> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32NetworkAdapterMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapter.class);
     }
 
@@ -76,6 +78,7 @@ public class Win32NetworkAdapterService implements CommonServiceInterface<Win32N
     public List<Win32NetworkAdapter> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32NetworkAdapterMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapter.class);
     }
 }

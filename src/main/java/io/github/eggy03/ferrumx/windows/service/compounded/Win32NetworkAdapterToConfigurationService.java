@@ -14,6 +14,7 @@ import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterConfigurationService;
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterService;
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterSettingService;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -46,6 +47,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32NetworkAdapterToConfigurationService implements CommonServiceInterface<Win32NetworkAdapterToConfiguration> {
 
     /**
@@ -64,6 +66,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
     public List<Win32NetworkAdapterToConfiguration> get() {
         try(PowerShell shell = PowerShell.openSession()){
             PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScript());
+            log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);
         }
     }
@@ -82,6 +85,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
     @Override
     public List<Win32NetworkAdapterToConfiguration> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScript());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);
     }
 }

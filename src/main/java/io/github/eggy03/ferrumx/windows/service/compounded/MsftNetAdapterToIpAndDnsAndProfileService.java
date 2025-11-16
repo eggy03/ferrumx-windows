@@ -15,6 +15,7 @@ import io.github.eggy03.ferrumx.windows.service.network.MsftDnsClientServerAddre
 import io.github.eggy03.ferrumx.windows.service.network.MsftNetAdapterService;
 import io.github.eggy03.ferrumx.windows.service.network.MsftNetConnectionProfileService;
 import io.github.eggy03.ferrumx.windows.service.network.MsftNetIpAddressService;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -48,6 +49,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceInterface<MsftNetAdapterToIpAndDnsAndProfile> {
 
     /**
@@ -66,6 +68,7 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
     public List<MsftNetAdapterToIpAndDnsAndProfile> get() {
         try(PowerShell shell = PowerShell.openSession()){
             PowerShellResponse response = shell.executeScript(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getScript());
+            log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
             return new MsftNetAdapterToIpAndDnsAndProfileMapper().mapToList(response.getCommandOutput(), MsftNetAdapterToIpAndDnsAndProfile.class);
         }
     }
@@ -84,6 +87,7 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
     @Override
     public List<MsftNetAdapterToIpAndDnsAndProfile> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getScript());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new MsftNetAdapterToIpAndDnsAndProfileMapper().mapToList(response.getCommandOutput(), MsftNetAdapterToIpAndDnsAndProfile.class);
     }
 }

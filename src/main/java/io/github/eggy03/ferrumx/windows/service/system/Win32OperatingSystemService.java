@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.system.Win32OperatingSystem;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32OperatingSystemMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
-
+@Slf4j
 public class Win32OperatingSystemService implements CommonServiceInterface<Win32OperatingSystem> {
 
     /**
@@ -59,6 +60,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     public List<Win32OperatingSystem> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_OPERATING_SYSTEM_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32OperatingSystemMapper().mapToList(response.getCommandOutput(), Win32OperatingSystem.class);
     }
 
@@ -76,6 +78,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     public List<Win32OperatingSystem> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_OPERATING_SYSTEM_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32OperatingSystemMapper().mapToList(response.getCommandOutput(), Win32OperatingSystem.class);
     }
 }

@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.user.Win32UserAccount;
 import io.github.eggy03.ferrumx.windows.mapping.user.Win32UserAccountMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32UserAccountService implements CommonServiceInterface<Win32UserAccount> {
 
     /**
@@ -55,6 +57,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
     @Override
     public List<Win32UserAccount> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_USER_ACCOUNT_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32UserAccountMapper().mapToList(response.getCommandOutput(), Win32UserAccount.class);
     }
 
@@ -70,6 +73,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
     @Override
     public List<Win32UserAccount> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_USER_ACCOUNT_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32UserAccountMapper().mapToList(response.getCommandOutput(), Win32UserAccount.class);
     }
 }

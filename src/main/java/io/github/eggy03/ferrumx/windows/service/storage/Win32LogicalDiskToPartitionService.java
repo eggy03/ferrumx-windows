@@ -13,6 +13,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDisk;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDiskToPartition;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32LogicalDiskToPartitionMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -42,6 +43,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32LogicalDiskToPartitionService implements CommonServiceInterface<Win32LogicalDiskToPartition> {
 
     /**
@@ -59,6 +61,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
     @Override
     public List<Win32LogicalDiskToPartition> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskToPartitionMapper().mapToList(response.getCommandOutput(), Win32LogicalDiskToPartition.class);
     }
 
@@ -77,6 +80,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
     @Override
     public List<Win32LogicalDiskToPartition> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskToPartitionMapper().mapToList(response.getCommandOutput(), Win32LogicalDiskToPartition.class);
     }
 }

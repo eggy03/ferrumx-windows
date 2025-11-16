@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDisk;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32LogicalDiskMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32LogicalDiskService implements CommonServiceInterface<Win32LogicalDisk> {
 
     /**
@@ -57,6 +59,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
     @Override
     public List<Win32LogicalDisk> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskMapper().mapToList(response.getCommandOutput(), Win32LogicalDisk.class);
     }
 
@@ -73,6 +76,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
     @Override
     public List<Win32LogicalDisk> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskMapper().mapToList(response.getCommandOutput(), Win32LogicalDisk.class);
     }
 }

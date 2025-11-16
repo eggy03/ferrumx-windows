@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Battery;
 import io.github.eggy03.ferrumx.windows.mapping.peripheral.Win32BatteryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -39,7 +40,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
-
+@Slf4j
 public class Win32BatteryService implements CommonServiceInterface<Win32Battery> {
 
     /**
@@ -58,6 +59,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
     public List<Win32Battery> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_BATTERY_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32BatteryMapper().mapToList(response.getCommandOutput(), Win32Battery.class);
     }
 
@@ -76,6 +78,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
     public List<Win32Battery> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BATTERY_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32BatteryMapper().mapToList(response.getCommandOutput(), Win32Battery.class);
     }
 }

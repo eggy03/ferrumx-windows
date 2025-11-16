@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.StandardCimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetConnectionProfile;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetConnectionProfileMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class MsftNetConnectionProfileService implements CommonServiceInterface<MsftNetConnectionProfile> {
 
     /**
@@ -57,6 +59,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
     @Override
     public List<MsftNetConnectionProfile> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_CONNECTION_PROFILE_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new MsftNetConnectionProfileMapper().mapToList(response.getCommandOutput(), MsftNetConnectionProfile.class);
     }
 
@@ -74,6 +77,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
     @Override
     public List<MsftNetConnectionProfile> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_CONNECTION_PROFILE_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new MsftNetConnectionProfileMapper().mapToList(response.getCommandOutput(), MsftNetConnectionProfile.class);
     }
 }

@@ -13,6 +13,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterConfig
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterSetting;
 import io.github.eggy03.ferrumx.windows.mapping.network.Win32NetworkAdapterSettingMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32NetworkAdapterSettingService implements CommonServiceInterface<Win32NetworkAdapterSetting> {
 
     /**
@@ -56,8 +58,9 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      */
     @Override
     public List<Win32NetworkAdapterSetting> get() {
-        PowerShellResponse powerShellResponse = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_SETTING_QUERY.getQuery());
-        return new Win32NetworkAdapterSettingMapper().mapToList(powerShellResponse.getCommandOutput(), Win32NetworkAdapterSetting.class);
+        PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_SETTING_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        return new Win32NetworkAdapterSettingMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterSetting.class);
     }
 
     /**
@@ -73,7 +76,8 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      */
     @Override
     public List<Win32NetworkAdapterSetting> get(PowerShell powerShell) {
-        PowerShellResponse powerShellResponse = powerShell.executeCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_SETTING_QUERY.getQuery());
-        return new Win32NetworkAdapterSettingMapper().mapToList(powerShellResponse.getCommandOutput(), Win32NetworkAdapterSetting.class);
+        PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_SETTING_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        return new Win32NetworkAdapterSettingMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterSetting.class);
     }
 }

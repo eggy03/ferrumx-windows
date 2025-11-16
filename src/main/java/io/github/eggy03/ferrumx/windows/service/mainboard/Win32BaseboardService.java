@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32Baseboard;
 import io.github.eggy03.ferrumx.windows.mapping.mainboard.Win32BaseboardMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
-
+@Slf4j
 public class Win32BaseboardService implements CommonServiceInterface<Win32Baseboard> {
 
     /**
@@ -57,6 +58,7 @@ public class Win32BaseboardService implements CommonServiceInterface<Win32Basebo
     @Override
     public List<Win32Baseboard> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_BASEBOARD_QUERY.getQuery());
+        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32BaseboardMapper().mapToList(response.getCommandOutput(), Win32Baseboard.class);
     }
 
@@ -74,6 +76,7 @@ public class Win32BaseboardService implements CommonServiceInterface<Win32Basebo
     @Override
     public List<Win32Baseboard> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BASEBOARD_QUERY.getQuery());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32BaseboardMapper().mapToList(response.getCommandOutput(), Win32Baseboard.class);
     }
 }

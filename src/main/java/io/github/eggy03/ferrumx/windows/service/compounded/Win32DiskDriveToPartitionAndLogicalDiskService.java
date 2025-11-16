@@ -16,6 +16,7 @@ import io.github.eggy03.ferrumx.windows.service.storage.Win32DiskDriveToDiskPart
 import io.github.eggy03.ferrumx.windows.service.storage.Win32DiskPartitionService;
 import io.github.eggy03.ferrumx.windows.service.storage.Win32LogicalDiskService;
 import io.github.eggy03.ferrumx.windows.service.storage.Win32LogicalDiskToPartitionService;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -50,6 +51,7 @@ import java.util.List;
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
+@Slf4j
 public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonServiceInterface<Win32DiskDriveToPartitionAndLogicalDisk> {
 
     /**
@@ -68,6 +70,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get() {
         try(PowerShell shell = PowerShell.openSession()){
             PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScript());
+            log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);
         }
     }
@@ -86,6 +89,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     @Override
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScript());
+        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);
     }
 }
