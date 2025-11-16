@@ -1,8 +1,4 @@
-<p align="center"> 
-  <img src="https://github.com/Egg-03/FerrumX/assets/111327101/9aee9cdf-5213-401b-814d-a9738ee1a24c" alt="FerrumX logo">
-</p>
-
-[![Project Stats](https://openhub.net/p/FerrumX/widgets/project_thin_badge.gif)](https://openhub.net/p/FerrumX)
+[![Project Stats](https://openhub.net/p/ferrumx-windows/widgets/project_thin_badge.gif)](https://openhub.net/p/ferrumx-windows)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Egg-03/FerrumX/.github%2Fworkflows%2Fbuild.yml)
 
@@ -47,7 +43,7 @@ Documentation can be found [here](https://eggy03.github.io/FerrumX-Documentation
 
 # Usage
 > [!IMPORTANT]
-> More usage examples and migration guides can be found in the [Wiki](https://github.com/eggy03/FerrumX/wiki).
+> More usage examples can be found [here](https://github.com/eggy03/ferrumx-windows-examples).
 
 ```java
 public class ProcessorExample {
@@ -77,7 +73,7 @@ This project is licensed under the MIT License.
 # Supported Versions
 
 - v3.x.x - Actively Developed and Supported
-- v2.x.x - No longer actively maintained
+- v2.x.x - Transitional Release (not maintained)
 - v1.x.x - No longer actively maintained
 
 # Information about v2 and v3
@@ -99,6 +95,9 @@ It introduces new MSFT classes and re-introduces several entities from **`v1.3.7
 It also renames all of the `v2.x` classes to have a `Win32` prefix, similar to the `v1.x` naming convention.
 
 ### Migration guide
+
+>[!NOTE]
+> Migration guide can be found in the [wiki](https://github.com/eggy03/FerrumX/wiki)
 
 - Users on **`v1.3.7`** should **upgrade directly to `v3.0.0`**.
 - The migration guide for migrating to **`v1.3.7` to `v3.0.0`** will be available in the [Wiki](https://github.com/eggy03/FerrumX/wiki)
