@@ -187,8 +187,8 @@ You can contribute via one of the following methods :)
 - Contribute to the project's wiki (it's sparse)
 - Contribute to the [examples repository](https://github.com/eggy03/ferrumx-windows-examples)
 - Test the library in your system and submit suggestions and bugs by opening an [issue](https://github.com/eggy03/ferrumx-windows/issues)
-- Report vulnerabilities
-- Check out the [Contribution Guideline]() to know more about contributing to code and other ways of contributing
+- Report vulnerabilities in accordance with the [Security Policy](/SECURITY.md)
+- Check out the [Contribution Guideline](/CONTRIBUTING.md) to know more about contributing to code and other ways of contributing
 
 ---
 
@@ -196,11 +196,13 @@ You can contribute via one of the following methods :)
 
 Yes :) And in many ways, it's way better than this one :)
 [OSHI](https://github.com/oshi/oshi) has been in development since 2010 and has a very mature ecosystem :)
-They use JNA (which is native and fast) and thus, require no PowerShell and have also been working on migrating to
-JDK25's FFM API which is a much faster API than JNA. They also support cross-platform calls.
+They skip WMI and use JNA to load native dlls (which is fast) and thus, require no PowerShell and have also been working on migrating to
+JDK25's FFM API which is much faster than JNA or JNI. `OSHI` also supports cross-platform implementation.
+In contrast, `ferrumx-windows` uses WMI via PowerShell and is slow. I do intend to provide cross-platform support
+in the future.
 
 My version of JNA based implementation is called [PineTree,](https://github.com/eggy03/PineTree) but it is in very early
-stages of development.
+stages of development and still uses WMI via COM API
 
 ### **Q: If OSHI exists, why did you make this library ?**
 
@@ -228,4 +230,4 @@ more than what OSHI exports or less but for most use cases, OSHI might still be 
 on FerrumX because it helps me learn and grow :)
 
 # License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](/LICENSE).
