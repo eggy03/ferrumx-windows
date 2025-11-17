@@ -19,8 +19,11 @@ The library is still in its early stages and is being developed by a single, rel
 Work on cross-platform compatibility is currently in active planning stage.
 
 # Supported Operating Systems
-The library has been tested to work exclusively on <strong>Windows 8.1, Windows 10 and Windows 11</strong> devices.
-Windows 7 and earlier versions may be supported if PowerShell 5 can be installed
+- Windows: `7SP1*`, `8.1*`, `10` and `11`
+- PowerShell: `5.1 and above`
+
+*For `Windows 8.1` and `7SP1`you can install
+[Windows Management Framework 5.1](https://www.microsoft.com/en-us/download/details.aspx?id=54616) to upgrade to PowerShell 5.1
 
 # CI Stats
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
@@ -95,8 +98,8 @@ public class ProcessorExample {
 # FAQ
 
 ### **Q: What version of Windows is required to use this library?**
-FerrumX-Windows has been tested on **Windows 8.1, Windows 10, and Windows 11**.
-Older systems may work if **PowerShell 5** can be installed.
+FerrumX-Windows has been tested on **Windows 10, and Windows 11**.
+Older OSes (7SP1 and 8.1) may work if **PowerShell 5.1** can be installed with Windows Management Framework 5.1.
 
 ---
 
