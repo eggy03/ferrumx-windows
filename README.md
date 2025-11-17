@@ -1,10 +1,10 @@
 [![Project Stats](https://openhub.net/p/ferrumx-windows/widgets/project_thin_badge.gif)](https://openhub.net/p/ferrumx-windows)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Egg-03/FerrumX/.github%2Fworkflows%2Fbuild.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/eggy03/ferrumx-windows/.github%2Fworkflows%2Fbuild.yml)
 
-[![License](https://img.shields.io/github/license/Egg-03/FerrumX)](https://github.com/Egg-03/FerrumX/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/eggy03/ferrumx-windows)](https://github.com/eggy03/ferrumx-windows/blob/main/LICENSE)
 [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.eggy03/ferrumx-windows)](https://central.sonatype.com/artifact/io.github.eggy03/ferrumx-windows)
-![Commits to main since latest release](https://img.shields.io/github/commits-since/eggy03/FerrumX/latest)
+![Commits to main since latest release](https://img.shields.io/github/commits-since/eggy03/ferrumx-windows/latest)
 ![Java Version](https://img.shields.io/badge/java-8%2B-blue)
 
 # About
@@ -12,7 +12,7 @@ FerrumX-Windows is a lightweight Hardware and Network Information library writte
 
 # Supported Operating Systems
 The library has been tested to work exclusively on <strong>Windows 8.1, Windows 10 and Windows 11</strong> devices.
-For Windows 7 and Vista support, see: [FerrumL](https://github.com/eggy03/FerrumL)
+Windows 7 and earlier versions may be supported if PowerShell 5 can be installed
 
 # Download
 > **Minimum Supported Java Version:** 8
@@ -39,7 +39,7 @@ For other build ecosystems, check out the [Maven Central Repository](https://cen
 > easier, should you step into the library code during the debugging process of your project.
 
 # Documentation
-Documentation can be found [here](https://eggy03.github.io/FerrumX-Documentation/)
+Documentation can be found [here](https://eggy03.github.io/ferrumx-windows-documentation/)
 
 # Usage
 > [!IMPORTANT]
@@ -82,7 +82,7 @@ This project is licensed under the MIT License.
 
 The **2.x** versions (`v2.0.0`–`v2.2.0`) served as **pre-releases** that introduced the new service-layered architecture.
 
-- **`v2.0.0`** was a complete rewrite of the project. See [v2.0.0 pre-release notes](https://github.com/eggy03/FerrumX/releases/tag/v2.0.0)
+- **`v2.0.0`** was a complete rewrite of the project. See [v2.0.0 pre-release notes](https://github.com/eggy03/ferrumx-windows/releases/tag/v2.0.0)
 - **`v2.1.0`** and **`v2.2.0`** built upon that foundation with architectural enhancements and breaking changes.
 - Each 2.x pre-release was **incompatible** with the others.
 - For details about these breaking changes, see the release notes linked at the end of this document.
@@ -97,18 +97,18 @@ It also renames all of the `v2.x` classes to have a `Win32` prefix, similar to t
 ### Migration guide
 
 >[!NOTE]
-> Migration guide can be found in the [wiki](https://github.com/eggy03/FerrumX/wiki)
+> Migration guide can be found in the [wiki](https://github.com/eggy03/ferrumx-windows/wiki)
 
 - Users on **`v1.3.7`** should **upgrade directly to `v3.0.0`**.
-- The migration guide for migrating to **`v1.3.7` to `v3.0.0`** will be available in the [Wiki](https://github.com/eggy03/FerrumX/wiki)
+- The migration guide for migrating to **`v1.3.7` to `v3.0.0`** will be available in the [Wiki](https://github.com/eggy03/ferrumx-windows/wiki)
 - No migration guide will be provided for migrating to **`v2.x` to `v3.0.0`**. However, you can check the release notes
-at the [Releases Page](https://github.com/eggy03/FerrumX/releases) or towards the end of this readme to see what changes have been made from `v2` to `v3`.
+at the [Releases Page](https://github.com/eggy03/ferrumx-windows/releases) or towards the end of this readme to see what changes have been made from `v2` to `v3`.
 
 ### Release Changelogs
 
-- Changes from **`v1.3.7` to`v2.0.0`**: [Pull Request #20](https://github.com/eggy03/FerrumX/pull/20)
-- Changes from **`v2.0.0` to `v2.0.1`**: [Release Notes for v2.0.1](https://github.com/eggy03/FerrumX/releases/v2.0.1)
-- Changes from **`v2.0.1` to `v2.1.0`**: [Release Notes for v2.1.0](https://github.com/eggy03/FerrumX/releases/v2.1.0)
-- Changes from **`v2.1.0` to `v2.2.0`**: [Release Notes for v2.2.0](https://github.com/eggy03/FerrumX/releases/v2.2.0)
+- Changes from **`v1.3.7` to`v2.0.0`**: [Pull Request #20](https://github.com/eggy03/ferrumx-windows/pull/20)
+- Changes from **`v2.0.0` to `v2.0.1`**: [Release Notes for v2.0.1](https://github.com/eggy03/ferrumx-windows/releases/v2.0.1)
+- Changes from **`v2.0.1` to `v2.1.0`**: [Release Notes for v2.1.0](https://github.com/eggy03/ferrumx-windows/releases/v2.1.0)
+- Changes from **`v2.1.0` to `v2.2.0`**: [Release Notes for v2.2.0](https://github.com/eggy03/ferrumx-windows/releases/v2.2.0)
 - Changes from **`v2.2.0` to `v3.0.0`**: [Pull Request #XX]()
 

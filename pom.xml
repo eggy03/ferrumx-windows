@@ -10,19 +10,19 @@
         <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <project.name>FerrumX</project.name>
+        <project.name>FerrumX-Windows</project.name>
         <project.description>A lightweight Hardware and Network Info wrapper in JAVA</project.description>
-        <project.url>https://github.com/Egg-03/FerrumX</project.url>
+        <project.url>https://github.com/eggy03/ferrumx-windows</project.url>
 
         <project.license.name>The MIT License</project.license.name>
-        <project.license.url>https://raw.githubusercontent.com/Egg-03/Ferrumx/refs/heads/main/LICENSE</project.license.url>
+        <project.license.url>https://raw.githubusercontent.com/eggy03/ferrumx-windows/refs/heads/main/LICENSE</project.license.url>
 
         <project.developer.id>Egg-03</project.developer.id>
         <project.developer.name>Sayan Bhattacharjee</project.developer.name>
         <project.developer.email>egg03@duck.com</project.developer.email>
 
-        <project.scm.url>https://github.com/eggy03/FerrumX.git</project.scm.url>
-        <project.scm.dev>scm:git:ssh://git@github.com:eggy03/FerrumX.git</project.scm.dev>
+        <project.scm.url>https://github.com/eggy03/ferrumx-windows.git</project.scm.url>
+        <project.scm.dev>scm:git:ssh://git@github.com:eggy03/ferrumx-windows.git</project.scm.dev>
 
         <sonar.organization>egg-03</sonar.organization>
 
