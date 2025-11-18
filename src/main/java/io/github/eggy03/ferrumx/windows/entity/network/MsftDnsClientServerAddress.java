@@ -1,5 +1,5 @@
 /*
- * © 2024–2025 Sayan Bhattacharjee (Alias: Egg-03/Eggy)
+ * © 2024–2025 The ferrumx-windows contributors
  * Licensed under the MIT License.
  * See the LICENSE file in the project root for more information.
  */

@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 The ferrumx-windows contributors
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package io.github.eggy03.ferrumx.windows.service.system;
 
 import com.profesorfalken.jpowershell.PowerShell;
