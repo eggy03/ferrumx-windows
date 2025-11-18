@@ -7,7 +7,7 @@ package io.github.eggy03.ferrumx.windows.service.user;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.user.Win32UserAccount;
 import io.github.eggy03.ferrumx.windows.mapping.user.Win32UserAccountMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;

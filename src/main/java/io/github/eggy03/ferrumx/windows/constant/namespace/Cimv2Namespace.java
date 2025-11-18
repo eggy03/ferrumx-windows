@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  * See the LICENSE file in the project root for more information.
  */
-package io.github.eggy03.ferrumx.windows.constant;
+package io.github.eggy03.ferrumx.windows.constant.namespace;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import lombok.Getter;

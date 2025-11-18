@@ -7,7 +7,7 @@ package io.github.eggy03.ferrumx.windows.service.storage;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskDrive;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskDriveToDiskPartition;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskPartition;

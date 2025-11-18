@@ -7,7 +7,7 @@ package io.github.eggy03.ferrumx.windows.service.network;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.StandardCimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.StandardCimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetConnectionProfile;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetConnectionProfileMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;

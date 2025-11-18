@@ -7,7 +7,7 @@ package io.github.eggy03.ferrumx.windows.service.mainboard;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32Bios;
 import io.github.eggy03.ferrumx.windows.mapping.mainboard.Win32BiosMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;

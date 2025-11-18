@@ -7,7 +7,7 @@ package io.github.eggy03.ferrumx.windows.service.display;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.display.Win32DesktopMonitor;
 import io.github.eggy03.ferrumx.windows.mapping.display.Win32DesktopMonitorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;

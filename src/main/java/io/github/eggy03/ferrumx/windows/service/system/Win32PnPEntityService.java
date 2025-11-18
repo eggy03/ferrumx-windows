@@ -2,7 +2,7 @@ package io.github.eggy03.ferrumx.windows.service.system;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
-import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.system.Win32PnPEntity;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32PnPEntityMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;

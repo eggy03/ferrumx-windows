@@ -7,7 +7,7 @@ package io.github.eggy03.ferrumx.windows.entity.storage;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import io.github.eggy03.ferrumx.windows.constant.Cimv2Namespace;
+import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import lombok.Builder;
 import lombok.Value;
 import org.jetbrains.annotations.Nullable;
