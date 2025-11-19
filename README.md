@@ -47,14 +47,15 @@ Maven:
 <dependency>
     <groupId>io.github.eggy03</groupId>
     <artifactId>ferrumx-windows</artifactId>
-    <version>3.0.0</version>
+    <version>X.Y.Z</version>
 </dependency>
 ```
 
 Gradle:
 ```gradle
-implementation group: 'io.github.eggy03', name: 'ferrumx-windows', version: '3.0.0'
+implementation group: 'io.github.eggy03', name: 'ferrumx-windows', version: 'X.Y.Z'
 ```
+> Latest release version is always displayed by the maven-central badge at the top of this README
 
 For other build ecosystems, check out the [Maven Central Repository](https://central.sonatype.com/artifact/io.github.eggy03/ferrumx-windows/overview)
 
