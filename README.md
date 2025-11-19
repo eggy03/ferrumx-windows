@@ -26,18 +26,18 @@ Work on cross-platform compatibility is currently in active planning stage.
 [Windows Management Framework 5.1](https://www.microsoft.com/en-us/download/details.aspx?id=54616) to upgrade to PowerShell 5.1
 
 # CI Stats
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/eggy03/ferrumx-windows/.github%2Fworkflows%2Fbuild.yml)
 ![Commits to main since latest release](https://img.shields.io/github/commits-since/eggy03/ferrumx-windows/latest)
 
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Egg-03_FerrumX&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Egg-03_FerrumX)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=coverage)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
 
 # Download
 > **Minimum Supported Java Version:** 8
