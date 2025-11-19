@@ -1,3 +1,8 @@
+/*
+ * © 2024–2025 The ferrumx-windows contributors
+ * Licensed under the MIT License.
+ * See the LICENSE file in the project root for more information.
+ */
 package io.github.eggy03.ferrumx.windows.service.user;
 
 import io.github.eggy03.ferrumx.windows.entity.user.User;
@@ -17,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * System.out.println(currentUser);
  * }</pre>
  * @since 2.0.0
- * @author Egg-03
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 public class UserService {

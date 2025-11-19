@@ -4,41 +4,59 @@
 
     <groupId>io.github.eggy03</groupId>
     <artifactId>ferrumx-windows</artifactId>
-    <version>2.2.0</version>
+    <version>3.0.0</version>
 
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <project.name>FerrumX</project.name>
+        <project.name>FerrumX-Windows</project.name>
         <project.description>A lightweight Hardware and Network Info wrapper in JAVA</project.description>
-        <project.url>https://github.com/Egg-03/FerrumX</project.url>
+        <project.url>https://github.com/eggy03/ferrumx-windows</project.url>
 
         <project.license.name>The MIT License</project.license.name>
-        <project.license.url>https://raw.githubusercontent.com/Egg-03/Ferrumx/refs/heads/main/LICENSE</project.license.url>
+        <project.license.url>https://raw.githubusercontent.com/eggy03/ferrumx-windows/refs/heads/main/LICENSE</project.license.url>
 
         <project.developer.id>Egg-03</project.developer.id>
-        <project.developer.name>Egg-03 </project.developer.name>
+        <project.developer.name>Sayan Bhattacharjee</project.developer.name>
         <project.developer.email>egg03@duck.com</project.developer.email>
 
-        <project.scm.url>https://github.com/eggy03/FerrumX.git</project.scm.url>
-        <project.scm.dev>scm:git:ssh://git@github.com:eggy03/FerrumX.git</project.scm.dev>
+        <project.scm.url>https://github.com/eggy03/ferrumx-windows.git</project.scm.url>
+        <project.scm.dev>scm:git:ssh://git@github.com:eggy03/ferrumx-windows.git</project.scm.dev>
 
         <sonar.organization>egg-03</sonar.organization>
 
+        <!-- dependencies version -->
         <lombok.version>1.18.42</lombok.version>
+        <jpowershell.version>3.1.1</jpowershell.version>
+        <google.gson.version>2.13.2</google.gson.version>
+        <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
+        <junit.jupiter.engine.version>6.0.0</junit.jupiter.engine.version>
+        <mockito.core.version>5.20.0</mockito.core.version>
+        <assertj.core.version>3.27.6</assertj.core.version>
+
+        <!-- plugins version -->
+        <lombok.maven.plugin.version>1.18.20.0</lombok.maven.plugin.version>
+        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
+        <maven.antrun.plugin.version>3.2.0</maven.antrun.plugin.version>
+        <build.helper.maven.plugin.version>3.6.1</build.helper.maven.plugin.version>
+        <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
+        <sign.maven.plugin.version>1.1.0</sign.maven.plugin.version>
+        <central.publishing.maven.plugin.version>0.9.0</central.publishing.maven.plugin.version>
+        <jacoco.maven.plugin.version>0.8.14</jacoco.maven.plugin.version>
+        <slf4j.api.version>2.0.17</slf4j.api.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.profesorfalken</groupId>
             <artifactId>jPowerShell</artifactId>
-            <version>3.1.1</version>
+            <version>${jpowershell.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.13.2</version>
+            <version>${google.gson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -49,18 +67,29 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>26.0.2</version>
+            <version>${jetbrains.annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>6.0.0</version>
+            <version>${junit.jupiter.engine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.20.0</version>
+            <version>${mockito.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.core.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -93,11 +122,11 @@
 
     <build>
         <plugins>
-
+            <!-- compile settings -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
@@ -109,18 +138,76 @@
                 </configuration>
             </plugin>
 
-            <!-- Attach Sources -->
+            <!-- delombok -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>${lombok.maven.plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>delombok</goal>
                         </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <addOutputDirectory>false</addOutputDirectory>
+                    <outputDirectory>${project.build.directory}/delombok</outputDirectory>
+                    <sourceDirectory>src/main/java</sourceDirectory>
+                </configuration>
+                <dependencies> <!-- see https://github.com/awhitford/lombok.maven/issues/181 -->
+                    <dependency>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>${lombok.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- Generate De-lomboked Sources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven.antrun.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-delomboked-sources-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <jar destfile="${project.build.directory}/${project.build.finalName}-sources.jar"
+                                     basedir="${project.build.directory}/delombok"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Attach De-lomboked Sources -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build.helper.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-delomboked-sources-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
+                                    <type>jar</type>
+                                    <classifier>sources</classifier>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -129,7 +216,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.12.0</version>
+                <version>${maven.javadoc.plugin.version}</version>
+                <configuration>
+                    <show>private</show>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -144,7 +234,7 @@
             <plugin>
                 <groupId>org.simplify4u.plugins</groupId>
                 <artifactId>sign-maven-plugin</artifactId>
-                <version>1.1.0</version>
+                <version>${sign.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -158,7 +248,7 @@
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.9.0</version>
+                <version>${central.publishing.maven.plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
@@ -170,7 +260,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.14</version>
+                <version>${jacoco.maven.plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>io/github/eggy03/ferrumx/windows/entity/**/*</exclude>
