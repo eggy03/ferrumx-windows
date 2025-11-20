@@ -24,11 +24,13 @@ to fetch details about your hardware and OS.
 Work on cross-platform compatibility is currently in active planning stage.
 
 # Supported Operating Systems
-- Windows: `7SP1*`, `8.1*`, `10` and `11`
+- Windows: `7SP1¹`, `8.1¹`, `10²` and `11²`
 - PowerShell: `5.1 and above`
 
-*For `Windows 8.1` and `7SP1`you can install
+¹For `Windows 8.1` and `7SP1`you can install
 [Windows Management Framework 5.1](https://www.microsoft.com/en-us/download/details.aspx?id=54616) to upgrade to PowerShell 5.1
+
+²Support status is unknown for Windows 10 and 11 editions on ARM devices
 
 # CI Stats
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=eggy03_ferrumx-windows&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=eggy03_ferrumx-windows)
