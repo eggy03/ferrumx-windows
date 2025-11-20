@@ -14,7 +14,6 @@ FerrumX-Windows is a free powershell based Hardware and Network Information libr
 It contacts some [Computer System Hardware Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/computer-system-hardware-classes)
 and [Operating System Classes](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/operating-system-classes) of Windows Management Instrumentation (WMI) through PowerShell
 to fetch details about your hardware and OS.
-The library is still in its early stages and is being developed by a single, relatively inexperienced contributor.
 
 # Supported Versions
 - v3.x.x - Actively Developed and Supported
