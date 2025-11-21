@@ -55,7 +55,9 @@ or suggest changes by raising an issue either here or in the example repository.
 
 If you have a question, or want to suggest changes or a feature or report bugs, you can easily create
 an issue using one of the given templates. Before raising an issue, make sure you have checked the
-existing ones and read the docs
+existing ones and read the docs.
+
+For questions and or suggestions, you can also post your message in [Discussions](https://github.com/eggy03/ferrumx-windows/discussions)
 
 ### Testing the library on different hardware
 
@@ -131,6 +133,17 @@ Write your feature or bug-fix. You may ask for help from any of the current proj
 Run tests frequently to ensure your code does not fail the existing tests.
 
 
+#### Update Changelog
+
+The Changelog lets users know what's changed.
+Edit [CHANGELOG](/CHANGELOG.md) to include your contribution under Next Release.
+Follow the format of other entries, including your name and a link to your GitHub account:
+
+` - Fixed skipping serialization of null fields - [#123](https://github.com/eggy03/ferrumx-windows/pulls)[@contributor](https://github.com/contributor).`
+
+You can guess your pull request number as the next available number after issues and pull requests on the project.
+
+
 #### Commit Changes
 
 Make sure Git knows your name and email:
@@ -175,8 +188,20 @@ git rebase upstream/main
 git push origin bugfix-branch
 ```
 
+#### Update Changelog Again
+If you didn't guess the PR number right, update [CHANGELOG](/CHANGELOG.md) with the correct pull request number.
+
+You can either amend your previous commit and force push the changes or create a new commit. The maintainers can squash them later.
+
+```shell
+git commit --amend
+git push origin bugfix-branch -f
+```
+
 #### Check on Your Pull Request
 
 After a few minutes, return to your pull request and see if it passed the CI tests.
 Everything should look green. If not, read the failed test logs to identify issues, fix them, and commit as described above.
 If the review succeeds, your changes will be merged.
+
+Thank you for your contribution :)
