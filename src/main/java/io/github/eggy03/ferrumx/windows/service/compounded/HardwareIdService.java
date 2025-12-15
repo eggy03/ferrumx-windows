@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.PowerShellScript;
 import io.github.eggy03.ferrumx.windows.entity.compounded.HardwareId;
 import io.github.eggy03.ferrumx.windows.mapping.compounded.HardwareIdMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,8 +60,8 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
     @Override
     public Optional<HardwareId> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.HWID_SCRIPT.getScript());
-            log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.HWID_SCRIPT.getScriptPath()));
+            log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);
         }
     }
@@ -78,8 +79,17 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
     @NotNull
     @Override
     public Optional<HardwareId> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.HWID_SCRIPT.getScript());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.HWID_SCRIPT.getScriptPath()));
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);
+    }
+
+    @Override
+    public Optional<HardwareId> get(long timeout) {
+
+        String script = PowerShellScript.getScript(PowerShellScript.HWID_SCRIPT.getScriptPath());
+        String response = TerminalUtility.executeCommand(script, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new HardwareIdMapper().mapToObject(response, HardwareId.class);
     }
 }

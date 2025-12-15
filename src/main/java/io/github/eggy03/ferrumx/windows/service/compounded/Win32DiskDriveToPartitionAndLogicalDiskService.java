@@ -16,6 +16,7 @@ import io.github.eggy03.ferrumx.windows.service.storage.Win32DiskDriveToDiskPart
 import io.github.eggy03.ferrumx.windows.service.storage.Win32DiskPartitionService;
 import io.github.eggy03.ferrumx.windows.service.storage.Win32LogicalDiskService;
 import io.github.eggy03.ferrumx.windows.service.storage.Win32LogicalDiskToPartitionService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -69,8 +70,8 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     @Override
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get() {
         try(PowerShell shell = PowerShell.openSession()){
-            PowerShellResponse response = shell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScript());
-            log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+            PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScriptPath()));
+            log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);
         }
     }
@@ -88,8 +89,17 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     @NotNull
     @Override
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get(PowerShell powerShell) {
-        PowerShellResponse response = powerShell.executeScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScript());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        PowerShellResponse response = powerShell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScriptPath()));
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToPartitionAndLogicalDisk.class);
+    }
+
+    @Override
+    public List<Win32DiskDriveToPartitionAndLogicalDisk> get(long timeout) {
+
+        String script = PowerShellScript.getScript(PowerShellScript.HWID_SCRIPT.getScriptPath());
+        String response = TerminalUtility.executeCommand(script, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response, Win32DiskDriveToPartitionAndLogicalDisk.class);
     }
 }

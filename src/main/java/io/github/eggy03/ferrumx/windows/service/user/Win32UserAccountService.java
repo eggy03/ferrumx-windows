@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.user.Win32UserAccount;
 import io.github.eggy03.ferrumx.windows.mapping.user.Win32UserAccountMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
     @Override
     public List<Win32UserAccount> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_USER_ACCOUNT_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32UserAccountMapper().mapToList(response.getCommandOutput(), Win32UserAccount.class);
     }
 
@@ -73,7 +74,15 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
     @Override
     public List<Win32UserAccount> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_USER_ACCOUNT_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32UserAccountMapper().mapToList(response.getCommandOutput(), Win32UserAccount.class);
+    }
+
+    @Override
+    public List<Win32UserAccount> get(long timeout) {
+        String command = Cimv2Namespace.WIN32_USER_ACCOUNT_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32UserAccountMapper().mapToList(response, Win32UserAccount.class);
     }
 }

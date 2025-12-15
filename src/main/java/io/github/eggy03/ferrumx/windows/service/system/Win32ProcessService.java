@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.system.Win32Process;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32ProcessMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class Win32ProcessService implements CommonServiceInterface<Win32Process>
     @Override
     public List<Win32Process> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_PROCESS_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32ProcessMapper().mapToList(response.getCommandOutput(), Win32Process.class);
     }
 
@@ -73,7 +74,15 @@ public class Win32ProcessService implements CommonServiceInterface<Win32Process>
     @Override
     public List<Win32Process> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PROCESS_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32ProcessMapper().mapToList(response.getCommandOutput(), Win32Process.class);
+    }
+
+    @Override
+    public List<Win32Process> get(long timeout) {
+        String command = Cimv2Namespace.WIN32_PROCESS_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32ProcessMapper().mapToList(response, Win32Process.class);
     }
 }

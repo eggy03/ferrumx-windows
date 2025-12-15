@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32SoundDevice;
 import io.github.eggy03.ferrumx.windows.mapping.peripheral.Win32SoundDeviceMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +60,7 @@ public class Win32SoundDeviceService implements CommonServiceInterface<Win32Soun
     @Override
     public List<Win32SoundDevice> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_SOUND_DEVICE_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32SoundDeviceMapper().mapToList(response.getCommandOutput(), Win32SoundDevice.class);
     }
 
@@ -77,7 +78,15 @@ public class Win32SoundDeviceService implements CommonServiceInterface<Win32Soun
     @Override
     public List<Win32SoundDevice> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_SOUND_DEVICE_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32SoundDeviceMapper().mapToList(response.getCommandOutput(), Win32SoundDevice.class);
+    }
+
+    @Override
+    public List<Win32SoundDevice> get(long timeout) {
+        String command = Cimv2Namespace.WIN32_SOUND_DEVICE_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32SoundDeviceMapper().mapToList(response, Win32SoundDevice.class);
     }
 }

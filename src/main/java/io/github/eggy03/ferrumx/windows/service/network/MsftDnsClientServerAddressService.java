@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.namespace.StandardCimv2Namespac
 import io.github.eggy03.ferrumx.windows.entity.network.MsftDnsClientServerAddress;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftDnsClientServerAddressMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +60,7 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
     @Override
     public List<MsftDnsClientServerAddress> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new MsftDnsClientServerAddressMapper().mapToList(response.getCommandOutput(), MsftDnsClientServerAddress.class);
     }
 
@@ -77,7 +78,15 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
     @Override
     public List<MsftDnsClientServerAddress> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new MsftDnsClientServerAddressMapper().mapToList(response.getCommandOutput(), MsftDnsClientServerAddress.class);
+    }
+
+    @Override
+    public List<MsftDnsClientServerAddress> get(long timeout) {
+        String command = StandardCimv2Namespace.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new MsftDnsClientServerAddressMapper().mapToList(response, MsftDnsClientServerAddress.class);
     }
 }

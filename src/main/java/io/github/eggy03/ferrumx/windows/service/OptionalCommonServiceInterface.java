@@ -7,6 +7,7 @@ package io.github.eggy03.ferrumx.windows.service;
 
 import com.profesorfalken.jpowershell.PowerShell;
 import io.github.eggy03.ferrumx.windows.mapping.CommonMappingInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 
 import java.util.Optional;
 
@@ -42,4 +43,13 @@ public interface OptionalCommonServiceInterface<S> {
      * @since 2.2.0
      */
     Optional<S> get(PowerShell powerShell);
+
+    /**
+     * Implementations of this method are expected to skip {@link PowerShell} entirely and rely on
+     * {@link TerminalUtility} instead for powershell session management
+     * @param timeout the timeout in seconds after which the process will be force stopped
+     * @return an {@link Optional} entity of type {@code <S>} defined by the caller
+     * @since 3.1.0
+     */
+    Optional<S> get(long timeout);
 }

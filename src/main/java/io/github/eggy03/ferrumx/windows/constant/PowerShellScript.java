@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -39,72 +40,59 @@ public enum PowerShellScript {
     /**
      * Script that returns a JSON which can be deserialized into {@link MsftNetAdapterToIpAndDnsAndProfile}
      */
-    MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT(
-            new BufferedReader(
-                    new InputStreamReader(
-                            Objects.requireNonNull(
-                                    PowerShellScript.class.getResourceAsStream("/MsftNetAdapterToIpAndDnsAndProfile.ps1")
-                            ), StandardCharsets.UTF_8)
-            )
-    ),
+    MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT("/MsftNetAdapterToIpAndDnsAndProfile.ps1"),
 
     /**
      * Script that returns a JSON which can be deserialized into {@link Win32NetworkAdapterToConfiguration}
      */
-    WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT(
-            new BufferedReader(
-                    new InputStreamReader(
-                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32NetworkAdapterToConfiguration.ps1"))
-                            , StandardCharsets.UTF_8)
-            )
-    ),
-
+    WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT("/Win32NetworkAdapterToConfiguration.ps1"),
 
     /**
      * Script that returns a JSON which can be deserialized into {@link Win32DiskDriveToPartitionAndLogicalDisk}
      */
-    WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT(
-            new BufferedReader(
-                    new InputStreamReader(
-                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32DiskDriveToPartitionAndLogicalDisk.ps1"))
-                            , StandardCharsets.UTF_8)
-            )
-    ),
-
+    WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT("/Win32DiskDriveToPartitionAndLogicalDisk.ps1"),
 
     /**
      * Script that returns a JSON which can be deserialized into {@link Win32DiskPartitionToLogicalDisk}
      */
-    WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT(
-            new BufferedReader(
-                    new InputStreamReader(
-                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32DiskPartitionToLogicalDisk.ps1"))
-                            , StandardCharsets.UTF_8)
-            )
-    ),
-
+    WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT("/Win32DiskPartitionToLogicalDisk.ps1"),
 
     /**
      * Script that returns a JSON which can be deserialized into {@link Win32ProcessorToCacheMemory}
      */
-    WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT(
-            new BufferedReader(
-                    new InputStreamReader(
-                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/Win32ProcessorToCacheMemory.ps1"))
-                            , StandardCharsets.UTF_8)
-            )
-    ),
-
+    WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT("/Win32ProcessorToCacheMemory.ps1"),
 
     /**
      * Script that returns a JSON which can be deserialized into {@link HardwareId}
      */
-    HWID_SCRIPT(
-            new BufferedReader(
-                    new InputStreamReader(
-                            Objects.requireNonNull(PowerShellScript.class.getResourceAsStream("/HardwareID.ps1"))
-                            , StandardCharsets.UTF_8))
-            );
+    HWID_SCRIPT("/HardwareID.ps1");
 
-    private final BufferedReader script;
+    private final String scriptPath;
+
+    public static InputStream getScriptAsInputStream(String scriptPath){
+        return PowerShellScript.class.getResourceAsStream(scriptPath);
+    }
+
+    public static BufferedReader getScriptAsBufferedReader(String scriptPath) {
+        return new BufferedReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(PowerShellScript.class.getResourceAsStream(scriptPath))
+                        , StandardCharsets.UTF_8
+                )
+        );
+    }
+
+    public static String getScript(String scriptPath) {
+
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(PowerShellScript.class.getResourceAsStream(scriptPath))
+                )
+        );
+
+        StringBuilder script = new StringBuilder();
+        reader.lines().forEach(line -> script.append(line).append(System.lineSeparator()));
+        return script.toString();
+    }
+
 }

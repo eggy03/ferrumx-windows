@@ -13,6 +13,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskDriveToDiskParti
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskPartition;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32DiskDriveToDiskPartitionMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -61,7 +62,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
     @Override
     public List<Win32DiskDriveToDiskPartition> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskDriveToDiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToDiskPartition.class);
     }
 
@@ -80,7 +81,15 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
     @Override
     public List<Win32DiskDriveToDiskPartition> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskDriveToDiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskDriveToDiskPartition.class);
+    }
+
+    @Override
+    public List<Win32DiskDriveToDiskPartition> get(long timeout) {
+        String command = Cimv2Namespace.WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32DiskDriveToDiskPartitionMapper().mapToList(response, Win32DiskDriveToDiskPartition.class);
     }
 }

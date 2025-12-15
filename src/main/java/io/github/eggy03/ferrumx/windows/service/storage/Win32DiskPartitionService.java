@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskPartition;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32DiskPartitionMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +60,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
     @Override
     public List<Win32DiskPartition> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_DISK_PARTITION_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskPartition.class);
     }
 
@@ -76,8 +77,16 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
     @Override
     public List<Win32DiskPartition> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DISK_PARTITION_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskPartitionMapper().mapToList(response.getCommandOutput(), Win32DiskPartition.class);
+    }
+
+    @Override
+    public List<Win32DiskPartition> get(long timeout) {
+        String command = Cimv2Namespace.WIN32_DISK_PARTITION_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32DiskPartitionMapper().mapToList(response, Win32DiskPartition.class);
     }
 
 }

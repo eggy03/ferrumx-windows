@@ -13,6 +13,7 @@ import io.github.eggy03.ferrumx.windows.entity.processor.Win32CacheMemory;
 import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import io.github.eggy03.ferrumx.windows.mapping.processor.Win32AssociatedProcessorMemoryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
     @Override
     public List<Win32AssociatedProcessorMemory> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), Win32AssociatedProcessorMemory.class);
     }
 
@@ -77,7 +78,15 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
     @Override
     public List<Win32AssociatedProcessorMemory> get(PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), Win32AssociatedProcessorMemory.class);
+    }
+
+    @Override
+    public List<Win32AssociatedProcessorMemory> get(long timeout) {
+        String command = Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32AssociatedProcessorMemoryMapper().mapToList(response, Win32AssociatedProcessorMemory.class);
     }
 }

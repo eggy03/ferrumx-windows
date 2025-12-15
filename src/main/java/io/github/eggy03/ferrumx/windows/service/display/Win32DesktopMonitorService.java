@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import io.github.eggy03.ferrumx.windows.entity.display.Win32DesktopMonitor;
 import io.github.eggy03.ferrumx.windows.mapping.display.Win32DesktopMonitorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +60,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
     public List<Win32DesktopMonitor> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_DESKTOP_MONITOR_QUERY.getQuery());
-        log.trace("Powershell response for auto-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
         return new Win32DesktopMonitorMapper().mapToList(response.getCommandOutput(), Win32DesktopMonitor.class);
     }
 
@@ -78,7 +79,16 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
     public List<Win32DesktopMonitor> get(PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DESKTOP_MONITOR_QUERY.getQuery());
-        log.trace("Powershell response for self-managed session :\n{}", response.getCommandOutput());
+        log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32DesktopMonitorMapper().mapToList(response.getCommandOutput(), Win32DesktopMonitor.class);
+    }
+
+    @Override
+    public List<Win32DesktopMonitor> get(long timeout) {
+
+        String command = Cimv2Namespace.WIN32_DESKTOP_MONITOR_QUERY.getQuery();
+        String response = TerminalUtility.executeCommand(command, timeout);
+        log.trace("PowerShell response for the apache terminal session: \n{}", response);
+        return new Win32DesktopMonitorMapper().mapToList(response, Win32DesktopMonitor.class);
     }
 }
