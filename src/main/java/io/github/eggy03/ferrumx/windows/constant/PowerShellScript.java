@@ -69,10 +69,29 @@ public enum PowerShellScript {
 
     private final String scriptPath;
 
+    /**
+     * Loads a PowerShell script from the classpath as an {@link InputStream}.
+     *
+     * <p>This method is useful when the caller wants to handle stream processing
+     * manually or pass the stream directly as a reference.</p>
+     *
+     * @param scriptPath the absolute classpath location of the script (e.g. {@code "/script.ps1"})
+     * @return an {@link InputStream} for the requested script, or {@code null}
+     *         if the resource cannot be found
+     */
     public static InputStream getScriptAsInputStream(String scriptPath){
         return PowerShellScript.class.getResourceAsStream(scriptPath);
     }
 
+    /**
+     * Loads a PowerShell script from the classpath and wraps it in a {@link BufferedReader}.
+     *
+     * <p>The script is read using UTF-8 encoding.</p>
+     *
+     * @param scriptPath the absolute classpath location of the script (e.g. {@code "/script.ps1"})
+     * @return a {@link BufferedReader} for the requested script
+     * @throws NullPointerException if the script resource cannot be found
+     */
     public static BufferedReader getScriptAsBufferedReader(String scriptPath) {
         return new BufferedReader(
                 new InputStreamReader(
@@ -82,6 +101,16 @@ public enum PowerShellScript {
         );
     }
 
+    /**
+     * Loads a PowerShell script from the classpath and returns its full contents as a {@link String}.
+     *
+     * <p>Each line of the script is preserved and separated using
+     * {@link System#lineSeparator()}.</p>
+     *
+     * @param scriptPath the absolute classpath location of the script (e.g. {@code "/script.ps1"})
+     * @return the complete script contents as a {@link String}
+     * @throws NullPointerException if the script resource cannot be found
+     */
     public static String getScript(String scriptPath) {
 
         BufferedReader reader = new BufferedReader(
