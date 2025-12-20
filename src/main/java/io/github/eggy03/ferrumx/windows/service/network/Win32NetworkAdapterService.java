@@ -24,21 +24,53 @@ import java.util.List;
  * and maps the resulting JSON into a list of {@link Win32NetworkAdapter} objects.
  * </p>
  *
- * <h2>Thread safety</h2>
- * Methods of class are not thread safe.
- *
  * <h2>Usage examples</h2>
  * <pre>{@code
  * // Convenience API (creates its own short-lived session)
- * Win32NetworkAdapterService adapterService = new Win32NetworkAdapterService();
- * List<Win32NetworkAdapter> adapters = adapterService.get();
+ * Win32NetworkAdapterService service = new Win32NetworkAdapterService();
+ * List<Win32NetworkAdapter> adapters = service.get();
  *
  * // API with re-usable session (caller manages session lifecycle)
  * try (PowerShell session = PowerShell.openSession()) {
- *     Win32NetworkAdapterService adapterService = new Win32NetworkAdapterService();
- *     List<Win32NetworkAdapter> adapters = adapterService.get(session);
+ *     Win32NetworkAdapterService service = new Win32NetworkAdapterService();
+ *     List<Win32NetworkAdapter> adapters = service.get(session);
  * }
+ *
+ * // API with execution timeout (auto-created session is terminated if the timeout is exceeded)
+ * Win32NetworkAdapterService service = new Win32NetworkAdapterService();
+ * List<Win32NetworkAdapter> adapters = service.get(10);
  * }</pre>
+ *
+ * <h2>Execution models and concurrency</h2>
+ * <p>
+ * This service supports multiple PowerShell execution strategies:
+ * </p>
+ *
+ * <ul>
+ *   <li>
+ *     <b>jPowerShell-based execution</b> via {@link #get()} and
+ *     {@link #get(PowerShell)}:
+ *     <br>
+ *     These methods rely on {@code jPowerShell} sessions. Due to internal
+ *     global configuration of {@code jPowerShell}, the PowerShell sessions
+ *     launched by it is <b>not safe to use concurrently across multiple
+ *     threads or executors</b>. Running these methods in parallel may result
+ *     in runtime exceptions.
+ *   </li>
+ *
+ *   <li>
+ *     <b>Isolated PowerShell execution</b> via {@link #get(long timeout)}:
+ *     <br>
+ *     This method doesn't rely on {@code jPowerShell} and instead, launches a
+ *     standalone PowerShell process per invocation using
+ *     {@link TerminalUtility}. Each call is fully isolated and
+ *     <b>safe to use in multithreaded and executor-based environments</b>.
+ *   </li>
+ * </ul>
+ *
+ * <p>
+ * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
+ * </p>
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
@@ -83,6 +115,22 @@ public class Win32NetworkAdapterService implements CommonServiceInterface<Win32N
         return new Win32NetworkAdapterMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapter.class);
     }
 
+    /**
+     * Retrieves a list of network adapters connected to the system
+     * using an isolated PowerShell process with a configurable timeout.
+     * <p>
+     * Each invocation creates an isolated PowerShell process, which is
+     * pre-maturely terminated if execution exceeds the specified timeout.
+     * </p>
+     *
+     * @param timeout the maximum time (in seconds) to wait for the PowerShell
+     *                command to complete before terminating the process
+     * @return a list of {@link Win32NetworkAdapter} objects representing the system's network adapters.
+     *         Returns an empty list if no adapters are detected.
+     *
+     * @since 3.1.0
+     */
+    @NotNull
     @Override
     public List<Win32NetworkAdapter> get(long timeout) {
         String command = Cimv2Namespace.WIN32_NETWORK_ADAPTER_QUERY.getQuery();

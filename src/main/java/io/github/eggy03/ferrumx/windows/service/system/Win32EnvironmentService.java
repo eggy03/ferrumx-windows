@@ -24,21 +24,53 @@ import java.util.List;
  * and maps the resulting JSON into a list of {@link Win32Environment} objects.
  * </p>
  *
- * <h2>Thread safety</h2>
- * Methods of class are not thread safe.
- *
  * <h2>Usage examples</h2>
  * <pre>{@code
  * // Convenience API (creates its own short-lived session)
- * Win32EnvironmentService envService = new Win32EnvironmentService();
- * List<Win32Environment> env = envService.get();
+ * Win32EnvironmentService service = new Win32EnvironmentService();
+ * List<Win32Environment> env = service.get();
  *
  * // API with re-usable session (caller manages session lifecycle)
  * try (PowerShell session = PowerShell.openSession()) {
- *     Win32EnvironmentService envService = new Win32EnvironmentService();
- *     List<Win32Environment> env = envService.get(session);
+ *     Win32EnvironmentService service = new Win32EnvironmentService();
+ *     List<Win32Environment> env = service.get(session);
  * }
+ *
+ * // API with execution timeout (auto-created session is terminated if the timeout is exceeded)
+ * Win32EnvironmentService service = new Win32EnvironmentService();
+ * List<Win32Environment> env = service.get(10);
  * }</pre>
+ *
+ * <h2>Execution models and concurrency</h2>
+ * <p>
+ * This service supports multiple PowerShell execution strategies:
+ * </p>
+ *
+ * <ul>
+ *   <li>
+ *     <b>jPowerShell-based execution</b> via {@link #get()} and
+ *     {@link #get(PowerShell)}:
+ *     <br>
+ *     These methods rely on {@code jPowerShell} sessions. Due to internal
+ *     global configuration of {@code jPowerShell}, the PowerShell sessions
+ *     launched by it is <b>not safe to use concurrently across multiple
+ *     threads or executors</b>. Running these methods in parallel may result
+ *     in runtime exceptions.
+ *   </li>
+ *
+ *   <li>
+ *     <b>Isolated PowerShell execution</b> via {@link #get(long timeout)}:
+ *     <br>
+ *     This method doesn't rely on {@code jPowerShell} and instead, launches a
+ *     standalone PowerShell process per invocation using
+ *     {@link TerminalUtility}. Each call is fully isolated and
+ *     <b>safe to use in multithreaded and executor-based environments</b>.
+ *   </li>
+ * </ul>
+ *
+ * <p>
+ * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
+ * </p>
  * @since 3.0.0
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
@@ -46,7 +78,7 @@ import java.util.List;
 public class Win32EnvironmentService implements CommonServiceInterface<Win32Environment> {
 
     /**
-     * Retrieves a non-null list of env variables present in the system.
+     * Retrieves a list of env variables present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
@@ -65,7 +97,7 @@ public class Win32EnvironmentService implements CommonServiceInterface<Win32Envi
     }
 
     /**
-     * Retrieves a non-null list of env variables using the caller's {@link PowerShell} session.
+     * Retrieves a list of env variables using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return a list of {@link Win32Environment} objects representing the env variables.
@@ -81,6 +113,22 @@ public class Win32EnvironmentService implements CommonServiceInterface<Win32Envi
         return new Win32EnvironmentMapper().mapToList(response.getCommandOutput(), Win32Environment.class);
     }
 
+    /**
+     * Retrieves a list of env variables
+     * using an isolated PowerShell process with a configurable timeout.
+     * <p>
+     * Each invocation creates an isolated PowerShell process, which is
+     * pre-maturely terminated if execution exceeds the specified timeout.
+     * </p>
+     *
+     * @param timeout the maximum time (in seconds) to wait for the PowerShell
+     *                command to complete before terminating the process
+     * @return a list of {@link Win32Environment} objects representing the env variables.
+     *         Returns an empty list if no env variables are detected.
+     *
+     * @since 3.1.0
+     */
+    @NotNull
     @Override
     public List<Win32Environment> get(long timeout) {
         String command = Cimv2Namespace.WIN32_ENVIRONMENT_QUERY.getQuery();
