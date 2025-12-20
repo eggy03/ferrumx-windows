@@ -14,6 +14,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.system.Win32ComputerSystem;
 import io.github.eggy03.ferrumx.windows.service.system.Win32ComputerSystemService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -38,7 +40,7 @@ import static org.mockito.Mockito.when;
 
 class Win32ComputerSystemServiceTest {
 
-    private Win32ComputerSystemService systemService;
+    private Win32ComputerSystemService service;
 
     private static Win32ComputerSystem expectedComputerSystem;
     private static String json;
@@ -139,7 +141,7 @@ class Win32ComputerSystemServiceTest {
 
     @BeforeEach
     void setUp() {
-        systemService = new Win32ComputerSystemService();
+        service = new Win32ComputerSystemService();
     }
 
     @Test
@@ -151,7 +153,7 @@ class Win32ComputerSystemServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystem> system = systemService.get();
+            Optional<Win32ComputerSystem> system = service.get();
             assertTrue(system.isPresent());
             assertThat(system.get()).usingRecursiveComparison().isEqualTo(expectedComputerSystem);
         }
@@ -165,7 +167,7 @@ class Win32ComputerSystemServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystem> system = systemService.get();
+            Optional<Win32ComputerSystem> system = service.get();
             assertFalse(system.isPresent());
         }
     }
@@ -178,7 +180,7 @@ class Win32ComputerSystemServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> systemService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -191,7 +193,7 @@ class Win32ComputerSystemServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystem> system = systemService.get(mockShell);
+            Optional<Win32ComputerSystem> system = service.get(mockShell);
             assertTrue(system.isPresent());
             assertThat(system.get()).usingRecursiveComparison().isEqualTo(expectedComputerSystem);
         }
@@ -205,7 +207,7 @@ class Win32ComputerSystemServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            Optional<Win32ComputerSystem> system = systemService.get(mockShell);
+            Optional<Win32ComputerSystem> system = service.get(mockShell);
             assertFalse(system.isPresent());
         }
     }
@@ -218,7 +220,33 @@ class Win32ComputerSystemServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> systemService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            Optional<Win32ComputerSystem> system = service.get(5L);
+            assertTrue(system.isPresent());
+            assertThat(system.get()).usingRecursiveComparison().isEqualTo(expectedComputerSystem);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

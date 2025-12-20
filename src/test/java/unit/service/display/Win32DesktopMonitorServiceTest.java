@@ -15,6 +15,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.display.Win32DesktopMonitor;
 import io.github.eggy03.ferrumx.windows.service.display.Win32DesktopMonitorService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.when;
 
 class Win32DesktopMonitorServiceTest {
 
-    private Win32DesktopMonitorService monitorService;
+    private Win32DesktopMonitorService service;
 
     private static Win32DesktopMonitor expectedMonitor1;
     private static Win32DesktopMonitor expectedMonitor2;
@@ -100,7 +102,7 @@ class Win32DesktopMonitorServiceTest {
 
     @BeforeEach
     void setUp() {
-        monitorService = new Win32DesktopMonitorService();
+        service = new Win32DesktopMonitorService();
     }
 
     @Test
@@ -112,7 +114,7 @@ class Win32DesktopMonitorServiceTest {
         try(MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
             powerShellMockedStatic.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
 
-            List<Win32DesktopMonitor> monitors = monitorService.get();
+            List<Win32DesktopMonitor> monitors = service.get();
             assertEquals(2, monitors.size());
 
             assertThat(monitors.get(0)).usingRecursiveComparison().isEqualTo(expectedMonitor1);
@@ -129,7 +131,7 @@ class Win32DesktopMonitorServiceTest {
         try(MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
             powerShellMockedStatic.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
 
-            List<Win32DesktopMonitor> monitors = monitorService.get();
+            List<Win32DesktopMonitor> monitors = service.get();
             assertTrue(monitors.isEmpty());
         }
     }
@@ -143,7 +145,7 @@ class Win32DesktopMonitorServiceTest {
         try (MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
             powerShellMockedStatic.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> monitorService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -156,7 +158,7 @@ class Win32DesktopMonitorServiceTest {
         try(PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
 
-            List<Win32DesktopMonitor> monitors = monitorService.get(mockSession);
+            List<Win32DesktopMonitor> monitors = service.get(mockSession);
             assertEquals(2, monitors.size());
 
             assertThat(monitors.get(0)).usingRecursiveComparison().isEqualTo(expectedMonitor1);
@@ -173,7 +175,7 @@ class Win32DesktopMonitorServiceTest {
         try(PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
 
-            List<Win32DesktopMonitor> monitors = monitorService.get(mockSession);
+            List<Win32DesktopMonitor> monitors = service.get(mockSession);
             assertTrue(monitors.isEmpty());
         }
     }
@@ -186,7 +188,35 @@ class Win32DesktopMonitorServiceTest {
 
         try(PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
-            assertThrows(JsonSyntaxException.class, () -> monitorService.get(mockSession));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockSession));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32DesktopMonitor> monitors = service.get(5L);
+            assertEquals(2, monitors.size());
+
+            assertThat(monitors.get(0)).usingRecursiveComparison().isEqualTo(expectedMonitor1);
+            assertThat(monitors.get(1)).usingRecursiveComparison().isEqualTo(expectedMonitor2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

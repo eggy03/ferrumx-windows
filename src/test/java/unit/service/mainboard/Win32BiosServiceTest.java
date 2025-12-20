@@ -15,6 +15,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32Bios;
 import io.github.eggy03.ferrumx.windows.service.mainboard.Win32BiosService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.when;
 
 class Win32BiosServiceTest {
 
-    private Win32BiosService biosService;
+    private Win32BiosService service;
 
     private static Win32Bios expectedBios1;
     private static Win32Bios expectedBios2;
@@ -109,7 +111,7 @@ class Win32BiosServiceTest {
 
     @BeforeEach
     void setUp() {
-        biosService = new Win32BiosService();
+        service = new Win32BiosService();
     }
 
     @Test
@@ -121,7 +123,7 @@ class Win32BiosServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Bios> bios = biosService.get();
+            List<Win32Bios> bios = service.get();
             assertEquals(2, bios.size());
 
             assertThat(bios.get(0)).usingRecursiveComparison().isEqualTo(expectedBios1);
@@ -137,7 +139,7 @@ class Win32BiosServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Bios> bios = biosService.get();
+            List<Win32Bios> bios = service.get();
             assertTrue(bios.isEmpty());
         }
     }
@@ -150,7 +152,7 @@ class Win32BiosServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> biosService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -163,7 +165,7 @@ class Win32BiosServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Bios> bios = biosService.get(mockShell);
+            List<Win32Bios> bios = service.get(mockShell);
             assertEquals(2, bios.size());
 
             assertThat(bios.get(0)).usingRecursiveComparison().isEqualTo(expectedBios1);
@@ -179,7 +181,7 @@ class Win32BiosServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Bios> bios = biosService.get(mockShell);
+            List<Win32Bios> bios = service.get(mockShell);
             assertTrue(bios.isEmpty());
         }
     }
@@ -191,7 +193,35 @@ class Win32BiosServiceTest {
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            assertThrows(JsonSyntaxException.class, () -> biosService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32Bios> bios = service.get(5L);
+            assertEquals(2, bios.size());
+
+            assertThat(bios.get(0)).usingRecursiveComparison().isEqualTo(expectedBios1);
+            assertThat(bios.get(1)).usingRecursiveComparison().isEqualTo(expectedBios2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

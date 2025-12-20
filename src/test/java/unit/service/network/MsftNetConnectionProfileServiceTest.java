@@ -15,6 +15,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetConnectionProfile;
 import io.github.eggy03.ferrumx.windows.service.network.MsftNetConnectionProfileService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.when;
 
 class MsftNetConnectionProfileServiceTest {
 
-    private MsftNetConnectionProfileService msftNetConnectionProfileService;
+    private MsftNetConnectionProfileService service;
 
     private static MsftNetConnectionProfile expectedEthernetProfile;
     private static MsftNetConnectionProfile expectedWifiProfile;
@@ -93,7 +95,7 @@ class MsftNetConnectionProfileServiceTest {
 
     @BeforeEach
     void setUp() {
-        msftNetConnectionProfileService = new MsftNetConnectionProfileService();
+        service = new MsftNetConnectionProfileService();
     }
 
     @Test
@@ -105,7 +107,7 @@ class MsftNetConnectionProfileServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get();
+            List<MsftNetConnectionProfile> profiles = service.get();
             assertEquals(2, profiles.size());
 
             assertThat(profiles.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetProfile);
@@ -121,7 +123,7 @@ class MsftNetConnectionProfileServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get();
+            List<MsftNetConnectionProfile> profiles = service.get();
             assertTrue(profiles.isEmpty());
         }
     }
@@ -134,7 +136,7 @@ class MsftNetConnectionProfileServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> msftNetConnectionProfileService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -147,7 +149,7 @@ class MsftNetConnectionProfileServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get(mockShell);
+            List<MsftNetConnectionProfile> profiles = service.get(mockShell);
             assertEquals(2, profiles.size());
 
             assertThat(profiles.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetProfile);
@@ -163,7 +165,7 @@ class MsftNetConnectionProfileServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetConnectionProfile> profiles = msftNetConnectionProfileService.get(mockShell);
+            List<MsftNetConnectionProfile> profiles = service.get(mockShell);
             assertTrue(profiles.isEmpty());
         }
     }
@@ -176,7 +178,35 @@ class MsftNetConnectionProfileServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> msftNetConnectionProfileService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<MsftNetConnectionProfile> profiles = service.get(5L);
+            assertEquals(2, profiles.size());
+
+            assertThat(profiles.get(0)).usingRecursiveComparison().isEqualTo(expectedEthernetProfile);
+            assertThat(profiles.get(1)).usingRecursiveComparison().isEqualTo(expectedWifiProfile);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

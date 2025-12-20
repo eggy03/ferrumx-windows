@@ -16,6 +16,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetIpAddress;
 import io.github.eggy03.ferrumx.windows.service.network.MsftNetIpAddressService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -37,7 +39,7 @@ import static org.mockito.Mockito.when;
 
 class MsftNetIpAddressServiceTest {
 
-    private MsftNetIpAddressService msftNetIpAddressService;
+    private MsftNetIpAddressService service;
 
     private static MsftNetIpAddress expectedIPv4Address;
     private static MsftNetIpAddress expectedIPv6Address;
@@ -131,7 +133,7 @@ class MsftNetIpAddressServiceTest {
 
     @BeforeEach
     void setUp() {
-        msftNetIpAddressService = new MsftNetIpAddressService();
+        service = new MsftNetIpAddressService();
     }
 
     @Test
@@ -143,7 +145,7 @@ class MsftNetIpAddressServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetIpAddress> ip = msftNetIpAddressService.get();
+            List<MsftNetIpAddress> ip = service.get();
             assertEquals(2, ip.size());
 
             assertThat(ip.get(0)).usingRecursiveComparison().isEqualTo(expectedIPv4Address);
@@ -159,7 +161,7 @@ class MsftNetIpAddressServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetIpAddress> ip = msftNetIpAddressService.get();
+            List<MsftNetIpAddress> ip = service.get();
             assertTrue(ip.isEmpty());
         }
     }
@@ -172,7 +174,7 @@ class MsftNetIpAddressServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> msftNetIpAddressService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -185,7 +187,7 @@ class MsftNetIpAddressServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetIpAddress> ip = msftNetIpAddressService.get(mockShell);
+            List<MsftNetIpAddress> ip = service.get(mockShell);
             assertEquals(2, ip.size());
 
             assertThat(ip.get(0)).usingRecursiveComparison().isEqualTo(expectedIPv4Address);
@@ -201,7 +203,7 @@ class MsftNetIpAddressServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<MsftNetIpAddress> ip = msftNetIpAddressService.get(mockShell);
+            List<MsftNetIpAddress> ip = service.get(mockShell);
             assertTrue(ip.isEmpty());
         }
     }
@@ -214,7 +216,35 @@ class MsftNetIpAddressServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> msftNetIpAddressService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<MsftNetIpAddress> ip = service.get(5L);
+            assertEquals(2, ip.size());
+
+            assertThat(ip.get(0)).usingRecursiveComparison().isEqualTo(expectedIPv4Address);
+            assertThat(ip.get(1)).usingRecursiveComparison().isEqualTo(expectedIPv6Address);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

@@ -15,6 +15,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.memory.Win32PhysicalMemory;
 import io.github.eggy03.ferrumx.windows.service.memory.Win32PhysicalMemoryService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -37,7 +39,7 @@ import static org.mockito.Mockito.when;
 
 class Win32PhysicalMemoryServiceTest {
 
-    private Win32PhysicalMemoryService physicalMemoryService;
+    private Win32PhysicalMemoryService service;
 
     private static Win32PhysicalMemory expectedMemory1;
     private static Win32PhysicalMemory expectedMemory2;
@@ -126,7 +128,7 @@ class Win32PhysicalMemoryServiceTest {
 
     @BeforeEach
     void setUp() {
-        physicalMemoryService = new Win32PhysicalMemoryService();
+        service = new Win32PhysicalMemoryService();
     }
 
     @Test
@@ -138,7 +140,7 @@ class Win32PhysicalMemoryServiceTest {
         try (MockedStatic<PowerShell> mockPowershell = mockStatic(PowerShell.class)) {
             mockPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PhysicalMemory> memories = physicalMemoryService.get();
+            List<Win32PhysicalMemory> memories = service.get();
             assertEquals(2, memories.size());
 
             assertThat(memories.get(0)).usingRecursiveComparison().isEqualTo(expectedMemory1);
@@ -155,7 +157,7 @@ class Win32PhysicalMemoryServiceTest {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString()))
                     .thenReturn(mockResponse);
 
-            List<Win32PhysicalMemory> memories = physicalMemoryService.get();
+            List<Win32PhysicalMemory> memories = service.get();
             assertTrue(memories.isEmpty());
         }
     }
@@ -170,7 +172,7 @@ class Win32PhysicalMemoryServiceTest {
                     .thenReturn(mockResponse);
 
             assertThrows(JsonSyntaxException.class,
-                    () -> physicalMemoryService.get());
+                    () -> service.get());
         }
     }
 
@@ -183,7 +185,7 @@ class Win32PhysicalMemoryServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PhysicalMemory> memories = physicalMemoryService.get(mockShell);
+            List<Win32PhysicalMemory> memories = service.get(mockShell);
             assertEquals(2, memories.size());
 
             assertThat(memories.get(0)).usingRecursiveComparison().isEqualTo(expectedMemory1);
@@ -199,7 +201,7 @@ class Win32PhysicalMemoryServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PhysicalMemory> memories = physicalMemoryService.get(mockShell);
+            List<Win32PhysicalMemory> memories = service.get(mockShell);
             assertTrue(memories.isEmpty());
         }
     }
@@ -211,7 +213,35 @@ class Win32PhysicalMemoryServiceTest {
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            assertThrows(JsonSyntaxException.class, () -> physicalMemoryService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32PhysicalMemory> memories = service.get(5L);
+            assertEquals(2, memories.size());
+
+            assertThat(memories.get(0)).usingRecursiveComparison().isEqualTo(expectedMemory1);
+            assertThat(memories.get(1)).usingRecursiveComparison().isEqualTo(expectedMemory2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

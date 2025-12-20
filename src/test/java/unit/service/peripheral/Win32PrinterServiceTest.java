@@ -16,6 +16,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Printer;
 import io.github.eggy03.ferrumx.windows.service.peripheral.Win32PrinterService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -38,7 +40,7 @@ import static org.mockito.Mockito.when;
 
 class Win32PrinterServiceTest {
 
-    private Win32PrinterService printerService;
+    private Win32PrinterService service;
 
     private static Win32Printer expectedPrinter1;
     private static Win32Printer expectedPrinter2;
@@ -139,7 +141,7 @@ class Win32PrinterServiceTest {
 
     @BeforeEach
     void setUp() {
-        printerService = new Win32PrinterService();
+        service = new Win32PrinterService();
     }
 
     @Test
@@ -151,7 +153,7 @@ class Win32PrinterServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Printer> printers = printerService.get();
+            List<Win32Printer> printers = service.get();
             assertEquals(2, printers.size());
 
             assertThat(printers.get(0)).usingRecursiveComparison().isEqualTo(expectedPrinter1);
@@ -167,7 +169,7 @@ class Win32PrinterServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Printer> printers = printerService.get();
+            List<Win32Printer> printers = service.get();
             assertTrue(printers.isEmpty());
         }
     }
@@ -180,7 +182,7 @@ class Win32PrinterServiceTest {
         try (MockedStatic<PowerShell> powerShellMock = mockStatic(PowerShell.class)) {
             powerShellMock.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> printerService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -193,7 +195,7 @@ class Win32PrinterServiceTest {
         try (PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Printer> printers = printerService.get(mockSession);
+            List<Win32Printer> printers = service.get(mockSession);
             assertEquals(2, printers.size());
 
             assertThat(printers.get(0)).usingRecursiveComparison().isEqualTo(expectedPrinter1);
@@ -209,7 +211,7 @@ class Win32PrinterServiceTest {
         try (PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32Printer> printers = printerService.get(mockSession);
+            List<Win32Printer> printers = service.get(mockSession);
             assertTrue(printers.isEmpty());
         }
     }
@@ -222,7 +224,35 @@ class Win32PrinterServiceTest {
         try (PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> printerService.get(mockSession));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockSession));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32Printer> printers = service.get(5L);
+            assertEquals(2, printers.size());
+
+            assertThat(printers.get(0)).usingRecursiveComparison().isEqualTo(expectedPrinter1);
+            assertThat(printers.get(1)).usingRecursiveComparison().isEqualTo(expectedPrinter2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 
