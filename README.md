@@ -84,12 +84,14 @@ public class ProcessorExample {
     static void main(String[] args) {
         
         List<Win32Processor> processorList = new Win32ProcessorService().get();
+
+        List<Win32Processor> processorListTwo = new Win32ProcessorService().get(15L); // time after which the session will auto close
         
         // you can also create and manage your own re-usable PowerShell session
         // good for cases where you need to fetch results for multiple queries
         try(PowerShell session = PowerShell.openSession()) {
-            List<Win32Processor> processorListTwo = new Win32ProcessorService().get(session);
-            processorListTwo.forEach(processor -> log.info(processor.toString()));
+            List<Win32Processor> processorListThree = new Win32ProcessorService().get(session);
+            processorListThree.forEach(processor -> log.info(processor.toString()));
         }
 
         // individual fields are accessible via getter methods
