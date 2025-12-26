@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 25
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: 25
+          java-version: 17
           distribution: temurin
 
       - name: Cache SonarQube packages
@@ -35,4 +35,4 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=eggy03_ferrumx-windows -Dsonar.coverage.exclusions="**/entity/**, **/constant/**"
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.5.0.6356:sonar -Dsonar.projectKey=eggy03_ferrumx-windows -Dsonar.coverage.exclusions="**/entity/**, **/constant/**"
