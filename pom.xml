@@ -24,7 +24,7 @@
         <project.scm.url>https://github.com/eggy03/ferrumx-windows.git</project.scm.url>
         <project.scm.dev>scm:git:ssh://git@github.com:eggy03/ferrumx-windows.git</project.scm.dev>
 
-        <sonar.organization>egg-03</sonar.organization>
+        <sonar.organization>eggy03</sonar.organization>
 
         <!-- dependencies version -->
         <lombok.version>1.18.42</lombok.version>
