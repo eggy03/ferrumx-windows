@@ -15,6 +15,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.display.Win32VideoController;
 import io.github.eggy03.ferrumx.windows.service.display.Win32VideoControllerService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.when;
 
 class Win32VideoControllerServiceTest {
 
-    private Win32VideoControllerService videoControllerService;
+    private Win32VideoControllerService service;
 
     private static Win32VideoController expectedGpu1;
     private static Win32VideoController expectedGpu2;
@@ -124,7 +126,7 @@ class Win32VideoControllerServiceTest {
 
     @BeforeEach
     void setUp() {
-        videoControllerService = new Win32VideoControllerService();
+        service = new Win32VideoControllerService();
     }
 
     @Test
@@ -136,7 +138,7 @@ class Win32VideoControllerServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)){
             mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32VideoController> videoControllers = videoControllerService.get();
+            List<Win32VideoController> videoControllers = service.get();
             assertEquals(2, videoControllers.size());
 
             assertThat(videoControllers.get(0)).usingRecursiveComparison().isEqualTo(expectedGpu1);
@@ -152,7 +154,7 @@ class Win32VideoControllerServiceTest {
         try (MockedStatic<PowerShell> mockedPowerShell = mockStatic(PowerShell.class)) {
             mockedPowerShell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32VideoController> controllers = videoControllerService.get();
+            List<Win32VideoController> controllers = service.get();
             assertTrue(controllers.isEmpty());
         }
     }
@@ -166,7 +168,7 @@ class Win32VideoControllerServiceTest {
             mockedPowerShell.when(() -> PowerShell.executeSingleCommand(anyString()))
                     .thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> videoControllerService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -179,7 +181,7 @@ class Win32VideoControllerServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)){
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32VideoController> videoControllers = videoControllerService.get(mockShell);
+            List<Win32VideoController> videoControllers = service.get(mockShell);
             assertEquals(2, videoControllers.size());
 
             assertThat(videoControllers.get(0)).usingRecursiveComparison().isEqualTo(expectedGpu1);
@@ -195,7 +197,7 @@ class Win32VideoControllerServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)){
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32VideoController> videoControllers = videoControllerService.get(mockShell);
+            List<Win32VideoController> videoControllers = service.get(mockShell);
             assertTrue(videoControllers.isEmpty());
         }
     }
@@ -208,7 +210,35 @@ class Win32VideoControllerServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)){
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> videoControllerService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32VideoController> videoControllers = service.get(5L);
+            assertEquals(2, videoControllers.size());
+
+            assertThat(videoControllers.get(0)).usingRecursiveComparison().isEqualTo(expectedGpu1);
+            assertThat(videoControllers.get(1)).usingRecursiveComparison().isEqualTo(expectedGpu2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

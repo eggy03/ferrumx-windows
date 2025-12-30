@@ -7,6 +7,50 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - December 30, 2025
+
+### New Features
+
+- Introduce `TerminalUtility` for executing PowerShell commands with a timeout. This utility uses Commons Exec instead
+of `jPowerShell` to launch and close PowerShell sessions bc38f98a6bfe19dd2c0567a035ed3619551f53fb
+
+- Service classes now implement a new `get(long timeout)` method which uses `TerminalUtility` and allows you to specify
+how long the PowerShell session will run before it is forcefully terminated regardless of the completion status
+of the script or command. This method does not rely on `jPowerShell` and can be safely used in Executor based workflows
+unlike the other methods bc38f98a6bfe19dd2c0567a035ed3619551f53fb
+
+### Removed Features
+
+- None
+
+### Bug Fixes
+
+- None
+
+### Breaking Changes
+
+- None
+
+### Non-Breaking Changes
+
+- None
+
+### Dependency Updates
+
+- None
+
+### Documentation
+
+- Documented the new code
+- Corrected`PCMCIA Type II (18)` to `PCMCIA Type I (18)` in `Win32PortConnector.java` b7556bf032289364a8fddd21c1e00aaccf53c117
+
+
+### Known Issues
+
+- `TerminalUtility` has support for UTF-8 encoding and English Language support only [Limitation]
+
+---
+
 ## [3.0.0] - November 21, 2025
 
 This update marks the first public release since v1.3.7 and is a complete re-write of the library.
@@ -70,7 +114,7 @@ only select properties to be fetched are passed on to the PowerShell query at ru
 - Replace Win32ComputerSystemProduct with Win32ComputerSystem WMI class 4723db1dcc632ae0fdd02e2368cb95dce16444da
 - Move Win32OperatingSystem class to the system package
 - Rename all the query enum names in Cimv2Namespace to have the "Win32_" prefix 6252187e6b7d5f8e245cc99fdc0ae788c4bb22f5
-- Update the return types of certain Win32 Entity fields to match with the microsoft docs bd206dc6c2ca48484f9a25aac8caefba29a4adb8
+- Update the return types of certain Win32 Entity fields to match with the Microsoft docs bd206dc6c2ca48484f9a25aac8caefba29a4adb8
 - Make Win32BaseboardService implement CommonServiceInterface instead of OptionalCommonServiceInterface c847d10708eb6874d5874f50225f3ffa739e9a31
 - Entity fields which return Boolean now have custom getters instead of Lombok generated ones ff9e5d3e7fbdba8fafae16b2253656924c5ef39c
 
@@ -249,7 +293,7 @@ have been removed which will slowly be re-added with the upcoming pre-view relea
 ### Breaking Changes
 
 - The legacy shell classes and custom parsing logic have been completely removed and replaced with a new service/entity structure.
-- Each service now runs a powershell query via jPowershell that parses the JSON output to its respective entity class via GSON. Instead of a Map data structure in v1, you now get typed objects with their fields which are accessible via the provided getters.
+- Each service now runs a PowerShell query via `jPowershell` that parses the JSON output to its respective entity class via GSON. Instead of a Map data structure in v1, you now get typed objects with their fields which are accessible via the provided getters.
 - Removed all forced checked exceptions. The only time an unchecked exception may be thrown is if the JSON is malformed,
 or if a PowerShell session fails to load.
 - Improved null safety with the usage of Optional and empty Lists.
@@ -584,7 +628,7 @@ to
 
 ### Breaking Changes
 
-- *Deprecate the custom ErrorLog:* Up till version 1.2.4, all powershell errors were automatically logged in a text file. Starting from v1.3.0, this behavior has been replaced with a custom exception called ShellException that gets thrown in case of any powershell errors. All the Win32 classes now rethrow this exception. The developer needs to catch this exception and either rethrow it or handle it accordingly.
+- *Deprecate the custom ErrorLog:* Up till version 1.2.4, all PowerShell errors were automatically logged in a text file. Starting from v1.3.0, this behavior has been replaced with a custom exception called ShellException that gets thrown in case of any PowerShell errors. All the Win32 classes now rethrow this exception. The developer needs to catch this exception and either rethrow it or handle it accordingly.
 
 ### Dependency Updates
 
@@ -824,9 +868,9 @@ In this case, the "ThreadCount" would be 12 and "NumberOfLogicalProcessors" woul
 - The formatters are now classified into CIM_ML and CIM_SL
 ML stands for Multi-Line and SL for Single-Line
 The Win32 Relation Classes will still have their own formatter.
-The rest of the Win32_Classes will call either CIM_SL or CIM_ML for formatting
+The rest of the Win32_Classes will call either CIM_SL or CIM_ML for formatting.
 The Win32_Classes now call either CIM_SL or CIM_ML methods and pass on the attributes, which then carry out the parsing,
-formatting and error handling
+formatting and error handling.
 HWID Generation retains it's Multi-threading capability following CIM_SL refactor
 The Win32 Relation Classes still have their own formatter.
 
@@ -911,7 +955,7 @@ They will now be generated based on the following nomenclature: Username/DeviceN
 This does not break functionality since none of the existing functions depend on WMIC
 for information retrieval
 
-- If a powershell process fails, the functions will now return empty Collections.
+- If a PowerShell process fails, the functions will now return empty Collections.
 
 ### Breaking Changes
 
@@ -948,11 +992,11 @@ Project name changed from `WSIL` to `FerrumX`
 
 ### Bug Fixes
 
-- Accommodated for multi-line value parsing for property values spanning more than a single line in powershell
+- Accommodated for multi-line value parsing for property values spanning more than a single line in PowerShell
 
 ### Non-Breaking Changes
 
-- Update CIMFormat to make it able to log powershell errors and support multi-line property values
+- Update CIMFormat to make it able to log PowerShell errors and support multi-line property values
 
 ### Breaking Changes
 

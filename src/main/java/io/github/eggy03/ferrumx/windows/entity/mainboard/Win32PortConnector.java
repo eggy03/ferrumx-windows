@@ -95,7 +95,7 @@ public class Win32PortConnector {
      *   <li>SSA SCSI (15)</li>
      *   <li>USB (16)</li>
      *   <li>FireWire (IEEE P1394) (17)</li>
-     *   <li>PCMCIA Type II (18)</li>
+     *   <li>PCMCIA Type I (18)</li>
      *   <li>PCMCIA Type II (19)</li>
      *   <li>PCMCIA Type III (20)</li>
      *   <li>Cardbus (21)</li>

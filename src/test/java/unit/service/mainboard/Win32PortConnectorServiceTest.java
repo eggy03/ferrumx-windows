@@ -15,6 +15,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32PortConnector;
 import io.github.eggy03.ferrumx.windows.service.mainboard.Win32PortConnectorService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -37,7 +39,7 @@ import static org.mockito.Mockito.when;
 
 class Win32PortConnectorServiceTest {
 
-    private Win32PortConnectorService portConnectorService;
+    private Win32PortConnectorService service;
 
     private static Win32PortConnector expectedPort1;
     private static Win32PortConnector expectedPort2;
@@ -90,7 +92,7 @@ class Win32PortConnectorServiceTest {
 
     @BeforeEach
     void setUp() {
-        portConnectorService = new Win32PortConnectorService();
+        service = new Win32PortConnectorService();
     }
 
     @Test
@@ -102,7 +104,7 @@ class Win32PortConnectorServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PortConnector> mainboardPort = portConnectorService.get();
+            List<Win32PortConnector> mainboardPort = service.get();
             assertEquals(2, mainboardPort.size());
 
             assertThat(mainboardPort.get(0)).usingRecursiveComparison().isEqualTo(expectedPort1);
@@ -118,7 +120,7 @@ class Win32PortConnectorServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PortConnector> mainboardPort = portConnectorService.get();
+            List<Win32PortConnector> mainboardPort = service.get();
             assertTrue(mainboardPort.isEmpty());
         }
     }
@@ -131,7 +133,7 @@ class Win32PortConnectorServiceTest {
         try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
             mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, () -> portConnectorService.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -144,7 +146,7 @@ class Win32PortConnectorServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PortConnector> mainboardPort = portConnectorService.get(mockShell);
+            List<Win32PortConnector> mainboardPort = service.get(mockShell);
             assertEquals(2, mainboardPort.size());
 
             assertThat(mainboardPort.get(0)).usingRecursiveComparison().isEqualTo(expectedPort1);
@@ -160,7 +162,7 @@ class Win32PortConnectorServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            List<Win32PortConnector> mainboardPort = portConnectorService.get(mockShell);
+            List<Win32PortConnector> mainboardPort = service.get(mockShell);
             assertTrue(mainboardPort.isEmpty());
         }
     }
@@ -172,7 +174,35 @@ class Win32PortConnectorServiceTest {
 
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            assertThrows(JsonSyntaxException.class, () -> portConnectorService.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32PortConnector> mainboardPort = service.get(5L);
+            assertEquals(2, mainboardPort.size());
+
+            assertThat(mainboardPort.get(0)).usingRecursiveComparison().isEqualTo(expectedPort1);
+            assertThat(mainboardPort.get(1)).usingRecursiveComparison().isEqualTo(expectedPort2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 

@@ -14,6 +14,7 @@ import com.profesorfalken.jpowershell.PowerShell;
 import com.profesorfalken.jpowershell.PowerShellResponse;
 import io.github.eggy03.ferrumx.windows.entity.user.Win32UserAccount;
 import io.github.eggy03.ferrumx.windows.service.user.Win32UserAccountService;
+import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -205,6 +207,34 @@ class Win32UserAccountTest {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_success() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn(json);
+
+            List<Win32UserAccount> userList = service.get(5L);
+            assertEquals(2, userList.size());
+
+            assertThat(userList.get(0)).usingRecursiveComparison().isEqualTo(expectedUser1);
+            assertThat(userList.get(1)).usingRecursiveComparison().isEqualTo(expectedUser2);
+        }
+    }
+
+    @Test
+    void test_getWithTimeout_invalidJson_throwsException() {
+
+        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+            mockedTerminal
+                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .thenReturn("invalid json");
+
+            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
         }
     }
 
