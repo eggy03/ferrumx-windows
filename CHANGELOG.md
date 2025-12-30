@@ -7,7 +7,7 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.0] - January 01, 2026
+## [3.1.0] - December 30, 2025
 
 ### New Features
 
@@ -42,6 +42,7 @@ unlike the other methods bc38f98a6bfe19dd2c0567a035ed3619551f53fb
 ### Documentation
 
 - Documented the new code
+- Corrected`PCMCIA Type II (18)` to `PCMCIA Type I (18)` in `Win32PortConnector.java` b7556bf032289364a8fddd21c1e00aaccf53c117
 
 
 ### Known Issues
