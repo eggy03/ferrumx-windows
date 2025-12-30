@@ -145,7 +145,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     @Override
     public List<Win32DiskDriveToPartitionAndLogicalDisk> get(long timeout) {
 
-        String script = PowerShellScript.getScript(PowerShellScript.HWID_SCRIPT.getScriptPath());
+        String script = PowerShellScript.getScript(PowerShellScript.WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT.getScriptPath());
         String response = TerminalUtility.executeCommand(script, timeout);
         log.trace("PowerShell response for the apache terminal session: \n{}", response);
         return new Win32DiskDriveToPartitionAndLogicalDiskMapper().mapToList(response, Win32DiskDriveToPartitionAndLogicalDisk.class);

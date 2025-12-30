@@ -7,6 +7,13 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.1] - January 01, 2026
+
+### Bug Fixes
+
+- Fixed a bug in the `get(timeout)` service function in `Win32DiskDriveToPartitionAndLogicalDisk` class
+that caused it to execute the wrong script and always fetch null values
+
 ## [3.1.0] - December 30, 2025
 
 ### New Features
