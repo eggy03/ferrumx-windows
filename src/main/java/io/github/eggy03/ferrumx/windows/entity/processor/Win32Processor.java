@@ -184,6 +184,24 @@ public class Win32Processor {
     String processorId;
 
     /**
+     * Processor architecture used by the platform.
+     * <p>Possible Values:</p>
+     * <ul>
+     *     <li>x86 (0)</li>
+     *     <li>MIPS (1)</li>
+     *     <li>Alpha (2)</li>
+     *     <li>PowerPC (3)</li>
+     *     <li>ARM (5)</li>
+     *     <li>ia64 (6)</li>
+     *     <li>x64 (9)</li>
+     *     <li>ARM64 (12)</li>
+     * </ul>
+     */
+    @SerializedName("Architecture")
+    @Nullable
+    Integer architecture;
+
+    /**
      * Retrieves the entity in a JSON pretty-print formatted string
      * @return the {@link String} value of the object in JSON pretty-print format
      */

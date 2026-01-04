@@ -7,12 +7,16 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.1] - January 01, 2026
+## [3.1.1] - January 05, 2026
 
 ### Bug Fixes
 
 - Fixed a bug in the `get(timeout)` service function in `Win32DiskDriveToPartitionAndLogicalDisk` class
-that caused it to execute the wrong script and always fetch null values
+that caused it to execute the wrong script and always fetch null values 1619a732365c2d210fa9b46defd43b9906d9cac0
+
+### New Features
+
+- add `architecture` property to `Win32Processor` b8aa0e87bd6c582b52bff3fd66344c05578c49f4
 
 ## [3.1.0] - December 30, 2025
 
