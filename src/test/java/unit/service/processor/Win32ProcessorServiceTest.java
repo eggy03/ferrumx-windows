@@ -64,6 +64,7 @@ class Win32ProcessorServiceTest {
                 .stepping("2")
                 .virtualizationFirmwareEnabled(true)
                 .processorId("BFEBFBFF000B0671")
+                .architecture(9)
                 .build();
     }
 
@@ -89,6 +90,7 @@ class Win32ProcessorServiceTest {
         cpu.addProperty("Stepping", "2");
         cpu.addProperty("VirtualizationFirmwareEnabled", true);
         cpu.addProperty("ProcessorId", "BFEBFBFF000B0671");
+        cpu.addProperty("Architecture", 9);
 
         json = new GsonBuilder().serializeNulls().create().toJson(cpu);
     }
