@@ -7,6 +7,12 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.2] - January 28, 2026
+
+### Dependency Updates
+
+- Update AssertJ Core to 3.27.7 to mitigate CVE-2026-24400
+
 ## [3.1.1] - January 05, 2026
 
 ### Bug Fixes
