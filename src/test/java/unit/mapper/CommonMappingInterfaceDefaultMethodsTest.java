@@ -19,6 +19,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -52,6 +54,17 @@ class CommonMappingInterfaceDefaultMethodsTest {
         String json = "invalid json";
         assertThrows(JsonSyntaxException.class, ()-> mapper.mapToObject(json, Win32Processor.class));
 
+    }
+
+    @Test
+    void testMapToObject_validJson_jsonMismatchSchema_returnsObjectWithNullableFields() {
+
+        String json = "{}";
+        Optional<Win32Processor> processor = mapper.mapToObject(json, Win32Processor.class);
+
+        assertTrue(processor.isPresent());
+        assertNotNull(processor.get());
+        assertNull(processor.get().getDeviceId());
     }
 
     @Test
@@ -105,10 +118,18 @@ class CommonMappingInterfaceDefaultMethodsTest {
 
     @Test
     void testMapToList_invalidJson_throwsException() {
-
         String json = "invalid json";
         assertThrows(JsonSyntaxException.class, ()-> mapper.mapToList(json, Win32Processor.class));
+    }
 
+    @Test
+    void testMapToList_validJson_jsonMismatchSchema_returnsASingletonListWithNullFieldObject() {
+        String json = "[{}]";
+        List<Win32Processor> processors = mapper.mapToList(json, Win32Processor.class);
+
+        assertEquals(1, processors.size());
+        assertNotNull(processors.get(0));
+        assertNull(processors.get(0).getDeviceId());
     }
 
     @Test

@@ -45,12 +45,19 @@ public interface CommonMappingInterface<S> {
      *
      * @param json        the JSON string to parse; must not be null
      * @param objectClass the class of the objects in the list; must not be null
-     * @return an immutable, non-null list of objects deserialized from JSON
+     * @return an immutable, non-null list of objects deserialized from JSON.
+     *         If the JSON string is empty, it will return an empty unmodifiable list.
+     *         If the JSON string does not match the schema of the {@code objectClass}, an immutable
+     *         list containing exactly 1 object of type {@code objectClass} will be returned.
+     *         If the object allows for null values in its fields, the returned object in the list will have null fields.
+     *         If null values are disallowed, a {@link NullPointerException} may be thrown.
+     *
+     * @throws NullPointerException if the JSON string or the objectClass is null
      * @throws JsonSyntaxException if the JSON is malformed
      * @since 3.0.0
      */
     @NotNull
-    default List<S> mapToList(@NotNull String json, @NotNull Class<S> objectClass) {
+    default List<S> mapToList(@NonNull String json, @NonNull Class<S> objectClass) {
 
         if(json.startsWith("[")) {
             Type listType = TypeToken.getParameterized(List.class, objectClass).getType();
@@ -65,17 +72,21 @@ public interface CommonMappingInterface<S> {
     /**
      * Converts a JSON string into an {@link Optional} object of the specified type {@code <S>}.
      * <p>
-     *      Returns {@link Optional#empty()} if the JSON is null or cannot be parsed into an object.
-     * </p>
-     * <p>
      *     Useful for implementing the mappers classes which return exactly one instance
      *     such as the {@code Win32_ComputerSystem} WMI class
      * </p>
      *
      * @param json        the JSON string to parse; must not be null
      * @param objectClass the class of the object; must not be null
-     * @return an {@link Optional} containing the deserialized object, or empty if null
+     * @return an {@link Optional} containing the deserialized object,
+     *         or {@link Optional#empty()} if the JSON is empty.
+     *         If the JSON string does not match the schema of the objectClass,
+     *         an {@link Optional} containing an object of type {@code objectClass}
+     *         will be created with null fields. If null values are disallowed,
+     *         a {@link NullPointerException} may be thrown.
+     *
      * @throws JsonSyntaxException if the JSON is malformed
+     * @throws NullPointerException if the JSON string or the objectClass is null
      * @since 3.0.0
      */
     @NotNull
