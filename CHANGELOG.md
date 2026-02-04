@@ -22,9 +22,13 @@ The following headings may be used while categorizing the list of changes made i
 
 ### Breaking Changes
 
-- Service classes now return an immutable list of entity objects instead of a mutable list.
-Note that the objects in the list were already immutable before this change.
-You don't need to make any changes to your code if your workflow didn't involve modifying the mutable lists.
+- Service classes now return immutable lists of entity objects instead of mutable lists.
+The entity objects themselves were already immutable prior to this change.
+This change is only breaking for users who relied on mutating the returned lists directly.
+
+### Non-Breaking Changes
+
+- Removed unreachable defensive null check code in `CommonMappingInterface`'s `mapToList` method
 
 ### Dependency Updates
 
