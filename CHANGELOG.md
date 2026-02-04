@@ -7,6 +7,17 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+The following headings may be used while categorizing the list of changes made in each version:
+
+- New Features
+- Removed Features
+- Bug Fixes
+- Non-Breaking Changes
+- Breaking Changes
+- Dependency Updates
+- Documentation
+- Known Issues
+
 ## [4.0.0] - February 04, 2026
 
 ### Breaking Changes
@@ -53,31 +64,10 @@ how long the PowerShell session will run before it is forcefully terminated rega
 of the script or command. This method does not rely on `jPowerShell` and can be safely used in Executor based workflows
 unlike the other methods bc38f98a6bfe19dd2c0567a035ed3619551f53fb
 
-### Removed Features
-
-- None
-
-### Bug Fixes
-
-- None
-
-### Breaking Changes
-
-- None
-
-### Non-Breaking Changes
-
-- None
-
-### Dependency Updates
-
-- None
-
 ### Documentation
 
 - Documented the new code
 - Corrected`PCMCIA Type II (18)` to `PCMCIA Type I (18)` in `Win32PortConnector.java` b7556bf032289364a8fddd21c1e00aaccf53c117
-
 
 ### Known Issues
 
@@ -116,11 +106,6 @@ Please consult the documentation in README, WIKI, Javadocs and Examples to know 
 - Win32DiskPartitionToLogicalDisk,
 - Win32NetworkAdapterToConfiguration,
 - Win32ProcessorToCacheMemory d25c37b2cf06489a7a6208cd3a43b0adf8d1af6d
-
-
-### Removed Features
-
-- N/A
 
 ### Bug Fixes
 
@@ -183,10 +168,6 @@ only select properties to be fetched are passed on to the PowerShell query at ru
 
 - Deprecated `getProcessor()` method of return type `Optional<Processor>` has now been removed.
 
-### Bug Fixes
-
-- N/A
-
 ### Non-Breaking Changes
 
 - The project is now Java 8 compatible
@@ -215,10 +196,6 @@ Updated plugins:
 
 - Updated documentation to reflect the changes in this version
 
-### Known Issues
-
-- N/A
-
 ---
 
 ## [2.1.0 Pre-Release] - October 5, 2025
@@ -228,18 +205,10 @@ Updated plugins:
 - Service classes now have overloaded service methods that accept a PowerShell session,
   allowing callers to manage and reuse sessions.
 
-### Removed Features
-
-- N/A
-
 ### Bug Fixes
 
 - Fixed typo in the `@SerializedName` annotation for the `smbiosPresent`
   field that caused the serialized values to return null 20e6acf10a6618fcb6df70abda13b929a9f73fa2
-
-### Non-Breaking Changes
-
-- N/A
 
 ### Breaking Changes
 
@@ -249,53 +218,17 @@ which returns a list of processors 85dae961c30cc88f4a905777086b2b45e1d8eb27
 
 - Entity classes now have a builder pattern 70ea51d92d4c7dee0b6481762e29ac238b09bbed
 
-### Dependency Updates
-
-- N/A
-
 ### Documentation
 
 - Updated documentation to reflect the changes in this version
-
-### Known Issues
-
-- N/A
 
 ---
 
 ## [2.0.1 Pre-Release] - September 29, 2025
 
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
 ### Bug Fixes
 
 - Fix lombok scope configuration 59a495df3462f5f50ca3e00d9c49139075f61174
-
-### Non-Breaking Changes
-
-- N/A
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
 
 ---
 
@@ -314,15 +247,6 @@ have been removed which will slowly be re-added with the upcoming pre-view relea
 - Removed custom HWID generation logic.
 - Removed `Win32_Printer` and `Win32_SoundDevice` classes.
 - Removed the associative classes `Win32_AssociatedProcessorMemory`, `Win32_NetworkAdapterSetting`, `Win32_DiskDriveToDiskPartition` and `Win32_LogicalDiskToPartition`
-
-
-### Bug Fixes
-
-- N/A
-
-### Non-Breaking Changes
-
-- N/A
 
 ### Breaking Changes
 
@@ -350,34 +274,9 @@ or if a PowerShell session fails to load.
 
 - New documentation added for new code
 
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.7] - August 7, 2025
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
-### Non-Breaking Changes
-
-- N/A
-
-### Breaking Changes
-
-- N/A
 
 ### Dependency Updates
 
@@ -386,67 +285,17 @@ or if a PowerShell session fails to load.
 - Bump `central-publishing-maven-plugin` from 0.7.0 to 0.8.0
 - Bump `junit-jupiter-engine` from 5.13.0-M2 to 5.13.4
 
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.6] - April 28, 2025
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
 - HardwareID now supports collection of multiple CPU IDs in case of systems where there is more than 1 Physical CPU
 
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.5] - April 28, 2025
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
@@ -456,72 +305,18 @@ or if a PowerShell session fails to load.
 
 - Renamed the methods in the parser classes (CIM_ML and CIM_SL) to for a better understanding of what they do
 
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.4] - April 9, 2025
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
 - Removed custom `tinylog.properties` 8060684eee2dcbbef25b206e9626da472774f67d
 - This will be replaced by SLF-4J API in the future
 
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.3] - April 8, 2025
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
@@ -547,34 +342,9 @@ to
     import com.ferrumx.system.associatedclasses.Win32_LogicalDiskToPartition;
 ```
 
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.2] - December 25, 2024
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
@@ -582,60 +352,14 @@ to
 - Normal tests converted to JUnit Test Cases
 - Reduced duplicated code
 
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.3.1] - December 11, 2024
-
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
 - Removed the ErrorLog class which was deprecated since v1.2.4
 - The GUI code has been moved to a new repository called FerrumX-GUI
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
 
 ---
 
@@ -648,51 +372,15 @@ to
 - Added two new battery classes: Win32_Battery and Win32_PortableBattery
 - Added a monitor class: Win32_DesktopMonitor
 
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
-### Non-Breaking Changes
-
-- N/A
-
 ### Breaking Changes
 
 - *Deprecate the custom ErrorLog:* Up till version 1.2.4, all PowerShell errors were automatically logged in a text file. Starting from v1.3.0, this behavior has been replaced with a custom exception called ShellException that gets thrown in case of any PowerShell errors. All the Win32 classes now rethrow this exception. The developer needs to catch this exception and either rethrow it or handle it accordingly.
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
 
 ---
 
 ## [1.2.4] - June 23, 2024
 
 *GUI Changelogs are omitted since they are out of scope for the library. GUI code is maintained in a separate repository.*
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
@@ -702,59 +390,15 @@ HardwareID changes:
 
 New ID format: CPUName/CPUID/MotherboardName/DriveIDs [58741d85f84727720c90dad059e3596771c1e396]
 
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.2.3] - June 21, 2024
 
 *GUI Changelogs are omitted since they are out of scope for the library. GUI code is maintained in a separate repository.*
 
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
 ### Non-Breaking Changes
 
 - Removed the unnecessary hard coded System Drive letter from the commands as it does not need them
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
 
 ---
 
@@ -762,38 +406,10 @@ New ID format: CPUName/CPUID/MotherboardName/DriveIDs [58741d85f84727720c90dad05
 
 *GUI Changelogs are omitted since they are out of scope for the library. GUI code is maintained in a separate repository.*
 
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
 ### Non-Breaking Changes
 
 - The ExecutorService object in HardwareID class now uses the AutoCloseable interface
 - The implicit constructor of HardwareID class has it's access modifier changed from private to protected to allow inheritance
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
 
 ---
 
@@ -809,34 +425,6 @@ whereas the other reports the number of threads that the OS has been allowed to 
 For example, you have a CPU that has 12 hardware threads, and you have configured your OS to boot with 8 threads.
 In this case, the "ThreadCount" would be 12 and "NumberOfLogicalProcessors" would be 8.
 
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
-### Non-Breaking Changes
-
-- N/A
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.2.0] - May 7, 2024
@@ -847,55 +435,11 @@ In this case, the "ThreadCount" would be 12 and "NumberOfLogicalProcessors" woul
 
 - Only GUI updates
 
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
-### Non-Breaking Changes
-
-- N/A
-
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.1.0] - May 7, 2024
 
 *GUI Changelogs are omitted since they are out of scope for the library. GUI code is maintained in a separate repository.*
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
-
-### Non-Breaking Changes
-
-- N/A
 
 ### Breaking Changes
 
@@ -911,32 +455,11 @@ The Win32 Relation Classes still have their own formatter.
 - Win32_SystemDrivers has been removed
 - Changed the package naming scheme from `com.egg.*` to `com.ferrumx.*`
 
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.0.2] - April 16, 2024
 
 *GUI Changelogs are omitted since they are out of scope for the library. GUI code is maintained in a separate repository.*
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
 
 ### Bug Fixes
 
@@ -949,39 +472,11 @@ They will now be generated based on the following nomenclature: Username/DeviceN
 
 - Log files will now be generated as FerrumX_ERRORLOG-DateStamp.log [e76dafc19c69cc2da3cc4aa41ae8fbe499f4b426]
 
-### Breaking Changes
-
-- N/A
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
 ---
 
 ## [1.0.1] - April 13, 2024
 
 *GUI Changelogs are omitted since they are out of scope for the library. GUI code is maintained in a separate repository.*
-
-### New Features
-
-- N/A
-
-### Removed Features
-
-- N/A
-
-### Bug Fixes
-
-- N/A
 
 ### Non-Breaking Changes
 
@@ -995,19 +490,6 @@ for information retrieval
 
 - Changed `Win32_Processor` function name from `getDeviceIDList()` to `getProcessorList()`
 
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
-
----
 
 ## [1.0.0] - April 10, 2024
 
@@ -1019,10 +501,6 @@ Project name changed from `WSIL` to `FerrumX`
 
 - A semi-unique, multithreaded HWID Generation function based on the following format:
   Username/Device-name/CPUName/CPUID/MotherboardName/RAMCount/StorageCount
-
-### Removed Features
-
-- N/A
 
 ### Bug Fixes
 
@@ -1036,17 +514,5 @@ Project name changed from `WSIL` to `FerrumX`
 
 - Removed the Bank variable from `Win32_PhysicalMemory` as a form of device ID collection method (when Tag cannot be found)
 as it may no longer be necessary
-
-### Dependency Updates
-
-- N/A
-
-### Documentation
-
-- N/A
-
-### Known Issues
-
-- N/A
 
 ---
