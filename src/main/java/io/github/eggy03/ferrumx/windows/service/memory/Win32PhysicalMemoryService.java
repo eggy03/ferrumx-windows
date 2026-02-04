@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching information about physical memory modules (RAM) in the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_PHYSICAL_MEMORY_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32PhysicalMemory} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32PhysicalMemory} objects.
  * </p>
  *
  * <h2>Thread safety</h2>
@@ -81,12 +81,12 @@ import java.util.List;
 public class Win32PhysicalMemoryService implements CommonServiceInterface<Win32PhysicalMemory> {
 
     /**
-     * Retrieves a list of physical memory modules present in the system.
+     * Retrieves an immutable list of physical memory modules present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32PhysicalMemory} objects representing the system's RAM.
+     * @return an immutable list of {@link Win32PhysicalMemory} objects representing the system's RAM.
      *         Returns an empty list if no memory modules are detected.
      *
      * @since 3.0.0
@@ -101,10 +101,10 @@ public class Win32PhysicalMemoryService implements CommonServiceInterface<Win32P
     }
 
     /**
-     * Retrieves a list of physical memory modules using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of physical memory modules using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32PhysicalMemory} objects representing the system's RAM.
+     * @return an immutable list of {@link Win32PhysicalMemory} objects representing the system's RAM.
      *         Returns an empty list if no memory modules are detected.
      *
      * @since 3.0.0
@@ -119,7 +119,7 @@ public class Win32PhysicalMemoryService implements CommonServiceInterface<Win32P
     }
 
     /**
-     * Retrieves a list of physical memory modules connected to the system
+     * Retrieves an immutable list of physical memory modules connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -128,7 +128,7 @@ public class Win32PhysicalMemoryService implements CommonServiceInterface<Win32P
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32PhysicalMemory} objects representing the system's RAM.
+     * @return an immutable list of {@link Win32PhysicalMemory} objects representing the system's RAM.
      *         Returns an empty list if no memory modules are detected.
      *
      * @since 3.1.0

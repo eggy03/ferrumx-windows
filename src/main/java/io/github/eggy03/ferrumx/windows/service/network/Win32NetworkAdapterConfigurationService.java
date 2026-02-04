@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching network adapter configuration information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_NETWORK_ADAPTER_CONFIGURATION_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32NetworkAdapterConfiguration} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32NetworkAdapterConfiguration} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32NetworkAdapterConfigurationService implements CommonServiceInterface<Win32NetworkAdapterConfiguration> {
 
     /**
-     * Retrieves a list of network adapter configurations present in the system.
+     * Retrieves an immutable list of network adapter configurations present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
+     * @return an immutable list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
      * @since 3.0.0
      */
@@ -97,10 +97,10 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
     }
 
     /**
-     * Retrieves a list of network adapter configurations using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of network adapter configurations using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
+     * @return an immutable list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
      * @since 3.0.0
      */
@@ -114,7 +114,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
     }
 
     /**
-     * Retrieves a list of network adapter configurations connected to the system
+     * Retrieves an immutable list of network adapter configurations connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -123,7 +123,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
+     * @return an immutable list of {@link Win32NetworkAdapterConfiguration} objects representing the system's network adapters.
      *         Returns an empty list if no configurations are detected.
      *
      * @since 3.1.0

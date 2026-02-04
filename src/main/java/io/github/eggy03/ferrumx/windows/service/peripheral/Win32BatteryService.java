@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching battery information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_BATTERY_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32Battery} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32Battery} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -77,12 +77,12 @@ import java.util.List;
 public class Win32BatteryService implements CommonServiceInterface<Win32Battery> {
 
     /**
-     * Retrieves a list of batteries present on the system.
+     * Retrieves an immutable list of batteries present on the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32Battery} objects representing the system's batteries.
+     * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
      *
      * @since 3.0.0
@@ -97,11 +97,11 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
     }
 
     /**
-     * Retrieves a list of batteries present on the system using the caller's
+     * Retrieves an immutable list of batteries present on the system using the caller's
      * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32Battery} objects representing the system's batteries.
+     * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
      *
      * @since 3.0.0
@@ -116,7 +116,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
     }
 
     /**
-     * Retrieves a list of batteries present on the system
+     * Retrieves an immutable list of batteries present on the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -125,7 +125,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32Battery} objects representing the system's batteries.
+     * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
      *         If no batteries are present, returns an empty list.
      *
      * @since 3.1.0

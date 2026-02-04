@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching information about User Accounts in a Windows System.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_USER_ACCOUNT_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32UserAccount} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32UserAccount} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32UserAccountService implements CommonServiceInterface<Win32UserAccount> {
 
     /**
-     * Retrieves a list of user accounts present in the system.
+     * Retrieves an immutable list of user accounts present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32UserAccount} objects representing the user accounts.
+     * @return an immutable list of {@link Win32UserAccount} objects representing the user accounts.
      *         Returns an empty list if no user accounts are detected.
      *
      * @since 3.0.0
@@ -96,10 +96,10 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
     }
 
     /**
-     * Retrieves a list of user accounts using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of user accounts using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32UserAccount} objects representing the user accounts.
+     * @return an immutable list of {@link Win32UserAccount} objects representing the user accounts.
      *         Returns an empty list if no user accounts are detected.
      *
      * @since 3.0.0
@@ -112,7 +112,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
     }
 
     /**
-     * Retrieves a list of user accounts
+     * Retrieves an immutable list of user accounts
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -121,7 +121,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32UserAccount} objects representing the user accounts.
+     * @return an immutable list of {@link Win32UserAccount} objects representing the user accounts.
      *         Returns an empty list if no user accounts are detected.
      *
      * @since 3.1.0

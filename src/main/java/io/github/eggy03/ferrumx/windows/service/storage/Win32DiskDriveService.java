@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching information about disk drives.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_DISK_DRIVE_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32DiskDrive} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32DiskDrive} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDrive> {
 
     /**
-     * Retrieves a list of disk drives present in the system.
+     * Retrieves an immutable list of disk drives present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32DiskDrive} objects representing the disk drives.
+     * @return an immutable list of {@link Win32DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
      *
      * @since 3.0.0
@@ -98,10 +98,10 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
     }
 
     /**
-     * Retrieves a list of disk drives using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of disk drives using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32DiskDrive} objects representing the disk drives.
+     * @return an immutable list of {@link Win32DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
      *
      * @since 3.0.0
@@ -116,7 +116,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
     }
 
     /**
-     * Retrieves a list of disk drives connected in the system.
+     * Retrieves an immutable list of disk drives connected in the system.
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -125,7 +125,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32DiskDrive} objects representing the disk drives.
+     * @return an immutable list of {@link Win32DiskDrive} objects representing the disk drives.
      *         Returns an empty list if no disk drives are detected.
      *
      * @since 3.1.0

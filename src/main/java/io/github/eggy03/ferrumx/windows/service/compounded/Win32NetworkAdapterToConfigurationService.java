@@ -24,7 +24,7 @@ import java.util.List;
  * Service class for fetching network adapter and related configuration information from the system.
  * <p>
  * This class executes the {@link PowerShellScript#WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT} script
- * and maps the resulting JSON into a list of {@link Win32NetworkAdapterToConfiguration} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32NetworkAdapterToConfiguration} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -84,12 +84,12 @@ import java.util.List;
 public class Win32NetworkAdapterToConfigurationService implements CommonServiceInterface<Win32NetworkAdapterToConfiguration> {
 
     /**
-     * Retrieves a list of network adapters and related configuration connected in the system.
+     * Retrieves an immutable list of network adapters and related configuration connected in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
+     * @return an immutable list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
      * Returns an empty list if no network adapter and related configuration are detected.
      *
      * @since 3.0.0
@@ -105,11 +105,11 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
     }
 
     /**
-     * Retrieves a list of network adapters and related configuration connected in the system using the caller's
+     * Retrieves an immutable list of network adapters and related configuration connected in the system using the caller's
      * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
+     * @return an immutable list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
      * Returns an empty list if no network adapter and related configuration are detected.
      *
      * @since 3.0.0
@@ -123,7 +123,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
     }
 
     /**
-     * Retrieves a list of network adapters and related configuration connected in the system
+     * Retrieves an immutable list of network adapters and related configuration connected in the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -132,7 +132,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
+     * @return an immutable list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
      * Returns an empty list if no network adapter and related configuration are detected.
      *
      * @since 3.1.0

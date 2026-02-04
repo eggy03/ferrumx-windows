@@ -78,11 +78,11 @@ import java.util.List;
 public class Win32BaseboardService implements CommonServiceInterface<Win32Baseboard> {
 
     /**
-     * Retrieves a list of motherboard entries present in the system.
+     * Retrieves an immutable list of motherboard entries present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
-     * @return a list of {@link Win32Baseboard} objects representing the system motherboards.
+     * @return an immutable list of {@link Win32Baseboard} objects representing the system motherboards.
      *         Returns an empty list if no motherboard entries are detected.
      *
      * @since 3.0.0
@@ -96,11 +96,11 @@ public class Win32BaseboardService implements CommonServiceInterface<Win32Basebo
     }
 
     /**
-     * Retrieves a list of motherboard entries present in the system using the caller's
+     * Retrieves an immutable list of motherboard entries present in the system using the caller's
      * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32Baseboard} objects representing the system motherboards.
+     * @return an immutable list of {@link Win32Baseboard} objects representing the system motherboards.
      *         Returns an empty list if no motherboard entries are detected.
      *
      * @since 3.0.0
@@ -114,7 +114,7 @@ public class Win32BaseboardService implements CommonServiceInterface<Win32Basebo
     }
 
     /**
-     * Retrieves a list of motherboard entries present in the system
+     * Retrieves an immutable list of motherboard entries present in the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -123,7 +123,7 @@ public class Win32BaseboardService implements CommonServiceInterface<Win32Basebo
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32Baseboard} objects representing the system motherboards.
+     * @return an immutable list of {@link Win32Baseboard} objects representing the system motherboards.
      *         Returns an empty list if no motherboard entries are detected.
      *
      * @since 3.1.0

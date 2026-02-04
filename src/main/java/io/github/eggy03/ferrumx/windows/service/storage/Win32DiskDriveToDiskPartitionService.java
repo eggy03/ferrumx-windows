@@ -23,7 +23,7 @@ import java.util.List;
  * Service class for fetching the association between a {@link Win32DiskDrive}, and {@link Win32DiskPartition} from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_DISK_DRIVE_TO_DISK_PARTITION_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32DiskDriveToDiskPartition} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32DiskDriveToDiskPartition} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -80,12 +80,12 @@ import java.util.List;
 public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterface<Win32DiskDriveToDiskPartition> {
 
     /**
-     * Retrieves a list of {@link Win32DiskDriveToDiskPartition} entities present in the system.
+     * Retrieves an immutable list of {@link Win32DiskDriveToDiskPartition} entities present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
+     * @return an immutable list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}. Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -99,12 +99,12 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
     }
 
     /**
-     * Retrieves a list of {@link Win32DiskDriveToDiskPartition} entities using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of {@link Win32DiskDriveToDiskPartition} entities using the caller's {@link PowerShell} session.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
+     * @return an immutable list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}. Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -118,7 +118,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
     }
 
     /**
-     * Retrieves a list of {@link Win32DiskDriveToDiskPartition} entities
+     * Retrieves an immutable list of {@link Win32DiskDriveToDiskPartition} entities
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -127,7 +127,7 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
+     * @return an immutable list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      *         a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}.
      *         Returns an empty list if none are detected.
      *
