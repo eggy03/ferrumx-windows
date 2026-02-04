@@ -74,6 +74,11 @@ class CommonMappingInterfaceDefaultMethodsTest {
         assertFalse(processorObject.isPresent());
     }
 
+    void testMapToObject_nullParameters_throwsException() {
+        assertThrows(NullPointerException.class, ()-> mapper.mapToObject(null, Win32Processor.class));
+        assertThrows(NullPointerException.class, ()-> mapper.mapToObject("", null));
+    }
+
     @Test
     void testMapToList_success() {
 
@@ -137,5 +142,11 @@ class CommonMappingInterfaceDefaultMethodsTest {
         String json = "";
         List<Win32Processor> processorList = mapper.mapToList(json, Win32Processor.class);
         assertTrue(processorList.isEmpty());
+    }
+
+    @Test
+    void testMapToList_nullParameters_throwsException() {
+        assertThrows(NullPointerException.class, ()-> mapper.mapToList(null, Win32Processor.class));
+        assertThrows(NullPointerException.class, ()-> mapper.mapToList("", null));
     }
 }
