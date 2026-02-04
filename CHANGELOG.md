@@ -7,6 +7,23 @@ commits and PRs that contributed to each of the releases.
 
 This project tries its best to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - February 04, 2026
+
+### Breaking Changes
+
+- Service classes now return an immutable list of entity objects instead of a mutable list.
+Note that the objects in the list were already immutable before this change.
+You don't need to make any changes to your code if your workflow didn't involve modifying the mutable lists.
+
+### Dependency Updates
+
+- Update `mockito-core` from `5.20.0` to `5.21.0`
+- Update `central-publishing-maven-plugin` from `0.9.0` to `0.10.0`
+
+### Documentation
+
+- Update Javadoc to reflect the immutability of the lists returned by the service classes.
+
 ## [3.1.2] - January 28, 2026
 
 ### Dependency Updates
