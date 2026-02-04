@@ -23,7 +23,7 @@ import java.util.List;
  * Service class for fetching the association between a Network Adapter, and it's Configuration from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_NETWORK_ADAPTER_SETTING_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32NetworkAdapterSetting} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32NetworkAdapterSetting} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -80,12 +80,12 @@ import java.util.List;
 public class Win32NetworkAdapterSettingService implements CommonServiceInterface<Win32NetworkAdapterSetting> {
 
     /**
-     * Retrieves a list of {@link Win32NetworkAdapterSetting} entities present in the system.
+     * Retrieves an immutable list of {@link Win32NetworkAdapterSetting} entities present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32NetworkAdapterSetting} objects representing the association between
+     * @return an immutable list of {@link Win32NetworkAdapterSetting} objects representing the association between
      * a {@link Win32NetworkAdapter} and it's {@link Win32NetworkAdapterConfiguration}. Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -98,12 +98,12 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
     }
 
     /**
-     * Retrieves a list of {@link Win32NetworkAdapterSetting} entities using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of {@link Win32NetworkAdapterSetting} entities using the caller's {@link PowerShell} session.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32NetworkAdapterSetting} objects representing the association between
+     * @return an immutable list of {@link Win32NetworkAdapterSetting} objects representing the association between
      * a {@link Win32NetworkAdapter} and it's {@link Win32NetworkAdapterConfiguration}. Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -116,7 +116,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
     }
 
     /**
-     * Retrieves a list of {@link Win32NetworkAdapterSetting} entities
+     * Retrieves an immutable list of {@link Win32NetworkAdapterSetting} entities
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -125,7 +125,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32NetworkAdapterSetting} objects representing the association between
+     * @return an immutable list of {@link Win32NetworkAdapterSetting} objects representing the association between
      *         a {@link Win32NetworkAdapter} and it's {@link Win32NetworkAdapterConfiguration}.
      *         Returns an empty list if none are detected.
      *

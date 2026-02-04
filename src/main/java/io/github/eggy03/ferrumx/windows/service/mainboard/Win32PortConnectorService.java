@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching mainboard port information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_PORT_CONNECTOR_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32PortConnector} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32PortConnector} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,11 +78,11 @@ import java.util.List;
 public class Win32PortConnectorService implements CommonServiceInterface<Win32PortConnector> {
 
     /**
-     * Retrieves a list of mainboard ports present in the system.
+     * Retrieves an immutable list of mainboard ports present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
-     * @return a list of {@link Win32PortConnector} objects representing the system's mainboard ports.
+     * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
      *         Returns an empty list if no ports are detected.
      *
      * @since 3.0.0
@@ -97,11 +97,11 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
     }
 
     /**
-     * Retrieves a list of mainboard ports present in the system using the caller's
+     * Retrieves an immutable list of mainboard ports present in the system using the caller's
      * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32PortConnector} objects representing the system's mainboard ports.
+     * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
      *         Returns an empty list if no ports are detected.
      *
      * @since 3.0.0
@@ -116,7 +116,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
     }
 
     /**
-     * Retrieves a list of mainboard ports present in the system
+     * Retrieves an immutable list of mainboard ports present in the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -125,7 +125,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32PortConnector} objects representing the system's mainboard ports.
+     * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
      *         Returns an empty list if no ports are detected.
      *
      * @since 3.1.0

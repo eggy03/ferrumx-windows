@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32ProcessorService implements CommonServiceInterface<Win32Processor> {
 
     /**
-     * Retrieves a list of processor entries present in the system.
+     * Retrieves an immutable list of processor entries present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32Processor} objects representing the CPU(s).
+     * @return an immutable list of {@link Win32Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
      *
      * @since 3.0.0
@@ -97,10 +97,10 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
     }
 
     /**
-     * Retrieves a list of processor entries using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of processor entries using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32Processor} objects representing the CPU(s).
+     * @return an immutable list of {@link Win32Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
      *
      * @since 3.0.0
@@ -114,7 +114,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
     }
 
     /**
-     * Retrieves a list of processor entries
+     * Retrieves an immutable list of processor entries
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -123,7 +123,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32Processor} objects representing the CPU(s).
+     * @return an immutable list of {@link Win32Processor} objects representing the CPU(s).
      *         Returns an empty list if no processors are detected.
      *
      * @since 3.1.0

@@ -3,10 +3,12 @@
 ## Supported Versions
 
 FerrumX-Windows is maintained by a single contributor. Only the versions listed below continue to receive security-related fixes.
+Due to immutability of library releases, any change to the library will result in a version numbers being incremented and only the latest released version will be supported.
 
 | Version | Supported     |
 |---------|---------------|
-| 3.x.x   | Supported     |
+| 4.x.x   | Supported     |
+| 3.x.x   | Not Supported |
 | 2.x.x   | Not Supported |
 | 1.x.x   | Not Supported |
 | < 1.x   | Not Supported |

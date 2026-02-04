@@ -22,7 +22,7 @@ import java.util.List;
  * Service class for fetching monitor information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_DESKTOP_MONITOR_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32DesktopMonitor} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32DesktopMonitor} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32DesktopMonitorService implements CommonServiceInterface<Win32DesktopMonitor> {
 
     /**
-     * Retrieves a list of monitors connected to the system.
+     * Retrieves an immutable list of monitors connected to the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32DesktopMonitor} objects representing connected monitors.
+     * @return an immutable list of {@link Win32DesktopMonitor} objects representing connected monitors.
      *         Returns an empty list if no monitors are detected.
      *
      * @since 3.0.0
@@ -98,11 +98,11 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
     }
 
     /**
-     * Retrieves a list of monitors connected to the system using the caller's
+     * Retrieves an immutable list of monitors connected to the system using the caller's
      * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32DesktopMonitor} objects representing connected monitors.
+     * @return an immutable list of {@link Win32DesktopMonitor} objects representing connected monitors.
      *         Returns an empty list if no monitors are detected.
      *
      * @since 3.0.0
@@ -117,7 +117,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
     }
 
     /**
-     * Retrieves a list of monitors connected to the system
+     * Retrieves an immutable list of monitors connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -126,7 +126,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32DesktopMonitor} objects representing connected monitors.
+     * @return an immutable list of {@link Win32DesktopMonitor} objects representing connected monitors.
      *         Returns an empty list if no monitors are detected.
      *
      * @since 3.1.0

@@ -26,7 +26,7 @@ import java.util.List;
  * Service class for fetching physical disk and related partition and logical disk data from the system.
  * <p>
  * This class executes the {@link PowerShellScript#WIN32_DISK_DRIVE_TO_PARTITION_AND_LOGICAL_DISK_SCRIPT} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -88,12 +88,12 @@ import java.util.List;
 public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonServiceInterface<Win32DiskDriveToPartitionAndLogicalDisk> {
 
     /**
-     * Retrieves a list of physical disks with related partition and logical disk data connected to the system.
+     * Retrieves an immutable list of physical disks with related partition and logical disk data connected to the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects representing connected physical disks
+     * @return an immutable list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects representing connected physical disks
      * with their partitions and logical disks. Returns an empty list if no data is found.
      *
      * @since 3.0.0
@@ -109,11 +109,11 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     }
 
     /**
-     * Retrieves a list of physical disks with related partition and logical disk data connected to the system
+     * Retrieves an immutable list of physical disks with related partition and logical disk data connected to the system
      * using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects representing connected physical disks
+     * @return an immutable list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects representing connected physical disks
      * with their partitions and logical disks. Returns an empty list if no data is found.
      *
      * @since 3.0.0
@@ -127,7 +127,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
     }
 
     /**
-     * Retrieves a list of physical disks with related partition and logical disk data connected to the system
+     * Retrieves an immutable list of physical disks with related partition and logical disk data connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -136,7 +136,7 @@ public class Win32DiskDriveToPartitionAndLogicalDiskService implements CommonSer
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell command to complete before terminating
      *                the process
-     * @return a list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects representing connected physical disks
+     * @return an immutable list of {@link Win32DiskDriveToPartitionAndLogicalDisk} objects representing connected physical disks
      * with their partitions and logical disks. Returns an empty list if no data is found.
      *
      * @since 3.1.0

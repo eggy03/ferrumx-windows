@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching the connection profile for a network adapter.
  * <p>
  * This class executes the {@link StandardCimv2Namespace#MSFT_NET_CONNECTION_PROFILE_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link MsftNetConnectionProfile} objects.
+ * and maps the resulting JSON into an immutable list of {@link MsftNetConnectionProfile} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class MsftNetConnectionProfileService implements CommonServiceInterface<MsftNetConnectionProfile> {
 
     /**
-     * Retrieves a list of connection profiles for all network adapters present in the system.
+     * Retrieves an immutable list of connection profiles for all network adapters present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
+     * @return an immutable list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
      *         Returns an empty list if no profiles are detected.
      *
      * @since 3.0.0
@@ -97,11 +97,11 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
     }
 
     /**
-     * Retrieves a list of connection profiles for all network adapters
+     * Retrieves an immutable list of connection profiles for all network adapters
      * present in the system using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
+     * @return an immutable list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
      *         Returns an empty list if no profiles are detected.
      *
      * @since 3.0.0
@@ -115,7 +115,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
     }
 
     /**
-     * Retrieves a list of connection profiles for all network adapters connected to the system
+     * Retrieves an immutable list of connection profiles for all network adapters connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -124,7 +124,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
+     * @return an immutable list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
      *         Returns an empty list if no profiles are detected.
      *
      * @since 3.1.0

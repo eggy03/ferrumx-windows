@@ -24,7 +24,7 @@ import java.util.List;
  * Service class for fetching processor and related cache information from the system.
  * <p>
  * This class executes the {@link PowerShellScript#WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT} script
- * and maps the resulting JSON into a list of {@link Win32ProcessorToCacheMemory} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32ProcessorToCacheMemory} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -83,12 +83,12 @@ import java.util.List;
 public class Win32ProcessorToCacheMemoryService implements CommonServiceInterface<Win32ProcessorToCacheMemory> {
 
     /**
-     * Retrieves a list of processors and related cache information connected to the system.
+     * Retrieves an immutable list of processors and related cache information connected to the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32ProcessorToCacheMemory} objects.
+     * @return an immutable list of {@link Win32ProcessorToCacheMemory} objects.
      * Returns an empty list if no processors and related cache information are detected.
      *
      * @since 3.0.0
@@ -104,11 +104,11 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
     }
 
     /**
-     * Retrieves a list of processors and related cache information connected to the system using the caller's
+     * Retrieves an immutable list of processors and related cache information connected to the system using the caller's
      * {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32ProcessorToCacheMemory} objects
+     * @return an immutable list of {@link Win32ProcessorToCacheMemory} objects
      * Returns an empty list if no processors and related cache information are detected.
      *
      * @since 3.0.0
@@ -122,7 +122,7 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
     }
 
     /**
-     * Retrieves a list of processors and related cache information connected to the system
+     * Retrieves an immutable list of processors and related cache information connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -131,7 +131,7 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32ProcessorToCacheMemory} objects
+     * @return an immutable list of {@link Win32ProcessorToCacheMemory} objects
      * Returns an empty list if no processors and related cache information are detected.
      *
      * @since 3.1.0

@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching operating system information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_OPERATING_SYSTEM_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32PnPEntity} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32PnPEntity} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEntity> {
 
     /**
-     * Retrieves a list of pnp entities present on the system.
+     * Retrieves an immutable list of pnp entities present on the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32PnPEntity} objects representing the system's pnp entities.
+     * @return an immutable list of {@link Win32PnPEntity} objects representing the system's pnp entities.
      *         Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -96,10 +96,10 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
     }
 
     /**
-     * Retrieves a list of pnp entities using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of pnp entities using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32PnPEntity} objects representing the system's pnp entities.
+     * @return an immutable list of {@link Win32PnPEntity} objects representing the system's pnp entities.
      *         Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -112,7 +112,7 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
     }
 
     /**
-     * Retrieves a list of pnp entities connected to the system
+     * Retrieves an immutable list of pnp entities connected to the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -121,7 +121,7 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32PnPEntity} objects representing the system's pnp entities.
+     * @return an immutable list of {@link Win32PnPEntity} objects representing the system's pnp entities.
      *         Returns an empty list if none are detected.
      *
      * @since 3.1.0

@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching information about disk partitions.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_DISK_PARTITION_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32DiskPartition} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32DiskPartition} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32DiskPartitionService implements CommonServiceInterface<Win32DiskPartition> {
 
     /**
-     * Retrieves a list of disk partitions present in the system.
+     * Retrieves an immutable list of disk partitions present in the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32DiskPartition} objects representing the disk partitions.
+     * @return an immutable list of {@link Win32DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
      *
      * @since 3.0.0
@@ -97,10 +97,10 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
     }
 
     /**
-     * Retrieves a list of disk partitions using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of disk partitions using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32DiskPartition} objects representing the disk partitions.
+     * @return an immutable list of {@link Win32DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
      *
      * @since 3.0.0
@@ -114,7 +114,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
     }
 
     /**
-     * Retrieves a list of disk partitions
+     * Retrieves an immutable list of disk partitions
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -123,7 +123,7 @@ public class Win32DiskPartitionService implements CommonServiceInterface<Win32Di
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32DiskPartition} objects representing the disk partitions.
+     * @return an immutable list of {@link Win32DiskPartition} objects representing the disk partitions.
      *         Returns an empty list if no partitions are detected.
      *
      * @since 3.1.0

@@ -21,7 +21,7 @@ import java.util.List;
  * Service class for fetching operating system information from the system.
  * <p>
  * This class executes the {@link Cimv2Namespace#WIN32_OPERATING_SYSTEM_QUERY} PowerShell command
- * and maps the resulting JSON into a list of {@link Win32OperatingSystem} objects.
+ * and maps the resulting JSON into an immutable list of {@link Win32OperatingSystem} objects.
  * </p>
  *
  * <h2>Usage examples</h2>
@@ -78,12 +78,12 @@ import java.util.List;
 public class Win32OperatingSystemService implements CommonServiceInterface<Win32OperatingSystem> {
 
     /**
-     * Retrieves a list of operating systems present on the system.
+     * Retrieves an immutable list of operating systems present on the system.
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
      *
-     * @return a list of {@link Win32OperatingSystem} objects representing the system's operating systems.
+     * @return an immutable list of {@link Win32OperatingSystem} objects representing the system's operating systems.
      *         Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -98,10 +98,10 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     }
 
     /**
-     * Retrieves a list of operating systems using the caller's {@link PowerShell} session.
+     * Retrieves an immutable list of operating systems using the caller's {@link PowerShell} session.
      *
      * @param powerShell an existing PowerShell session managed by the caller
-     * @return a list of {@link Win32OperatingSystem} objects representing the system's operating systems.
+     * @return an immutable list of {@link Win32OperatingSystem} objects representing the system's operating systems.
      *         Returns an empty list if none are detected.
      *
      * @since 3.0.0
@@ -116,7 +116,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
     }
 
     /**
-     * Retrieves a list of operating systems installed in the system
+     * Retrieves an immutable list of operating systems installed in the system
      * using an isolated PowerShell process with a configurable timeout.
      * <p>
      * Each invocation creates an isolated PowerShell process, which is
@@ -125,7 +125,7 @@ public class Win32OperatingSystemService implements CommonServiceInterface<Win32
      *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
-     * @return a list of {@link Win32OperatingSystem} objects representing the system's operating systems.
+     * @return an immutable list of {@link Win32OperatingSystem} objects representing the system's operating systems.
      *         Returns an empty list if none are detected.
      *
      * @since 3.1.0
