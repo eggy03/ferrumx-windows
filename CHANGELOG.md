@@ -34,6 +34,9 @@ You don't need to make any changes to your code if your workflow didn't involve 
 ### Documentation
 
 - Update Javadoc to reflect the immutability of the lists returned by the service classes.
+- Update Javadocs in `CommonMappingInterface` to properly describe return behavior for empty, schema mismatched, null and malformed JSON.
+- Update Javadocs in service interfaces to notify that either the 
+default or custom implementations of `CommonMappingInterface` may be used for mapping results
 
 ## [3.1.2] - January 28, 2026
 
