@@ -45,7 +45,7 @@ public interface CommonMappingInterface<S> {
      *
      * @param json        the JSON string to parse; must not be null
      * @param objectClass the class of the objects in the list; must not be null
-     * @return a non-null list of objects deserialized from JSON
+     * @return an immutable, non-null list of objects deserialized from JSON
      * @throws JsonSyntaxException if the JSON is malformed
      * @since 3.0.0
      */
@@ -55,7 +55,7 @@ public interface CommonMappingInterface<S> {
         if(json.startsWith("[")) {
             Type listType = TypeToken.getParameterized(List.class, objectClass).getType();
             List<S> result = GSON.fromJson(json, listType);
-            return result!=null ? result : Collections.emptyList();
+            return result!=null ? Collections.unmodifiableList(result) : Collections.emptyList();
         } else {
             S singleObject = GSON.fromJson(json, objectClass);
             return singleObject!=null ? Collections.singletonList(singleObject) : Collections.emptyList();
