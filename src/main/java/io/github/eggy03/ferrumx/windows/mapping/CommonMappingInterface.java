@@ -61,8 +61,10 @@ public interface CommonMappingInterface<S> {
 
         if(json.startsWith("[")) {
             Type listType = TypeToken.getParameterized(List.class, objectClass).getType();
+            // this returns null iff JSON is null or empty.
+            // Former is annotation checked and the latter gets checked in the else block
             List<S> result = GSON.fromJson(json, listType);
-            return result!=null ? Collections.unmodifiableList(result) : Collections.emptyList();
+            return Collections.unmodifiableList(result); // therefore, no need to check for null in return line
         } else {
             S singleObject = GSON.fromJson(json, objectClass);
             return singleObject!=null ? Collections.singletonList(singleObject) : Collections.emptyList();
@@ -91,6 +93,8 @@ public interface CommonMappingInterface<S> {
      */
     @NotNull
     default Optional<S> mapToObject(@NonNull String json, @NonNull Class<S> objectClass) {
+        // this returns null iff JSON is null or empty.
+        // Former is annotation checked while the latter is taken care of by Optional
         S object = GSON.fromJson(json, objectClass);
         return Optional.ofNullable(object);
     }
