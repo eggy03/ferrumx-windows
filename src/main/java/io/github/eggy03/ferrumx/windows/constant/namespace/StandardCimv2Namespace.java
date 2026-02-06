@@ -11,6 +11,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.MsftNetAdapter;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetConnectionProfile;
 import io.github.eggy03.ferrumx.windows.entity.network.MsftNetIpAddress;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import static io.github.eggy03.ferrumx.windows.constant.PowerShellCmdlets.CONVERT_TO_JSON;
@@ -65,5 +66,6 @@ public enum StandardCimv2Namespace {
             SELECT_OBJECT_PROPERTY.getCmdlet() + getFromSerializedNames(MsftNetConnectionProfile.class) +
             CONVERT_TO_JSON.getCmdlet());
 
+    @NonNull
     private final String query;
 }

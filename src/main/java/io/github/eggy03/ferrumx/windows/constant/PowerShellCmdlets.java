@@ -6,6 +6,7 @@
 package io.github.eggy03.ferrumx.windows.constant;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,5 +17,6 @@ public enum PowerShellCmdlets {
 
     CONVERT_TO_JSON(" | ConvertTo-Json");
 
+    @NonNull
     private final String cmdlet;
 }

@@ -29,6 +29,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32PnPEntity;
 import io.github.eggy03.ferrumx.windows.entity.system.Win32Process;
 import io.github.eggy03.ferrumx.windows.entity.user.Win32UserAccount;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import static io.github.eggy03.ferrumx.windows.constant.PowerShellCmdlets.CONVERT_TO_JSON;
@@ -283,6 +284,7 @@ public enum Cimv2Namespace {
             SELECT_OBJECT_PROPERTY.getCmdlet() + getFromSerializedNames(Win32PnPEntity.class) +
             CONVERT_TO_JSON.getCmdlet());
 
+    @NonNull
     private final String query;
 
 }
