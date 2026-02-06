@@ -81,10 +81,10 @@ public enum PowerShellScript {
      *
      * @param scriptPath the absolute classpath location of the script (e.g. {@code "/script.ps1"})
      * @return an {@link InputStream} for the requested script, or {@code null}
-     *         if the resource cannot be found
+     * if the resource cannot be found
      */
     @Nullable
-    public static InputStream getScriptAsInputStream(@NonNull String scriptPath){
+    public static InputStream getScriptAsInputStream(@NonNull String scriptPath) {
         return PowerShellScript.class.getResourceAsStream(scriptPath);
     }
 

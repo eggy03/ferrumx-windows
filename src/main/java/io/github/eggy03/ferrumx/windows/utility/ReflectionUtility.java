@@ -16,6 +16,7 @@ import java.util.Arrays;
  * A utility class that provides helper methods that use Java reflection
  * <p>
  * <b>For internal use only</b>
+ *
  * @author Sayan Bhattacharjee (Alias: Egg-03/Eggy)
  * @since 3.0.0
  */
@@ -35,7 +36,7 @@ public class ReflectionUtility {
      * @param tClass the class whose fields should be inspected
      * @param <T>    the type of the class
      * @return a comma-separated string containing either the value of each
-     *         {@link SerializedName} annotation or the field name if the annotation is absent
+     * {@link SerializedName} annotation or the field name if the annotation is absent
      */
     @NotNull
     public static <T> String getFromSerializedNames(@NonNull Class<T> tClass) {

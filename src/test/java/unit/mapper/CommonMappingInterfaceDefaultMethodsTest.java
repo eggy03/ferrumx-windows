@@ -29,8 +29,9 @@ class CommonMappingInterfaceDefaultMethodsTest {
     private static CommonMappingInterface<Win32Processor> mapper;
 
     @BeforeAll
-    static void setProcessorCommonMappingInterface(){
-        mapper = new CommonMappingInterface<Win32Processor>() {};
+    static void setProcessorCommonMappingInterface() {
+        mapper = new CommonMappingInterface<Win32Processor>() {
+        };
     }
 
     @Test
@@ -52,7 +53,7 @@ class CommonMappingInterfaceDefaultMethodsTest {
     void testMapToObject_invalidJson_throwsException() {
 
         String json = "invalid json";
-        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToObject(json, Win32Processor.class));
+        assertThrows(JsonSyntaxException.class, () -> mapper.mapToObject(json, Win32Processor.class));
 
     }
 
@@ -75,8 +76,8 @@ class CommonMappingInterfaceDefaultMethodsTest {
     }
 
     void testMapToObject_nullParameters_throwsException() {
-        assertThrows(NullPointerException.class, ()-> mapper.mapToObject(null, Win32Processor.class));
-        assertThrows(NullPointerException.class, ()-> mapper.mapToObject("", null));
+        assertThrows(NullPointerException.class, () -> mapper.mapToObject(null, Win32Processor.class));
+        assertThrows(NullPointerException.class, () -> mapper.mapToObject("", null));
     }
 
     @Test
@@ -124,7 +125,7 @@ class CommonMappingInterfaceDefaultMethodsTest {
     @Test
     void testMapToList_invalidJson_throwsException() {
         String json = "invalid json";
-        assertThrows(JsonSyntaxException.class, ()-> mapper.mapToList(json, Win32Processor.class));
+        assertThrows(JsonSyntaxException.class, () -> mapper.mapToList(json, Win32Processor.class));
     }
 
     @Test
@@ -146,7 +147,7 @@ class CommonMappingInterfaceDefaultMethodsTest {
 
     @Test
     void testMapToList_nullParameters_throwsException() {
-        assertThrows(NullPointerException.class, ()-> mapper.mapToList(null, Win32Processor.class));
-        assertThrows(NullPointerException.class, ()-> mapper.mapToList("", null));
+        assertThrows(NullPointerException.class, () -> mapper.mapToList(null, Win32Processor.class));
+        assertThrows(NullPointerException.class, () -> mapper.mapToList("", null));
     }
 }

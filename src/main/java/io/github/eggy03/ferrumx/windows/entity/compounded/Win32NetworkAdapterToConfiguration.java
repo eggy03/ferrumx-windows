@@ -43,12 +43,11 @@ import java.util.List;
  *     .build();
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32NetworkAdapter
  * @see Win32NetworkAdapterConfiguration
  * @see Win32NetworkAdapterSetting
- *
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -87,6 +86,7 @@ public class Win32NetworkAdapterToConfiguration {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

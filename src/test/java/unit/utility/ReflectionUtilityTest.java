@@ -8,44 +8,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ReflectionUtilityTest {
 
-    @SuppressWarnings("unused")
-    static class MockWithAnnotatedFields { // inner test class where fields are annotated with gson @SerializedName
-        
-        @SerializedName("field_one")
-        String fieldOne;
-        
-        @SerializedName("field_two")
-        String fieldTwo;
-
-        @SerializedName("field_three")
-        String fieldThree;
-    }
-
-    @SuppressWarnings("unused")
-    static class MockWithoutAnnotatedFields {
-
-        String fieldOne;
-        String fieldTwo;
-        String fieldThree;
-    }
-
-    static class MockAbstractClass {
-
-    }
-
-    @SuppressWarnings("unused")
-    static class ExtensionOfMockWithAnnotatedFields extends MockWithAnnotatedFields {
-
-        @SerializedName("field_four")
-        String fieldFour;
-    }
-
     @Test
     void getFromSerializedNames_withAnnotatedFields_success() {
 
         String expectedString = "field_one, field_two, field_three";
         String actualString = getFromSerializedNames(MockWithAnnotatedFields.class);
-        
+
         assertThat(expectedString).isEqualTo(actualString);
     }
 
@@ -72,5 +40,37 @@ class ReflectionUtilityTest {
         String actualString = getFromSerializedNames(ExtensionOfMockWithAnnotatedFields.class);
 
         assertThat(expectedString).isEqualTo(actualString);
+    }
+
+    @SuppressWarnings("unused")
+    static class MockWithAnnotatedFields { // inner test class where fields are annotated with gson @SerializedName
+
+        @SerializedName("field_one")
+        String fieldOne;
+
+        @SerializedName("field_two")
+        String fieldTwo;
+
+        @SerializedName("field_three")
+        String fieldThree;
+    }
+
+    @SuppressWarnings("unused")
+    static class MockWithoutAnnotatedFields {
+
+        String fieldOne;
+        String fieldTwo;
+        String fieldThree;
+    }
+
+    static class MockAbstractClass {
+
+    }
+
+    @SuppressWarnings("unused")
+    static class ExtensionOfMockWithAnnotatedFields extends MockWithAnnotatedFields {
+
+        @SerializedName("field_four")
+        String fieldFour;
     }
 }

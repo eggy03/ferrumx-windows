@@ -51,9 +51,10 @@ import java.math.BigInteger;
  *
  * <p>See {@link Win32DiskDrive} for information about physical disks.</p>
  * <p>See {@link Win32LogicalDisk} for information about the logical volumes on a physical disk.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-diskpartition">Win32_DiskPartition Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -103,8 +104,6 @@ public class Win32DiskPartition {
     @SerializedName("Bootable")
     @Nullable
     Boolean bootable;
-    public @Nullable Boolean isBootable() {return bootable;}
-
     /**
      * Indicates whether this is the primary partition on the disk.
      */
@@ -112,8 +111,6 @@ public class Win32DiskPartition {
     @SerializedName("PrimaryPartition")
     @Nullable
     Boolean primaryPartition;
-    public @Nullable Boolean isPrimaryPartition() {return primaryPartition;}
-
     /**
      * Indicates whether this is the active (boot) partition used by the operating system when booting.
      */
@@ -121,22 +118,18 @@ public class Win32DiskPartition {
     @SerializedName("BootPartition")
     @Nullable
     Boolean bootPartition;
-    public @Nullable Boolean isBootPartition() {return bootPartition;}
-
     /**
      * Index number of the physical disk that contains this partition.
      */
     @SerializedName("DiskIndex")
     @Nullable
     Long diskIndex;
-
     /**
      * Total size of the partition in bytes.
      */
     @SerializedName("Size")
     @Nullable
     BigInteger size;
-
     /**
      * Type of the partition
      * <p>Possible Values (Non-exhaustive, will be updated when new values are found):</p>
@@ -163,8 +156,21 @@ public class Win32DiskPartition {
     @Nullable
     String type;
 
+    public @Nullable Boolean isBootable() {
+        return bootable;
+    }
+
+    public @Nullable Boolean isPrimaryPartition() {
+        return primaryPartition;
+    }
+
+    public @Nullable Boolean isBootPartition() {
+        return bootPartition;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

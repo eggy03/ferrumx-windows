@@ -75,13 +75,14 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see MsftNetAdapterService
  * @see MsftNetIpAddressService
  * @see MsftDnsClientServerAddressService
  * @see MsftNetConnectionProfileService
  * @see Win32NetworkAdapterToConfigurationService
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Slf4j
 public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceInterface<MsftNetAdapterToIpAndDnsAndProfile> {
@@ -94,13 +95,12 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
      *
      * @return an immutable list of {@link MsftNetAdapterToIpAndDnsAndProfile} objects representing
      * connected adapters with their configs. Returns an empty list if no data is found.
-     *
      * @since 3.0.0
      */
     @NotNull
     @Override
     public List<MsftNetAdapterToIpAndDnsAndProfile> get() {
-        try(PowerShell shell = PowerShell.openSession()){
+        try (PowerShell shell = PowerShell.openSession()) {
             PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.MSFT_NET_ADAPTER_TO_IP_AND_DNS_AND_PROFILE_SCRIPT.getScriptPath()));
             log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new MsftNetAdapterToIpAndDnsAndProfileMapper().mapToList(response.getCommandOutput(), MsftNetAdapterToIpAndDnsAndProfile.class);
@@ -114,7 +114,6 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link MsftNetAdapterToIpAndDnsAndProfile} objects representing connected adapters
      * and their configs. Returns an empty list if no data is found.
-     *
      * @since 3.0.0
      */
     @NotNull
@@ -137,7 +136,6 @@ public class MsftNetAdapterToIpAndDnsAndProfileService implements CommonServiceI
      *                command to complete before terminating the process
      * @return an immutable list of {@link MsftNetAdapterToIpAndDnsAndProfile} objects representing connected adapters
      * and their configs. Returns an empty list if no data is found.
-     *
      * @since 3.1.0
      */
     @NotNull

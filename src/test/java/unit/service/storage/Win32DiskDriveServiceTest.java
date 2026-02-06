@@ -40,11 +40,10 @@ import static org.mockito.Mockito.when;
 
 class Win32DiskDriveServiceTest {
 
-    private Win32DiskDriveService service;
-
     private static Win32DiskDrive expectedDiskDrive1;
     private static Win32DiskDrive expectedDiskDrive2;
     private static String json;
+    private Win32DiskDriveService service;
 
     @BeforeAll
     static void setDiskDrives() {
@@ -59,7 +58,7 @@ class Win32DiskDriveServiceTest {
                 .status("OK")
                 .interfaceType("NVMe")
                 .pnpDeviceId("PCI\\VEN_144D&DEV_A808&SUBSYS_0A0E144D&REV_01\\4&1A2B3C4D&0&000000")
-                .capabilities(Arrays.asList(3,4))
+                .capabilities(Arrays.asList(3, 4))
                 .capabilityDescriptions(Arrays.asList("desc1", "desc2"))
                 .build();
 
@@ -74,7 +73,7 @@ class Win32DiskDriveServiceTest {
                 .status("OK")
                 .interfaceType("SATA")
                 .pnpDeviceId("PCI\\VEN_8086&DEV_A102&SUBSYS_85C41043&REV_31\\3&11583659&0&FA")
-                .capabilities(Arrays.asList(3,4))
+                .capabilities(Arrays.asList(3, 4))
                 .capabilityDescriptions(Arrays.asList("desc1", "desc2"))
                 .build();
     }
@@ -92,7 +91,7 @@ class Win32DiskDriveServiceTest {
         disk1.addProperty("Status", "OK");
         disk1.addProperty("InterfaceType", "NVMe");
         disk1.addProperty("PNPDeviceID", "PCI\\VEN_144D&DEV_A808&SUBSYS_0A0E144D&REV_01\\4&1A2B3C4D&0&000000");
-        disk1.add("Capabilities", new Gson().toJsonTree(Arrays.asList(3,4)));
+        disk1.add("Capabilities", new Gson().toJsonTree(Arrays.asList(3, 4)));
         disk1.add("CapabilityDescriptions", new Gson().toJsonTree(Arrays.asList("desc1", "desc2")));
 
         JsonObject disk2 = new JsonObject();
@@ -106,7 +105,7 @@ class Win32DiskDriveServiceTest {
         disk2.addProperty("Status", "OK");
         disk2.addProperty("InterfaceType", "SATA");
         disk2.addProperty("PNPDeviceID", "PCI\\VEN_8086&DEV_A102&SUBSYS_85C41043&REV_31\\3&11583659&0&FA");
-        disk2.add("Capabilities", new Gson().toJsonTree(Arrays.asList(3,4)));
+        disk2.add("Capabilities", new Gson().toJsonTree(Arrays.asList(3, 4)));
         disk2.add("CapabilityDescriptions", new Gson().toJsonTree(Arrays.asList("desc1", "desc2")));
 
         JsonArray array = new JsonArray();
@@ -208,9 +207,9 @@ class Win32DiskDriveServiceTest {
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32DiskDrive> disks = service.get(5L);
@@ -224,12 +223,12 @@ class Win32DiskDriveServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -249,9 +248,9 @@ class Win32DiskDriveServiceTest {
         Field[] declaredClassFields = Win32DiskDrive.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

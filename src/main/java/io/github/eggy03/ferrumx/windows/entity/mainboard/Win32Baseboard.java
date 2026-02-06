@@ -33,12 +33,12 @@ import org.jetbrains.annotations.Nullable;
  *     .serialNumber("XYZ987654")
  *     .build();
  * }</pre>
- *
+ * <p>
  * {@link Win32PortConnector} contains details about ports on this mainboard.
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-baseboard">Win32_Baseboard Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -82,6 +82,7 @@ public class Win32Baseboard {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

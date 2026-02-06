@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
 /**
  * Immutable representation of a {@link MsftNetAdapter} and its {@code 1:N} relationships
  * with {@link MsftNetIpAddress}, {@link MsftDnsClientServerAddress},
@@ -51,13 +52,12 @@ import java.util.List;
  * {@code Win32_NetworkAdapter} is deprecated by Microsoft in favor of the MSFT classes.
  * </p>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see MsftNetAdapter
  * @see MsftNetIpAddress
  * @see MsftDnsClientServerAddress
  * @see MsftNetConnectionProfile
- *
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -101,6 +101,7 @@ public class MsftNetAdapterToIpAndDnsAndProfile {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

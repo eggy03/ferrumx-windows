@@ -34,9 +34,10 @@ import org.jetbrains.annotations.Nullable;
  *     .build();
  *
  * }</pre>
- * @since 2.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32UserAccount
+ * @since 2.0.0
  */
 
 @Value
@@ -64,6 +65,7 @@ public class User {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

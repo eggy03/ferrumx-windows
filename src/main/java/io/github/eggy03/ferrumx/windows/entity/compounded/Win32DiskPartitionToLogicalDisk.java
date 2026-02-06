@@ -48,12 +48,11 @@ import java.util.List;
  *     .build();
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32DiskPartition
  * @see Win32LogicalDisk
  * @see Win32LogicalDiskToPartition
- *
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -92,6 +91,7 @@ public class Win32DiskPartitionToLogicalDisk {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

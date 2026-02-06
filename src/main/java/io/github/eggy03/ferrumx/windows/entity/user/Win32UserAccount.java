@@ -43,9 +43,9 @@ import org.jetbrains.annotations.Nullable;
  *
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-useraccount">Win32_UserAccount Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -98,68 +98,76 @@ public class Win32UserAccount {
     @Nullable
     Long accountType;
 
-    /** Caption of the user account (domain/username). */
+    /**
+     * Caption of the user account (domain/username).
+     */
     @SerializedName("Caption")
     @Nullable
     String caption;
 
-    /** Description of the user account. */
+    /**
+     * Description of the user account.
+     */
     @SerializedName("Description")
     @Nullable
     String description;
 
-    /** Domain to which the user account belongs. */
+    /**
+     * Domain to which the user account belongs.
+     */
     @SerializedName("Domain")
     @Nullable
     String domain;
 
-    /** Name of the user account. */
+    /**
+     * Name of the user account.
+     */
     @SerializedName("Name")
     @Nullable
     String name;
 
-    /** True if the account is disabled. */
+    /**
+     * True if the account is disabled.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("Disabled")
     @Nullable
     Boolean disabled;
-    public @Nullable Boolean isDisabled() {return disabled;}
-
-    /** True if this is a local account. */
+    /**
+     * True if this is a local account.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("LocalAccount")
     @Nullable
     Boolean localAccount;
-    public @Nullable Boolean isLocalAccount() {return localAccount;}
-
-    /** True if the account is locked out. */
+    /**
+     * True if the account is locked out.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("Lockout")
     @Nullable
     Boolean lockout;
-    public @Nullable Boolean isLockedOut() {return lockout;}
-
-    /** True if a password is required. */
+    /**
+     * True if a password is required.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("PasswordRequired")
     @Nullable
     Boolean passwordRequired;
-    public @Nullable Boolean isPasswordRequired() {return passwordRequired;}
-
-    /** True if the password expires. */
+    /**
+     * True if the password expires.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("PasswordExpires")
     @Nullable
     Boolean passwordExpires;
-    public @Nullable Boolean doesPasswordExpire() {return passwordExpires;}
-
-    /** True if the password can be changed. */
+    /**
+     * True if the password can be changed.
+     */
     @Getter(AccessLevel.NONE)
     @SerializedName("PasswordChangeable")
     @Nullable
     Boolean passwordChangeable;
-    public @Nullable Boolean isPasswordChangeable() {return passwordChangeable;}
-
     /**
      * Current operational status of the account.
      * <p>Possible OPERATIONAL values:</p>
@@ -188,8 +196,33 @@ public class Win32UserAccount {
     @Nullable
     String status;
 
+    public @Nullable Boolean isDisabled() {
+        return disabled;
+    }
+
+    public @Nullable Boolean isLocalAccount() {
+        return localAccount;
+    }
+
+    public @Nullable Boolean isLockedOut() {
+        return lockout;
+    }
+
+    public @Nullable Boolean isPasswordRequired() {
+        return passwordRequired;
+    }
+
+    public @Nullable Boolean doesPasswordExpire() {
+        return passwordExpires;
+    }
+
+    public @Nullable Boolean isPasswordChangeable() {
+        return passwordChangeable;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

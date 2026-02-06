@@ -73,8 +73,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32VideoControllerService implements CommonServiceInterface<Win32VideoController> {
@@ -86,9 +87,9 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
      * </p>
      *
      * @return an immutable list of {@link Win32VideoController} objects representing the video controllers.
-     *         Returns an empty list if none are detected.
+     * Returns an empty list if none are detected.
      * @throws JsonSyntaxException if there is an error executing the PowerShell command
-     *                          or parsing the output.
+     *                             or parsing the output.
      * @since 3.0.0
      */
     @NotNull
@@ -106,8 +107,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32VideoController} objects representing the video controllers.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -130,8 +130,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32VideoController} objects representing the video controllers.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.1.0
      */
     @NotNull

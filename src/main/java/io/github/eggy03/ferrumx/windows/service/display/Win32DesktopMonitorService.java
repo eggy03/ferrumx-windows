@@ -71,8 +71,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32DesktopMonitorService implements CommonServiceInterface<Win32DesktopMonitor> {
@@ -84,8 +85,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      * </p>
      *
      * @return an immutable list of {@link Win32DesktopMonitor} objects representing connected monitors.
-     *         Returns an empty list if no monitors are detected.
-     *
+     * Returns an empty list if no monitors are detected.
      * @since 3.0.0
      */
     @NonNull
@@ -103,8 +103,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32DesktopMonitor} objects representing connected monitors.
-     *         Returns an empty list if no monitors are detected.
-     *
+     * Returns an empty list if no monitors are detected.
      * @since 3.0.0
      */
     @NonNull
@@ -127,8 +126,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32DesktopMonitor} objects representing connected monitors.
-     *         Returns an empty list if no monitors are detected.
-     *
+     * Returns an empty list if no monitors are detected.
      * @since 3.1.0
      */
     @NotNull

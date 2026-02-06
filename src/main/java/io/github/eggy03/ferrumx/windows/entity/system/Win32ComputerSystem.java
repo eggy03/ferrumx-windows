@@ -45,9 +45,9 @@ import java.util.List;
  *
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem">Win32_ComputerSystem Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -127,11 +127,6 @@ public class Win32ComputerSystem {
     @SerializedName("AutomaticResetBootOption")
     @Nullable
     Boolean automaticResetBootOption;
-    public @Nullable Boolean hasAutomaticResetBootOption() {return automaticResetBootOption;}
-
-
-    // Power
-
     /**
      * Current power state of the computer system. Possible values:
      * <ul>
@@ -151,6 +146,8 @@ public class Win32ComputerSystem {
     @Nullable
     Integer powerState;
 
+
+    // Power
     /**
      * State of the power supply or supplies when last booted.
      * <p>Possible Values:</p>
@@ -166,7 +163,6 @@ public class Win32ComputerSystem {
     @SerializedName("PowerSupplyState")
     @Nullable
     Integer powerSupplyState;
-
     /**
      * Array of specific power-related capabilities.
      * <p>Possible Values: </p>
@@ -184,7 +180,6 @@ public class Win32ComputerSystem {
     @SerializedName("PowerManagementCapabilities")
     @Nullable
     List<Integer> powerManagementCapabilities;
-
     /**
      * If true, the device can be power-managed
      */
@@ -192,11 +187,6 @@ public class Win32ComputerSystem {
     @SerializedName("PowerManagementSupported")
     @Nullable
     Boolean powerManagementSupported;
-    public @Nullable Boolean isPowerManagementSupported() {return powerManagementSupported;}
-
-
-    // Reset
-
     /**
      * If enabled, indicates the unitary computer system can be reset using power and reset buttons.
      * Typical values:
@@ -211,7 +201,6 @@ public class Win32ComputerSystem {
     @SerializedName("ResetCapability")
     @Nullable
     Integer resetCapability;
-
     /**
      * Number of automatic resets since the last reset.
      * A value of -1 indicates the count is unknown.
@@ -220,6 +209,8 @@ public class Win32ComputerSystem {
     @Nullable
     Integer resetCount;
 
+
+    // Reset
     /**
      * Number of consecutive times a system reset is attempted.
      * A value of -1 indicates the limit is unknown.
@@ -227,7 +218,6 @@ public class Win32ComputerSystem {
     @SerializedName("ResetLimit")
     @Nullable
     Integer resetLimit;
-
     /**
      * Hardware security setting for the front-panel reset button.
      * Typical values:
@@ -241,7 +231,6 @@ public class Win32ComputerSystem {
     @SerializedName("FrontPanelResetStatus")
     @Nullable
     Integer frontPanelResetStatus;
-
     /**
      * If true, automatic reset capability is available.
      */
@@ -249,25 +238,18 @@ public class Win32ComputerSystem {
     @SerializedName("AutomaticResetCapability")
     @Nullable
     Boolean automaticResetCapability;
-    public @Nullable Boolean hasAutomaticResetCapability() {return automaticResetCapability;}
-
-
-    // General identifying / owner info
-
     /**
      * Key of a CIM_System instance. Name of the computer system.
      */
     @SerializedName("Name")
     @Nullable
     String name;
-
     /**
      * Short one-line description of the object.
      */
     @SerializedName("Caption")
     @Nullable
     String caption;
-
     /**
      * Longer description of the object.
      */
@@ -275,62 +257,56 @@ public class Win32ComputerSystem {
     @Nullable
     String description;
 
+
+    // General identifying / owner info
     /**
      * Name of the computer manufacturer
      */
     @SerializedName("Manufacturer")
     @Nullable
     String manufacturer;
-
     /**
      * Product name assigned by the manufacturer.
      */
     @SerializedName("Model")
     @Nullable
     String model;
-
     /**
      * Name of the primary owner.
      */
     @SerializedName("PrimaryOwnerName")
     @Nullable
     String primaryOwnerName;
-
     /**
      * Contact information for the primary owner.
      */
     @SerializedName("PrimaryOwnerContact")
     @Nullable
     String primaryOwnerContact;
-
     /**
      * List of roles the system performs in the environment (editable).
      */
     @SerializedName("Roles")
     @Nullable
     List<String> roles;
-
     /**
      * Chassis or enclosure SKU number (from SMBIOS).
      */
     @SerializedName("ChassisSKUNumber")
     @Nullable
     String chassisSKUNumber;
-
     /**
      * SKU/Product ID for the system configuration.
      */
     @SerializedName("SystemSKUNumber")
     @Nullable
     String systemSKUNumber;
-
     /**
      * Family of the computer (SMBIOS Family field). May be unsupported on older OS versions.
      */
     @SerializedName("SystemFamily")
     @Nullable
     String systemFamily;
-
     /**
      * System architecture description
      * <p>Possible Values: </p>
@@ -351,42 +327,36 @@ public class Win32ComputerSystem {
     @SerializedName("SystemType")
     @Nullable
     String systemType;
-
     /**
      * Currently logged-on user. In Terminal Services scenarios, this is the console user.
      */
     @SerializedName("UserName")
     @Nullable
     String userName;
-
     /**
      * Name of the workgroup or domain (if PartOfDomain==false this is a workgroup name).
      */
     @SerializedName("Workgroup")
     @Nullable
     String workgroup;
-
     /**
      * OEM-defined strings
      */
     @SerializedName("OEMStringArray")
     @Nullable
     List<String> oemStringArray;
-
     /**
      * Number of physical processors installed (enabled).
      */
     @SerializedName("NumberOfProcessors")
     @Nullable
     Long numberOfProcessors;
-
     /**
      * Number of logical processors available (includes hyperthreading logical CPUs).
      */
     @SerializedName("NumberOfLogicalProcessors")
     @Nullable
     Long numberOfLogicalProcessors;
-
     /**
      * Total size of physical memory in bytes.
      * Note: under some circumstances this may not be accurate (BIOS reservation). For accurate module-by-module capacity,
@@ -395,10 +365,6 @@ public class Win32ComputerSystem {
     @SerializedName("TotalPhysicalMemory")
     @Nullable
     BigInteger totalPhysicalMemory;
-
-
-    // Uncategorized
-
     /**
      * If true, the system manages the page file automatically.
      */
@@ -406,8 +372,6 @@ public class Win32ComputerSystem {
     @SerializedName("AutomaticManagedPagefile")
     @Nullable
     Boolean automaticManagedPagefile;
-    public @Nullable Boolean isAutomaticManagedPagefile() {return automaticManagedPagefile;}
-
     /**
      * If true, an infrared (IR) port exists on the computer system.
      */
@@ -415,8 +379,6 @@ public class Win32ComputerSystem {
     @SerializedName("InfraredSupported")
     @Nullable
     Boolean infraredSupported;
-    public @Nullable Boolean isInfraredSupported() {return infraredSupported;}
-
     /**
      * If true, network server mode is enabled (system behaves as a server).
      */
@@ -424,8 +386,9 @@ public class Win32ComputerSystem {
     @SerializedName("NetworkServerModeEnabled")
     @Nullable
     Boolean networkServerModeEnabled;
-    public @Nullable Boolean isNetworkServerModeEnabled() {return networkServerModeEnabled;}
 
+
+    // Uncategorized
     /**
      * If true, a hypervisor is present on the system.
      * Note: not supported before Windows 8 / Windows Server 2012 on older OSes.
@@ -434,8 +397,6 @@ public class Win32ComputerSystem {
     @SerializedName("HypervisorPresent")
     @Nullable
     Boolean hypervisorPresent;
-    public @Nullable Boolean isHypervisorPresent() {return hypervisorPresent;}
-
     /**
      * Thermal state of the system when last booted.
      * <p>Possible values:</p>
@@ -451,7 +412,6 @@ public class Win32ComputerSystem {
     @SerializedName("ThermalState")
     @Nullable
     Integer thermalState;
-
     /**
      * Amount of time the system is offset from UTC, in minutes.
      * Example: for UTC+5:30 (Asia/Kolkata) the value is 330.
@@ -459,7 +419,6 @@ public class Win32ComputerSystem {
     @SerializedName("CurrentTimeZone")
     @Nullable
     Integer currentTimeZone;
-
     /**
      * If True, the daylight savings mode is ON.
      */
@@ -467,10 +426,42 @@ public class Win32ComputerSystem {
     @SerializedName("DaylightInEffect")
     @Nullable
     Boolean daylightInEffect;
-    public @Nullable Boolean isDaylightInEffect() {return daylightInEffect;}
+
+    public @Nullable Boolean hasAutomaticResetBootOption() {
+        return automaticResetBootOption;
+    }
+
+    public @Nullable Boolean isPowerManagementSupported() {
+        return powerManagementSupported;
+    }
+
+    public @Nullable Boolean hasAutomaticResetCapability() {
+        return automaticResetCapability;
+    }
+
+    public @Nullable Boolean isAutomaticManagedPagefile() {
+        return automaticManagedPagefile;
+    }
+
+    public @Nullable Boolean isInfraredSupported() {
+        return infraredSupported;
+    }
+
+    public @Nullable Boolean isNetworkServerModeEnabled() {
+        return networkServerModeEnabled;
+    }
+
+    public @Nullable Boolean isHypervisorPresent() {
+        return hypervisorPresent;
+    }
+
+    public @Nullable Boolean isDaylightInEffect() {
+        return daylightInEffect;
+    }
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

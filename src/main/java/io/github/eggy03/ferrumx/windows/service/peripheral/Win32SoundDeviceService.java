@@ -71,8 +71,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32SoundDeviceService implements CommonServiceInterface<Win32SoundDevice> {
@@ -84,8 +85,7 @@ public class Win32SoundDeviceService implements CommonServiceInterface<Win32Soun
      * </p>
      *
      * @return an immutable list of {@link Win32SoundDevice} objects representing the system's sound devices.
-     *         If no sound devices are present, returns an empty list.
-     *
+     * If no sound devices are present, returns an empty list.
      * @since 3.0.0
      */
     @NotNull
@@ -102,8 +102,7 @@ public class Win32SoundDeviceService implements CommonServiceInterface<Win32Soun
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32SoundDevice} objects representing the system's sound devices.
-     *         If no sound devices are present, returns an empty list.
-     *
+     * If no sound devices are present, returns an empty list.
      * @since 3.0.0
      */
     @NotNull
@@ -125,8 +124,7 @@ public class Win32SoundDeviceService implements CommonServiceInterface<Win32Soun
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32SoundDevice} objects representing the system's sound devices.
-     *         If no sound devices are present, returns an empty list.
-     *
+     * If no sound devices are present, returns an empty list.
      * @since 3.1.0
      */
     @NotNull

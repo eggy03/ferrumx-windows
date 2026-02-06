@@ -77,6 +77,8 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32DiskDriveToPartitionAndLogicalDisk
  * @see Win32DiskDriveService
  * @see Win32DiskPartitionService
@@ -84,7 +86,6 @@ import java.util.List;
  * @see Win32DiskDriveToDiskPartitionService
  * @see Win32LogicalDiskToPartitionService
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Slf4j
 public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInterface<Win32DiskPartitionToLogicalDisk> {
@@ -97,13 +98,12 @@ public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInte
      *
      * @return an immutable list of {@link Win32DiskPartitionToLogicalDisk} objects representing connected physical disk and related logical disks.
      * Returns an empty list if no data is found.
-     *
      * @since 3.0.0
      */
     @NotNull
     @Override
     public List<Win32DiskPartitionToLogicalDisk> get() {
-        try(PowerShell shell = PowerShell.openSession()){
+        try (PowerShell shell = PowerShell.openSession()) {
             PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT.getScriptPath()));
             log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32DiskPartitionToLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskPartitionToLogicalDisk.class);
@@ -117,7 +117,6 @@ public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInte
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32DiskPartitionToLogicalDisk} objects representing connected physical disk and related logical disks.
      * Returns an empty list if no data is found.
-     *
      * @since 3.0.0
      */
     @NotNull
@@ -140,7 +139,6 @@ public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInte
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32DiskPartitionToLogicalDisk} objects representing connected physical disk and related logical disks.
      * Returns an empty list if no data is found.
-     *
      * @since 3.1.0
      */
     @NotNull

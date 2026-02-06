@@ -163,9 +163,9 @@ class Win32DiskDriveToPartitionAndLogicalDiskServiceTest {
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32DiskDriveToPartitionAndLogicalDisk> objectList = service.get(5L);
@@ -177,12 +177,12 @@ class Win32DiskDriveToPartitionAndLogicalDiskServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 

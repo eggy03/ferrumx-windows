@@ -72,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32PortConnectorService implements CommonServiceInterface<Win32PortConnector> {
@@ -83,9 +84,9 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
-     * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
-     *         Returns an empty list if no ports are detected.
      *
+     * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
+     * Returns an empty list if no ports are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -103,8 +104,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
-     *         Returns an empty list if no ports are detected.
-     *
+     * Returns an empty list if no ports are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -127,8 +127,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32PortConnector} objects representing the system's mainboard ports.
-     *         Returns an empty list if no ports are detected.
-     *
+     * Returns an empty list if no ports are detected.
      * @since 3.1.0
      */
     @NotNull

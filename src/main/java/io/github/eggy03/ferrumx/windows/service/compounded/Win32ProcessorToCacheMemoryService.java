@@ -74,11 +74,12 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32AssociatedProcessorMemoryService
  * @see Win32ProcessorService
  * @see Win32CacheMemoryService
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Slf4j
 public class Win32ProcessorToCacheMemoryService implements CommonServiceInterface<Win32ProcessorToCacheMemory> {
@@ -91,13 +92,12 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
      *
      * @return an immutable list of {@link Win32ProcessorToCacheMemory} objects.
      * Returns an empty list if no processors and related cache information are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
     @Override
     public List<Win32ProcessorToCacheMemory> get() {
-        try(PowerShell shell = PowerShell.openSession()){
+        try (PowerShell shell = PowerShell.openSession()) {
             PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_PROCESSOR_TO_CACHE_MEMORY_SCRIPT.getScriptPath()));
             log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32ProcessorToCacheMemoryMapper().mapToList(response.getCommandOutput(), Win32ProcessorToCacheMemory.class);
@@ -111,7 +111,6 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32ProcessorToCacheMemory} objects
      * Returns an empty list if no processors and related cache information are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
@@ -134,7 +133,6 @@ public class Win32ProcessorToCacheMemoryService implements CommonServiceInterfac
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32ProcessorToCacheMemory} objects
      * Returns an empty list if no processors and related cache information are detected.
-     *
      * @since 3.1.0
      */
     @NotNull

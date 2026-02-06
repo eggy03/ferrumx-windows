@@ -72,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32UserAccountService implements CommonServiceInterface<Win32UserAccount> {
@@ -85,8 +86,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
      * </p>
      *
      * @return an immutable list of {@link Win32UserAccount} objects representing the user accounts.
-     *         Returns an empty list if no user accounts are detected.
-     *
+     * Returns an empty list if no user accounts are detected.
      * @since 3.0.0
      */
     @Override
@@ -102,8 +102,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32UserAccount} objects representing the user accounts.
-     *         Returns an empty list if no user accounts are detected.
-     *
+     * Returns an empty list if no user accounts are detected.
      * @since 3.0.0
      */
     @Override
@@ -125,8 +124,7 @@ public class Win32UserAccountService implements CommonServiceInterface<Win32User
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32UserAccount} objects representing the user accounts.
-     *         Returns an empty list if no user accounts are detected.
-     *
+     * Returns an empty list if no user accounts are detected.
      * @since 3.1.0
      */
     @NotNull

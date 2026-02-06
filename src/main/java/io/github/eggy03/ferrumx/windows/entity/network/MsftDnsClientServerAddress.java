@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Immutable representation of a DNS server configuration for a particular network adapter on a Windows system.
  * <p>
- *      Fields correspond to properties retrieved from the {@code MSFT_DNSClientServerAddress} class in the
- *      {@code root/StandardCimv2} namespace.
+ * Fields correspond to properties retrieved from the {@code MSFT_DNSClientServerAddress} class in the
+ * {@code root/StandardCimv2} namespace.
  * </p>
  * <p>
- *     Together, with {@link MsftNetIpAddress}, this class aims to be
- *     a replacement for {@link Win32NetworkAdapterConfiguration}
+ * Together, with {@link MsftNetIpAddress}, this class aims to be
+ * a replacement for {@link Win32NetworkAdapterConfiguration}
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *
@@ -43,9 +43,10 @@ import java.util.List;
  * <p>See {@link MsftNetAdapter}, for network adapter information.</p>
  * <p>See {@link MsftNetConnectionProfile}, for information regarding the current profile of a network adapter.</p>
  * <p>See {@link MsftNetIpAddress}, for IP address configuration information of a network adapter.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/fwp/wmi/dnsclientcimprov/msft-dnsclientserveraddress">MSFT_DNSClientServerAddress Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -88,6 +89,7 @@ public class MsftDnsClientServerAddress {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

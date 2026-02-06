@@ -45,9 +45,10 @@ import java.math.BigInteger;
  *
  * <p>See {@link Win32DiskDrive} for information about physical disks in the system.</p>
  * <p>See {@link Win32DiskPartition} for information about partitions in a physical disk.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-logicaldisk">Win32_LogicalDisk Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -125,8 +126,6 @@ public class Win32LogicalDisk {
     @SerializedName("Compressed")
     @Nullable
     Boolean compressed;
-    public @Nullable Boolean isCompressed() {return compressed;}
-
     /**
      * Indicates whether the logical disk supports file-based compression (e.g., NTFS).
      */
@@ -134,8 +133,6 @@ public class Win32LogicalDisk {
     @SerializedName("SupportsFileBasedCompression")
     @Nullable
     Boolean supportsFileBasedCompression;
-    public @Nullable Boolean supportsFileBasedCompression() {return supportsFileBasedCompression;}
-
     /**
      * Indicates whether this volume supports disk quotas.
      */
@@ -143,8 +140,6 @@ public class Win32LogicalDisk {
     @SerializedName("SupportsDiskQuotas")
     @Nullable
     Boolean supportsDiskQuotas;
-    public @Nullable Boolean supportsDiskQuotas() {return supportsDiskQuotas;}
-
     /**
      * Volume name of the logical disk.
      * Example: {@code "Local Disk"}
@@ -152,7 +147,6 @@ public class Win32LogicalDisk {
     @SerializedName("VolumeName")
     @Nullable
     String volumeName;
-
     /**
      * Volume serial number of the logical disk.
      */
@@ -160,8 +154,21 @@ public class Win32LogicalDisk {
     @Nullable
     String volumeSerialNumber;
 
+    public @Nullable Boolean isCompressed() {
+        return compressed;
+    }
+
+    public @Nullable Boolean supportsFileBasedCompression() {
+        return supportsFileBasedCompression;
+    }
+
+    public @Nullable Boolean supportsDiskQuotas() {
+        return supportsDiskQuotas;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

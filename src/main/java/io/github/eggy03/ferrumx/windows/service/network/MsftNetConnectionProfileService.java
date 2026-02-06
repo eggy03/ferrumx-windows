@@ -72,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class MsftNetConnectionProfileService implements CommonServiceInterface<MsftNetConnectionProfile> {
@@ -85,8 +86,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
      * </p>
      *
      * @return an immutable list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
-     *         Returns an empty list if no profiles are detected.
-     *
+     * Returns an empty list if no profiles are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -103,8 +103,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
-     *         Returns an empty list if no profiles are detected.
-     *
+     * Returns an empty list if no profiles are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -126,8 +125,7 @@ public class MsftNetConnectionProfileService implements CommonServiceInterface<M
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link MsftNetConnectionProfile} objects representing the connection profiles.
-     *         Returns an empty list if no profiles are detected.
-     *
+     * Returns an empty list if no profiles are detected.
      * @since 3.1.0
      */
     @NotNull

@@ -57,9 +57,10 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>See {@link Win32DiskPartition} for related partitions on a physical disk.</p>
  * <p>See {@link Win32LogicalDisk} for partition info for partitions on a physical disk</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-logicaldisktopartition">Win32_LogicalDiskToPartition Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -81,6 +82,7 @@ public class Win32LogicalDiskToPartition {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

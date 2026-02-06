@@ -42,9 +42,9 @@ import java.util.List;
  *     .build();
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-printer">Win32_Printer Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -131,7 +131,7 @@ public class Win32Printer {
     List<Integer> paperSizesSupported;
 
     /**
-     *  Names of paper types or forms supported by the printer.
+     * Names of paper types or forms supported by the printer.
      */
     @SerializedName("PrinterPaperNames")
     @Nullable
@@ -153,15 +153,17 @@ public class Win32Printer {
     @Nullable
     Integer printerStatus;
 
-    /** Data type of print jobs
-     *  Example: RAW or EMF
+    /**
+     * Data type of print jobs
+     * Example: RAW or EMF
      */
     @SerializedName("PrintJobDataType")
     @Nullable
     String printJobDataType;
 
-    /** Print processor used to process print jobs
-     *  Example: WinPrint
+    /**
+     * Print processor used to process print jobs
+     * Example: WinPrint
      */
     @SerializedName("PrintProcessor")
     @Nullable
@@ -181,15 +183,12 @@ public class Win32Printer {
     @SerializedName("Shared")
     @Nullable
     Boolean shared;
-    public @Nullable Boolean isShared() {return shared;}
-
     /**
-     *  Share name of the printer if it is shared.
+     * Share name of the printer if it is shared.
      */
     @SerializedName("ShareName")
     @Nullable
     String shareName;
-
     /**
      * Indicates whether spooling is enabled for the printer.
      */
@@ -197,8 +196,6 @@ public class Win32Printer {
     @SerializedName("SpoolEnabled")
     @Nullable
     Boolean spoolEnabled;
-    public @Nullable Boolean hasSpoolEnabled() {return spoolEnabled;}
-
     /**
      * Specifies whether the printer is hidden from standard user interfaces.
      */
@@ -206,10 +203,22 @@ public class Win32Printer {
     @SerializedName("Hidden")
     @Nullable
     Boolean hidden;
-    public @Nullable Boolean isHidden() {return hidden;}
+
+    public @Nullable Boolean isShared() {
+        return shared;
+    }
+
+    public @Nullable Boolean hasSpoolEnabled() {
+        return spoolEnabled;
+    }
+
+    public @Nullable Boolean isHidden() {
+        return hidden;
+    }
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

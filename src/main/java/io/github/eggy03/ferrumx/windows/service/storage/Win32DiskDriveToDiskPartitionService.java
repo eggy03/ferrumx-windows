@@ -74,8 +74,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterface<Win32DiskDriveToDiskPartition> {
@@ -88,7 +89,6 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
      *
      * @return an immutable list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}. Returns an empty list if none are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
@@ -107,7 +107,6 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
      *
      * @return an immutable list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
      * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}. Returns an empty list if none are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
@@ -129,9 +128,8 @@ public class Win32DiskDriveToDiskPartitionService implements CommonServiceInterf
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32DiskDriveToDiskPartition} objects representing the association between
-     *         a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}.
-     *         Returns an empty list if none are detected.
-     *
+     * a {@link Win32DiskDrive} and it's {@link Win32DiskPartition}.
+     * Returns an empty list if none are detected.
      * @since 3.1.0
      */
     @NotNull

@@ -26,8 +26,9 @@ import static io.github.eggy03.ferrumx.windows.utility.ReflectionUtility.getFrom
  * using {@link PowerShell} and mapped to
  * corresponding Java objects.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @RequiredArgsConstructor
 @Getter
@@ -36,6 +37,7 @@ public enum StandardCimv2Namespace {
     /**
      * Query to fetch the properties of the {@code MSFT_NetAdapter} class
      * <p>Will not show hidden physical or logical network adapters unless explicitly stated</p>
+     *
      * @since 3.0.0
      */
     MSFT_NET_ADAPTER_QUERY("Get-NetAdapter" +
@@ -44,6 +46,7 @@ public enum StandardCimv2Namespace {
 
     /**
      * Query to fetch the properties of the {@code MSFT_NetIPAddress} class
+     *
      * @since 3.0.0
      */
     MSFT_NET_IP_ADDRESS_QUERY("Get-NetIPAddress" +
@@ -52,6 +55,7 @@ public enum StandardCimv2Namespace {
 
     /**
      * Query to fetch the properties of the {@code MSFT_NetDNSClientServerAddress} class
+     *
      * @since 3.0.0
      */
     MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY("Get-DNSClientServerAddress" +
@@ -60,6 +64,7 @@ public enum StandardCimv2Namespace {
 
     /**
      * Query to fetch the properties of the {@code MSFT_NetConnectionProfile} class
+     *
      * @since 3.0.0
      */
     MSFT_NET_CONNECTION_PROFILE_QUERY("Get-NetConnectionProfile" +

@@ -37,11 +37,10 @@ import static org.mockito.Mockito.when;
 
 class Win32UserAccountTest {
 
-    private Win32UserAccountService service;
-    
     private static Win32UserAccount expectedUser1;
     private static Win32UserAccount expectedUser2;
     private static String json;
+    private Win32UserAccountService service;
 
     @BeforeAll
     static void setupUsers() {
@@ -121,11 +120,12 @@ class Win32UserAccountTest {
 
         json = new Gson().toJson(users);
     }
-    
+
     @BeforeEach
     void setService() {
         service = new Win32UserAccountService();
     }
+
     @Test
     void test_get_success() {
 
@@ -213,9 +213,9 @@ class Win32UserAccountTest {
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32UserAccount> userList = service.get(5L);
@@ -229,12 +229,12 @@ class Win32UserAccountTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -254,9 +254,9 @@ class Win32UserAccountTest {
         Field[] declaredClassFields = Win32UserAccount.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

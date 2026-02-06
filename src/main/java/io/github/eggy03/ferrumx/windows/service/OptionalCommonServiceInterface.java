@@ -15,13 +15,14 @@ import java.util.Optional;
  * Common service interface whose method implementations provide a way to fetch WMI data from PowerShell
  * in the form of {@link Optional}
  * <p>
- *     Useful for implementing services of classes which return exactly one instance
- *     such as the {@code Win32_ComputerSystem} WMI class
+ * Useful for implementing services of classes which return exactly one instance
+ * such as the {@code Win32_ComputerSystem} WMI class
  * </p>
+ *
  * @param <S> the entity type returned by the service implementation
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
- * @since 2.2.0
  * @see CommonServiceInterface
+ * @since 2.2.0
  */
 public interface OptionalCommonServiceInterface<S> {
 
@@ -30,6 +31,7 @@ public interface OptionalCommonServiceInterface<S> {
      * that automatically handle the PowerShell process lifecycle and then
      * map the results to the expected entity types using a custom implementation
      * or the default methods of {@link CommonMappingInterface}
+     *
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
      * @since 2.2.0
      */
@@ -40,6 +42,7 @@ public interface OptionalCommonServiceInterface<S> {
      * that delegate the responsibility of managing the PowerShell session to the caller
      * and then map the results to the expected entity types using a custom implementation
      * or the default methods of {@link CommonMappingInterface}
+     *
      * @param powerShell the caller-managed PowerShell session passed to the method
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
      * @since 2.2.0
@@ -51,6 +54,7 @@ public interface OptionalCommonServiceInterface<S> {
      * {@link TerminalUtility} instead for PowerShell session management
      * and then map the results to the expected entity types using a custom implementation
      * or the default methods of {@link CommonMappingInterface}
+     *
      * @param timeout the maximum time (in seconds) to wait for the PowerShell command to complete before terminating the process
      * @return an {@link Optional} entity of type {@code <S>} defined by the caller
      * @since 3.1.0

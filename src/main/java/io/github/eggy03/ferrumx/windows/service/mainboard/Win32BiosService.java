@@ -72,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
@@ -83,9 +84,9 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
      * <p>
      * Each invocation creates and uses a short-lived PowerShell session internally.
      * </p>
-     * @return an immutable list of {@link Win32Bios} objects representing the system BIOS.
-     *         Returns an empty list if no BIOS entries are detected.
      *
+     * @return an immutable list of {@link Win32Bios} objects representing the system BIOS.
+     * Returns an empty list if no BIOS entries are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -102,8 +103,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32Bios} objects representing the system BIOS.
-     *         Returns an empty list if no BIOS entries are detected.
-     *
+     * Returns an empty list if no BIOS entries are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -125,8 +125,7 @@ public class Win32BiosService implements CommonServiceInterface<Win32Bios> {
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32Bios} objects representing the system BIOS.
-     *         Returns an empty list if no BIOS entries are detected.
-     *
+     * Returns an empty list if no BIOS entries are detected.
      * @since 3.1.0
      */
     @NotNull

@@ -34,12 +34,12 @@ import java.util.List;
  *     .externalReferenceDesignator("USB3_1")
  *     .build();
  * }</pre>
- *
+ * <p>
  * {@link Win32Baseboard} contains the details of the motherboard this port belongs to.
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-portconnector">Win32_PortConnector Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -129,6 +129,7 @@ public class Win32PortConnector {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

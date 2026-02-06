@@ -36,11 +36,12 @@ import org.jetbrains.annotations.Nullable;
  *     .netEnabled(false)
  *     .build();
  * }</pre>
- *
+ * <p>
  * {@link Win32NetworkAdapterConfiguration} contains related network configuration details.
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-networkadapter">Win32_NetworkAdapter Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -97,8 +98,6 @@ public class Win32NetworkAdapter {
     @SerializedName("Installed")
     @Nullable
     Boolean installed;
-    public @Nullable Boolean isInstalled(){ return installed;}
-
     /**
      * Indicates whether the network adapter is currently enabled.
      */
@@ -106,15 +105,12 @@ public class Win32NetworkAdapter {
     @SerializedName("NetEnabled")
     @Nullable
     Boolean netEnabled;
-    public @Nullable Boolean isNetEnabled() {return netEnabled;}
-
     /**
      * Name of the network connection as displayed in the Network Connections Control Panel.
      */
     @SerializedName("NetConnectionID")
     @Nullable
     String netConnectionId;
-
     /**
      * Indicates whether the adapter represents a physical or logical device.
      */
@@ -122,8 +118,6 @@ public class Win32NetworkAdapter {
     @SerializedName("PhysicalAdapter")
     @Nullable
     Boolean physicalAdapter;
-    public @Nullable Boolean isPhysicalAdapter() {return physicalAdapter;}
-
     /**
      * Date and time the network adapter was last reset.
      */
@@ -131,8 +125,21 @@ public class Win32NetworkAdapter {
     @Nullable
     String timeOfLastReset;
 
+    public @Nullable Boolean isInstalled() {
+        return installed;
+    }
+
+    public @Nullable Boolean isNetEnabled() {
+        return netEnabled;
+    }
+
+    public @Nullable Boolean isPhysicalAdapter() {
+        return physicalAdapter;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override

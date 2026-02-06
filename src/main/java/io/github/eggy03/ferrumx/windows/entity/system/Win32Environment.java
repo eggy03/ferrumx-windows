@@ -39,9 +39,9 @@ import org.jetbrains.annotations.Nullable;
  *
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-environment">Win32_Environment Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -61,8 +61,6 @@ public class Win32Environment {
     @SerializedName("SystemVariable")
     @Nullable
     Boolean systemVariable;
-    public @Nullable Boolean isSystemVariable() {return systemVariable;}
-
     /**
      * Placeholder variable of a Windows-based environment variable.
      * Information like the file system directory can change from computer to computer.
@@ -72,13 +70,18 @@ public class Win32Environment {
     @Nullable
     String variableValue;
 
+    public @Nullable Boolean isSystemVariable() {
+        return systemVariable;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
     @NotNull
-    public String toString(){
+    public String toString() {
         return new GsonBuilder()
                 .serializeNulls()
                 .setPrettyPrinting()

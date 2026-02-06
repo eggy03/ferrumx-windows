@@ -72,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32ProcessorService implements CommonServiceInterface<Win32Processor> {
@@ -85,8 +86,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      * </p>
      *
      * @return an immutable list of {@link Win32Processor} objects representing the CPU(s).
-     *         Returns an empty list if no processors are detected.
-     *
+     * Returns an empty list if no processors are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -102,8 +102,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32Processor} objects representing the CPU(s).
-     *         Returns an empty list if no processors are detected.
-     *
+     * Returns an empty list if no processors are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -125,8 +124,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32Processor} objects representing the CPU(s).
-     *         Returns an empty list if no processors are detected.
-     *
+     * Returns an empty list if no processors are detected.
      * @since 3.1.0
      */
     @NotNull

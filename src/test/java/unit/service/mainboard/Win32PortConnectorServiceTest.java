@@ -39,12 +39,10 @@ import static org.mockito.Mockito.when;
 
 class Win32PortConnectorServiceTest {
 
-    private Win32PortConnectorService service;
-
     private static Win32PortConnector expectedPort1;
     private static Win32PortConnector expectedPort2;
-
     private static String json;
+    private Win32PortConnectorService service;
 
     @BeforeAll
     static void setPorts() {
@@ -52,7 +50,7 @@ class Win32PortConnectorServiceTest {
                 .tag("PortConnector1")
                 .externalReferenceDesignator("USB3_0")
                 .internalReferenceDesignator("JUSB1")
-                .connectorType(Arrays.asList(1,2,3))
+                .connectorType(Arrays.asList(1, 2, 3))
                 .portType(1)
                 .build();
 
@@ -60,7 +58,7 @@ class Win32PortConnectorServiceTest {
                 .tag("PortConnector2")
                 .externalReferenceDesignator("HDMI_OUT")
                 .internalReferenceDesignator("JHDMI1")
-                .connectorType(Arrays.asList(4,5,6))
+                .connectorType(Arrays.asList(4, 5, 6))
                 .portType(2)
                 .build();
     }
@@ -74,14 +72,14 @@ class Win32PortConnectorServiceTest {
         port1.addProperty("ExternalReferenceDesignator", "USB3_0");
         port1.addProperty("InternalReferenceDesignator", "JUSB1");
         port1.addProperty("PortType", 1);
-        port1.add("ConnectorType", new Gson().toJsonTree(Arrays.asList(1,2,3)));
+        port1.add("ConnectorType", new Gson().toJsonTree(Arrays.asList(1, 2, 3)));
 
         JsonObject port2 = new JsonObject();
         port2.addProperty("Tag", "PortConnector2");
         port2.addProperty("ExternalReferenceDesignator", "HDMI_OUT");
         port2.addProperty("InternalReferenceDesignator", "JHDMI1");
         port2.addProperty("PortType", 2);
-        port2.add("ConnectorType", new Gson().toJsonTree(Arrays.asList(4,5,6)));
+        port2.add("ConnectorType", new Gson().toJsonTree(Arrays.asList(4, 5, 6)));
 
         ports.add(port1);
         ports.add(port2);
@@ -181,9 +179,9 @@ class Win32PortConnectorServiceTest {
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32PortConnector> mainboardPort = service.get(5L);
@@ -197,12 +195,12 @@ class Win32PortConnectorServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -222,9 +220,9 @@ class Win32PortConnectorServiceTest {
         Field[] declaredClassFields = Win32PortConnector.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

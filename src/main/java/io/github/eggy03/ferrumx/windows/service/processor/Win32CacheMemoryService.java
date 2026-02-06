@@ -72,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32CacheMemoryService implements CommonServiceInterface<Win32CacheMemory> {
@@ -85,8 +86,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
      * </p>
      *
      * @return an immutable list of {@link Win32CacheMemory} objects representing the CPU caches.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -103,8 +103,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32CacheMemory} objects representing the CPU caches.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -127,8 +126,7 @@ public class Win32CacheMemoryService implements CommonServiceInterface<Win32Cach
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32CacheMemory} objects representing the CPU caches.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.1.0
      */
     @NotNull

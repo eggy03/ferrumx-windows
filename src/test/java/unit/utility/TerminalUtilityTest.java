@@ -22,19 +22,19 @@ class TerminalUtilityTest {
     void testValidCommand() {
         String validCommand = "10+20";
         String result = TerminalUtility.executeCommand(validCommand, TIMEOUT);
-        assertThat(result).isEqualTo("30"+System.lineSeparator()); // PowerShell appends a new line after each command
+        assertThat(result).isEqualTo("30" + System.lineSeparator()); // PowerShell appends a new line after each command
     }
 
     @Test
     void testInvalidCommand() {
-        assertThrows( TerminalExecutionException.class, ()-> TerminalUtility.executeCommand("invalidCommand", TIMEOUT));
+        assertThrows(TerminalExecutionException.class, () -> TerminalUtility.executeCommand("invalidCommand", TIMEOUT));
     }
 
     @Test
     void testValidScript() {
         String validScript = "$a=10\n$a++\n$a";
         String result = TerminalUtility.executeCommand(validScript, TIMEOUT);
-        assertThat(result).isEqualTo("11"+System.lineSeparator());
+        assertThat(result).isEqualTo("11" + System.lineSeparator());
     }
 
     @Test
@@ -45,20 +45,20 @@ class TerminalUtilityTest {
         reader.lines().forEach(line -> script.append(line).append(System.lineSeparator()));
 
         String result = TerminalUtility.executeCommand(script.toString(), TIMEOUT);
-        assertThat(result).isEqualTo("3"+System.lineSeparator());
+        assertThat(result).isEqualTo("3" + System.lineSeparator());
     }
 
     @Test
     void testTimeout() {
         String sleepCommand = "Start-Sleep -Seconds 30";
-        TerminalExecutionException ex = assertThrows(TerminalExecutionException.class, ()-> TerminalUtility.executeCommand(sleepCommand, 1));
+        TerminalExecutionException ex = assertThrows(TerminalExecutionException.class, () -> TerminalUtility.executeCommand(sleepCommand, 1));
         assertThat(ex.getMessage()).contains("Was killed after a timeout");
     }
 
     @Test
     void testErrorStream() {
         String errorCommand = "Write-Error \"fail\"";
-        TerminalExecutionException ex = assertThrows(TerminalExecutionException.class, ()-> TerminalUtility.executeCommand(errorCommand, TIMEOUT));
+        TerminalExecutionException ex = assertThrows(TerminalExecutionException.class, () -> TerminalUtility.executeCommand(errorCommand, TIMEOUT));
         assertThat(ex.getMessage())
                 .contains("Terminal Error Output")
                 .contains("fail");
@@ -68,7 +68,7 @@ class TerminalUtilityTest {
     void testMixedOutput() {
         String mixedCommand = "Write-Output \"ok\"; Write-Error \"fail\"";
 
-        TerminalExecutionException ex = assertThrows(TerminalExecutionException.class, ()-> TerminalUtility.executeCommand(mixedCommand, TIMEOUT));
+        TerminalExecutionException ex = assertThrows(TerminalExecutionException.class, () -> TerminalUtility.executeCommand(mixedCommand, TIMEOUT));
         assertThat(ex.getMessage())
                 .contains("Terminal Error Output")
                 .contains("ok")
@@ -78,7 +78,7 @@ class TerminalUtilityTest {
 
     @Test
     void testNegativeTimeout() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, ()-> TerminalUtility.executeCommand("Write-Output \"Hello\"", -1));
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> TerminalUtility.executeCommand("Write-Output \"Hello\"", -1));
         assertThat(ex.getMessage()).isEqualTo("Timeout cannot be negative");
     }
 }

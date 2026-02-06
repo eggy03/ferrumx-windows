@@ -71,8 +71,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32BatteryService implements CommonServiceInterface<Win32Battery> {
@@ -84,8 +85,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      * </p>
      *
      * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
-     *         If no batteries are present, returns an empty list.
-     *
+     * If no batteries are present, returns an empty list.
      * @since 3.0.0
      */
     @NotNull
@@ -103,8 +103,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
-     *         If no batteries are present, returns an empty list.
-     *
+     * If no batteries are present, returns an empty list.
      * @since 3.0.0
      */
     @NotNull
@@ -127,8 +126,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
-     *         If no batteries are present, returns an empty list.
-     *
+     * If no batteries are present, returns an empty list.
      * @since 3.1.0
      */
     @NotNull

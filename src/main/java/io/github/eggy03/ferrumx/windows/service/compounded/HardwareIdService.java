@@ -72,8 +72,9 @@ import java.util.Optional;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class HardwareIdService implements OptionalCommonServiceInterface<HardwareId> {
@@ -85,14 +86,13 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
      * </p>
      *
      * @return an {@link Optional} of {@link HardwareId} representing
-     *         the HWID. Returns {@link Optional#empty()} if no information is detected.
-     *
+     * the HWID. Returns {@link Optional#empty()} if no information is detected.
      * @since 3.0.0
      */
     @NotNull
     @Override
     public Optional<HardwareId> get() {
-        try(PowerShell shell = PowerShell.openSession()){
+        try (PowerShell shell = PowerShell.openSession()) {
             PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.HWID_SCRIPT.getScriptPath()));
             log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);
@@ -105,8 +105,7 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an {@link Optional} of {@link HardwareId} representing
-     *         the HWID. Returns {@link Optional#empty()} if no information is detected.
-     *
+     * the HWID. Returns {@link Optional#empty()} if no information is detected.
      * @since 3.0.0
      */
     @NotNull
@@ -128,9 +127,8 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an {@link Optional} of {@link HardwareId} representing
-     *         the HWID. Returns {@link Optional#empty()} if no information
-     *         is detected.
-     *
+     * the HWID. Returns {@link Optional#empty()} if no information
+     * is detected.
      * @since 3.1.0
      */
     @NotNull
