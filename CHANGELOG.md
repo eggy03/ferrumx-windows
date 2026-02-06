@@ -18,6 +18,15 @@ The following headings may be used while categorizing the list of changes made i
 - Documentation
 - Known Issues
 
+## [4.0.1] - February 07, 2026
+
+### Non-Breaking Changes
+
+- Infer nullability for fields and methods via JetBrain's `Nullable` and `NotNull` annotations.
+This also covers fields which were accidentally left devoid of any annotations
+- Add null checks to method parameters where-ever required via Lombok's `@NonNull` annotation
+- Apply style formats to code and Javadocs
+
 ## [4.0.0] - February 04, 2026
 
 ### Breaking Changes
