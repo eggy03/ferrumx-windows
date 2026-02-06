@@ -109,7 +109,7 @@ public class Win32DesktopMonitorService implements CommonServiceInterface<Win32D
      */
     @NonNull
     @Override
-    public List<Win32DesktopMonitor> get(PowerShell powerShell) {
+    public List<Win32DesktopMonitor> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DESKTOP_MONITOR_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());

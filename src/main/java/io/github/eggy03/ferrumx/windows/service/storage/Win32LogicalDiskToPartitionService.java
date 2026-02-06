@@ -14,6 +14,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDiskToPartiti
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32LogicalDiskToPartitionMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -111,7 +112,7 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
      */
     @NotNull
     @Override
-    public List<Win32LogicalDiskToPartition> get(PowerShell powerShell) {
+    public List<Win32LogicalDiskToPartition> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskToPartitionMapper().mapToList(response.getCommandOutput(), Win32LogicalDiskToPartition.class);

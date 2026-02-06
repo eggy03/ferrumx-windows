@@ -14,6 +14,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterSettin
 import io.github.eggy03.ferrumx.windows.mapping.network.Win32NetworkAdapterSettingMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -91,6 +92,7 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      * @since 3.0.0
      */
     @Override
+    @NotNull
     public List<Win32NetworkAdapterSetting> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_SETTING_QUERY.getQuery());
         log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
@@ -109,7 +111,8 @@ public class Win32NetworkAdapterSettingService implements CommonServiceInterface
      * @since 3.0.0
      */
     @Override
-    public List<Win32NetworkAdapterSetting> get(PowerShell powerShell) {
+    @NotNull
+    public List<Win32NetworkAdapterSetting> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_SETTING_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32NetworkAdapterSettingMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterSetting.class);

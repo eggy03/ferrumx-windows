@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterConfig
 import io.github.eggy03.ferrumx.windows.mapping.network.Win32NetworkAdapterConfigurationMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -106,7 +107,7 @@ public class Win32NetworkAdapterConfigurationService implements CommonServiceInt
      */
     @NotNull
     @Override
-    public List<Win32NetworkAdapterConfiguration> get(PowerShell powerShell) {
+    public List<Win32NetworkAdapterConfiguration> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_NETWORK_ADAPTER_CONFIGURATION_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());

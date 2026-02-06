@@ -18,6 +18,7 @@ import io.github.eggy03.ferrumx.windows.service.storage.Win32DiskPartitionServic
 import io.github.eggy03.ferrumx.windows.service.storage.Win32LogicalDiskService;
 import io.github.eggy03.ferrumx.windows.service.storage.Win32LogicalDiskToPartitionService;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -121,7 +122,7 @@ public class Win32DiskPartitionToLogicalDiskService implements CommonServiceInte
      */
     @NotNull
     @Override
-    public List<Win32DiskPartitionToLogicalDisk> get(PowerShell powerShell) {
+    public List<Win32DiskPartitionToLogicalDisk> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_DISK_PARTITION_TO_LOGICAL_DISK_SCRIPT.getScriptPath()));
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32DiskPartitionToLogicalDiskMapper().mapToList(response.getCommandOutput(), Win32DiskPartitionToLogicalDisk.class);

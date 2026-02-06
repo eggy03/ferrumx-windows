@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.compounded.HardwareId;
 import io.github.eggy03.ferrumx.windows.mapping.compounded.HardwareIdMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -110,7 +111,7 @@ public class HardwareIdService implements OptionalCommonServiceInterface<Hardwar
      */
     @NotNull
     @Override
-    public Optional<HardwareId> get(PowerShell powerShell) {
+    public Optional<HardwareId> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.HWID_SCRIPT.getScriptPath()));
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new HardwareIdMapper().mapToObject(response.getCommandOutput(), HardwareId.class);

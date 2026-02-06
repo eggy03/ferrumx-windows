@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.MsftDnsClientServerAddres
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftDnsClientServerAddressMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -108,7 +109,7 @@ public class MsftDnsClientServerAddressService implements CommonServiceInterface
      */
     @NotNull
     @Override
-    public List<MsftDnsClientServerAddress> get(PowerShell powerShell) {
+    public List<MsftDnsClientServerAddress> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_DNS_CLIENT_SERVER_ADDRESS_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new MsftDnsClientServerAddressMapper().mapToList(response.getCommandOutput(), MsftDnsClientServerAddress.class);

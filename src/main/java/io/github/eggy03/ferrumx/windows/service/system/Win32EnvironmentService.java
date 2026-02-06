@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32Environment;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32EnvironmentMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -107,7 +108,7 @@ public class Win32EnvironmentService implements CommonServiceInterface<Win32Envi
      */
     @Override
     @NotNull
-    public List<Win32Environment> get(PowerShell powerShell) {
+    public List<Win32Environment> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_ENVIRONMENT_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32EnvironmentMapper().mapToList(response.getCommandOutput(), Win32Environment.class);

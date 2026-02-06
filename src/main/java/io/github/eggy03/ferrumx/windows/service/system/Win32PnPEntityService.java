@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32PnPEntity;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32PnPEntityMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -89,6 +90,7 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
      * @since 3.0.0
      */
     @Override
+    @NotNull
     public List<Win32PnPEntity> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_PNP_ENTITY_QUERY.getQuery());
         log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
@@ -105,7 +107,8 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
      * @since 3.0.0
      */
     @Override
-    public List<Win32PnPEntity> get(PowerShell powerShell) {
+    @NotNull
+    public List<Win32PnPEntity> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PNP_ENTITY_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32PnPEntityMapper().mapToList(response.getCommandOutput(), Win32PnPEntity.class);

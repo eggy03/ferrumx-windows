@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Battery;
 import io.github.eggy03.ferrumx.windows.mapping.peripheral.Win32BatteryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -108,7 +109,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      */
     @NotNull
     @Override
-    public List<Win32Battery> get(PowerShell powerShell) {
+    public List<Win32Battery> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BATTERY_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());

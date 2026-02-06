@@ -15,6 +15,7 @@ import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterConfi
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterService;
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterSettingService;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -116,7 +117,7 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
      */
     @NotNull
     @Override
-    public List<Win32NetworkAdapterToConfiguration> get(PowerShell powerShell) {
+    public List<Win32NetworkAdapterToConfiguration> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScriptPath()));
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);

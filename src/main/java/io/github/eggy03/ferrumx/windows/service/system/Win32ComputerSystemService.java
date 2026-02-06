@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32ComputerSystem;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32ComputerSystemMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -89,6 +90,7 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
      * @since 3.0.0
      */
     @Override
+    @NotNull
     public Optional<Win32ComputerSystem> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_COMPUTER_SYSTEM_QUERY.getQuery());
@@ -107,7 +109,8 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
      * @since 3.0.0
      */
     @Override
-    public Optional<Win32ComputerSystem> get(PowerShell powerShell) {
+    @NotNull
+    public Optional<Win32ComputerSystem> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_COMPUTER_SYSTEM_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());

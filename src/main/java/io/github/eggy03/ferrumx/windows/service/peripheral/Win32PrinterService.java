@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Printer;
 import io.github.eggy03.ferrumx.windows.mapping.peripheral.Win32PrinterMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -107,7 +108,7 @@ public class Win32PrinterService implements CommonServiceInterface<Win32Printer>
      */
     @NotNull
     @Override
-    public List<Win32Printer> get(PowerShell powerShell) {
+    public List<Win32Printer> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PRINTER_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32PrinterMapper().mapToList(response.getCommandOutput(), Win32Printer.class);

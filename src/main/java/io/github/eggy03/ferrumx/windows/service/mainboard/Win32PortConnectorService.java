@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.mainboard.Win32PortConnector;
 import io.github.eggy03.ferrumx.windows.mapping.mainboard.Win32PortConnectorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -108,7 +109,7 @@ public class Win32PortConnectorService implements CommonServiceInterface<Win32Po
      */
     @NotNull
     @Override
-    public List<Win32PortConnector> get(PowerShell powerShell) {
+    public List<Win32PortConnector> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PORT_CONNECTOR_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());

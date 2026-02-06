@@ -30,6 +30,7 @@ import java.util.Optional;
  */
 public interface CommonMappingInterface<S> {
 
+    @NotNull
     Gson GSON = new Gson();
 
     /**

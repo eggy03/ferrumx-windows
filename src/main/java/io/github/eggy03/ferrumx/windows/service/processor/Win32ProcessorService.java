@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import io.github.eggy03.ferrumx.windows.mapping.processor.Win32ProcessorMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -107,7 +108,7 @@ public class Win32ProcessorService implements CommonServiceInterface<Win32Proces
      */
     @NotNull
     @Override
-    public List<Win32Processor> get(PowerShell powerShell) {
+    public List<Win32Processor> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PROCESSOR_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32ProcessorMapper().mapToList(response.getCommandOutput(), Win32Processor.class);

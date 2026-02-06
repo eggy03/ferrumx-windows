@@ -14,6 +14,7 @@ import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import io.github.eggy03.ferrumx.windows.mapping.processor.Win32AssociatedProcessorMemoryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -91,6 +92,7 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
      * @since 3.0.0
      */
     @Override
+    @NotNull
     public List<Win32AssociatedProcessorMemory> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
         log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
@@ -109,7 +111,8 @@ public class Win32AssociatedProcessorMemoryService implements CommonServiceInter
      * @since 3.0.0
      */
     @Override
-    public List<Win32AssociatedProcessorMemory> get(PowerShell powerShell) {
+    @NotNull
+    public List<Win32AssociatedProcessorMemory> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_ASSOCIATED_PROCESSOR_MEMORY_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32AssociatedProcessorMemoryMapper().mapToList(response.getCommandOutput(), Win32AssociatedProcessorMemory.class);

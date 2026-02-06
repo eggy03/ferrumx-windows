@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.MsftNetIpAddress;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetIpAddressMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -108,7 +109,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
      */
     @NotNull
     @Override
-    public List<MsftNetIpAddress> get(PowerShell powerShell) {
+    public List<MsftNetIpAddress> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(),MsftNetIpAddress.class);

@@ -13,6 +13,7 @@ import io.github.eggy03.ferrumx.windows.entity.display.Win32VideoController;
 import io.github.eggy03.ferrumx.windows.mapping.display.Win32VideoControllerMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -111,7 +112,7 @@ public class Win32VideoControllerService implements CommonServiceInterface<Win32
      */
     @NotNull
     @Override
-    public List<Win32VideoController> get(PowerShell powerShell) {
+    public List<Win32VideoController> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_VIDEO_CONTROLLER_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
