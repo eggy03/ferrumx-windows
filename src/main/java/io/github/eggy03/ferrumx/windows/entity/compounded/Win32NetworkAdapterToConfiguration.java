@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterConfig
 import io.github.eggy03.ferrumx.windows.entity.network.Win32NetworkAdapterSetting;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -89,6 +90,7 @@ public class Win32NetworkAdapterToConfiguration {
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -84,6 +85,7 @@ public class Win32AssociatedProcessorMemory {
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()
