@@ -9,13 +9,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of a connection profile for a particular network adapter on a Windows system.
  * <p>
- *      Fields correspond to properties retrieved from the {@code MSFT_NetConnectionProfile} class in the
- *      {@code root/StandardCimv2} namespace.
+ * Fields correspond to properties retrieved from the {@code MSFT_NetConnectionProfile} class in the
+ * {@code root/StandardCimv2} namespace.
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *
@@ -37,9 +38,10 @@ import org.jetbrains.annotations.Nullable;
  * <p>See {@link MsftNetAdapter}, for network adapter information.</p>
  * <p>See {@link MsftDnsClientServerAddress}, for information regarding the connected DNS servers of a network adapter.</p>
  * <p>See {@link MsftNetIpAddress}, for IP address configuration information of a network adapter.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://wutils.com/wmi/root/standardcimv2/msft_netconnectionprofile/">MSFT_NetConnectionProfile Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -115,9 +117,11 @@ public class MsftNetConnectionProfile {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

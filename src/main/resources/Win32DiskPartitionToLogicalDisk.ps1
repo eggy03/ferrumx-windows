@@ -1,6 +1,7 @@
 $partitions = Get-CimInstance Win32_DiskPartition
 
-$result = foreach($partition in $partitions) {
+$result = foreach ($partition in $partitions)
+{
 
     $logicalDisks = Get-CimAssociatedInstance -InputObject $partition -ResultClassName Win32_LogicalDisk
 

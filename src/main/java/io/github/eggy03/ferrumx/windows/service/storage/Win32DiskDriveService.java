@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32DiskDrive;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32DiskDriveMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDrive> {
@@ -84,8 +86,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
      * </p>
      *
      * @return an immutable list of {@link Win32DiskDrive} objects representing the disk drives.
-     *         Returns an empty list if no disk drives are detected.
-     *
+     * Returns an empty list if no disk drives are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -102,13 +103,12 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32DiskDrive} objects representing the disk drives.
-     *         Returns an empty list if no disk drives are detected.
-     *
+     * Returns an empty list if no disk drives are detected.
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<Win32DiskDrive> get(PowerShell powerShell) {
+    public List<Win32DiskDrive> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_DISK_DRIVE_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
@@ -126,8 +126,7 @@ public class Win32DiskDriveService implements CommonServiceInterface<Win32DiskDr
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32DiskDrive} objects representing the disk drives.
-     *         Returns an empty list if no disk drives are detected.
-     *
+     * Returns an empty list if no disk drives are detected.
      * @since 3.1.0
      */
     @NotNull

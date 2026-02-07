@@ -9,17 +9,18 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable representation of IPv4 and IPv6 address configuration for a Network Adapter on a Windows system.
  * <p>
- *      Fields correspond to properties retrieved from the {@code MSFT_NetIPAddress} class in the
- *      {@code root/StandardCimv2} namespace.
+ * Fields correspond to properties retrieved from the {@code MSFT_NetIPAddress} class in the
+ * {@code root/StandardCimv2} namespace.
  * </p>
  * <p>
- *     Together, with {@link MsftDnsClientServerAddress}, this class aims to be a
- *     replacement for {@link Win32NetworkAdapterConfiguration}
+ * Together, with {@link MsftDnsClientServerAddress}, this class aims to be a
+ * replacement for {@link Win32NetworkAdapterConfiguration}
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *
@@ -41,9 +42,10 @@ import org.jetbrains.annotations.Nullable;
  * <p>See {@link MsftNetAdapter}, for network adapter information.</p>
  * <p>See {@link MsftDnsClientServerAddress}, for information regarding the connected DNS servers of a network adapter.</p>
  * <p>See {@link MsftNetConnectionProfile}, for information regarding the current profile of a network adapter.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/fwp/wmi/nettcpipprov/msft-netipaddress">MSFT_NetIPAddress Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -160,9 +162,11 @@ public class MsftNetIpAddress {
 
     /**
      * Prints the entity in a JSON pretty-print format
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()
@@ -196,9 +200,11 @@ public class MsftNetIpAddress {
 
         /**
          * Retrieves the entity in a JSON pretty-print formatted string
+         *
          * @return the {@link String} value of the object in JSON pretty-print format
          */
         @Override
+        @NotNull
         public String toString() {
             return new GsonBuilder()
                     .serializeNulls()

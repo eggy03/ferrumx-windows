@@ -4,25 +4,33 @@ $processorIds = Get-CimInstance Win32_Processor | Select-Object -ExpandProperty 
 
 $result = @()
 
-foreach($id in $processorIds) {
-    if($null -ne $id){
+foreach ($id in $processorIds)
+{
+    if ($null -ne $id)
+    {
         $result += $id.Trim()
     }
 }
 
-foreach($biosObject in $bios) {
-    foreach($property in $biosObject.PSObject.Properties){
+foreach ($biosObject in $bios)
+{
+    foreach ($property in $biosObject.PSObject.Properties)
+    {
         $value = $property.Value
-        if($null -ne $value){
+        if ($null -ne $value)
+        {
             $result += $value.ToString().Trim()
         }
     }
 }
 
-foreach($baseboardObject in $baseboard){
-    foreach($property in $baseboardObject.PSObject.Properties){
+foreach ($baseboardObject in $baseboard)
+{
+    foreach ($property in $baseboardObject.PSObject.Properties)
+    {
         $value = $property.Value
-        if($null -ne $value){
+        if ($null -ne $value)
+        {
             $result += $value.ToString().Trim()
         }
     }
@@ -39,6 +47,6 @@ $hash = Get-FileHash -InputStream([IO.MemoryStream]::new([Text.Encoding]::UTF8.G
 $formatted = ($hash.ToUpperInvariant() -replace '^(.{8})(.{4})(.{4})(.{4})(.{12})(.{16})(.+)$', '$1-$2-$3-$4-$5-$6-$7')
 
 [PSCustomObject]@{
-    HWIDRaw  = $hwidString
+    HWIDRaw = $hwidString
     HWIDHash = $formatted
 } | ConvertTo-Json

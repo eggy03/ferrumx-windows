@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -36,11 +37,12 @@ import org.jetbrains.annotations.Nullable;
  *     .threadCount(64)
  *     .build();
  * }</pre>
- *
+ * <p>
  * See {@link Win32CacheMemory} for related cache information.
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor">Win32_Processor Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -174,15 +176,12 @@ public class Win32Processor {
     @SerializedName("VirtualizationFirmwareEnabled")
     @Nullable
     Boolean virtualizationFirmwareEnabled;
-    public @Nullable Boolean isVirtualizationEnabled() {return virtualizationFirmwareEnabled;}
-
     /**
      * Processor identifier string, which may include family, model, and stepping information.
      */
     @SerializedName("ProcessorId")
     @Nullable
     String processorId;
-
     /**
      * Processor architecture used by the platform.
      * <p>Possible Values:</p>
@@ -201,11 +200,17 @@ public class Win32Processor {
     @Nullable
     Integer architecture;
 
+    public @Nullable Boolean isVirtualizationEnabled() {
+        return virtualizationFirmwareEnabled;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32Environment;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32EnvironmentMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32EnvironmentService implements CommonServiceInterface<Win32Environment> {
@@ -84,8 +86,7 @@ public class Win32EnvironmentService implements CommonServiceInterface<Win32Envi
      * </p>
      *
      * @return an immutable list of {@link Win32Environment} objects representing the env variables.
-     *         Returns an empty list if no env variables are detected.
-     *
+     * Returns an empty list if no env variables are detected.
      * @since 3.0.0
      */
     @Override
@@ -101,13 +102,12 @@ public class Win32EnvironmentService implements CommonServiceInterface<Win32Envi
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32Environment} objects representing the env variables.
-     *         Returns an empty list if no env variables are detected.
-     *
+     * Returns an empty list if no env variables are detected.
      * @since 3.0.0
      */
     @Override
     @NotNull
-    public List<Win32Environment> get(PowerShell powerShell) {
+    public List<Win32Environment> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_ENVIRONMENT_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32EnvironmentMapper().mapToList(response.getCommandOutput(), Win32Environment.class);
@@ -124,8 +124,7 @@ public class Win32EnvironmentService implements CommonServiceInterface<Win32Envi
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32Environment} objects representing the env variables.
-     *         Returns an empty list if no env variables are detected.
-     *
+     * Returns an empty list if no env variables are detected.
      * @since 3.1.0
      */
     @NotNull

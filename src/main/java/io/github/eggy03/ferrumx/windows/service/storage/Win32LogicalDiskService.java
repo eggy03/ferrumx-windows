@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDisk;
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32LogicalDiskMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32LogicalDiskService implements CommonServiceInterface<Win32LogicalDisk> {
@@ -84,8 +86,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
      * </p>
      *
      * @return an immutable list of {@link Win32LogicalDisk} objects representing the logical volumes.
-     *         Returns an empty list if no volumes are detected.
-     *
+     * Returns an empty list if no volumes are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -101,13 +102,12 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32LogicalDisk} objects representing the logical volumes.
-     *         Returns an empty list if no volumes are detected.
-     *
+     * Returns an empty list if no volumes are detected.
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<Win32LogicalDisk> get(PowerShell powerShell) {
+    public List<Win32LogicalDisk> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskMapper().mapToList(response.getCommandOutput(), Win32LogicalDisk.class);
@@ -124,8 +124,7 @@ public class Win32LogicalDiskService implements CommonServiceInterface<Win32Logi
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32LogicalDisk} objects representing the logical volumes.
-     *         Returns an empty list if no volumes are detected.
-     *
+     * Returns an empty list if no volumes are detected.
      * @since 3.1.0
      */
     @NotNull

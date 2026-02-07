@@ -23,6 +23,7 @@ import java.time.Duration;
  * A utility class that provides an alternative way to launch a PowerShell session without {@code jPowerShell}
  * <p>
  * <b>Mostly for internal use </b>
+ *
  * @author Sayan Bhattacharjee (Alias: Egg-03/Eggy)
  * @since 3.1.0
  */
@@ -33,15 +34,16 @@ public class TerminalUtility {
 
     /**
      * Launches a standalone PowerShell session and executes commands and returns the result
-     * @param command The command to be executed in the PowerShell
+     *
+     * @param command        The command to be executed in the PowerShell
      * @param timeoutSeconds Time in seconds after which the session will be force stopped
      * @return The result of the command executed
      * @throws TerminalExecutionException When the process is killed pre-maturely upon reaching the timeout or when the command yields an error
-     * @throws IllegalArgumentException If the provided timeout is in the negative
+     * @throws IllegalArgumentException   If the provided timeout is in the negative
      */
     public static String executeCommand(@NotNull String command, long timeoutSeconds) {
 
-        if(timeoutSeconds<0)
+        if (timeoutSeconds < 0)
             throw new IllegalArgumentException("Timeout cannot be negative");
 
         CommandLine cmdLine = new CommandLine("powershell.exe");
@@ -63,7 +65,7 @@ public class TerminalUtility {
         } catch (ExecuteException e) {
             String reason = watchdog.killedProcess() ?
                     "\nProcess executing the following command: " + command + "\nWas killed after a timeout of " + timeoutSeconds + " seconds\n" :
-                    "\nProcess executing the following command: " + command + "\nExited with a non-zero exit code\nTerminal Error Output: "+ err;
+                    "\nProcess executing the following command: " + command + "\nExited with a non-zero exit code\nTerminal Error Output: " + err;
 
             throw new TerminalExecutionException(reason, e);
         } catch (IOException e) {

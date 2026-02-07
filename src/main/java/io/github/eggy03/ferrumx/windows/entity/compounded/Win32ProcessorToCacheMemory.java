@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.processor.Win32CacheMemory;
 import io.github.eggy03.ferrumx.windows.entity.processor.Win32Processor;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -43,11 +44,10 @@ import java.util.List;
  *     .build();
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32Processor
  * @see Win32CacheMemory
- *
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -87,9 +87,11 @@ public class Win32ProcessorToCacheMemory {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

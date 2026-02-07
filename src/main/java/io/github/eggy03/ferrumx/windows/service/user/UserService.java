@@ -21,8 +21,9 @@ import org.jetbrains.annotations.NotNull;
  * User currentUser = userService.getUser();
  * System.out.println(currentUser);
  * }</pre>
- * @since 2.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 2.0.0
  */
 
 public class UserService {
@@ -31,7 +32,7 @@ public class UserService {
      * Retrieves the current system user information.
      *
      * @return a non-null {@link User} object containing the username,
-     *         user home directory, and current working directory.
+     * user home directory, and current working directory.
      */
     @NotNull
     public User getUser() {

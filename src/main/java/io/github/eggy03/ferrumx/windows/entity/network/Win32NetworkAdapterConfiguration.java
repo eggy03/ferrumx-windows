@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -41,11 +42,12 @@ import java.util.List;
  *     .build();
  *
  * }</pre>
- *
+ * <p>
  * See {@link Win32NetworkAdapter} for the corresponding adapter entity
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-networkadapterconfiguration">Win32_NetworkAdapterConfiguration Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -88,8 +90,6 @@ public class Win32NetworkAdapterConfiguration {
     @SerializedName("IPEnabled")
     @Nullable
     Boolean ipEnabled;
-    public @Nullable Boolean isIPEnabled() {return ipEnabled;}
-
     /**
      * List of IP addresses associated with this network adapter.
      * May contain IPv4 and/or IPv6 addresses.
@@ -97,21 +97,18 @@ public class Win32NetworkAdapterConfiguration {
     @SerializedName("IPAddress")
     @Nullable
     List<String> ipAddress;
-
     /**
      * Subnet masks associated with each IP address on this adapter.
      */
     @SerializedName("IPSubnet")
     @Nullable
     List<String> ipSubnet;
-
     /**
      * List of default gateway IP addresses used by this system.
      */
     @SerializedName("DefaultIPGateway")
     @Nullable
     List<String> defaultIpGateway;
-
     /**
      * Indicates whether DHCP is enabled for this adapter.
      */
@@ -119,36 +116,30 @@ public class Win32NetworkAdapterConfiguration {
     @SerializedName("DHCPEnabled")
     @Nullable
     Boolean dhcpEnabled;
-    public @Nullable Boolean isDHCPEnabled() {return dhcpEnabled;}
-
     /**
      * IP address of the DHCP server that assigned this configuration.
      */
     @SerializedName("DHCPServer")
     @Nullable
     String dhcpServer;
-
     /**
      * Date and time when the DHCP lease was obtained.
      */
     @SerializedName("DHCPLeaseObtained")
     @Nullable
     String dhcpLeaseObtained;
-
     /**
      * Date and time when the DHCP lease expires.
      */
     @SerializedName("DHCPLeaseExpires")
     @Nullable
     String dhcpLeaseExpires;
-
     /**
      * Host name used to identify this computer on the network.
      */
     @SerializedName("DNSHostName")
     @Nullable
     String dnsHostName;
-
     /**
      * List of DNS server IP addresses used for name resolution.
      */
@@ -156,11 +147,21 @@ public class Win32NetworkAdapterConfiguration {
     @Nullable
     List<String> dnsServerSearchOrder;
 
+    public @Nullable Boolean isIPEnabled() {
+        return ipEnabled;
+    }
+
+    public @Nullable Boolean isDHCPEnabled() {
+        return dhcpEnabled;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

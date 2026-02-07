@@ -12,7 +12,7 @@
  * <strong>Note:</strong> The contents of this package are intended for internal use within the library.
  * </p>
  *
- * @since 2.0.0
  * @author Egg-03
+ * @since 2.0.0
  */
 package io.github.eggy03.ferrumx.windows.constant;

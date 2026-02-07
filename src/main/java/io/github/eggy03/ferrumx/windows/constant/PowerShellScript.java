@@ -13,7 +13,10 @@ import io.github.eggy03.ferrumx.windows.entity.compounded.Win32DiskPartitionToLo
 import io.github.eggy03.ferrumx.windows.entity.compounded.Win32NetworkAdapterToConfiguration;
 import io.github.eggy03.ferrumx.windows.entity.compounded.Win32ProcessorToCacheMemory;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -67,6 +70,7 @@ public enum PowerShellScript {
      */
     HWID_SCRIPT("/HardwareID.ps1");
 
+    @NonNull
     private final String scriptPath;
 
     /**
@@ -77,9 +81,10 @@ public enum PowerShellScript {
      *
      * @param scriptPath the absolute classpath location of the script (e.g. {@code "/script.ps1"})
      * @return an {@link InputStream} for the requested script, or {@code null}
-     *         if the resource cannot be found
+     * if the resource cannot be found
      */
-    public static InputStream getScriptAsInputStream(String scriptPath){
+    @Nullable
+    public static InputStream getScriptAsInputStream(@NonNull String scriptPath) {
         return PowerShellScript.class.getResourceAsStream(scriptPath);
     }
 
@@ -92,7 +97,8 @@ public enum PowerShellScript {
      * @return a {@link BufferedReader} for the requested script
      * @throws NullPointerException if the script resource cannot be found
      */
-    public static BufferedReader getScriptAsBufferedReader(String scriptPath) {
+    @NotNull
+    public static BufferedReader getScriptAsBufferedReader(@NonNull String scriptPath) {
         return new BufferedReader(
                 new InputStreamReader(
                         Objects.requireNonNull(PowerShellScript.class.getResourceAsStream(scriptPath))
@@ -111,7 +117,8 @@ public enum PowerShellScript {
      * @return the complete script contents as a {@link String}
      * @throws NullPointerException if the script resource cannot be found
      */
-    public static String getScript(String scriptPath) {
+    @NotNull
+    public static String getScript(@NonNull String scriptPath) {
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(

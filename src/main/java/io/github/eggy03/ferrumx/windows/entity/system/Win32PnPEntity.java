@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -42,10 +43,9 @@ import java.util.List;
  *     .build();
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-pnpentity">Win32_PnPEntity Documentation</a>
  * @since 3.0.0
- * @author
- *     Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -113,10 +113,6 @@ public class Win32PnPEntity {
     @Getter(AccessLevel.NONE)
     @Nullable
     Boolean present;
-    public @Nullable Boolean isPresent() {
-        return present;
-    }
-
     /**
      * Current operational status of the PnP Device.
      * <p>Possible OPERATIONAL values:</p>
@@ -145,11 +141,17 @@ public class Win32PnPEntity {
     @Nullable
     String status;
 
+    public @Nullable Boolean isPresent() {
+        return present;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

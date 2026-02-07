@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -39,9 +40,9 @@ import java.util.List;
  *     .build();
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-battery">Win32_Battery Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -129,8 +130,6 @@ public class Win32Battery {
     @SerializedName("PowerManagementSupported")
     @Nullable
     Boolean powerManagementSupported;
-    public @Nullable Boolean isPowerManagementSupported() {return powerManagementSupported;}
-
     /**
      * Status of the battery.
      * <p>Possible values:</p>
@@ -151,7 +150,6 @@ public class Win32Battery {
     @SerializedName("BatteryStatus")
     @Nullable
     Integer batteryStatus;
-
     /**
      * Type of battery chemistry.
      * <p>Possible values:</p>
@@ -169,28 +167,24 @@ public class Win32Battery {
     @SerializedName("Chemistry")
     @Nullable
     Integer chemistry;
-
     /**
      * Design capacity of the battery in milliwatt-hours.
      */
     @SerializedName("DesignCapacity")
     @Nullable
     Integer designCapacity;
-
     /**
      * Design voltage of the battery in millivolts.
      */
     @SerializedName("DesignVoltage")
     @Nullable
     Integer designVoltage;
-
     /**
      * Estimated percentage of full charge remaining.
      */
     @SerializedName("EstimatedChargeRemaining")
     @Nullable
     Long estimatedChargeRemaining;
-
     /**
      * Estimated remaining runtime of the battery in minutes.
      */
@@ -198,11 +192,17 @@ public class Win32Battery {
     @Nullable
     Long estimatedRunTime;
 
+    public @Nullable Boolean isPowerManagementSupported() {
+        return powerManagementSupported;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

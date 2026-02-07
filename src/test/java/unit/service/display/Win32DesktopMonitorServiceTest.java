@@ -38,12 +38,10 @@ import static org.mockito.Mockito.when;
 
 class Win32DesktopMonitorServiceTest {
 
-    private Win32DesktopMonitorService service;
-
     private static Win32DesktopMonitor expectedMonitor1;
     private static Win32DesktopMonitor expectedMonitor2;
-
     private static String json;
+    private Win32DesktopMonitorService service;
 
     @BeforeAll
     static void setMonitors() {
@@ -111,8 +109,8 @@ class Win32DesktopMonitorServiceTest {
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn(json);
 
-        try(MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
-            powerShellMockedStatic.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
+        try (MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
+            powerShellMockedStatic.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
 
             List<Win32DesktopMonitor> monitors = service.get();
             assertEquals(2, monitors.size());
@@ -128,8 +126,8 @@ class Win32DesktopMonitorServiceTest {
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("");
 
-        try(MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
-            powerShellMockedStatic.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
+        try (MockedStatic<PowerShell> powerShellMockedStatic = mockStatic(PowerShell.class)) {
+            powerShellMockedStatic.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockedResponse);
 
             List<Win32DesktopMonitor> monitors = service.get();
             assertTrue(monitors.isEmpty());
@@ -155,7 +153,7 @@ class Win32DesktopMonitorServiceTest {
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn(json);
 
-        try(PowerShell mockSession = mock(PowerShell.class)) {
+        try (PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
 
             List<Win32DesktopMonitor> monitors = service.get(mockSession);
@@ -172,7 +170,7 @@ class Win32DesktopMonitorServiceTest {
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("");
 
-        try(PowerShell mockSession = mock(PowerShell.class)) {
+        try (PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
 
             List<Win32DesktopMonitor> monitors = service.get(mockSession);
@@ -186,7 +184,7 @@ class Win32DesktopMonitorServiceTest {
         PowerShellResponse mockedResponse = mock(PowerShellResponse.class);
         when(mockedResponse.getCommandOutput()).thenReturn("not a valid json");
 
-        try(PowerShell mockSession = mock(PowerShell.class)) {
+        try (PowerShell mockSession = mock(PowerShell.class)) {
             when(mockSession.executeCommand(anyString())).thenReturn(mockedResponse);
             assertThrows(JsonSyntaxException.class, () -> service.get(mockSession));
         }
@@ -195,9 +193,9 @@ class Win32DesktopMonitorServiceTest {
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32DesktopMonitor> monitors = service.get(5L);
@@ -211,12 +209,12 @@ class Win32DesktopMonitorServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -236,9 +234,9 @@ class Win32DesktopMonitorServiceTest {
         Field[] declaredClassFields = Win32DesktopMonitor.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

@@ -14,6 +14,7 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDiskToPartiti
 import io.github.eggy03.ferrumx.windows.mapping.storage.Win32LogicalDiskToPartitionMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,8 +74,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32LogicalDiskToPartitionService implements CommonServiceInterface<Win32LogicalDiskToPartition> {
@@ -87,7 +89,6 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
      *
      * @return an immutable list of {@link Win32LogicalDiskToPartition} objects representing the association between
      * a {@link Win32DiskPartition} and a {@link Win32LogicalDisk}. Returns an empty list if none are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
@@ -106,12 +107,11 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
      *
      * @return an immutable list of {@link Win32LogicalDiskToPartition} objects representing the association between
      * a {@link Win32DiskPartition} and a {@link Win32LogicalDisk}. Returns an empty list if none are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<Win32LogicalDiskToPartition> get(PowerShell powerShell) {
+    public List<Win32LogicalDiskToPartition> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_LOGICAL_DISK_TO_PARTITION_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32LogicalDiskToPartitionMapper().mapToList(response.getCommandOutput(), Win32LogicalDiskToPartition.class);
@@ -128,9 +128,8 @@ public class Win32LogicalDiskToPartitionService implements CommonServiceInterfac
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32LogicalDiskToPartition} objects representing the association between
-     *         a {@link Win32DiskPartition} and a {@link Win32LogicalDisk}.
-     *         Returns an empty list if none are detected.
-     *
+     * a {@link Win32DiskPartition} and a {@link Win32LogicalDisk}.
+     * Returns an empty list if none are detected.
      * @since 3.1.0
      */
     @NotNull

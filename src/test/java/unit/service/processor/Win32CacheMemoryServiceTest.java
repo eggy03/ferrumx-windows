@@ -38,13 +38,11 @@ import static org.mockito.Mockito.when;
 
 class Win32CacheMemoryServiceTest {
 
-    private Win32CacheMemoryService service;
-
     private static Win32CacheMemory expectedL1Cache;
     private static Win32CacheMemory expectedL2Cache;
     private static Win32CacheMemory expectedL3Cache;
-
     private static String json;
+    private Win32CacheMemoryService service;
 
     @BeforeAll
     static void setCaches() {
@@ -153,8 +151,8 @@ class Win32CacheMemoryServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
 
-        try(MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
-            mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+        try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
+            mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32CacheMemory> cache = service.get();
             assertEquals(3, cache.size());
@@ -171,8 +169,8 @@ class Win32CacheMemoryServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
-        try(MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
-            mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+        try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
+            mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32CacheMemory> cache = service.get();
             assertTrue(cache.isEmpty());
@@ -185,10 +183,10 @@ class Win32CacheMemoryServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("invalid json");
 
-        try(MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
-            mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+        try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
+            mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get());
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -233,16 +231,16 @@ class Win32CacheMemoryServiceTest {
         try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
         }
     }
 
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32CacheMemory> cache = service.get(5L);
@@ -257,12 +255,12 @@ class Win32CacheMemoryServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -282,9 +280,9 @@ class Win32CacheMemoryServiceTest {
         Field[] declaredClassFields = Win32CacheMemory.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

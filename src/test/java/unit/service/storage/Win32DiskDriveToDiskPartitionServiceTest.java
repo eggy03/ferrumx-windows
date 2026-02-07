@@ -38,11 +38,10 @@ import static org.mockito.Mockito.when;
 
 class Win32DiskDriveToDiskPartitionServiceTest {
 
-    private Win32DiskDriveToDiskPartitionService service;
-
     private static Win32DiskDriveToDiskPartition expectedMapping1;
     private static Win32DiskDriveToDiskPartition expectedMapping2;
     private static String json;
+    private Win32DiskDriveToDiskPartitionService service;
 
     @BeforeAll
     static void setDiskDriveToPartitionMappings() {
@@ -85,9 +84,9 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
 
-        try(MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)){
+        try (MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)) {
 
-            mockShell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+            mockShell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32DiskDriveToDiskPartition> associationList = service.get();
             assertEquals(2, associationList.size());
@@ -102,9 +101,9 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
-        try(MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)){
+        try (MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)) {
 
-            mockShell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+            mockShell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
             List<Win32DiskDriveToDiskPartition> associationList = service.get();
 
             assertTrue(associationList.isEmpty());
@@ -116,10 +115,10 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 
-        try(MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)){
+        try (MockedStatic<PowerShell> mockShell = mockStatic(PowerShell.class)) {
 
-            mockShell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
-            assertThrows(JsonSyntaxException.class, ()-> service.get());
+            mockShell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+            assertThrows(JsonSyntaxException.class, () -> service.get());
         }
     }
 
@@ -128,7 +127,7 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
 
-        try(PowerShell mockShell = mock(PowerShell.class)){
+        try (PowerShell mockShell = mock(PowerShell.class)) {
 
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
@@ -145,7 +144,7 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
-        try(PowerShell mockShell = mock(PowerShell.class)){
+        try (PowerShell mockShell = mock(PowerShell.class)) {
 
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
             List<Win32DiskDriveToDiskPartition> associationList = service.get(mockShell);
@@ -159,19 +158,19 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not a json");
 
-        try(PowerShell mockShell = mock(PowerShell.class)){
+        try (PowerShell mockShell = mock(PowerShell.class)) {
 
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
-            assertThrows(JsonSyntaxException.class, ()-> service.get(mockShell));
+            assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
         }
     }
 
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32DiskDriveToDiskPartition> associationList = service.get(5L);
@@ -185,12 +184,12 @@ class Win32DiskDriveToDiskPartitionServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -210,9 +209,9 @@ class Win32DiskDriveToDiskPartitionServiceTest {
         Field[] declaredClassFields = Win32DiskDriveToDiskPartition.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

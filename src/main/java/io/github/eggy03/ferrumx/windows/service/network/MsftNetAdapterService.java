@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.MsftNetAdapter;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetAdapterMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdapter> {
@@ -84,8 +86,7 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
      * </p>
      *
      * @return an immutable list of {@link MsftNetAdapter} objects representing the system's network adapters.
-     *         Returns an empty list if no adapters are detected.
-     *
+     * Returns an empty list if no adapters are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -101,13 +102,12 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link MsftNetAdapter} objects representing the system's network adapters.
-     *         Returns an empty list if no adapters are detected.
-     *
+     * Returns an empty list if no adapters are detected.
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<MsftNetAdapter> get(PowerShell powerShell) {
+    public List<MsftNetAdapter> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_ADAPTER_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new MsftNetAdapterMapper().mapToList(response.getCommandOutput(), MsftNetAdapter.class);
@@ -124,8 +124,7 @@ public class MsftNetAdapterService implements CommonServiceInterface<MsftNetAdap
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link MsftNetAdapter} objects representing the system's network adapters.
-     *         Returns an empty list if no adapters are detected.
-     *
+     * Returns an empty list if no adapters are detected.
      * @since 3.1.0
      */
     @NotNull

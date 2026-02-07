@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -41,9 +42,9 @@ import java.util.List;
  *
  * }</pre>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem">Win32_OperatingSystem Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -99,64 +100,54 @@ public class Win32OperatingSystem {
     @SerializedName("Distributed")
     @Nullable
     Boolean distributed;
-    public @Nullable Boolean isDistributed() {return distributed;}
-
     /**
      * Number of user sessions currently active.
      */
     @SerializedName("NumberOfUsers")
     @Nullable
     Integer numberOfUsers;
-
     /**
      * Version number of the operating system (for example, "10.0.22621").
      */
     @SerializedName("Version")
     @Nullable
     String version;
-
     /**
      * Path to the boot device that the operating system uses to start the computer.
      */
     @SerializedName("BootDevice")
     @Nullable
     String bootDevice;
-
     /**
      * Internal build number of the operating system.
      */
     @SerializedName("BuildNumber")
     @Nullable
     String buildNumber;
-
     /**
      * Type of build (e.g., "Multiprocessor Free" or "Checked").
      */
     @SerializedName("BuildType")
     @Nullable
     String buildType;
-
     /**
      * Manufacturer of the operating system (typically "Microsoft Corporation").
      */
     @SerializedName("Manufacturer")
     @Nullable
     String manufacturer;
-
     /**
      * Architecture of the operating system, such as "32-bit" or "64-bit".
      */
     @SerializedName("OSArchitecture")
     @Nullable
     String osArchitecture;
-
     /**
      * List of installed user interface languages (MUI language codes).
      */
     @SerializedName("MUILanguages")
     @Nullable
     List<String> muiLanguages;
-
     /**
      * Indicates whether the operating system is installed on a portable device.
      * <ul>
@@ -168,8 +159,6 @@ public class Win32OperatingSystem {
     @SerializedName("PortableOperatingSystem")
     @Nullable
     Boolean portableOperatingSystem;
-    public @Nullable Boolean isPortable() {return portableOperatingSystem;}
-
     /**
      * Indicates whether this is the primary operating system on the computer.
      */
@@ -177,50 +166,42 @@ public class Win32OperatingSystem {
     @SerializedName("Primary")
     @Nullable
     Boolean primary;
-    public @Nullable Boolean isPrimary() {return primary;}
-
     /**
      * Name of the registered user of the operating system.
      */
     @SerializedName("RegisteredUser")
     @Nullable
     String registeredUser;
-
     /**
      * Operating system serial number or product key identifier.
      */
     @SerializedName("SerialNumber")
     @Nullable
     String serialNumber;
-
     /**
      * Major version number of the most recent service pack installed.
      */
     @SerializedName("ServicePackMajorVersion")
     @Nullable
     Integer servicePackMajorVersion;
-
     /**
      * Minor version number of the most recent service pack installed.
      */
     @SerializedName("ServicePackMinorVersion")
     @Nullable
     Integer servicePackMinorVersion;
-
     /**
      * Full path to the system directory (typically "C:\WINDOWS\system32").
      */
     @SerializedName("SystemDirectory")
     @Nullable
     String systemDirectory;
-
     /**
      * Drive letter where the operating system is installed (e.g., "C:").
      */
     @SerializedName("SystemDrive")
     @Nullable
     String systemDrive;
-
     /**
      * Full path to the Windows installation directory (typically "C:\WINDOWS").
      */
@@ -228,11 +209,25 @@ public class Win32OperatingSystem {
     @Nullable
     String windowsDirectory;
 
+    public @Nullable Boolean isDistributed() {
+        return distributed;
+    }
+
+    public @Nullable Boolean isPortable() {
+        return portableOperatingSystem;
+    }
+
+    public @Nullable Boolean isPrimary() {
+        return primary;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.peripheral.Win32Battery;
 import io.github.eggy03.ferrumx.windows.mapping.peripheral.Win32BatteryMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -70,8 +71,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32BatteryService implements CommonServiceInterface<Win32Battery> {
@@ -83,8 +85,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      * </p>
      *
      * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
-     *         If no batteries are present, returns an empty list.
-     *
+     * If no batteries are present, returns an empty list.
      * @since 3.0.0
      */
     @NotNull
@@ -102,13 +103,12 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
-     *         If no batteries are present, returns an empty list.
-     *
+     * If no batteries are present, returns an empty list.
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<Win32Battery> get(PowerShell powerShell) {
+    public List<Win32Battery> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_BATTERY_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
@@ -126,8 +126,7 @@ public class Win32BatteryService implements CommonServiceInterface<Win32Battery>
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32Battery} objects representing the system's batteries.
-     *         If no batteries are present, returns an empty list.
-     *
+     * If no batteries are present, returns an empty list.
      * @since 3.1.0
      */
     @NotNull

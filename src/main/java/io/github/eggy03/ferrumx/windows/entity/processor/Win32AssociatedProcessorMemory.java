@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import io.github.eggy03.ferrumx.windows.constant.namespace.Cimv2Namespace;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -33,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
  *     the {@code DeviceID} (from {@code Win32_CacheMemory}) or the {@code DeviceID}
  *     (from {@code Win32_Processor}) as standalone properties.
  *     Instead, these values are nested within its references: {@code Antecedent} and {@code Dependent}.
-
+ *
  * </p>
  * <p>
  *     To simplify data mapping, the PowerShell query defined in
@@ -57,12 +58,13 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>See {@link Win32Processor} for related CPU information.</p>
  * <p>See {@link Win32CacheMemory} for related CPU Cache information.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-associatedprocessormemory">Win32_AssociatedProcessorMemory Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
-@Builder (toBuilder = true)
+@Builder(toBuilder = true)
 public class Win32AssociatedProcessorMemory {
 
     /**
@@ -81,9 +83,11 @@ public class Win32AssociatedProcessorMemory {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

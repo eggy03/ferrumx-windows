@@ -38,12 +38,10 @@ import static org.mockito.Mockito.when;
 
 class Win32VideoControllerServiceTest {
 
-    private Win32VideoControllerService service;
-
     private static Win32VideoController expectedGpu1;
     private static Win32VideoController expectedGpu2;
-
     private static String json;
+    private Win32VideoControllerService service;
 
     @BeforeAll
     static void setGpus() {
@@ -135,8 +133,8 @@ class Win32VideoControllerServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
 
-        try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)){
-            mockedPowershell.when(()-> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
+        try (MockedStatic<PowerShell> mockedPowershell = mockStatic(PowerShell.class)) {
+            mockedPowershell.when(() -> PowerShell.executeSingleCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32VideoController> videoControllers = service.get();
             assertEquals(2, videoControllers.size());
@@ -178,7 +176,7 @@ class Win32VideoControllerServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn(json);
 
-        try (PowerShell mockShell = mock(PowerShell.class)){
+        try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32VideoController> videoControllers = service.get(mockShell);
@@ -194,7 +192,7 @@ class Win32VideoControllerServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("");
 
-        try (PowerShell mockShell = mock(PowerShell.class)){
+        try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             List<Win32VideoController> videoControllers = service.get(mockShell);
@@ -207,7 +205,7 @@ class Win32VideoControllerServiceTest {
         PowerShellResponse mockResponse = mock(PowerShellResponse.class);
         when(mockResponse.getCommandOutput()).thenReturn("not valid json");
 
-        try (PowerShell mockShell = mock(PowerShell.class)){
+        try (PowerShell mockShell = mock(PowerShell.class)) {
             when(mockShell.executeCommand(anyString())).thenReturn(mockResponse);
 
             assertThrows(JsonSyntaxException.class, () -> service.get(mockShell));
@@ -217,9 +215,9 @@ class Win32VideoControllerServiceTest {
     @Test
     void test_getWithTimeout_success() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn(json);
 
             List<Win32VideoController> videoControllers = service.get(5L);
@@ -233,12 +231,12 @@ class Win32VideoControllerServiceTest {
     @Test
     void test_getWithTimeout_invalidJson_throwsException() {
 
-        try(MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)){
+        try (MockedStatic<TerminalUtility> mockedTerminal = mockStatic(TerminalUtility.class)) {
             mockedTerminal
-                    .when(()-> TerminalUtility.executeCommand(anyString(), anyLong()))
+                    .when(() -> TerminalUtility.executeCommand(anyString(), anyLong()))
                     .thenReturn("invalid json");
 
-            assertThrows(JsonSyntaxException.class, ()-> service.get(5L));
+            assertThrows(JsonSyntaxException.class, () -> service.get(5L));
         }
     }
 
@@ -258,9 +256,9 @@ class Win32VideoControllerServiceTest {
         Field[] declaredClassFields = Win32VideoController.class.getDeclaredFields();
         Set<String> serializedNames = new HashSet<>();
 
-        for(Field field: declaredClassFields){
+        for (Field field : declaredClassFields) {
             SerializedName s = field.getAnnotation(SerializedName.class);
-            serializedNames.add(s!=null ? s.value() : field.getName());
+            serializedNames.add(s != null ? s.value() : field.getName());
         }
 
         // Extract JSON keys from the static test JSON

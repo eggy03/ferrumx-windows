@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32ComputerSystem;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32ComputerSystemMapper;
 import io.github.eggy03.ferrumx.windows.service.OptionalCommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.Optional;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32ComputerSystemService implements OptionalCommonServiceInterface<Win32ComputerSystem> {
@@ -84,11 +86,11 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
      * </p>
      *
      * @return an {@link Optional} of {@link Win32ComputerSystem} representing
-     *         the computer system. Returns {@link Optional#empty()} if no system information is detected.
-     *
+     * the computer system. Returns {@link Optional#empty()} if no system information is detected.
      * @since 3.0.0
      */
     @Override
+    @NotNull
     public Optional<Win32ComputerSystem> get() {
 
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_COMPUTER_SYSTEM_QUERY.getQuery());
@@ -102,12 +104,12 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an {@link Optional} of {@link Win32ComputerSystem} representing
-     *         the computer system. Returns {@link Optional#empty()} if no  information is detected.
-     *
+     * the computer system. Returns {@link Optional#empty()} if no  information is detected.
      * @since 3.0.0
      */
     @Override
-    public Optional<Win32ComputerSystem> get(PowerShell powerShell) {
+    @NotNull
+    public Optional<Win32ComputerSystem> get(@NonNull PowerShell powerShell) {
 
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_COMPUTER_SYSTEM_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
@@ -125,9 +127,8 @@ public class Win32ComputerSystemService implements OptionalCommonServiceInterfac
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an {@link Optional} of {@link Win32ComputerSystem} representing
-     *         the HWID. Returns {@link Optional#empty()} if no information
-     *         is detected.
-     *
+     * the HWID. Returns {@link Optional#empty()} if no information
+     * is detected.
      * @since 3.1.0
      */
     @NotNull

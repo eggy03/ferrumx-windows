@@ -14,9 +14,11 @@ import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDisk;
 import io.github.eggy03.ferrumx.windows.entity.storage.Win32LogicalDiskToPartition;
 import lombok.Builder;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
 /**
  * Immutable representation of a {@link Win32DiskDrive} and its associated
  * {@code 1:N} relationships with {@link Win32DiskPartition} and {@link Win32LogicalDisk}
@@ -64,14 +66,13 @@ import java.util.List;
  * of the classes and their associations with each other.
  * </p>
  *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32DiskDrive
  * @see Win32DiskPartition
  * @see Win32LogicalDisk
  * @see Win32DiskDriveToDiskPartition
  * @see Win32LogicalDiskToPartition
- *
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 
 @Value
@@ -117,9 +118,11 @@ public class Win32DiskDriveToPartitionAndLogicalDisk {
 
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

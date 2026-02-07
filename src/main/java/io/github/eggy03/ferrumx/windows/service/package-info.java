@@ -14,7 +14,7 @@
  *   <li>Into instances of entity classes defined in the {@link io.github.eggy03.ferrumx.windows.entity} package</li>
  * </ul>
  *
- * @since 2.0.0
  * @author Egg-03
+ * @since 2.0.0
  */
 package io.github.eggy03.ferrumx.windows.service;

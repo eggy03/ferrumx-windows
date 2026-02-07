@@ -11,24 +11,25 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Value;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Immutable modern representation of a network adapter on a Windows system.
  * <p>
- *      Fields correspond to properties retrieved from the {@code MSFT_NetAdapter} class in the
- *      {@code root/StandardCimv2} namespace. This class is a modern replacement for the now deprecated
- *      {@code Win32_NetworkAdapter} WMI class in the {@code root/cimv2} namespace.
+ * Fields correspond to properties retrieved from the {@code MSFT_NetAdapter} class in the
+ * {@code root/StandardCimv2} namespace. This class is a modern replacement for the now deprecated
+ * {@code Win32_NetworkAdapter} WMI class in the {@code root/cimv2} namespace.
  * </p>
  * <p>
- *     However, the {@link Win32NetworkAdapter} class which represents {@code Win32_NetworkAdapter},
- *     will remain accessible for backwards compatibility will not be marked as deprecated by the library at this time.
+ * However, the {@link Win32NetworkAdapter} class which represents {@code Win32_NetworkAdapter},
+ * will remain accessible for backwards compatibility will not be marked as deprecated by the library at this time.
  * </p>
  * <p>
- *     Unlike {@link Win32NetworkAdapter} which stores it's configuration in {@link Win32NetworkAdapterConfiguration} and
- *     requires {@link Win32NetworkAdapterSetting} to establish an association between them, {@link MsftNetAdapter} stores configuration
- *     inside {@link MsftNetIpAddress}, {@link MsftDnsClientServerAddress} and {@link MsftNetConnectionProfile}
- *     and all of them are directly linked via the {@code interfaceIndex} field.
+ * Unlike {@link Win32NetworkAdapter} which stores it's configuration in {@link Win32NetworkAdapterConfiguration} and
+ * requires {@link Win32NetworkAdapterSetting} to establish an association between them, {@link MsftNetAdapter} stores configuration
+ * inside {@link MsftNetIpAddress}, {@link MsftDnsClientServerAddress} and {@link MsftNetConnectionProfile}
+ * and all of them are directly linked via the {@code interfaceIndex} field.
  * </p>
  * <p>Instances of this class are thread-safe.</p>
  *
@@ -50,9 +51,10 @@ import org.jetbrains.annotations.Nullable;
  * <p>See {@link MsftNetIpAddress}, for IP address configuration information of a network adapter.</p>
  * <p>See {@link MsftNetConnectionProfile}, for information regarding the current profile of a network adapter.</p>
  * <p>See {@link MsftDnsClientServerAddress}, for configuration information regarding the DNS servers of a network adapter.</p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see <a href="https://learn.microsoft.com/en-us/windows/win32/fwp/wmi/netadaptercimprov/msft-netadapter">MSFT_NetAdapter Documentation</a>
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Value
 @Builder(toBuilder = true)
@@ -139,8 +141,6 @@ public class MsftNetAdapter {
     @SerializedName("Virtual")
     @Nullable
     Boolean virtual;
-    public @Nullable Boolean isVirtual() {return virtual;}
-
     /**
      * Indicates whether the adapter supports full-duplex mode.
      */
@@ -148,8 +148,6 @@ public class MsftNetAdapter {
     @SerializedName("FullDuplex")
     @Nullable
     Boolean fullDuplex;
-    public @Nullable Boolean isFullDuplex() {return fullDuplex;}
-
     /**
      * Indicates whether the adapter is hidden from the user interface.
      */
@@ -157,8 +155,6 @@ public class MsftNetAdapter {
     @SerializedName("Hidden")
     @Nullable
     Boolean hidden;
-    public @Nullable Boolean isHidden() {return hidden;}
-
     /**
      * Current operational status of the net adapter device.
      * <p>Possible OPERATIONAL values:</p>
@@ -186,7 +182,6 @@ public class MsftNetAdapter {
     @SerializedName("Status")
     @Nullable
     String status;
-
     /**
      * The physical (MAC) address of the network adapter.
      * <p>Example: "00:1A:2B:3C:4D:5E"</p>
@@ -194,7 +189,6 @@ public class MsftNetAdapter {
     @SerializedName("LinkLayerAddress")
     @Nullable
     String linkLayerAddress;
-
     /**
      * The current link speed as a formatted string, if available.
      * <p>Example: "1 Gbps"</p>
@@ -202,21 +196,18 @@ public class MsftNetAdapter {
     @SerializedName("LinkSpeed")
     @Nullable
     String linkSpeed;
-
     /**
      * Raw value of the current receive link speed in bits per second.
      */
     @SerializedName("ReceiveLinkSpeed")
     @Nullable
     Long receiveLinkSpeedRaw;
-
     /**
      * Raw value of the current transmit link speed in bits per second.
      */
     @SerializedName("TransmitLinkSpeed")
     @Nullable
     Long transmitLinkSpeedRaw;
-
     /**
      * Name of the network adapter driver.
      * <p>Example: "rt640x64.sys"</p>
@@ -224,7 +215,6 @@ public class MsftNetAdapter {
     @SerializedName("DriverName")
     @Nullable
     String driverName;
-
     /**
      * Version number of the network adapter driver.
      * <p>Example: "12.18.9.10"</p>
@@ -232,14 +222,12 @@ public class MsftNetAdapter {
     @SerializedName("DriverVersion")
     @Nullable
     String driverVersion;
-
     /**
      * Date of the currently installed driver.
      */
     @SerializedName("DriverDate")
     @Nullable
     String driverDate;
-
     /**
      * Maximum Transmission Unit (MTU) size of the adapter, in bytes.
      * <p>Example: 1500</p>
@@ -247,7 +235,6 @@ public class MsftNetAdapter {
     @SerializedName("MtuSize")
     @Nullable
     Long mtuSize;
-
     /**
      * The current media connection state of the adapter.
      * <p>Possible values: </p>
@@ -260,7 +247,6 @@ public class MsftNetAdapter {
     @SerializedName("MediaConnectState")
     @Nullable
     Long mediaConnectState;
-
     /**
      * Network adapter media type.
      * Numeric equivalent of {@link #mediaType}
@@ -291,7 +277,6 @@ public class MsftNetAdapter {
     @SerializedName("NdisMedium")
     @Nullable
     Long ndisMedium;
-
     /**
      * The types of physical media that the network adapter supports.
      * Numeric equivalent of {@link #physicalMediaType}
@@ -322,7 +307,6 @@ public class MsftNetAdapter {
     @SerializedName("NdisPhysicalMedium")
     @Nullable
     Long ndisPhysicalMedium;
-
     /**
      * Type of network media currently in use (for example, Ethernet or Wi-Fi).
      * String equivalent of {@link #ndisMedium}
@@ -330,7 +314,6 @@ public class MsftNetAdapter {
     @SerializedName("MediaType")
     @Nullable
     String mediaType;
-
     /**
      * Physical type of network media
      * String equivalent of {@link #ndisPhysicalMedium}
@@ -340,11 +323,25 @@ public class MsftNetAdapter {
     @Nullable
     String physicalMediaType;
 
+    public @Nullable Boolean isVirtual() {
+        return virtual;
+    }
+
+    public @Nullable Boolean isFullDuplex() {
+        return fullDuplex;
+    }
+
+    public @Nullable Boolean isHidden() {
+        return hidden;
+    }
+
     /**
      * Retrieves the entity in a JSON pretty-print formatted string
+     *
      * @return the {@link String} value of the object in JSON pretty-print format
      */
     @Override
+    @NotNull
     public String toString() {
         return new GsonBuilder()
                 .serializeNulls()

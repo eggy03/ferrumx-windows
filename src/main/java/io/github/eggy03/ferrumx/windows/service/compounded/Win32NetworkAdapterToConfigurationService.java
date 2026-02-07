@@ -15,6 +15,7 @@ import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterConfi
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterService;
 import io.github.eggy03.ferrumx.windows.service.network.Win32NetworkAdapterSettingService;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,12 +74,13 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
+ *
+ * @author Sayan Bhattacharjee (Egg-03/Eggy)
  * @see Win32NetworkAdapterService
  * @see Win32NetworkAdapterConfigurationService
  * @see Win32NetworkAdapterSettingService
  * @see MsftNetAdapterToIpAndDnsAndProfileService
  * @since 3.0.0
- * @author Sayan Bhattacharjee (Egg-03/Eggy)
  */
 @Slf4j
 public class Win32NetworkAdapterToConfigurationService implements CommonServiceInterface<Win32NetworkAdapterToConfiguration> {
@@ -91,13 +93,12 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
      *
      * @return an immutable list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
      * Returns an empty list if no network adapter and related configuration are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
     @Override
     public List<Win32NetworkAdapterToConfiguration> get() {
-        try(PowerShell shell = PowerShell.openSession()){
+        try (PowerShell shell = PowerShell.openSession()) {
             PowerShellResponse response = shell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScriptPath()));
             log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
             return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);
@@ -111,12 +112,11 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
      * Returns an empty list if no network adapter and related configuration are detected.
-     *
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<Win32NetworkAdapterToConfiguration> get(PowerShell powerShell) {
+    public List<Win32NetworkAdapterToConfiguration> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeScript(PowerShellScript.getScriptAsBufferedReader(PowerShellScript.WIN32_NETWORK_ADAPTER_TO_CONFIGURATION_SCRIPT.getScriptPath()));
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32NetworkAdapterToConfigurationMapper().mapToList(response.getCommandOutput(), Win32NetworkAdapterToConfiguration.class);
@@ -134,7 +134,6 @@ public class Win32NetworkAdapterToConfigurationService implements CommonServiceI
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32NetworkAdapterToConfiguration} objects representing connected network adapter and related configuration.
      * Returns an empty list if no network adapter and related configuration are detected.
-     *
      * @since 3.1.0
      */
     @NotNull

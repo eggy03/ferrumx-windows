@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.network.MsftNetIpAddress;
 import io.github.eggy03.ferrumx.windows.mapping.network.MsftNetIpAddressMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIpAddress> {
@@ -84,8 +86,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
      * </p>
      *
      * @return an immutable list of {@link MsftNetIpAddress} objects representing the IPv4 and IPv6 configs.
-     *         Returns an empty list if no configs are detected.
-     *
+     * Returns an empty list if no configs are detected.
      * @since 3.0.0
      */
     @NotNull
@@ -93,7 +94,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
     public List<MsftNetIpAddress> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(StandardCimv2Namespace.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
         log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
-        return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(),MsftNetIpAddress.class);
+        return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(), MsftNetIpAddress.class);
     }
 
     /**
@@ -102,16 +103,15 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link MsftNetIpAddress} objects representing the IPv4 and IPv6 configs.
-     *         Returns an empty list if no configs are detected.
-     *
+     * Returns an empty list if no configs are detected.
      * @since 3.0.0
      */
     @NotNull
     @Override
-    public List<MsftNetIpAddress> get(PowerShell powerShell) {
+    public List<MsftNetIpAddress> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(StandardCimv2Namespace.MSFT_NET_IP_ADDRESS_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
-        return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(),MsftNetIpAddress.class);
+        return new MsftNetIpAddressMapper().mapToList(response.getCommandOutput(), MsftNetIpAddress.class);
     }
 
     /**
@@ -125,8 +125,7 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link MsftNetIpAddress} objects representing the IPv4 and IPv6 configs.
-     *         Returns an empty list if no configs are detected.
-     *
+     * Returns an empty list if no configs are detected.
      * @since 3.1.0
      */
     @NotNull
@@ -135,6 +134,6 @@ public class MsftNetIpAddressService implements CommonServiceInterface<MsftNetIp
         String command = StandardCimv2Namespace.MSFT_NET_IP_ADDRESS_QUERY.getQuery();
         String response = TerminalUtility.executeCommand(command, timeout);
         log.trace("PowerShell response for the apache terminal session: \n{}", response);
-        return new MsftNetIpAddressMapper().mapToList(response,MsftNetIpAddress.class);
+        return new MsftNetIpAddressMapper().mapToList(response, MsftNetIpAddress.class);
     }
 }

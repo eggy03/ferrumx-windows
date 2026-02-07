@@ -12,6 +12,7 @@ import io.github.eggy03.ferrumx.windows.entity.system.Win32PnPEntity;
 import io.github.eggy03.ferrumx.windows.mapping.system.Win32PnPEntityMapper;
 import io.github.eggy03.ferrumx.windows.service.CommonServiceInterface;
 import io.github.eggy03.ferrumx.windows.utility.TerminalUtility;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,8 +72,9 @@ import java.util.List;
  * <p>
  * For concurrent or executor-based workloads, prefer {@link #get(long timeout)}.
  * </p>
- * @since 3.0.0
+ *
  * @author Sayan Bhattacharjee (Egg-03/Eggy)
+ * @since 3.0.0
  */
 @Slf4j
 public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEntity> {
@@ -84,11 +86,11 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
      * </p>
      *
      * @return an immutable list of {@link Win32PnPEntity} objects representing the system's pnp entities.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.0.0
      */
     @Override
+    @NotNull
     public List<Win32PnPEntity> get() {
         PowerShellResponse response = PowerShell.executeSingleCommand(Cimv2Namespace.WIN32_PNP_ENTITY_QUERY.getQuery());
         log.trace("PowerShell response for auto-managed session :\n{}", response.getCommandOutput());
@@ -100,12 +102,12 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
      *
      * @param powerShell an existing PowerShell session managed by the caller
      * @return an immutable list of {@link Win32PnPEntity} objects representing the system's pnp entities.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.0.0
      */
     @Override
-    public List<Win32PnPEntity> get(PowerShell powerShell) {
+    @NotNull
+    public List<Win32PnPEntity> get(@NonNull PowerShell powerShell) {
         PowerShellResponse response = powerShell.executeCommand(Cimv2Namespace.WIN32_PNP_ENTITY_QUERY.getQuery());
         log.trace("PowerShell response for self-managed session :\n{}", response.getCommandOutput());
         return new Win32PnPEntityMapper().mapToList(response.getCommandOutput(), Win32PnPEntity.class);
@@ -122,8 +124,7 @@ public class Win32PnPEntityService implements CommonServiceInterface<Win32PnPEnt
      * @param timeout the maximum time (in seconds) to wait for the PowerShell
      *                command to complete before terminating the process
      * @return an immutable list of {@link Win32PnPEntity} objects representing the system's pnp entities.
-     *         Returns an empty list if none are detected.
-     *
+     * Returns an empty list if none are detected.
      * @since 3.1.0
      */
     @NotNull
